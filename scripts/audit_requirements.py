@@ -19,6 +19,7 @@ REQUIRED = {
     "scripts/audit_language_split.py": ["English doc contains CJK", "Chinese doc has insufficient Chinese content"],
     "README.md": ["User Guide", "Chinese documentation"],
     "docs/en/PRODUCTION_RUNBOOK.md": ["Production definition", "lawful local data adapter"],
+    "docs/en/LOCAL_PROXY_ADAPTER.md": ["Local Proxy Adapter Guide", "send_payload.py"],
     "docs/README.zh-CN.md": ["文档目录", "当前边界"],
 }
 errors = []

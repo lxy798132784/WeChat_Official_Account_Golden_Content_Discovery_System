@@ -45,6 +45,7 @@ English documentation:
 - [Developer Guide](docs/en/DEVELOPER_GUIDE.md)
 - [Plugin Guide](docs/en/PLUGIN_GUIDE.md)
 - [Production Runbook](docs/en/PRODUCTION_RUNBOOK.md)
+- [Local Proxy Adapter Guide](docs/en/LOCAL_PROXY_ADAPTER.md)
 
 Chinese documentation is separated under `docs/README.zh-CN.md` and `docs/zh-CN/`.
 

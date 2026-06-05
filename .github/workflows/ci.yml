@@ -6,21 +6,59 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y cmake g++ ninja-build qt6-base-dev qt6-tools-dev libgl1-mesa-dev libxkbcommon-dev
+        run: sudo apt-get update && sudo apt-get install -y cmake g++ ninja-build qt6-base-dev qt6-tools-dev libqt6sql6-sqlite libgl1-mesa-dev libxkbcommon-dev
       - name: Configure
         run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
       - name: Build and verify
-        run: cmake --build build && ctest --test-dir build --output-on-failure && QT_QPA_PLATFORM=offscreen ./build/premium-content-radar --self-test && python3 scripts/audit_no_forbidden_tokens.py && python3 scripts/audit_requirements.py
+        run: |
+          cmake --build build
+          ctest --test-dir build --output-on-failure
+          QT_QPA_PLATFORM=offscreen ./build/premium-content-radar --self-test
+          QT_QPA_PLATFORM=offscreen ./build/premium-content-radar --bridge-smoke
+          QT_QPA_PLATFORM=offscreen ./build/premium-content-radar --screenshot docs/assets/preview-runtime-ci.png
+          python3 scripts/audit_no_forbidden_tokens.py
+          python3 scripts/audit_requirements.py
+          python3 scripts/audit_language_split.py
   package-linux:
-    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            platform: linux-amd64
+          - runner: ubuntu-24.04-arm
+            platform: linux-arm64
+    runs-on: ${{ matrix.runner }}
     needs: linux
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y cmake g++ qt6-base-dev qt6-tools-dev libgl1-mesa-dev libxkbcommon-dev
+        run: sudo apt-get update && sudo apt-get install -y cmake g++ qt6-base-dev qt6-tools-dev libqt6sql6-sqlite libgl1-mesa-dev libxkbcommon-dev
       - name: Build package
-        run: VERSION=1.0.0 JOBS=2 ./scripts/package-linux.sh
+        run: VERSION=1.0.1 JOBS=2 ./scripts/package-linux.sh
       - uses: actions/upload-artifact@v4
         with:
-          name: premium-content-radar-linux-package
-          path: dist/linux-*/*
+          name: premium-content-radar-${{ matrix.platform }}
+          path: dist/${{ matrix.platform }}/*
+  package-windows:
+    runs-on: windows-2022
+    needs: linux
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.6.3'
+          arch: win64_msvc2019_64
+          cache: true
+      - name: Configure MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+      - name: Build package
+        shell: pwsh
+        run: |
+          $env:VERSION = "1.0.1"
+          .\scripts\package-windows.ps1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: premium-content-radar-windows-x64
+          path: dist/windows-x64/*

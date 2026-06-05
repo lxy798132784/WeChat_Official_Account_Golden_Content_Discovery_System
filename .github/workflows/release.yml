@@ -13,17 +13,68 @@ permissions:
   contents: write
 jobs:
   linux-package:
-    runs-on: ubuntu-24.04
+    name: Linux package (${{ matrix.platform }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            platform: linux-amd64
+          - runner: ubuntu-24.04-arm
+            platform: linux-arm64
+    runs-on: ${{ matrix.runner }}
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y cmake g++ qt6-base-dev qt6-tools-dev libgl1-mesa-dev libxkbcommon-dev zip
+        run: sudo apt-get update && sudo apt-get install -y cmake g++ qt6-base-dev qt6-tools-dev libqt6sql6-sqlite libgl1-mesa-dev libxkbcommon-dev zip
       - name: Package Linux
         run: |
           VERSION=${{ github.event.inputs.version || github.ref_name }}
           VERSION=${VERSION#v}
-          VERSION=$VERSION ./scripts/package-linux.sh
-      - name: Source and docs bundles
+          VERSION=$VERSION JOBS=2 ./scripts/package-linux.sh
+      - name: Upload Linux package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: premium-content-radar-${{ matrix.platform }}
+          path: dist/${{ matrix.platform }}/*
+
+  windows-package:
+    name: Windows package (windows-x64)
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.6.3'
+          arch: win64_msvc2019_64
+          cache: true
+      - name: Configure MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+      - name: Package Windows
+        shell: pwsh
+        run: |
+          $version = "${{ github.event.inputs.version || github.ref_name }}"
+          $version = $version.TrimStart("v")
+          $env:VERSION = $version
+          .\scripts\package-windows.ps1
+      - name: Upload Windows package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: premium-content-radar-windows-x64
+          path: dist/windows-x64/*
+
+  release:
+    name: Publish GitHub Release
+    needs: [linux-package, windows-package]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download package artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist/artifacts
+      - name: Source, docs, and checksums
         run: |
           VERSION=${{ github.event.inputs.version || github.ref_name }}
           VERSION=${VERSION#v}
@@ -31,7 +82,7 @@ jobs:
           git archive --format=tar.gz --prefix=premium-content-radar-$VERSION-source/ HEAD > dist/release/premium-content-radar-$VERSION-source.tar.gz
           git archive --format=zip --prefix=premium-content-radar-$VERSION-source/ HEAD > dist/release/premium-content-radar-$VERSION-source.zip
           zip -r dist/release/premium-content-radar-$VERSION-docs.zip README.md docs LICENSE CONTRIBUTING.md SECURITY.md CODE_OF_CONDUCT.md CHANGELOG.md
-          find dist/linux-* -maxdepth 1 -type f -exec cp {} dist/release/ \;
+          find dist/artifacts -type f \( -name '*.tar.gz' -o -name '*.zip' -o -name 'SHA256SUMS*' \) -exec cp {} dist/release/ \;
           (cd dist/release && sha256sum * > SHA256SUMS)
       - uses: softprops/action-gh-release@v2
         with:
