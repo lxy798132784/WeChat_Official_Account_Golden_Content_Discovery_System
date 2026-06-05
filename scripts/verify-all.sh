@@ -1,1 +1,14 @@
-IyEvdXNyL2Jpbi9lbnYgYmFzaApzZXQgLWV1byBwaXBlZmFpbApST09UPSIkKGNkICIkKGRpcm5hbWUgIiR7QkFTSF9TT1VSQ0VbMF19IikvLi4iICYmIHB3ZCkiCmNtYWtlIC1TICIkUk9PVCIgLUIgIiRST09UL2J1aWxkIiAtRENNQUtFX0JVSUxEX1RZUEU9UmVsZWFzZQpjbWFrZSAtLWJ1aWxkICIkUk9PVC9idWlsZCIgLWoiJHtKT0JTOi0yfSIKY3Rlc3QgLS10ZXN0LWRpciAiJFJPT1QvYnVpbGQiIC0tb3V0cHV0LW9uLWZhaWx1cmUKUVRfUVBBX1BMQVRGT1JNPW9mZnNjcmVlbiAiJFJPT1QvYnVpbGQvcHJlbWl1bS1jb250ZW50LXJhZGFyIiAtLXNlbGYtdGVzdApRVF9RUEFfUExBVEZPUk09b2Zmc2NyZWVuICIkUk9PVC9idWlsZC9wcmVtaXVtLWNvbnRlbnQtcmFkYXIiIC0tYnJpZGdlLXNtb2tlClFUX1FQQV9QTEFURk9STT1vZmZzY3JlZW4gIiRST09UL2J1aWxkL3ByZW1pdW0tY29udGVudC1yYWRhciIgLS1zY3JlZW5zaG90ICIkUk9PVC9kb2NzL2Fzc2V0cy9wcmV2aWV3LXJ1bnRpbWUucG5nIgp0ZXN0IC1zICIkUk9PVC9kb2NzL2Fzc2V0cy9wcmV2aWV3LXJ1bnRpbWUucG5nIgpweXRob24zICIkUk9PVC9zY3JpcHRzL2F1ZGl0X25vX2ZvcmJpZGRlbl90b2tlbnMucHkiCnB5dGhvbjMgIiRST09UL3NjcmlwdHMvYXVkaXRfcmVxdWlyZW1lbnRzLnB5IgpweXRob24zICIkUk9PVC9zY3JpcHRzL2F1ZGl0X2xhbmd1YWdlX3NwbGl0LnB5IgpwcmludGYgJ09LOiBidWlsZCwgdGVzdHMsIHNlbGYtdGVzdCwgYnJpZGdlIHNtb2tlLCBzY3JlZW5zaG90LCByZXF1aXJlbWVudHMgYXVkaXQsIGxhbmd1YWdlIGF1ZGl0LCBhbmQgc2VjcmV0IGF1ZGl0IHBhc3NlZFxuJwo=
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cmake -S "$ROOT" -B "$ROOT/build" -DCMAKE_BUILD_TYPE=Release
+cmake --build "$ROOT/build" -j"${JOBS:-2}"
+ctest --test-dir "$ROOT/build" --output-on-failure
+QT_QPA_PLATFORM=offscreen "$ROOT/build/premium-content-radar" --self-test
+QT_QPA_PLATFORM=offscreen "$ROOT/build/premium-content-radar" --bridge-smoke
+QT_QPA_PLATFORM=offscreen "$ROOT/build/premium-content-radar" --screenshot "$ROOT/docs/assets/preview-runtime.png"
+test -s "$ROOT/docs/assets/preview-runtime.png"
+python3 "$ROOT/scripts/audit_no_forbidden_tokens.py"
+python3 "$ROOT/scripts/audit_requirements.py"
+python3 "$ROOT/scripts/audit_language_split.py"
+printf 'OK: build, tests, self-test, bridge smoke, screenshot, requirements audit, language audit, and secret audit passed\n'

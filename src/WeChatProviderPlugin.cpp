@@ -1,1 +1,58 @@
-I2luY2x1ZGUgIldlQ2hhdFByb3ZpZGVyUGx1Z2luLmgiCgojaW5jbHVkZSA8UUJ5dGVBcnJheT4KCm5hbWVzcGFjZSB7CmNvbnN0ZXhwciBxdWludDE2IGtEZWZhdWx0QnJpZGdlUG9ydCA9IDkwMDA7Cn0KClFTdHJpbmcgV2VDaGF0UHJvdmlkZXJQbHVnaW46OnByb3ZpZGVySWQoKSBjb25zdCB7CiAgcmV0dXJuIFFTdHJpbmdMaXRlcmFsKCJ3ZWNoYXQiKTsKfQoKUVN0cmluZyBXZUNoYXRQcm92aWRlclBsdWdpbjo6ZGlzcGxheU5hbWUoKSBjb25zdCB7CiAgcmV0dXJuIFFTdHJpbmdMaXRlcmFsKCJXZUNoYXQgT2ZmaWNpYWwgQWNjb3VudCBQcm92aWRlciIpOwp9CgpxdWludDE2IFdlQ2hhdFByb3ZpZGVyUGx1Z2luOjpjb25maWd1cmVkQnJpZGdlUG9ydCgpIGNvbnN0IHsKICBib29sIG9rID0gZmFsc2U7CiAgY29uc3QgaW50IHZhbHVlID0gcUVudmlyb25tZW50VmFyaWFibGVJbnRWYWx1ZSgiUFJFTUlVTV9SQURBUl9CUklER0VfUE9SVCIsICZvayk7CiAgaWYgKCFvayB8fCB2YWx1ZSA8IDEwMjQgfHwgdmFsdWUgPiA2NTUzNSkgewogICAgcmV0dXJuIGtEZWZhdWx0QnJpZGdlUG9ydDsKICB9CiAgcmV0dXJuIHN0YXRpY19jYXN0PHF1aW50MTY+KHZhbHVlKTsKfQoKYm9vbCBXZUNoYXRQcm92aWRlclBsdWdpbjo6YWRiRW5hYmxlZCgpIGNvbnN0IHsKICBjb25zdCBRQnl0ZUFycmF5IHZhbHVlID0gcWdldGVudigiUFJFTUlVTV9SQURBUl9FTkFCTEVfQURCIikudHJpbW1lZCgpLnRvTG93ZXIoKTsKICByZXR1cm4gdmFsdWUgPT0gIjEiIHx8IHZhbHVlID09ICJ0cnVlIiB8fCB2YWx1ZSA9PSAieWVzIiB8fCB2YWx1ZSA9PSAib24iOwp9Cgpib29sIFdlQ2hhdFByb3ZpZGVyUGx1Z2luOjpzdGFydChRU3RyaW5nKiBlcnJvck1lc3NhZ2UpIHsKICBjb25zdCBxdWludDE2IHBvcnQgPSBjb25maWd1cmVkQnJpZGdlUG9ydCgpOwogIGlmICghYnJpZGdlXy5pc0xpc3RlbmluZygpICYmICFicmlkZ2VfLnN0YXJ0QnJpZGdlKHBvcnQpKSB7CiAgICBpZiAoZXJyb3JNZXNzYWdlICE9IG51bGxwdHIpIHsKICAgICAgKmVycm9yTWVzc2FnZSA9IFFTdHJpbmdMaXRlcmFsKCJCcmlkZ2UgbGlzdGVuIGZhaWxlZCBvbiAxMjcuMC4wLjE6JTE6ICUyIikKICAgICAgICAgICAgICAgICAgICAgICAgICAuYXJnKHBvcnQpCiAgICAgICAgICAgICAgICAgICAgICAgICAgLmFyZyhicmlkZ2VfLmVycm9yU3RyaW5nKCkpOwogICAgfQogICAgcmV0dXJuIGZhbHNlOwogIH0KCiAgaWYgKGFkYkVuYWJsZWQoKSAmJiAhYWRiRW5naW5lXy5pc1J1bm5pbmcoKSkgewogICAgYWRiRW5naW5lXy5zdGFydCgpOwogIH0KICByZXR1cm4gdHJ1ZTsKfQoKdm9pZCBXZUNoYXRQcm92aWRlclBsdWdpbjo6c3RvcCgpIHsKICBpZiAoYWRiRW5naW5lXy5pc1J1bm5pbmcoKSkgewogICAgYWRiRW5naW5lXy5yZXF1ZXN0U3RvcCgpOwogICAgYWRiRW5naW5lXy53YWl0KDMwMDApOwogIH0KICBicmlkZ2VfLmNsb3NlKCk7Cn0KClFWZWN0b3I8Q29udGVudFJlY29yZD4gV2VDaGF0UHJvdmlkZXJQbHVnaW46OmRyYWluUmVjb3JkcygpIHsKICByZXR1cm4gYnJpZGdlXy5kcmFpblJlY29yZHMoKTsKfQo=
+#include "WeChatProviderPlugin.h"
+
+#include <QByteArray>
+
+namespace {
+constexpr quint16 kDefaultBridgePort = 9000;
+}
+
+QString WeChatProviderPlugin::providerId() const {
+  return QStringLiteral("wechat");
+}
+
+QString WeChatProviderPlugin::displayName() const {
+  return QStringLiteral("WeChat Official Account Provider");
+}
+
+quint16 WeChatProviderPlugin::configuredBridgePort() const {
+  bool ok = false;
+  const int value = qEnvironmentVariableIntValue("PREMIUM_RADAR_BRIDGE_PORT", &ok);
+  if (!ok || value < 1024 || value > 65535) {
+    return kDefaultBridgePort;
+  }
+  return static_cast<quint16>(value);
+}
+
+bool WeChatProviderPlugin::adbEnabled() const {
+  const QByteArray value = qgetenv("PREMIUM_RADAR_ENABLE_ADB").trimmed().toLower();
+  return value == "1" || value == "true" || value == "yes" || value == "on";
+}
+
+bool WeChatProviderPlugin::start(QString* errorMessage) {
+  const quint16 port = configuredBridgePort();
+  if (!bridge_.isListening() && !bridge_.startBridge(port)) {
+    if (errorMessage != nullptr) {
+      *errorMessage = QStringLiteral("Bridge listen failed on 127.0.0.1:%1: %2")
+                          .arg(port)
+                          .arg(bridge_.errorString());
+    }
+    return false;
+  }
+
+  if (adbEnabled() && !adbEngine_.isRunning()) {
+    adbEngine_.start();
+  }
+  return true;
+}
+
+void WeChatProviderPlugin::stop() {
+  if (adbEngine_.isRunning()) {
+    adbEngine_.requestStop();
+    adbEngine_.wait(3000);
+  }
+  bridge_.close();
+}
+
+QVector<ContentRecord> WeChatProviderPlugin::drainRecords() {
+  return bridge_.drainRecords();
+}

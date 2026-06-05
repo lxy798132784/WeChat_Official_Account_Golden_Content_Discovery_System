@@ -1,1 +1,54 @@
-I3ByYWdtYSBvbmNlCgojaW5jbHVkZSA8UURpcj4KI2luY2x1ZGUgPFFPYmplY3Q+CiNpbmNsdWRlIDxRUGx1Z2luTG9hZGVyPgojaW5jbHVkZSA8UVN0cmluZ0xpc3Q+CiNpbmNsdWRlIDxtZW1vcnk+CiNpbmNsdWRlIDx2ZWN0b3I+CgojaW5jbHVkZSAiSUNvbnRlbnRQcm92aWRlci5oIgoKLyoqCiAqIEBicmllZiDmj5Lku7bov5DooYzml7bnrqHnkIblmagKICogUGx1Z2luIHJ1bnRpbWUgbWFuYWdlcgogKgogKiBAZGV0YWlscyDkvb/nlKggUVBsdWdpbkxvYWRlciDmiavmj4/mj5Lku7bnm67lvZXlubbmjIHmnInliqDovb3lmajnlJ/lkb3lkajmnJ/vvIzpgb/lhY3mj5Lku7blrp7kvovmgqznqbrjgIIKICogU2NhbnMgYSBwbHVnaW4gZGlyZWN0b3J5IHdpdGggUVBsdWdpbkxvYWRlciBhbmQgb3ducyBsb2FkZXIgbGlmZXRpbWVzIHNvIHBsdWdpbgogKiBpbnN0YW5jZXMgcmVtYWluIHZhbGlkIHdoaWxlIHRoZSBhcHBsaWNhdGlvbiBpcyBydW5uaW5nLgogKi8KY2xhc3MgUGx1Z2luTWFuYWdlciBmaW5hbCA6IHB1YmxpYyBRT2JqZWN0IHsKICBRX09CSkVDVAogcHVibGljOgogIGV4cGxpY2l0IFBsdWdpbk1hbmFnZXIoUU9iamVjdCogcGFyZW50ID0gbnVsbHB0cik7CgogIC8qKgogICAqIEBicmllZiDmiavmj4/lubbliqDovb3nm67lvZXkuK3nmoTlhoXlrrnmj5Lku7YKICAgKiBTY2FuIGFuZCBsb2FkIGNvbnRlbnQgcGx1Z2lucyBmcm9tIGEgZGlyZWN0b3J5CiAgICoKICAgKiBAcGFyYW0gZGlyZWN0b3J5UGF0aCDmj5Lku7bnm67lvZUgLyBQbHVnaW4gZGlyZWN0b3J5CiAgICogQHJldHVybiDmiJDlip/or4bliKvnmoTkvpvlupTllYbmlbDph48gLyBOdW1iZXIgb2YgcmVjb2duaXplZCBwcm92aWRlcnMKICAgKi8KICBpbnQgbG9hZEZyb21EaXJlY3RvcnkoY29uc3QgUVN0cmluZyYgZGlyZWN0b3J5UGF0aCk7CgogIC8qKgogICAqIEBicmllZiDlt7LliqDovb3kvpvlupTllYYKICAgKiBMb2FkZWQgcHJvdmlkZXJzCiAgICoKICAgKiBAcmV0dXJuIOaPkuS7tuaOpeWPo+aMh+mSiOWIl+ihqCAvIFByb3ZpZGVyIGludGVyZmFjZSBwb2ludGVycwogICAqLwogIFFWZWN0b3I8SUNvbnRlbnRQcm92aWRlcio+IHByb3ZpZGVycygpIGNvbnN0OwoKICAvKioKICAgKiBAYnJpZWYg5Yqg6L295pel5b+XCiAgICogTG9hZGluZyBsb2cKICAgKgogICAqIEByZXR1cm4g5Lq657G75Y+v6K+75pel5b+XIC8gSHVtYW4tcmVhZGFibGUgbG9nIGxpbmVzCiAgICovCiAgUVN0cmluZ0xpc3QgbG9nTGluZXMoKSBjb25zdDsKCiBwcml2YXRlOgogIHN0ZDo6dmVjdG9yPHN0ZDo6dW5pcXVlX3B0cjxRUGx1Z2luTG9hZGVyPj4gbG9hZGVyc187CiAgUVZlY3RvcjxJQ29udGVudFByb3ZpZGVyKj4gcHJvdmlkZXJzXzsKICBRU3RyaW5nTGlzdCBsb2dMaW5lc187Cn07Cg==
+#pragma once
+
+#include <QDir>
+#include <QObject>
+#include <QPluginLoader>
+#include <QStringList>
+#include <memory>
+#include <vector>
+
+#include "IContentProvider.h"
+
+/**
+ * @brief 插件运行时管理器
+ * Plugin runtime manager
+ *
+ * @details 使用 QPluginLoader 扫描插件目录并持有加载器生命周期，避免插件实例悬空。
+ * Scans a plugin directory with QPluginLoader and owns loader lifetimes so plugin
+ * instances remain valid while the application is running.
+ */
+class PluginManager final : public QObject {
+  Q_OBJECT
+ public:
+  explicit PluginManager(QObject* parent = nullptr);
+
+  /**
+   * @brief 扫描并加载目录中的内容插件
+   * Scan and load content plugins from a directory
+   *
+   * @param directoryPath 插件目录 / Plugin directory
+   * @return 成功识别的供应商数量 / Number of recognized providers
+   */
+  int loadFromDirectory(const QString& directoryPath);
+
+  /**
+   * @brief 已加载供应商
+   * Loaded providers
+   *
+   * @return 插件接口指针列表 / Provider interface pointers
+   */
+  QVector<IContentProvider*> providers() const;
+
+  /**
+   * @brief 加载日志
+   * Loading log
+   *
+   * @return 人类可读日志 / Human-readable log lines
+   */
+  QStringList logLines() const;
+
+ private:
+  std::vector<std::unique_ptr<QPluginLoader>> loaders_;
+  QVector<IContentProvider*> providers_;
+  QStringList logLines_;
+};

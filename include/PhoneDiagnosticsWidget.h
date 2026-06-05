@@ -1,1 +1,64 @@
-I3ByYWdtYSBvbmNlCgojaW5jbHVkZSA8UVdpZGdldD4KCiNpbmNsdWRlICJQaG9uZURpYWdub3N0aWNzQ29udHJvbGxlci5oIgojaW5jbHVkZSAiVWlUZXh0LmgiCgpjbGFzcyBRQ2hlY2tCb3g7CmNsYXNzIFFDb21ib0JveDsKY2xhc3MgUUxhYmVsOwpjbGFzcyBRUGxhaW5UZXh0RWRpdDsKY2xhc3MgUVB1c2hCdXR0b247CmNsYXNzIFFTcGluQm94OwpjbGFzcyBRVGFibGVXaWRnZXQ7CgovKioKICogQGJyaWVmIFVzZXItZmFjaW5nIHBob25lIGRpYWdub3N0aWNzIHBhbmVsLgogKiBAYnJpZWYg6Z2i5ZCR55So5oi355qE5omL5py65o6l5YWl6K+K5pat6Z2i5p2/44CCCiAqCiAqIEVuZ2xpc2g6IFRoaXMgd2lkZ2V0IGludGVudGlvbmFsbHkgZXhwb3NlcyBlYWNoIHJlYWRpbmVzcyBsYXllciBhcyBhIHZpc2libGUKICogY29udHJvbC9yZXN1bHQgc28gbm9uLWRldmVsb3BlciB1c2VycyBjYW4gdW5kZXJzdGFuZCB3aGV0aGVyIHRoZSBibG9ja2VyIGlzIEFEQiwKICogVVNCIGF1dGhvcml6YXRpb24sIGRyaXZlcnMsIHBob25lIGNvbnRyb2wsIHByb3h5LCBvciBicmlkZ2UgaW5nZXN0aW9uLgogKiDkuK3mlofvvJrov5nkuKrmjqfku7bmiormr4/kuIDlsYLlsLHnu6rnirbmgIHpg73lsZXnpLrlh7rmnaXvvIzorqnpnZ7lvIDlj5HnlKjmiLfkuZ/og73liKTmlq3pl67popjlnKggQURC44CBCiAqIFVTQiDmjojmnYPjgIHpqbHliqjjgIHmiYvmnLrmjqfliLbjgIHku6PnkIbov5jmmK/mnKzlnLDmoaXlhaXlupPjgIIKICovCmNsYXNzIFBob25lRGlhZ25vc3RpY3NXaWRnZXQgZmluYWwgOiBwdWJsaWMgUVdpZGdldCB7CiAgUV9PQkpFQ1QKIHB1YmxpYzoKICBleHBsaWNpdCBQaG9uZURpYWdub3N0aWNzV2lkZ2V0KFFXaWRnZXQqIHBhcmVudCA9IG51bGxwdHIpOwoKICB2b2lkIHNldExhbmd1YWdlKFVpTGFuZ3VhZ2UgbGFuZ3VhZ2UpOwogIHZvaWQgc2V0UmVwb3J0KGNvbnN0IFBob25lRGlhZ25vc3RpY1JlcG9ydCYgcmVwb3J0KTsKICBRU3RyaW5nIHNlbGVjdGVkU2VyaWFsKCkgY29uc3Q7CiAgcXVpbnQxNiBwcm94eVBvcnQoKSBjb25zdDsKICBib29sIGluY2x1ZGVPcGVuTGlua1Rlc3QoKSBjb25zdDsKICBRU3RyaW5nIHRlc3RVcmwoKSBjb25zdDsKCiBzaWduYWxzOgogIHZvaWQgcnVuRGlhZ25vc3RpY3NSZXF1ZXN0ZWQoKTsKICB2b2lkIHJlc3RhcnRBZGJSZXF1ZXN0ZWQoKTsKICB2b2lkIHRlc3RPcGVuTGlua1JlcXVlc3RlZCgpOwogIHZvaWQgY29weVJlcG9ydFJlcXVlc3RlZCgpOwogIHZvaWQgZXhwb3J0SnNvblJlcXVlc3RlZCgpOwoKIHByaXZhdGU6CiAgVWlMYW5ndWFnZSBsYW5ndWFnZV8gPSBVaUxhbmd1YWdlOjpFbmdsaXNoOwogIFBob25lRGlhZ25vc3RpY1JlcG9ydCBjdXJyZW50UmVwb3J0XzsKCiAgUUxhYmVsKiBpbnRyb0xhYmVsXyA9IG51bGxwdHI7CiAgUUxhYmVsKiBvdmVyYWxsTGFiZWxfID0gbnVsbHB0cjsKICBRTGFiZWwqIHNlcmlhbExhYmVsXyA9IG51bGxwdHI7CiAgUUxhYmVsKiBwcm94eVBvcnRMYWJlbF8gPSBudWxscHRyOwogIFFMYWJlbCogdGVzdFVybExhYmVsXyA9IG51bGxwdHI7CiAgUUNvbWJvQm94KiBzZXJpYWxDb21ib0JveF8gPSBudWxscHRyOwogIFFTcGluQm94KiBwcm94eVBvcnRTcGluQm94XyA9IG51bGxwdHI7CiAgUUNoZWNrQm94KiBvcGVuTGlua0NoZWNrQm94XyA9IG51bGxwdHI7CiAgUVBsYWluVGV4dEVkaXQqIHRlc3RVcmxFZGl0XyA9IG51bGxwdHI7CiAgUVB1c2hCdXR0b24qIHJ1bkJ1dHRvbl8gPSBudWxscHRyOwogIFFQdXNoQnV0dG9uKiByZXN0YXJ0QWRiQnV0dG9uXyA9IG51bGxwdHI7CiAgUVB1c2hCdXR0b24qIG9wZW5MaW5rQnV0dG9uXyA9IG51bGxwdHI7CiAgUVB1c2hCdXR0b24qIGNvcHlSZXBvcnRCdXR0b25fID0gbnVsbHB0cjsKICBRUHVzaEJ1dHRvbiogZXhwb3J0SnNvbkJ1dHRvbl8gPSBudWxscHRyOwogIFFUYWJsZVdpZGdldCogdGFibGVfID0gbnVsbHB0cjsKfTsK
+#pragma once
+
+#include <QWidget>
+
+#include "PhoneDiagnosticsController.h"
+#include "UiText.h"
+
+class QCheckBox;
+class QComboBox;
+class QLabel;
+class QPlainTextEdit;
+class QPushButton;
+class QSpinBox;
+class QTableWidget;
+
+/**
+ * @brief User-facing phone diagnostics panel.
+ * @brief 面向用户的手机接入诊断面板。
+ *
+ * English: This widget intentionally exposes each readiness layer as a visible
+ * control/result so non-developer users can understand whether the blocker is ADB,
+ * USB authorization, drivers, phone control, proxy, or bridge ingestion.
+ * 中文：这个控件把每一层就绪状态都展示出来，让非开发用户也能判断问题在 ADB、
+ * USB 授权、驱动、手机控制、代理还是本地桥入库。
+ */
+class PhoneDiagnosticsWidget final : public QWidget {
+  Q_OBJECT
+ public:
+  explicit PhoneDiagnosticsWidget(QWidget* parent = nullptr);
+
+  void setLanguage(UiLanguage language);
+  void setReport(const PhoneDiagnosticReport& report);
+  QString selectedSerial() const;
+  quint16 proxyPort() const;
+  bool includeOpenLinkTest() const;
+  QString testUrl() const;
+
+ signals:
+  void runDiagnosticsRequested();
+  void restartAdbRequested();
+  void testOpenLinkRequested();
+  void copyReportRequested();
+  void exportJsonRequested();
+
+ private:
+  UiLanguage language_ = UiLanguage::English;
+  PhoneDiagnosticReport currentReport_;
+
+  QLabel* introLabel_ = nullptr;
+  QLabel* overallLabel_ = nullptr;
+  QLabel* serialLabel_ = nullptr;
+  QLabel* proxyPortLabel_ = nullptr;
+  QLabel* testUrlLabel_ = nullptr;
+  QComboBox* serialComboBox_ = nullptr;
+  QSpinBox* proxyPortSpinBox_ = nullptr;
+  QCheckBox* openLinkCheckBox_ = nullptr;
+  QPlainTextEdit* testUrlEdit_ = nullptr;
+  QPushButton* runButton_ = nullptr;
+  QPushButton* restartAdbButton_ = nullptr;
+  QPushButton* openLinkButton_ = nullptr;
+  QPushButton* copyReportButton_ = nullptr;
+  QPushButton* exportJsonButton_ = nullptr;
+  QTableWidget* table_ = nullptr;
+};

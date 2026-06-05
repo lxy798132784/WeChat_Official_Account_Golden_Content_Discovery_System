@@ -1,1 +1,33 @@
-I3ByYWdtYSBvbmNlCgojaW5jbHVkZSA8UVNxbERhdGFiYXNlPgojaW5jbHVkZSA8UVZlY3Rvcj4KCiNpbmNsdWRlICJjb250ZW50X3JlY29yZC5oIgoKLyoqCiAqIEBicmllZiDkuK3lpK7lrZjlgqjmjqfliLblmaggLyBDZW50cmFsIHN0b3JhZ2UgY29udHJvbGxlcgogKgogKiBAZGV0YWlscyDlsIHoo4UgU1FMaXRlIHNjaGVtYeOAgeenjeWtkOaxoOOAgeaWh+eroOaMh+agh+aJuemHj+WGmeWFpeWSjOWvvOWHuuOAggogKiBFbmNhcHN1bGF0ZXMgU1FMaXRlIHNjaGVtYSwgc2VlZCBzdG9yYWdlLCB0cmFuc2FjdGlvbmFsIGFydGljbGUgYmF0Y2hpbmcsIGFuZCBleHBvcnQuCiAqLwpjbGFzcyBEYXRhYmFzZUNvbnRyb2xsZXIgZmluYWwgewogcHVibGljOgogIGJvb2wgb3Blbihjb25zdCBRU3RyaW5nJiBkYXRhYmFzZVBhdGgpOwogIGJvb2wgaW5pdGlhbGl6ZSgpOwogIGJvb2wgYWRkU2VlZChjb25zdCBRU3RyaW5nJiBnemhJZCwgY29uc3QgUVN0cmluZyYgbmFtZSwgY29uc3QgUVN0cmluZyYgY2F0ZWdvcnkpOwogIGJvb2wgcmVtb3ZlU2VlZChjb25zdCBRU3RyaW5nJiBnemhJZCk7CiAgUVZlY3RvcjxTZWVkUmVjb3JkPiBsaXN0U2VlZHMoKSBjb25zdDsKICBib29sIGVucXVldWVBcnRpY2xlKGNvbnN0IENvbnRlbnRSZWNvcmQmIHJlY29yZCk7CiAgYm9vbCBmbHVzaCgpOwogIFFWZWN0b3I8Q29udGVudFJlY29yZD4gbGlzdEFydGljbGVzKCkgY29uc3Q7CiAgaW50IGFydGljbGVDb3VudCgpIGNvbnN0OwogIFFTdHJpbmcgbGFzdEVycm9yKCkgY29uc3Q7CgogcHJpdmF0ZToKICB2b2lkIHNldEVycm9yKGNvbnN0IFFTdHJpbmcmIGVycm9yKSBjb25zdDsKCiAgUVNxbERhdGFiYXNlIGRhdGFiYXNlXzsKICBRVmVjdG9yPENvbnRlbnRSZWNvcmQ+IHBlbmRpbmdSZWNvcmRzXzsKICBtdXRhYmxlIFFTdHJpbmcgbGFzdEVycm9yXzsKfTsK
+#pragma once
+
+#include <QSqlDatabase>
+#include <QVector>
+
+#include "content_record.h"
+
+/**
+ * @brief 中央存储控制器 / Central storage controller
+ *
+ * @details 封装 SQLite schema、种子池、文章指标批量写入和导出。
+ * Encapsulates SQLite schema, seed storage, transactional article batching, and export.
+ */
+class DatabaseController final {
+ public:
+  bool open(const QString& databasePath);
+  bool initialize();
+  bool addSeed(const QString& gzhId, const QString& name, const QString& category);
+  bool removeSeed(const QString& gzhId);
+  QVector<SeedRecord> listSeeds() const;
+  bool enqueueArticle(const ContentRecord& record);
+  bool flush();
+  QVector<ContentRecord> listArticles() const;
+  int articleCount() const;
+  QString lastError() const;
+
+ private:
+  void setError(const QString& error) const;
+
+  QSqlDatabase database_;
+  QVector<ContentRecord> pendingRecords_;
+  mutable QString lastError_;
+};

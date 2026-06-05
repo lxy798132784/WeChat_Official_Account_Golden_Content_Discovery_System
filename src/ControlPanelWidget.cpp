@@ -1,1 +1,108 @@
-I2luY2x1ZGUgIkNvbnRyb2xQYW5lbFdpZGdldC5oIgoKI2luY2x1ZGUgPFFDb21ib0JveD4KI2luY2x1ZGUgPFFGb3JtTGF5b3V0PgojaW5jbHVkZSA8UUxhYmVsPgojaW5jbHVkZSA8UUxpbmVFZGl0PgojaW5jbHVkZSA8UVNsaWRlcj4KCkNvbnRyb2xQYW5lbFdpZGdldDo6Q29udHJvbFBhbmVsV2lkZ2V0KFFXaWRnZXQqIHBhcmVudCkKICAgIDogUVdpZGdldChwYXJlbnQpLAogICAgICBjYXRlZ29yeUxhYmVsXyhuZXcgUUxhYmVsKHRoaXMpKSwKICAgICAga2V5d29yZExhYmVsXyhuZXcgUUxhYmVsKHRoaXMpKSwKICAgICAgZW5nYWdlbWVudExhYmVsXyhuZXcgUUxhYmVsKHRoaXMpKSwKICAgICAgY29tbWVudExhYmVsXyhuZXcgUUxhYmVsKHRoaXMpKSwKICAgICAgZnJlcXVlbmN5TGFiZWxfKG5ldyBRTGFiZWwodGhpcykpLAogICAgICBtaW5SZWFkTGFiZWxfKG5ldyBRTGFiZWwodGhpcykpLAogICAgICBjYXRlZ29yeV8obmV3IFFDb21ib0JveCh0aGlzKSksCiAgICAgIGtleXdvcmRfKG5ldyBRTGluZUVkaXQodGhpcykpLAogICAgICBlbmdhZ2VtZW50XyhuZXcgUVNsaWRlcihRdDo6SG9yaXpvbnRhbCwgdGhpcykpLAogICAgICBjb21tZW50XyhuZXcgUVNsaWRlcihRdDo6SG9yaXpvbnRhbCwgdGhpcykpLAogICAgICBmcmVxdWVuY3lfKG5ldyBRU2xpZGVyKFF0OjpIb3Jpem9udGFsLCB0aGlzKSksCiAgICAgIG1pblJlYWRfKG5ldyBRU2xpZGVyKFF0OjpIb3Jpem9udGFsLCB0aGlzKSkgewogIGF1dG8qIGxheW91dCA9IG5ldyBRRm9ybUxheW91dCh0aGlzKTsKICBjb25uZWN0KGtleXdvcmRfLCAmUUxpbmVFZGl0Ojp0ZXh0Q2hhbmdlZCwgdGhpcywgJkNvbnRyb2xQYW5lbFdpZGdldDo6ZmlsdGVyc0NoYW5nZWQpOwogIGNvbm5lY3QoY2F0ZWdvcnlfLCAmUUNvbWJvQm94OjpjdXJyZW50VGV4dENoYW5nZWQsIHRoaXMsICZDb250cm9sUGFuZWxXaWRnZXQ6OmZpbHRlcnNDaGFuZ2VkKTsKCiAgZm9yIChhdXRvKiBzbGlkZXIgOiB7ZW5nYWdlbWVudF8sIGNvbW1lbnRfLCBmcmVxdWVuY3lffSkgewogICAgc2xpZGVyLT5zZXRSYW5nZSgwLCAxMDApOwogICAgc2xpZGVyLT5zZXRWYWx1ZSgzMyk7CiAgICBjb25uZWN0KHNsaWRlciwgJlFTbGlkZXI6OnZhbHVlQ2hhbmdlZCwgdGhpcywgJkNvbnRyb2xQYW5lbFdpZGdldDo6ZmlsdGVyc0NoYW5nZWQpOwogIH0KICBtaW5SZWFkXy0+c2V0UmFuZ2UoMCwgMTAwMDAwKTsKICBtaW5SZWFkXy0+c2V0VmFsdWUoMTAwMCk7CiAgY29ubmVjdChtaW5SZWFkXywgJlFTbGlkZXI6OnZhbHVlQ2hhbmdlZCwgdGhpcywgJkNvbnRyb2xQYW5lbFdpZGdldDo6ZmlsdGVyc0NoYW5nZWQpOwoKICBsYXlvdXQtPmFkZFJvdyhjYXRlZ29yeUxhYmVsXywgY2F0ZWdvcnlfKTsKICBsYXlvdXQtPmFkZFJvdyhrZXl3b3JkTGFiZWxfLCBrZXl3b3JkXyk7CiAgbGF5b3V0LT5hZGRSb3coZW5nYWdlbWVudExhYmVsXywgZW5nYWdlbWVudF8pOwogIGxheW91dC0+YWRkUm93KGNvbW1lbnRMYWJlbF8sIGNvbW1lbnRfKTsKICBsYXlvdXQtPmFkZFJvdyhmcmVxdWVuY3lMYWJlbF8sIGZyZXF1ZW5jeV8pOwogIGxheW91dC0+YWRkUm93KG1pblJlYWRMYWJlbF8sIG1pblJlYWRfKTsKICBzZXRMYW5ndWFnZShsYW5ndWFnZV8pOwp9Cgpkb3VibGUgQ29udHJvbFBhbmVsV2lkZ2V0OjplbmdhZ2VtZW50V2VpZ2h0KCkgY29uc3QgewogIHJldHVybiBlbmdhZ2VtZW50Xy0+dmFsdWUoKSAvIDEwMC4wOwp9Cgpkb3VibGUgQ29udHJvbFBhbmVsV2lkZ2V0Ojpjb21tZW50V2VpZ2h0KCkgY29uc3QgewogIHJldHVybiBjb21tZW50Xy0+dmFsdWUoKSAvIDEwMC4wOwp9Cgpkb3VibGUgQ29udHJvbFBhbmVsV2lkZ2V0OjpmcmVxdWVuY3lXZWlnaHQoKSBjb25zdCB7CiAgcmV0dXJuIGZyZXF1ZW5jeV8tPnZhbHVlKCkgLyAxMDAuMDsKfQoKaW50IENvbnRyb2xQYW5lbFdpZGdldDo6bWluaW11bVJlYWQoKSBjb25zdCB7CiAgcmV0dXJuIG1pblJlYWRfLT52YWx1ZSgpOwp9Cgp2b2lkIENvbnRyb2xQYW5lbFdpZGdldDo6cmVzZXREZWZhdWx0cygpIHsKICBjYXRlZ29yeV8tPnNldEN1cnJlbnRJbmRleCgwKTsKICBlbmdhZ2VtZW50Xy0+c2V0VmFsdWUoNTUpOwogIGNvbW1lbnRfLT5zZXRWYWx1ZSgzMCk7CiAgZnJlcXVlbmN5Xy0+c2V0VmFsdWUoMTUpOwogIG1pblJlYWRfLT5zZXRWYWx1ZSgxMDAwKTsKICBlbWl0IGZpbHRlcnNDaGFuZ2VkKCk7Cn0KCnZvaWQgQ29udHJvbFBhbmVsV2lkZ2V0OjpjbGVhclNlYXJjaCgpIHsKICBrZXl3b3JkXy0+Y2xlYXIoKTsKICBlbWl0IGZpbHRlcnNDaGFuZ2VkKCk7Cn0KClFTdHJpbmcgQ29udHJvbFBhbmVsV2lkZ2V0OjpjdXJyZW50Q2F0ZWdvcnlDb2RlKCkgY29uc3QgewogIHJldHVybiBjYXRlZ29yeV8tPmN1cnJlbnREYXRhKCkudG9TdHJpbmcoKTsKfQoKdm9pZCBDb250cm9sUGFuZWxXaWRnZXQ6OnJlYnVpbGRDYXRlZ29yaWVzKCkgewogIGNvbnN0IFFTdHJpbmcgc2VsZWN0ZWQgPSBjdXJyZW50Q2F0ZWdvcnlDb2RlKCk7CiAgY2F0ZWdvcnlfLT5ibG9ja1NpZ25hbHModHJ1ZSk7CiAgY2F0ZWdvcnlfLT5jbGVhcigpOwogIGNhdGVnb3J5Xy0+YWRkSXRlbShVaVRleHQ6OnRleHQoImZpbHRlci5hbGwiLCBsYW5ndWFnZV8pLCBRU3RyaW5nTGl0ZXJhbCgiYWxsIikpOwogIGNhdGVnb3J5Xy0+YWRkSXRlbShVaVRleHQ6OnRleHQoImZpbHRlci50ZWNobm9sb2d5IiwgbGFuZ3VhZ2VfKSwgUVN0cmluZ0xpdGVyYWwoInRlY2hub2xvZ3kiKSk7CiAgY2F0ZWdvcnlfLT5hZGRJdGVtKFVpVGV4dDo6dGV4dCgiZmlsdGVyLmZpbmFuY2UiLCBsYW5ndWFnZV8pLCBRU3RyaW5nTGl0ZXJhbCgiZmluYW5jZSIpKTsKICBjYXRlZ29yeV8tPmFkZEl0ZW0oVWlUZXh0Ojp0ZXh0KCJmaWx0ZXIubGlmZXN0eWxlIiwgbGFuZ3VhZ2VfKSwgUVN0cmluZ0xpdGVyYWwoImxpZmVzdHlsZSIpKTsKICBjb25zdCBpbnQgaW5kZXggPSBjYXRlZ29yeV8tPmZpbmREYXRhKHNlbGVjdGVkLmlzRW1wdHkoKSA/IFFTdHJpbmdMaXRlcmFsKCJhbGwiKSA6IHNlbGVjdGVkKTsKICBjYXRlZ29yeV8tPnNldEN1cnJlbnRJbmRleChpbmRleCA+PSAwID8gaW5kZXggOiAwKTsKICBjYXRlZ29yeV8tPmJsb2NrU2lnbmFscyhmYWxzZSk7Cn0KCnZvaWQgQ29udHJvbFBhbmVsV2lkZ2V0OjpzZXRMYW5ndWFnZShVaUxhbmd1YWdlIGxhbmd1YWdlKSB7CiAgbGFuZ3VhZ2VfID0gbGFuZ3VhZ2U7CiAgY2F0ZWdvcnlMYWJlbF8tPnNldFRleHQoVWlUZXh0Ojp0ZXh0KCJmaWx0ZXIuaW5kdXN0cnkiLCBsYW5ndWFnZV8pKTsKICBrZXl3b3JkTGFiZWxfLT5zZXRUZXh0KFVpVGV4dDo6dGV4dCgiZmlsdGVyLmtleXdvcmQiLCBsYW5ndWFnZV8pKTsKICBlbmdhZ2VtZW50TGFiZWxfLT5zZXRUZXh0KFVpVGV4dDo6dGV4dCgiZmlsdGVyLmVuZ2FnZW1lbnQiLCBsYW5ndWFnZV8pKTsKICBjb21tZW50TGFiZWxfLT5zZXRUZXh0KFVpVGV4dDo6dGV4dCgiZmlsdGVyLmNvbW1lbnQiLCBsYW5ndWFnZV8pKTsKICBmcmVxdWVuY3lMYWJlbF8tPnNldFRleHQoVWlUZXh0Ojp0ZXh0KCJmaWx0ZXIuZnJlcXVlbmN5IiwgbGFuZ3VhZ2VfKSk7CiAgbWluUmVhZExhYmVsXy0+c2V0VGV4dChVaVRleHQ6OnRleHQoImZpbHRlci5taW5fcmVhZCIsIGxhbmd1YWdlXykpOwogIGtleXdvcmRfLT5zZXRQbGFjZWhvbGRlclRleHQoVWlUZXh0Ojp0ZXh0KCJmaWx0ZXIua2V5d29yZC5wbGFjZWhvbGRlciIsIGxhbmd1YWdlXykpOwogIGNhdGVnb3J5Xy0+c2V0VG9vbFRpcChVaVRleHQ6OnRleHQoInRpcC5maWx0ZXIuaW5kdXN0cnkiLCBsYW5ndWFnZV8pKTsKICBrZXl3b3JkXy0+c2V0VG9vbFRpcChVaVRleHQ6OnRleHQoInRpcC5maWx0ZXIua2V5d29yZCIsIGxhbmd1YWdlXykpOwogIGVuZ2FnZW1lbnRfLT5zZXRUb29sVGlwKFVpVGV4dDo6dGV4dCgidGlwLmZpbHRlci5lbmdhZ2VtZW50IiwgbGFuZ3VhZ2VfKSk7CiAgY29tbWVudF8tPnNldFRvb2xUaXAoVWlUZXh0Ojp0ZXh0KCJ0aXAuZmlsdGVyLmNvbW1lbnQiLCBsYW5ndWFnZV8pKTsKICBmcmVxdWVuY3lfLT5zZXRUb29sVGlwKFVpVGV4dDo6dGV4dCgidGlwLmZpbHRlci5mcmVxdWVuY3kiLCBsYW5ndWFnZV8pKTsKICBtaW5SZWFkXy0+c2V0VG9vbFRpcChVaVRleHQ6OnRleHQoInRpcC5maWx0ZXIubWluX3JlYWQiLCBsYW5ndWFnZV8pKTsKICByZWJ1aWxkQ2F0ZWdvcmllcygpOwp9Cg==
+#include "ControlPanelWidget.h"
+
+#include <QComboBox>
+#include <QFormLayout>
+#include <QLabel>
+#include <QLineEdit>
+#include <QSlider>
+
+ControlPanelWidget::ControlPanelWidget(QWidget* parent)
+    : QWidget(parent),
+      categoryLabel_(new QLabel(this)),
+      keywordLabel_(new QLabel(this)),
+      engagementLabel_(new QLabel(this)),
+      commentLabel_(new QLabel(this)),
+      frequencyLabel_(new QLabel(this)),
+      minReadLabel_(new QLabel(this)),
+      category_(new QComboBox(this)),
+      keyword_(new QLineEdit(this)),
+      engagement_(new QSlider(Qt::Horizontal, this)),
+      comment_(new QSlider(Qt::Horizontal, this)),
+      frequency_(new QSlider(Qt::Horizontal, this)),
+      minRead_(new QSlider(Qt::Horizontal, this)) {
+  auto* layout = new QFormLayout(this);
+  connect(keyword_, &QLineEdit::textChanged, this, &ControlPanelWidget::filtersChanged);
+  connect(category_, &QComboBox::currentTextChanged, this, &ControlPanelWidget::filtersChanged);
+
+  for (auto* slider : {engagement_, comment_, frequency_}) {
+    slider->setRange(0, 100);
+    slider->setValue(33);
+    connect(slider, &QSlider::valueChanged, this, &ControlPanelWidget::filtersChanged);
+  }
+  minRead_->setRange(0, 100000);
+  minRead_->setValue(1000);
+  connect(minRead_, &QSlider::valueChanged, this, &ControlPanelWidget::filtersChanged);
+
+  layout->addRow(categoryLabel_, category_);
+  layout->addRow(keywordLabel_, keyword_);
+  layout->addRow(engagementLabel_, engagement_);
+  layout->addRow(commentLabel_, comment_);
+  layout->addRow(frequencyLabel_, frequency_);
+  layout->addRow(minReadLabel_, minRead_);
+  setLanguage(language_);
+}
+
+double ControlPanelWidget::engagementWeight() const {
+  return engagement_->value() / 100.0;
+}
+
+double ControlPanelWidget::commentWeight() const {
+  return comment_->value() / 100.0;
+}
+
+double ControlPanelWidget::frequencyWeight() const {
+  return frequency_->value() / 100.0;
+}
+
+int ControlPanelWidget::minimumRead() const {
+  return minRead_->value();
+}
+
+void ControlPanelWidget::resetDefaults() {
+  category_->setCurrentIndex(0);
+  engagement_->setValue(55);
+  comment_->setValue(30);
+  frequency_->setValue(15);
+  minRead_->setValue(1000);
+  emit filtersChanged();
+}
+
+void ControlPanelWidget::clearSearch() {
+  keyword_->clear();
+  emit filtersChanged();
+}
+
+QString ControlPanelWidget::currentCategoryCode() const {
+  return category_->currentData().toString();
+}
+
+void ControlPanelWidget::rebuildCategories() {
+  const QString selected = currentCategoryCode();
+  category_->blockSignals(true);
+  category_->clear();
+  category_->addItem(UiText::text("filter.all", language_), QStringLiteral("all"));
+  category_->addItem(UiText::text("filter.technology", language_), QStringLiteral("technology"));
+  category_->addItem(UiText::text("filter.finance", language_), QStringLiteral("finance"));
+  category_->addItem(UiText::text("filter.lifestyle", language_), QStringLiteral("lifestyle"));
+  const int index = category_->findData(selected.isEmpty() ? QStringLiteral("all") : selected);
+  category_->setCurrentIndex(index >= 0 ? index : 0);
+  category_->blockSignals(false);
+}
+
+void ControlPanelWidget::setLanguage(UiLanguage language) {
+  language_ = language;
+  categoryLabel_->setText(UiText::text("filter.industry", language_));
+  keywordLabel_->setText(UiText::text("filter.keyword", language_));
+  engagementLabel_->setText(UiText::text("filter.engagement", language_));
+  commentLabel_->setText(UiText::text("filter.comment", language_));
+  frequencyLabel_->setText(UiText::text("filter.frequency", language_));
+  minReadLabel_->setText(UiText::text("filter.min_read", language_));
+  keyword_->setPlaceholderText(UiText::text("filter.keyword.placeholder", language_));
+  category_->setToolTip(UiText::text("tip.filter.industry", language_));
+  keyword_->setToolTip(UiText::text("tip.filter.keyword", language_));
+  engagement_->setToolTip(UiText::text("tip.filter.engagement", language_));
+  comment_->setToolTip(UiText::text("tip.filter.comment", language_));
+  frequency_->setToolTip(UiText::text("tip.filter.frequency", language_));
+  minRead_->setToolTip(UiText::text("tip.filter.min_read", language_));
+  rebuildCategories();
+}

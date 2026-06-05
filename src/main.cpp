@@ -1,1 +1,62 @@
-I2luY2x1ZGUgIk1haW5XaW5kb3cuaCIKCiNpbmNsdWRlIDxRQXBwbGljYXRpb24+CiNpbmNsdWRlIDxRRmlsZT4KI2luY2x1ZGUgPFFQaXhtYXA+CiNpbmNsdWRlIDxRVGltZXI+CgojaW5jbHVkZSAiQnJpZGdlUGF5bG9hZENsaWVudC5oIgojaW5jbHVkZSAiUHJveHlUcmFmZmljQnJpZGdlLmgiCgpuYW1lc3BhY2UgewoKaW50IHJ1bkJyaWRnZVNtb2tlKGludCBhcmdjLCBjaGFyKiBhcmd2W10pIHsKICBRQXBwbGljYXRpb24gYXBwKGFyZ2MsIGFyZ3YpOwogIFByb3h5VHJhZmZpY0JyaWRnZSBicmlkZ2U7CiAgY29uc3RleHByIHF1aW50MTYga1Ntb2tlUG9ydCA9IDE5MDkwOwogIGlmICghYnJpZGdlLnN0YXJ0QnJpZGdlKGtTbW9rZVBvcnQpKSB7CiAgICByZXR1cm4gMTE7CiAgfQogIFFTdHJpbmcgZXJyb3I7CiAgaWYgKCFCcmlkZ2VQYXlsb2FkQ2xpZW50OjpzZW5kUGF5bG9hZChRU3RyaW5nTGl0ZXJhbCgiMTI3LjAuMC4xIiksIGtTbW9rZVBvcnQsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBCcmlkZ2VQYXlsb2FkQ2xpZW50OjpzYW1wbGVNZXRyaWNzUGF5bG9hZCgpLCAmZXJyb3IpKSB7CiAgICByZXR1cm4gMTI7CiAgfQogIGlmICghQnJpZGdlUGF5bG9hZENsaWVudDo6c2VuZFBheWxvYWQoUVN0cmluZ0xpdGVyYWwoIjEyNy4wLjAuMSIpLCBrU21va2VQb3J0LAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQnJpZGdlUGF5bG9hZENsaWVudDo6c2FtcGxlQ29tbWVudFBheWxvYWQoKSwgJmVycm9yKSkgewogICAgcmV0dXJuIDEzOwogIH0KICBRVGltZXI6OnNpbmdsZVNob3QoMTUwLCAmYXBwLCAmUUNvcmVBcHBsaWNhdGlvbjo6cXVpdCk7CiAgYXBwLmV4ZWMoKTsKICBjb25zdCBRVmVjdG9yPENvbnRlbnRSZWNvcmQ+IHJlY29yZHMgPSBicmlkZ2UuZHJhaW5SZWNvcmRzKCk7CiAgcmV0dXJuIHJlY29yZHMuc2l6ZSgpID49IDIgPyAwIDogMTQ7Cn0KCn0gIC8vIG5hbWVzcGFjZQoKaW50IG1haW4oaW50IGFyZ2MsIGNoYXIqIGFyZ3ZbXSkgewogIGZvciAoaW50IGluZGV4ID0gMTsgaW5kZXggPCBhcmdjOyArK2luZGV4KSB7CiAgICBpZiAoUVN0cmluZzo6ZnJvbUxvY2FsOEJpdChhcmd2W2luZGV4XSkgPT0gUVN0cmluZ0xpdGVyYWwoIi0tYnJpZGdlLXNtb2tlIikpIHsKICAgICAgcmV0dXJuIHJ1bkJyaWRnZVNtb2tlKGFyZ2MsIGFyZ3YpOwogICAgfQogIH0KCiAgUUFwcGxpY2F0aW9uIGFwcChhcmdjLCBhcmd2KTsKICBjb25zdCBRU3RyaW5nTGlzdCBhcmd1bWVudHMgPSBhcHAuYXJndW1lbnRzKCk7CiAgaWYgKGFyZ3VtZW50cy5jb250YWlucygiLS1zZWxmLXRlc3QiKSkgewogICAgcmV0dXJuIDA7CiAgfQogIGlmIChhcmd1bWVudHMuY29udGFpbnMoIi0tc2NyZWVuc2hvdCIpKSB7CiAgICBNYWluV2luZG93IHdpbmRvdzsKICAgIHdpbmRvdy5yZXNpemUoMTI4MCwgNzYwKTsKICAgIHdpbmRvdy5zaG93KCk7CiAgICBhcHAucHJvY2Vzc0V2ZW50cygpOwogICAgY29uc3QgUVN0cmluZyBwYXRoID0gYXJndW1lbnRzLnZhbHVlKGFyZ3VtZW50cy5pbmRleE9mKCItLXNjcmVlbnNob3QiKSArIDEsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgInByZW1pdW0tY29udGVudC1yYWRhci1wcmV2aWV3LnBuZyIpOwogICAgUVBpeG1hcCBwaXhtYXAgPSB3aW5kb3cuZ3JhYigpOwogICAgcmV0dXJuIHBpeG1hcC5zYXZlKHBhdGgpID8gMCA6IDc7CiAgfQogIE1haW5XaW5kb3cgd2luZG93OwogIHdpbmRvdy5zaG93KCk7CiAgcmV0dXJuIGFwcC5leGVjKCk7Cn0K
+#include "MainWindow.h"
+
+#include <QApplication>
+#include <QFile>
+#include <QPixmap>
+#include <QTimer>
+
+#include "BridgePayloadClient.h"
+#include "ProxyTrafficBridge.h"
+
+namespace {
+
+int runBridgeSmoke(int argc, char* argv[]) {
+  QApplication app(argc, argv);
+  ProxyTrafficBridge bridge;
+  constexpr quint16 kSmokePort = 19090;
+  if (!bridge.startBridge(kSmokePort)) {
+    return 11;
+  }
+  QString error;
+  if (!BridgePayloadClient::sendPayload(QStringLiteral("127.0.0.1"), kSmokePort,
+                                        BridgePayloadClient::sampleMetricsPayload(), &error)) {
+    return 12;
+  }
+  if (!BridgePayloadClient::sendPayload(QStringLiteral("127.0.0.1"), kSmokePort,
+                                        BridgePayloadClient::sampleCommentPayload(), &error)) {
+    return 13;
+  }
+  QTimer::singleShot(150, &app, &QCoreApplication::quit);
+  app.exec();
+  const QVector<ContentRecord> records = bridge.drainRecords();
+  return records.size() >= 2 ? 0 : 14;
+}
+
+}  // namespace
+
+int main(int argc, char* argv[]) {
+  for (int index = 1; index < argc; ++index) {
+    if (QString::fromLocal8Bit(argv[index]) == QStringLiteral("--bridge-smoke")) {
+      return runBridgeSmoke(argc, argv);
+    }
+  }
+
+  QApplication app(argc, argv);
+  const QStringList arguments = app.arguments();
+  if (arguments.contains("--self-test")) {
+    return 0;
+  }
+  if (arguments.contains("--screenshot")) {
+    MainWindow window;
+    window.resize(1280, 760);
+    window.show();
+    app.processEvents();
+    const QString path = arguments.value(arguments.indexOf("--screenshot") + 1,
+                                         "premium-content-radar-preview.png");
+    QPixmap pixmap = window.grab();
+    return pixmap.save(path) ? 0 : 7;
+  }
+  MainWindow window;
+  window.show();
+  return app.exec();
+}

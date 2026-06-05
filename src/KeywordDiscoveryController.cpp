@@ -1,1 +1,324 @@
-I2luY2x1ZGUgIktleXdvcmREaXNjb3ZlcnlDb250cm9sbGVyLmgiCgojaW5jbHVkZSA8UUpzb25BcnJheT4KI2luY2x1ZGUgPFFKc29uRG9jdW1lbnQ+CiNpbmNsdWRlIDxRSnNvbk9iamVjdD4KI2luY2x1ZGUgPFFOZXR3b3JrUmVxdWVzdD4KI2luY2x1ZGUgPFFSZWd1bGFyRXhwcmVzc2lvbj4KI2luY2x1ZGUgPFFTZXQ+CiNpbmNsdWRlIDxRVGV4dERvY3VtZW50RnJhZ21lbnQ+CiNpbmNsdWRlIDxRVXJsPgojaW5jbHVkZSA8UVVybFF1ZXJ5PgoKbmFtZXNwYWNlIHsKUVN0cmluZyB2YWx1ZVN0cmluZyhjb25zdCBRSnNvbk9iamVjdCYgb2JqZWN0LCBjb25zdCBRU3RyaW5nTGlzdCYga2V5cykgewogIGZvciAoY29uc3QgUVN0cmluZyYga2V5IDoga2V5cykgewogICAgY29uc3QgUUpzb25WYWx1ZSB2YWx1ZSA9IG9iamVjdC52YWx1ZShrZXkpOwogICAgaWYgKHZhbHVlLmlzU3RyaW5nKCkgJiYgIXZhbHVlLnRvU3RyaW5nKCkudHJpbW1lZCgpLmlzRW1wdHkoKSkgewogICAgICByZXR1cm4gdmFsdWUudG9TdHJpbmcoKS50cmltbWVkKCk7CiAgICB9CiAgfQogIHJldHVybiBRU3RyaW5nKCk7Cn0KCmludCB2YWx1ZUludChjb25zdCBRSnNvbk9iamVjdCYgb2JqZWN0LCBjb25zdCBRU3RyaW5nTGlzdCYga2V5cykgewogIGZvciAoY29uc3QgUVN0cmluZyYga2V5IDoga2V5cykgewogICAgY29uc3QgUUpzb25WYWx1ZSB2YWx1ZSA9IG9iamVjdC52YWx1ZShrZXkpOwogICAgaWYgKHZhbHVlLmlzRG91YmxlKCkpIHsKICAgICAgcmV0dXJuIHZhbHVlLnRvSW50KCk7CiAgICB9CiAgICBpZiAodmFsdWUuaXNTdHJpbmcoKSkgewogICAgICBRU3RyaW5nIHRleHQgPSB2YWx1ZS50b1N0cmluZygpOwogICAgICB0ZXh0LnJlbW92ZShRUmVndWxhckV4cHJlc3Npb24oUVN0cmluZ0xpdGVyYWwoIlteMC05XSIpKSk7CiAgICAgIGlmICghdGV4dC5pc0VtcHR5KCkpIHsKICAgICAgICByZXR1cm4gdGV4dC50b0ludCgpOwogICAgICB9CiAgICB9CiAgfQogIHJldHVybiAwOwp9CgpRSnNvbkFycmF5IHJvb3RBcnJheShjb25zdCBRSnNvbkRvY3VtZW50JiBkb2N1bWVudCkgewogIGlmIChkb2N1bWVudC5pc0FycmF5KCkpIHsKICAgIHJldHVybiBkb2N1bWVudC5hcnJheSgpOwogIH0KICBpZiAoIWRvY3VtZW50LmlzT2JqZWN0KCkpIHsKICAgIHJldHVybiB7fTsKICB9CiAgY29uc3QgUUpzb25PYmplY3Qgcm9vdCA9IGRvY3VtZW50Lm9iamVjdCgpOwogIGZvciAoY29uc3QgUVN0cmluZyYga2V5IDoge1FTdHJpbmdMaXRlcmFsKCJhcnRpY2xlcyIpLCBRU3RyaW5nTGl0ZXJhbCgiaXRlbXMiKSwgUVN0cmluZ0xpdGVyYWwoInJlc3VsdHMiKSwgUVN0cmluZ0xpdGVyYWwoImRhdGEiKX0pIHsKICAgIGlmIChyb290LnZhbHVlKGtleSkuaXNBcnJheSgpKSB7CiAgICAgIHJldHVybiByb290LnZhbHVlKGtleSkudG9BcnJheSgpOwogICAgfQogIH0KICByZXR1cm4ge307Cn0KClFTdHJpbmcgZGVjb2RlSHRtbChRU3RyaW5nIHRleHQpIHsKICB0ZXh0LnJlbW92ZShRUmVndWxhckV4cHJlc3Npb24oUVN0cmluZ0xpdGVyYWwoIjxbXj5dKz4iKSkpOwogIHJldHVybiBRVGV4dERvY3VtZW50RnJhZ21lbnQ6OmZyb21IdG1sKHRleHQpLnRvUGxhaW5UZXh0KCkuc2ltcGxpZmllZCgpOwp9CgpRU3RyaW5nIG5vcm1hbGl6ZVNlYXJjaFVybChRU3RyaW5nIHVybFRleHQpIHsKICB1cmxUZXh0LnJlcGxhY2UoUVN0cmluZ0xpdGVyYWwoIiZhbXA7IiksIFFTdHJpbmdMaXRlcmFsKCImIikpOwogIFFVcmwgdXJsKHVybFRleHQpOwogIGlmICghdXJsLmlzVmFsaWQoKSkgewogICAgcmV0dXJuIFFTdHJpbmcoKTsKICB9CiAgaWYgKHVybC5ob3N0KCkuY29udGFpbnMoUVN0cmluZ0xpdGVyYWwoInNvZ291LmNvbSIpKSkgewogICAgUVVybFF1ZXJ5IHF1ZXJ5KHVybCk7CiAgICBjb25zdCBRU3RyaW5nIHRhcmdldCA9IHF1ZXJ5LnF1ZXJ5SXRlbVZhbHVlKFFTdHJpbmdMaXRlcmFsKCJ1cmwiKSk7CiAgICBpZiAoIXRhcmdldC5pc0VtcHR5KCkpIHsKICAgICAgdXJsID0gUVVybDo6ZnJvbVBlcmNlbnRFbmNvZGluZyh0YXJnZXQudG9VdGY4KCkpOwogICAgfQogIH0KICBpZiAoIXVybC5pc1ZhbGlkKCkgfHwgdXJsLnNjaGVtZSgpLmlzRW1wdHkoKSkgewogICAgcmV0dXJuIFFTdHJpbmcoKTsKICB9CiAgcmV0dXJuIHVybC50b1N0cmluZyhRVXJsOjpGdWxseUVuY29kZWQpOwp9Cn0gIC8vIG5hbWVzcGFjZQoKS2V5d29yZERpc2NvdmVyeUNvbnRyb2xsZXI6OktleXdvcmREaXNjb3ZlcnlDb250cm9sbGVyKFFPYmplY3QqIHBhcmVudCkgOiBRT2JqZWN0KHBhcmVudCkge30KCmJvb2wgS2V5d29yZERpc2NvdmVyeUNvbnRyb2xsZXI6OmlzU2VhcmNoaW5nKCkgY29uc3QgewogIHJldHVybiBzZWFyY2hpbmdfOwp9CgpRVmVjdG9yPEtleXdvcmREaXNjb3ZlcnlSZXN1bHQ+IEtleXdvcmREaXNjb3ZlcnlDb250cm9sbGVyOjpyZXN1bHRzKCkgY29uc3QgewogIHJldHVybiByZXN1bHRzXzsKfQoKaW50IEtleXdvcmREaXNjb3ZlcnlDb250cm9sbGVyOjptYXhSZXN1bHRzUGVyS2V5d29yZCgpIGNvbnN0IHsKICByZXR1cm4gbWF4UmVzdWx0c1BlcktleXdvcmRfOwp9Cgp2b2lkIEtleXdvcmREaXNjb3ZlcnlDb250cm9sbGVyOjpzZXRNYXhSZXN1bHRzUGVyS2V5d29yZChpbnQgY291bnQpIHsKICBtYXhSZXN1bHRzUGVyS2V5d29yZF8gPSBxQm91bmQoMSwgY291bnQsIDUwKTsKfQoKUVN0cmluZ0xpc3QgS2V5d29yZERpc2NvdmVyeUNvbnRyb2xsZXI6OnBhcnNlS2V5d29yZHMoY29uc3QgUVN0cmluZyYgdGV4dCkgewogIFFTdHJpbmdMaXN0IG91dHB1dDsKICBjb25zdCBRU3RyaW5nTGlzdCBwYXJ0cyA9IHRleHQuc3BsaXQoUVJlZ3VsYXJFeHByZXNzaW9uKFFTdHJpbmdMaXRlcmFsKCJbXFxyXFxuLO+8jDvvvJtdKyIpKSwgUXQ6OlNraXBFbXB0eVBhcnRzKTsKICBmb3IgKGNvbnN0IFFTdHJpbmcmIHBhcnQgOiBwYXJ0cykgewogICAgY29uc3QgUVN0cmluZyBrZXl3b3JkID0gcGFydC50cmltbWVkKCk7CiAgICBpZiAoIWtleXdvcmQuaXNFbXB0eSgpICYmICFvdXRwdXQuY29udGFpbnMoa2V5d29yZCkpIHsKICAgICAgb3V0cHV0LnB1c2hfYmFjayhrZXl3b3JkKTsKICAgIH0KICB9CiAgcmV0dXJuIG91dHB1dDsKfQoKYm9vbCBLZXl3b3JkRGlzY292ZXJ5Q29udHJvbGxlcjo6bWF0Y2hlc0hvdENyaXRlcmlhKGNvbnN0IEtleXdvcmREaXNjb3ZlcnlSZXN1bHQmIHJlc3VsdCwgaW50IG1pbmltdW1SZWFkQ291bnQsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpbnQgbWluaW11bUxpa2VDb3VudCwgaW50IG1pbmltdW1Db21tZW50Q291bnQsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpbnQgbWluaW11bUhvdFNjb3JlKSB7CiAgcmV0dXJuIHJlc3VsdC5yZWFkTnVtID49IG1pbmltdW1SZWFkQ291bnQgJiYgcmVzdWx0Lmxpa2VOdW0gPj0gbWluaW11bUxpa2VDb3VudCAmJgogICAgICAgICByZXN1bHQuY29tbWVudE51bSA+PSBtaW5pbXVtQ29tbWVudENvdW50ICYmIHJlc3VsdC5ob3RTY29yZSA+PSBtaW5pbXVtSG90U2NvcmU7Cn0KClFTdHJpbmcgS2V5d29yZERpc2NvdmVyeUNvbnRyb2xsZXI6OnNlYXJjaFVybEZvcktleXdvcmQoY29uc3QgUVN0cmluZyYga2V5d29yZCkgewogIFFVcmwgdXJsKFFTdHJpbmdMaXRlcmFsKCJodHRwczovL3dlaXhpbi5zb2dvdS5jb20vd2VpeGluIikpOwogIFFVcmxRdWVyeSBxdWVyeTsKICBxdWVyeS5hZGRRdWVyeUl0ZW0oUVN0cmluZ0xpdGVyYWwoInR5cGUiKSwgUVN0cmluZ0xpdGVyYWwoIjIiKSk7CiAgcXVlcnkuYWRkUXVlcnlJdGVtKFFTdHJpbmdMaXRlcmFsKCJxdWVyeSIpLCBrZXl3b3JkLnRyaW1tZWQoKSk7CiAgdXJsLnNldFF1ZXJ5KHF1ZXJ5KTsKICByZXR1cm4gdXJsLnRvU3RyaW5nKCk7Cn0KCmRvdWJsZSBLZXl3b3JkRGlzY292ZXJ5Q29udHJvbGxlcjo6ZXN0aW1hdGVIb3RTY29yZShpbnQgcmVhZE51bSwgaW50IGxpa2VOdW0sIGludCBjb21tZW50TnVtKSB7CiAgcmV0dXJuIHN0YXRpY19jYXN0PGRvdWJsZT4ocmVhZE51bSkgKyBzdGF0aWNfY2FzdDxkb3VibGU+KGxpa2VOdW0pICogMjAuMCArIHN0YXRpY19jYXN0PGRvdWJsZT4oY29tbWVudE51bSkgKiA1MC4wOwp9CgpRVmVjdG9yPEtleXdvcmREaXNjb3ZlcnlSZXN1bHQ+IEtleXdvcmREaXNjb3ZlcnlDb250cm9sbGVyOjpwYXJzZVJlc3VsdHNKc29uKGNvbnN0IFFCeXRlQXJyYXkmIGRhdGEsIFFTdHJpbmcqIGVycm9yTWVzc2FnZSkgewogIFFKc29uUGFyc2VFcnJvciBwYXJzZUVycm9yOwogIGNvbnN0IFFKc29uRG9jdW1lbnQgZG9jdW1lbnQgPSBRSnNvbkRvY3VtZW50Ojpmcm9tSnNvbihkYXRhLCAmcGFyc2VFcnJvcik7CiAgaWYgKHBhcnNlRXJyb3IuZXJyb3IgIT0gUUpzb25QYXJzZUVycm9yOjpOb0Vycm9yKSB7CiAgICBpZiAoZXJyb3JNZXNzYWdlICE9IG51bGxwdHIpIHsKICAgICAgKmVycm9yTWVzc2FnZSA9IHBhcnNlRXJyb3IuZXJyb3JTdHJpbmcoKTsKICAgIH0KICAgIHJldHVybiB7fTsKICB9CiAgY29uc3QgUUpzb25BcnJheSBhcnJheSA9IHJvb3RBcnJheShkb2N1bWVudCk7CiAgaWYgKGFycmF5LmlzRW1wdHkoKSkgewogICAgaWYgKGVycm9yTWVzc2FnZSAhPSBudWxscHRyKSB7CiAgICAgICplcnJvck1lc3NhZ2UgPSBRU3RyaW5nTGl0ZXJhbCgiSlNPTiBtdXN0IGNvbnRhaW4gYW4gYXJyYXkgb3IgYW4gYXJ0aWNsZXMvaXRlbXMvcmVzdWx0cy9kYXRhIGFycmF5Iik7CiAgICB9CiAgICByZXR1cm4ge307CiAgfQogIFFWZWN0b3I8S2V5d29yZERpc2NvdmVyeVJlc3VsdD4gcmVzdWx0czsKICBmb3IgKGNvbnN0IFFKc29uVmFsdWUmIHZhbHVlIDogYXJyYXkpIHsKICAgIGlmICghdmFsdWUuaXNPYmplY3QoKSkgewogICAgICBjb250aW51ZTsKICAgIH0KICAgIGNvbnN0IFFKc29uT2JqZWN0IG9iamVjdCA9IHZhbHVlLnRvT2JqZWN0KCk7CiAgICBLZXl3b3JkRGlzY292ZXJ5UmVzdWx0IHJlc3VsdDsKICAgIHJlc3VsdC5rZXl3b3JkID0gdmFsdWVTdHJpbmcob2JqZWN0LCB7UVN0cmluZ0xpdGVyYWwoImtleXdvcmQiKSwgUVN0cmluZ0xpdGVyYWwoInF1ZXJ5Iil9KTsKICAgIHJlc3VsdC50aXRsZSA9IHZhbHVlU3RyaW5nKG9iamVjdCwge1FTdHJpbmdMaXRlcmFsKCJ0aXRsZSIpLCBRU3RyaW5nTGl0ZXJhbCgiYXJ0aWNsZV90aXRsZSIpLCBRU3RyaW5nTGl0ZXJhbCgibmFtZSIpfSk7CiAgICByZXN1bHQuYWNjb3VudE5hbWUgPSB2YWx1ZVN0cmluZyhvYmplY3QsIHtRU3RyaW5nTGl0ZXJhbCgiYWNjb3VudF9uYW1lIiksIFFTdHJpbmdMaXRlcmFsKCJhY2NvdW50IiksIFFTdHJpbmdMaXRlcmFsKCJwdWJsaXNoZXIiKSwgUVN0cmluZ0xpdGVyYWwoInNvdXJjZSIpfSk7CiAgICByZXN1bHQuY2F0ZWdvcnkgPSB2YWx1ZVN0cmluZyhvYmplY3QsIHtRU3RyaW5nTGl0ZXJhbCgiY2F0ZWdvcnkiKSwgUVN0cmluZ0xpdGVyYWwoImluZHVzdHJ5IiksIFFTdHJpbmdMaXRlcmFsKCJ0YWciKX0pOwogICAgcmVzdWx0LnVybCA9IHZhbHVlU3RyaW5nKG9iamVjdCwge1FTdHJpbmdMaXRlcmFsKCJ1cmwiKSwgUVN0cmluZ0xpdGVyYWwoImFydGljbGVfdXJsIiksIFFTdHJpbmdMaXRlcmFsKCJsaW5rIil9KTsKICAgIHJlc3VsdC5yZWFkTnVtID0gdmFsdWVJbnQob2JqZWN0LCB7UVN0cmluZ0xpdGVyYWwoInJlYWRfbnVtIiksIFFTdHJpbmdMaXRlcmFsKCJyZWFkIiksIFFTdHJpbmdMaXRlcmFsKCJyZWFkcyIpLCBRU3RyaW5nTGl0ZXJhbCgicmVhZF9jb3VudCIpfSk7CiAgICByZXN1bHQubGlrZU51bSA9IHZhbHVlSW50KG9iamVjdCwge1FTdHJpbmdMaXRlcmFsKCJsaWtlX251bSIpLCBRU3RyaW5nTGl0ZXJhbCgibGlrZSIpLCBRU3RyaW5nTGl0ZXJhbCgibGlrZXMiKSwgUVN0cmluZ0xpdGVyYWwoImxpa2VfY291bnQiKX0pOwogICAgcmVzdWx0LmNvbW1lbnROdW0gPSB2YWx1ZUludChvYmplY3QsIHtRU3RyaW5nTGl0ZXJhbCgiY29tbWVudF9udW0iKSwgUVN0cmluZ0xpdGVyYWwoImNvbW1lbnRzIiksIFFTdHJpbmdMaXRlcmFsKCJjb21tZW50X2NvdW50Iil9KTsKICAgIHJlc3VsdC5ob3RTY29yZSA9IG9iamVjdC52YWx1ZShRU3RyaW5nTGl0ZXJhbCgiaG90X3Njb3JlIikpLmlzRG91YmxlKCkKICAgICAgICAgICAgICAgICAgICAgICAgICA/IG9iamVjdC52YWx1ZShRU3RyaW5nTGl0ZXJhbCgiaG90X3Njb3JlIikpLnRvRG91YmxlKCkKICAgICAgICAgICAgICAgICAgICAgICAgICA6IGVzdGltYXRlSG90U2NvcmUocmVzdWx0LnJlYWROdW0sIHJlc3VsdC5saWtlTnVtLCByZXN1bHQuY29tbWVudE51bSk7CiAgICBpZiAoIXJlc3VsdC51cmwuaXNFbXB0eSgpKSB7CiAgICAgIHJlc3VsdHMucHVzaF9iYWNrKHJlc3VsdCk7CiAgICB9CiAgfQogIHN0ZDo6c29ydChyZXN1bHRzLmJlZ2luKCksIHJlc3VsdHMuZW5kKCksIFtdKGNvbnN0IEtleXdvcmREaXNjb3ZlcnlSZXN1bHQmIGxlZnQsIGNvbnN0IEtleXdvcmREaXNjb3ZlcnlSZXN1bHQmIHJpZ2h0KSB7CiAgICByZXR1cm4gbGVmdC5ob3RTY29yZSA+IHJpZ2h0LmhvdFNjb3JlOwogIH0pOwogIHJldHVybiByZXN1bHRzOwp9CgpRVmVjdG9yPEtleXdvcmREaXNjb3ZlcnlSZXN1bHQ+IEtleXdvcmREaXNjb3ZlcnlDb250cm9sbGVyOjpwYXJzZVNlYXJjaEh0bWwoY29uc3QgUVN0cmluZyYga2V5d29yZCwgY29uc3QgUUJ5dGVBcnJheSYgaHRtbCkgewogIGNvbnN0IFFTdHJpbmcgcGFnZSA9IFFTdHJpbmc6OmZyb21VdGY4KGh0bWwpOwogIFFWZWN0b3I8S2V5d29yZERpc2NvdmVyeVJlc3VsdD4gcmVzdWx0czsKICBRU2V0PFFTdHJpbmc+IHNlZW47CgogIFFSZWd1bGFyRXhwcmVzc2lvbiBpdGVtUmUoUVN0cmluZ0xpdGVyYWwoUiIoPGxpW14+XSppZD1bIiddc29nb3VfdnJfMTEwMDI2MDFfYm94X1tePl0qPiguKj8pPC9saT4pIiksCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBRUmVndWxhckV4cHJlc3Npb246OkRvdE1hdGNoZXNFdmVyeXRoaW5nT3B0aW9uIHwgUVJlZ3VsYXJFeHByZXNzaW9uOjpDYXNlSW5zZW5zaXRpdmVPcHRpb24pOwogIFFSZWd1bGFyRXhwcmVzc2lvbiBsaW5rUmUoUVN0cmluZ0xpdGVyYWwoUiIoPGFbXj5dK2hyZWY9WyInXShbXiInXSspWyInXVtePl0qPiguKj8pPC9hPikiKSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgIFFSZWd1bGFyRXhwcmVzc2lvbjo6RG90TWF0Y2hlc0V2ZXJ5dGhpbmdPcHRpb24gfCBRUmVndWxhckV4cHJlc3Npb246OkNhc2VJbnNlbnNpdGl2ZU9wdGlvbik7CiAgUVJlZ3VsYXJFeHByZXNzaW9uIGFjY291bnRSZShRU3RyaW5nTGl0ZXJhbChSIig8YVtePl0rY2xhc3M9WyInXVteIiddKmFjY291bnRbXiInXSpbIiddW14+XSo+KC4qPyk8L2E+KSIpLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUVJlZ3VsYXJFeHByZXNzaW9uOjpEb3RNYXRjaGVzRXZlcnl0aGluZ09wdGlvbiB8IFFSZWd1bGFyRXhwcmVzc2lvbjo6Q2FzZUluc2Vuc2l0aXZlT3B0aW9uKTsKICBRUmVndWxhckV4cHJlc3Npb25NYXRjaEl0ZXJhdG9yIGl0ZXJhdG9yID0gaXRlbVJlLmdsb2JhbE1hdGNoKHBhZ2UpOwogIHdoaWxlIChpdGVyYXRvci5oYXNOZXh0KCkpIHsKICAgIGNvbnN0IFFTdHJpbmcgYmxvY2sgPSBpdGVyYXRvci5uZXh0KCkuY2FwdHVyZWQoMSk7CiAgICBjb25zdCBRUmVndWxhckV4cHJlc3Npb25NYXRjaCBsaW5rTWF0Y2ggPSBsaW5rUmUubWF0Y2goYmxvY2spOwogICAgaWYgKCFsaW5rTWF0Y2guaGFzTWF0Y2goKSkgewogICAgICBjb250aW51ZTsKICAgIH0KICAgIFFTdHJpbmcgdXJsID0gbm9ybWFsaXplU2VhcmNoVXJsKGxpbmtNYXRjaC5jYXB0dXJlZCgxKSk7CiAgICBpZiAodXJsLmlzRW1wdHkoKSB8fCAhdXJsLmNvbnRhaW5zKFFTdHJpbmdMaXRlcmFsKCJtcC53ZWl4aW4ucXEuY29tIikpIHx8IHNlZW4uY29udGFpbnModXJsKSkgewogICAgICBjb250aW51ZTsKICAgIH0KICAgIHNlZW4uaW5zZXJ0KHVybCk7CiAgICBLZXl3b3JkRGlzY292ZXJ5UmVzdWx0IHJlc3VsdDsKICAgIHJlc3VsdC5rZXl3b3JkID0ga2V5d29yZDsKICAgIHJlc3VsdC50aXRsZSA9IGRlY29kZUh0bWwobGlua01hdGNoLmNhcHR1cmVkKDIpKTsKICAgIGNvbnN0IFFSZWd1bGFyRXhwcmVzc2lvbk1hdGNoIGFjY291bnRNYXRjaCA9IGFjY291bnRSZS5tYXRjaChibG9jayk7CiAgICByZXN1bHQuYWNjb3VudE5hbWUgPSBhY2NvdW50TWF0Y2guaGFzTWF0Y2goKSA/IGRlY29kZUh0bWwoYWNjb3VudE1hdGNoLmNhcHR1cmVkKDEpKSA6IFFTdHJpbmcoKTsKICAgIHJlc3VsdC51cmwgPSB1cmw7CiAgICByZXN1bHQuaG90U2NvcmUgPSBlc3RpbWF0ZUhvdFNjb3JlKHJlc3VsdC5yZWFkTnVtLCByZXN1bHQubGlrZU51bSwgcmVzdWx0LmNvbW1lbnROdW0pOwogICAgcmVzdWx0cy5wdXNoX2JhY2socmVzdWx0KTsKICB9CgogIGlmIChyZXN1bHRzLmlzRW1wdHkoKSkgewogICAgUVJlZ3VsYXJFeHByZXNzaW9uIG1wTGlua1JlKFFTdHJpbmdMaXRlcmFsKFIiKGhyZWY9WyInXShbXiInXSptcFwud2VpeGluXC5xcVwuY29tW14iJ10qKVsiJ11bXj5dKj4oLio/KTwvYT4pIiksCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUVJlZ3VsYXJFeHByZXNzaW9uOjpEb3RNYXRjaGVzRXZlcnl0aGluZ09wdGlvbiB8IFFSZWd1bGFyRXhwcmVzc2lvbjo6Q2FzZUluc2Vuc2l0aXZlT3B0aW9uKTsKICAgIFFSZWd1bGFyRXhwcmVzc2lvbk1hdGNoSXRlcmF0b3IgbGlua0l0ZXJhdG9yID0gbXBMaW5rUmUuZ2xvYmFsTWF0Y2gocGFnZSk7CiAgICB3aGlsZSAobGlua0l0ZXJhdG9yLmhhc05leHQoKSkgewogICAgICBjb25zdCBRUmVndWxhckV4cHJlc3Npb25NYXRjaCBtYXRjaCA9IGxpbmtJdGVyYXRvci5uZXh0KCk7CiAgICAgIFFTdHJpbmcgdXJsID0gbm9ybWFsaXplU2VhcmNoVXJsKG1hdGNoLmNhcHR1cmVkKDEpKTsKICAgICAgaWYgKHVybC5pc0VtcHR5KCkgfHwgc2Vlbi5jb250YWlucyh1cmwpKSB7CiAgICAgICAgY29udGludWU7CiAgICAgIH0KICAgICAgc2Vlbi5pbnNlcnQodXJsKTsKICAgICAgS2V5d29yZERpc2NvdmVyeVJlc3VsdCByZXN1bHQ7CiAgICAgIHJlc3VsdC5rZXl3b3JkID0ga2V5d29yZDsKICAgICAgcmVzdWx0LnRpdGxlID0gZGVjb2RlSHRtbChtYXRjaC5jYXB0dXJlZCgyKSk7CiAgICAgIHJlc3VsdC51cmwgPSB1cmw7CiAgICAgIHJlc3VsdC5ob3RTY29yZSA9IGVzdGltYXRlSG90U2NvcmUocmVzdWx0LnJlYWROdW0sIHJlc3VsdC5saWtlTnVtLCByZXN1bHQuY29tbWVudE51bSk7CiAgICAgIHJlc3VsdHMucHVzaF9iYWNrKHJlc3VsdCk7CiAgICB9CiAgfQogIHJldHVybiByZXN1bHRzOwp9CgpRU3RyaW5nIEtleXdvcmREaXNjb3ZlcnlDb250cm9sbGVyOjpyZXN1bHRzVG9RdWV1ZVRleHQoY29uc3QgUVZlY3RvcjxLZXl3b3JkRGlzY292ZXJ5UmVzdWx0PiYgcmVzdWx0cywgaW50IG1pbmltdW1SZWFkQ291bnQpIHsKICByZXR1cm4gcmVzdWx0c1RvUXVldWVUZXh0KHJlc3VsdHMsIG1pbmltdW1SZWFkQ291bnQsIDAsIDAsIDApOwp9CgpRU3RyaW5nIEtleXdvcmREaXNjb3ZlcnlDb250cm9sbGVyOjpyZXN1bHRzVG9RdWV1ZVRleHQoY29uc3QgUVZlY3RvcjxLZXl3b3JkRGlzY292ZXJ5UmVzdWx0PiYgcmVzdWx0cywgaW50IG1pbmltdW1SZWFkQ291bnQsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpbnQgbWluaW11bUxpa2VDb3VudCwgaW50IG1pbmltdW1Db21tZW50Q291bnQsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpbnQgbWluaW11bUhvdFNjb3JlKSB7CiAgUVN0cmluZ0xpc3QgdXJsczsKICBmb3IgKGNvbnN0IEtleXdvcmREaXNjb3ZlcnlSZXN1bHQmIHJlc3VsdCA6IHJlc3VsdHMpIHsKICAgIGlmIChtYXRjaGVzSG90Q3JpdGVyaWEocmVzdWx0LCBtaW5pbXVtUmVhZENvdW50LCBtaW5pbXVtTGlrZUNvdW50LCBtaW5pbXVtQ29tbWVudENvdW50LCBtaW5pbXVtSG90U2NvcmUpICYmCiAgICAgICAgIXJlc3VsdC51cmwuaXNFbXB0eSgpICYmICF1cmxzLmNvbnRhaW5zKHJlc3VsdC51cmwpKSB7CiAgICAgIHVybHMucHVzaF9iYWNrKHJlc3VsdC51cmwpOwogICAgfQogIH0KICByZXR1cm4gdXJscy5qb2luKFFTdHJpbmdMaXRlcmFsKCJcbiIpKTsKfQoKdm9pZCBLZXl3b3JkRGlzY292ZXJ5Q29udHJvbGxlcjo6c2VhcmNoS2V5d29yZHMoY29uc3QgUVN0cmluZyYgdGV4dCkgewogIGlmIChzZWFyY2hpbmdfKSB7CiAgICBlbWl0IGxvZ01lc3NhZ2UoUVN0cmluZ0xpdGVyYWwoIktleXdvcmQgc2VhcmNoIGlzIGFscmVhZHkgcnVubmluZyIpKTsKICAgIHJldHVybjsKICB9CiAgcGVuZGluZ0tleXdvcmRzXyA9IHBhcnNlS2V5d29yZHModGV4dCk7CiAgcmVzdWx0c18uY2xlYXIoKTsKICBpZiAocGVuZGluZ0tleXdvcmRzXy5pc0VtcHR5KCkpIHsKICAgIGVtaXQgbG9nTWVzc2FnZShRU3RyaW5nTGl0ZXJhbCgiTm8ga2V5d29yZCBwcm92aWRlZCIpKTsKICAgIGVtaXQgc2VhcmNoRmluaXNoZWQocmVzdWx0c18pOwogICAgcmV0dXJuOwogIH0KICBzZWFyY2hpbmdfID0gdHJ1ZTsKICBlbWl0IHNlYXJjaFN0YXJ0ZWQoKTsKICBlbWl0IGxvZ01lc3NhZ2UoUVN0cmluZ0xpdGVyYWwoIktleXdvcmQgc2VhcmNoIHN0YXJ0ZWQ6ICUxIGtleXdvcmQocykiKS5hcmcocGVuZGluZ0tleXdvcmRzXy5zaXplKCkpKTsKICBzdGFydE5leHRLZXl3b3JkKCk7Cn0KCnZvaWQgS2V5d29yZERpc2NvdmVyeUNvbnRyb2xsZXI6OmNhbmNlbFNlYXJjaCgpIHsKICBpZiAoIXNlYXJjaGluZ18pIHsKICAgIHJldHVybjsKICB9CiAgcGVuZGluZ0tleXdvcmRzXy5jbGVhcigpOwogIGZpbmlzaFNlYXJjaCgpOwp9Cgp2b2lkIEtleXdvcmREaXNjb3ZlcnlDb250cm9sbGVyOjpzdGFydE5leHRLZXl3b3JkKCkgewogIGlmICghc2VhcmNoaW5nXykgewogICAgcmV0dXJuOwogIH0KICBpZiAocGVuZGluZ0tleXdvcmRzXy5pc0VtcHR5KCkpIHsKICAgIGZpbmlzaFNlYXJjaCgpOwogICAgcmV0dXJuOwogIH0KICBjb25zdCBRU3RyaW5nIGtleXdvcmQgPSBwZW5kaW5nS2V5d29yZHNfLnRha2VGaXJzdCgpOwogIFFOZXR3b3JrUmVxdWVzdCByZXF1ZXN0KFFVcmwoc2VhcmNoVXJsRm9yS2V5d29yZChrZXl3b3JkKSkpOwogIHJlcXVlc3Quc2V0SGVhZGVyKFFOZXR3b3JrUmVxdWVzdDo6VXNlckFnZW50SGVhZGVyLAogICAgICAgICAgICAgICAgICAgIFFTdHJpbmdMaXRlcmFsKCJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYiKSk7CiAgUU5ldHdvcmtSZXBseSogcmVwbHkgPSBuZXR3b3JrXy5nZXQocmVxdWVzdCk7CiAgY29ubmVjdChyZXBseSwgJlFOZXR3b3JrUmVwbHk6OmZpbmlzaGVkLCB0aGlzLCBbdGhpcywgcmVwbHksIGtleXdvcmRdKCkgeyBoYW5kbGVSZXBseShyZXBseSwga2V5d29yZCk7IH0pOwp9Cgp2b2lkIEtleXdvcmREaXNjb3ZlcnlDb250cm9sbGVyOjpoYW5kbGVSZXBseShRTmV0d29ya1JlcGx5KiByZXBseSwgY29uc3QgUVN0cmluZyYga2V5d29yZCkgewogIHJlcGx5LT5kZWxldGVMYXRlcigpOwogIGlmIChyZXBseS0+ZXJyb3IoKSAhPSBRTmV0d29ya1JlcGx5OjpOb0Vycm9yKSB7CiAgICBlbWl0IGxvZ01lc3NhZ2UoUVN0cmluZ0xpdGVyYWwoIktleXdvcmQgc2VhcmNoIGZhaWxlZCBmb3IgWyUxXTogJTIiKS5hcmcoa2V5d29yZCwgcmVwbHktPmVycm9yU3RyaW5nKCkpKTsKICAgIHN0YXJ0TmV4dEtleXdvcmQoKTsKICAgIHJldHVybjsKICB9CiAgUVZlY3RvcjxLZXl3b3JkRGlzY292ZXJ5UmVzdWx0PiBwYXJzZWQgPSBwYXJzZVNlYXJjaEh0bWwoa2V5d29yZCwgcmVwbHktPnJlYWRBbGwoKSk7CiAgaWYgKHBhcnNlZC5zaXplKCkgPiBtYXhSZXN1bHRzUGVyS2V5d29yZF8pIHsKICAgIHBhcnNlZC5yZXNpemUobWF4UmVzdWx0c1BlcktleXdvcmRfKTsKICB9CiAgUVNldDxRU3RyaW5nPiBzZWVuOwogIGZvciAoY29uc3QgS2V5d29yZERpc2NvdmVyeVJlc3VsdCYgZXhpc3RpbmcgOiByZXN1bHRzXykgewogICAgc2Vlbi5pbnNlcnQoZXhpc3RpbmcudXJsKTsKICB9CiAgaW50IGFkZGVkID0gMDsKICBmb3IgKGNvbnN0IEtleXdvcmREaXNjb3ZlcnlSZXN1bHQmIHJlc3VsdCA6IHBhcnNlZCkgewogICAgaWYgKCFyZXN1bHQudXJsLmlzRW1wdHkoKSAmJiAhc2Vlbi5jb250YWlucyhyZXN1bHQudXJsKSkgewogICAgICByZXN1bHRzXy5wdXNoX2JhY2socmVzdWx0KTsKICAgICAgc2Vlbi5pbnNlcnQocmVzdWx0LnVybCk7CiAgICAgICsrYWRkZWQ7CiAgICB9CiAgfQogIGVtaXQgbG9nTWVzc2FnZShRU3RyaW5nTGl0ZXJhbCgiS2V5d29yZCBbJTFdIGRpc2NvdmVyZWQgJTIgY2FuZGlkYXRlIGFydGljbGUocykiKS5hcmcoa2V5d29yZCkuYXJnKGFkZGVkKSk7CiAgc3RhcnROZXh0S2V5d29yZCgpOwp9Cgp2b2lkIEtleXdvcmREaXNjb3ZlcnlDb250cm9sbGVyOjpmaW5pc2hTZWFyY2goKSB7CiAgc2VhcmNoaW5nXyA9IGZhbHNlOwogIHN0ZDo6c29ydChyZXN1bHRzXy5iZWdpbigpLCByZXN1bHRzXy5lbmQoKSwgW10oY29uc3QgS2V5d29yZERpc2NvdmVyeVJlc3VsdCYgbGVmdCwgY29uc3QgS2V5d29yZERpc2NvdmVyeVJlc3VsdCYgcmlnaHQpIHsKICAgIHJldHVybiBsZWZ0LmhvdFNjb3JlID4gcmlnaHQuaG90U2NvcmU7CiAgfSk7CiAgZW1pdCBsb2dNZXNzYWdlKFFTdHJpbmdMaXRlcmFsKCJLZXl3b3JkIHNlYXJjaCBmaW5pc2hlZDogJTEgY2FuZGlkYXRlIGFydGljbGUocykiKS5hcmcocmVzdWx0c18uc2l6ZSgpKSk7CiAgZW1pdCBzZWFyY2hGaW5pc2hlZChyZXN1bHRzXyk7Cn0K
+#include "KeywordDiscoveryController.h"
+
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QNetworkRequest>
+#include <QRegularExpression>
+#include <QSet>
+#include <QTextDocumentFragment>
+#include <QUrl>
+#include <QUrlQuery>
+
+namespace {
+QString valueString(const QJsonObject& object, const QStringList& keys) {
+  for (const QString& key : keys) {
+    const QJsonValue value = object.value(key);
+    if (value.isString() && !value.toString().trimmed().isEmpty()) {
+      return value.toString().trimmed();
+    }
+  }
+  return QString();
+}
+
+int valueInt(const QJsonObject& object, const QStringList& keys) {
+  for (const QString& key : keys) {
+    const QJsonValue value = object.value(key);
+    if (value.isDouble()) {
+      return value.toInt();
+    }
+    if (value.isString()) {
+      QString text = value.toString();
+      text.remove(QRegularExpression(QStringLiteral("[^0-9]")));
+      if (!text.isEmpty()) {
+        return text.toInt();
+      }
+    }
+  }
+  return 0;
+}
+
+QJsonArray rootArray(const QJsonDocument& document) {
+  if (document.isArray()) {
+    return document.array();
+  }
+  if (!document.isObject()) {
+    return {};
+  }
+  const QJsonObject root = document.object();
+  for (const QString& key : {QStringLiteral("articles"), QStringLiteral("items"), QStringLiteral("results"), QStringLiteral("data")}) {
+    if (root.value(key).isArray()) {
+      return root.value(key).toArray();
+    }
+  }
+  return {};
+}
+
+QString decodeHtml(QString text) {
+  text.remove(QRegularExpression(QStringLiteral("<[^>]+>")));
+  return QTextDocumentFragment::fromHtml(text).toPlainText().simplified();
+}
+
+QString normalizeSearchUrl(QString urlText) {
+  urlText.replace(QStringLiteral("&amp;"), QStringLiteral("&"));
+  QUrl url(urlText);
+  if (!url.isValid()) {
+    return QString();
+  }
+  if (url.host().contains(QStringLiteral("sogou.com"))) {
+    QUrlQuery query(url);
+    const QString target = query.queryItemValue(QStringLiteral("url"));
+    if (!target.isEmpty()) {
+      url = QUrl::fromPercentEncoding(target.toUtf8());
+    }
+  }
+  if (!url.isValid() || url.scheme().isEmpty()) {
+    return QString();
+  }
+  return url.toString(QUrl::FullyEncoded);
+}
+}  // namespace
+
+KeywordDiscoveryController::KeywordDiscoveryController(QObject* parent) : QObject(parent) {}
+
+bool KeywordDiscoveryController::isSearching() const {
+  return searching_;
+}
+
+QVector<KeywordDiscoveryResult> KeywordDiscoveryController::results() const {
+  return results_;
+}
+
+int KeywordDiscoveryController::maxResultsPerKeyword() const {
+  return maxResultsPerKeyword_;
+}
+
+void KeywordDiscoveryController::setMaxResultsPerKeyword(int count) {
+  maxResultsPerKeyword_ = qBound(1, count, 50);
+}
+
+QStringList KeywordDiscoveryController::parseKeywords(const QString& text) {
+  QStringList output;
+  const QStringList parts = text.split(QRegularExpression(QStringLiteral("[\\r\\n,，;；]+")), Qt::SkipEmptyParts);
+  for (const QString& part : parts) {
+    const QString keyword = part.trimmed();
+    if (!keyword.isEmpty() && !output.contains(keyword)) {
+      output.push_back(keyword);
+    }
+  }
+  return output;
+}
+
+bool KeywordDiscoveryController::matchesHotCriteria(const KeywordDiscoveryResult& result, int minimumReadCount,
+                                                    int minimumLikeCount, int minimumCommentCount,
+                                                    int minimumHotScore) {
+  return result.readNum >= minimumReadCount && result.likeNum >= minimumLikeCount &&
+         result.commentNum >= minimumCommentCount && result.hotScore >= minimumHotScore;
+}
+
+QString KeywordDiscoveryController::searchUrlForKeyword(const QString& keyword) {
+  QUrl url(QStringLiteral("https://weixin.sogou.com/weixin"));
+  QUrlQuery query;
+  query.addQueryItem(QStringLiteral("type"), QStringLiteral("2"));
+  query.addQueryItem(QStringLiteral("query"), keyword.trimmed());
+  url.setQuery(query);
+  return url.toString();
+}
+
+double KeywordDiscoveryController::estimateHotScore(int readNum, int likeNum, int commentNum) {
+  return static_cast<double>(readNum) + static_cast<double>(likeNum) * 20.0 + static_cast<double>(commentNum) * 50.0;
+}
+
+QVector<KeywordDiscoveryResult> KeywordDiscoveryController::parseResultsJson(const QByteArray& data, QString* errorMessage) {
+  QJsonParseError parseError;
+  const QJsonDocument document = QJsonDocument::fromJson(data, &parseError);
+  if (parseError.error != QJsonParseError::NoError) {
+    if (errorMessage != nullptr) {
+      *errorMessage = parseError.errorString();
+    }
+    return {};
+  }
+  const QJsonArray array = rootArray(document);
+  if (array.isEmpty()) {
+    if (errorMessage != nullptr) {
+      *errorMessage = QStringLiteral("JSON must contain an array or an articles/items/results/data array");
+    }
+    return {};
+  }
+  QVector<KeywordDiscoveryResult> results;
+  for (const QJsonValue& value : array) {
+    if (!value.isObject()) {
+      continue;
+    }
+    const QJsonObject object = value.toObject();
+    KeywordDiscoveryResult result;
+    result.keyword = valueString(object, {QStringLiteral("keyword"), QStringLiteral("query")});
+    result.title = valueString(object, {QStringLiteral("title"), QStringLiteral("article_title"), QStringLiteral("name")});
+    result.accountName = valueString(object, {QStringLiteral("account_name"), QStringLiteral("account"), QStringLiteral("publisher"), QStringLiteral("source")});
+    result.category = valueString(object, {QStringLiteral("category"), QStringLiteral("industry"), QStringLiteral("tag")});
+    result.url = valueString(object, {QStringLiteral("url"), QStringLiteral("article_url"), QStringLiteral("link")});
+    result.readNum = valueInt(object, {QStringLiteral("read_num"), QStringLiteral("read"), QStringLiteral("reads"), QStringLiteral("read_count")});
+    result.likeNum = valueInt(object, {QStringLiteral("like_num"), QStringLiteral("like"), QStringLiteral("likes"), QStringLiteral("like_count")});
+    result.commentNum = valueInt(object, {QStringLiteral("comment_num"), QStringLiteral("comments"), QStringLiteral("comment_count")});
+    result.hotScore = object.value(QStringLiteral("hot_score")).isDouble()
+                          ? object.value(QStringLiteral("hot_score")).toDouble()
+                          : estimateHotScore(result.readNum, result.likeNum, result.commentNum);
+    if (!result.url.isEmpty()) {
+      results.push_back(result);
+    }
+  }
+  std::sort(results.begin(), results.end(), [](const KeywordDiscoveryResult& left, const KeywordDiscoveryResult& right) {
+    return left.hotScore > right.hotScore;
+  });
+  return results;
+}
+
+QVector<KeywordDiscoveryResult> KeywordDiscoveryController::parseSearchHtml(const QString& keyword, const QByteArray& html) {
+  const QString page = QString::fromUtf8(html);
+  QVector<KeywordDiscoveryResult> results;
+  QSet<QString> seen;
+
+  QRegularExpression itemRe(QStringLiteral(R"(<li[^>]*id=["']sogou_vr_11002601_box_[^>]*>(.*?)</li>)"),
+                            QRegularExpression::DotMatchesEverythingOption | QRegularExpression::CaseInsensitiveOption);
+  QRegularExpression linkRe(QStringLiteral(R"(<a[^>]+href=["']([^"']+)["'][^>]*>(.*?)</a>)"),
+                            QRegularExpression::DotMatchesEverythingOption | QRegularExpression::CaseInsensitiveOption);
+  QRegularExpression accountRe(QStringLiteral(R"(<a[^>]+class=["'][^"']*account[^"']*["'][^>]*>(.*?)</a>)"),
+                               QRegularExpression::DotMatchesEverythingOption | QRegularExpression::CaseInsensitiveOption);
+  QRegularExpressionMatchIterator iterator = itemRe.globalMatch(page);
+  while (iterator.hasNext()) {
+    const QString block = iterator.next().captured(1);
+    const QRegularExpressionMatch linkMatch = linkRe.match(block);
+    if (!linkMatch.hasMatch()) {
+      continue;
+    }
+    QString url = normalizeSearchUrl(linkMatch.captured(1));
+    if (url.isEmpty() || !url.contains(QStringLiteral("mp.weixin.qq.com")) || seen.contains(url)) {
+      continue;
+    }
+    seen.insert(url);
+    KeywordDiscoveryResult result;
+    result.keyword = keyword;
+    result.title = decodeHtml(linkMatch.captured(2));
+    const QRegularExpressionMatch accountMatch = accountRe.match(block);
+    result.accountName = accountMatch.hasMatch() ? decodeHtml(accountMatch.captured(1)) : QString();
+    result.url = url;
+    result.hotScore = estimateHotScore(result.readNum, result.likeNum, result.commentNum);
+    results.push_back(result);
+  }
+
+  if (results.isEmpty()) {
+    QRegularExpression mpLinkRe(QStringLiteral(R"(href=["']([^"']*mp\.weixin\.qq\.com[^"']*)["'][^>]*>(.*?)</a>)"),
+                                QRegularExpression::DotMatchesEverythingOption | QRegularExpression::CaseInsensitiveOption);
+    QRegularExpressionMatchIterator linkIterator = mpLinkRe.globalMatch(page);
+    while (linkIterator.hasNext()) {
+      const QRegularExpressionMatch match = linkIterator.next();
+      QString url = normalizeSearchUrl(match.captured(1));
+      if (url.isEmpty() || seen.contains(url)) {
+        continue;
+      }
+      seen.insert(url);
+      KeywordDiscoveryResult result;
+      result.keyword = keyword;
+      result.title = decodeHtml(match.captured(2));
+      result.url = url;
+      result.hotScore = estimateHotScore(result.readNum, result.likeNum, result.commentNum);
+      results.push_back(result);
+    }
+  }
+  return results;
+}
+
+QString KeywordDiscoveryController::resultsToQueueText(const QVector<KeywordDiscoveryResult>& results, int minimumReadCount) {
+  return resultsToQueueText(results, minimumReadCount, 0, 0, 0);
+}
+
+QString KeywordDiscoveryController::resultsToQueueText(const QVector<KeywordDiscoveryResult>& results, int minimumReadCount,
+                                                       int minimumLikeCount, int minimumCommentCount,
+                                                       int minimumHotScore) {
+  QStringList urls;
+  for (const KeywordDiscoveryResult& result : results) {
+    if (matchesHotCriteria(result, minimumReadCount, minimumLikeCount, minimumCommentCount, minimumHotScore) &&
+        !result.url.isEmpty() && !urls.contains(result.url)) {
+      urls.push_back(result.url);
+    }
+  }
+  return urls.join(QStringLiteral("\n"));
+}
+
+void KeywordDiscoveryController::searchKeywords(const QString& text) {
+  if (searching_) {
+    emit logMessage(QStringLiteral("Keyword search is already running"));
+    return;
+  }
+  pendingKeywords_ = parseKeywords(text);
+  results_.clear();
+  if (pendingKeywords_.isEmpty()) {
+    emit logMessage(QStringLiteral("No keyword provided"));
+    emit searchFinished(results_);
+    return;
+  }
+  searching_ = true;
+  emit searchStarted();
+  emit logMessage(QStringLiteral("Keyword search started: %1 keyword(s)").arg(pendingKeywords_.size()));
+  startNextKeyword();
+}
+
+void KeywordDiscoveryController::cancelSearch() {
+  if (!searching_) {
+    return;
+  }
+  pendingKeywords_.clear();
+  finishSearch();
+}
+
+void KeywordDiscoveryController::startNextKeyword() {
+  if (!searching_) {
+    return;
+  }
+  if (pendingKeywords_.isEmpty()) {
+    finishSearch();
+    return;
+  }
+  const QString keyword = pendingKeywords_.takeFirst();
+  QNetworkRequest request(QUrl(searchUrlForKeyword(keyword)));
+  request.setHeader(QNetworkRequest::UserAgentHeader,
+                    QStringLiteral("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"));
+  QNetworkReply* reply = network_.get(request);
+  connect(reply, &QNetworkReply::finished, this, [this, reply, keyword]() { handleReply(reply, keyword); });
+}
+
+void KeywordDiscoveryController::handleReply(QNetworkReply* reply, const QString& keyword) {
+  reply->deleteLater();
+  if (reply->error() != QNetworkReply::NoError) {
+    emit logMessage(QStringLiteral("Keyword search failed for [%1]: %2").arg(keyword, reply->errorString()));
+    startNextKeyword();
+    return;
+  }
+  QVector<KeywordDiscoveryResult> parsed = parseSearchHtml(keyword, reply->readAll());
+  if (parsed.size() > maxResultsPerKeyword_) {
+    parsed.resize(maxResultsPerKeyword_);
+  }
+  QSet<QString> seen;
+  for (const KeywordDiscoveryResult& existing : results_) {
+    seen.insert(existing.url);
+  }
+  int added = 0;
+  for (const KeywordDiscoveryResult& result : parsed) {
+    if (!result.url.isEmpty() && !seen.contains(result.url)) {
+      results_.push_back(result);
+      seen.insert(result.url);
+      ++added;
+    }
+  }
+  emit logMessage(QStringLiteral("Keyword [%1] discovered %2 candidate article(s)").arg(keyword).arg(added));
+  startNextKeyword();
+}
+
+void KeywordDiscoveryController::finishSearch() {
+  searching_ = false;
+  std::sort(results_.begin(), results_.end(), [](const KeywordDiscoveryResult& left, const KeywordDiscoveryResult& right) {
+    return left.hotScore > right.hotScore;
+  });
+  emit logMessage(QStringLiteral("Keyword search finished: %1 candidate article(s)").arg(results_.size()));
+  emit searchFinished(results_);
+}

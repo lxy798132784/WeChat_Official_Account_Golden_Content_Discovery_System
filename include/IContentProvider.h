@@ -1,1 +1,25 @@
-I3ByYWdtYSBvbmNlCgojaW5jbHVkZSA8UU9iamVjdD4KI2luY2x1ZGUgPFFTdHJpbmc+CiNpbmNsdWRlIDxRVmVjdG9yPgojaW5jbHVkZSAiY29udGVudF9yZWNvcmQuaCIKCi8qKgogKiBAYnJpZWYg5YaF5a655L6b5bqU5ZWG5o6l5Y+jIC8gQ29udGVudCBwcm92aWRlciBpbnRlcmZhY2UKICoKICogQGRldGFpbHMg5omA5pyJ6YeH6ZuG5o+S5Lu25b+F6aG75a6e546w6K+l5o6l5Y+j77yM5Li756iL5bqP6YCa6L+HIFF0IOaPkuS7tuezu+e7n+ino+iApuiwg+eUqOOAggogKiBFdmVyeSBpbmdlc3Rpb24gcGx1Z2luIGltcGxlbWVudHMgdGhpcyBjb250cmFjdCBhbmQgaXMgbG9hZGVkIGJ5IHRoZSBob3N0IHNoZWxsLgogKi8KY2xhc3MgSUNvbnRlbnRQcm92aWRlciB7CiBwdWJsaWM6CiAgdmlydHVhbCB+SUNvbnRlbnRQcm92aWRlcigpID0gZGVmYXVsdDsKICB2aXJ0dWFsIFFTdHJpbmcgcHJvdmlkZXJJZCgpIGNvbnN0ID0gMDsKICB2aXJ0dWFsIFFTdHJpbmcgZGlzcGxheU5hbWUoKSBjb25zdCA9IDA7CiAgdmlydHVhbCBib29sIHN0YXJ0KFFTdHJpbmcqIGVycm9yTWVzc2FnZSkgPSAwOwogIHZpcnR1YWwgdm9pZCBzdG9wKCkgPSAwOwogIHZpcnR1YWwgUVZlY3RvcjxDb250ZW50UmVjb3JkPiBkcmFpblJlY29yZHMoKSA9IDA7Cn07CgojZGVmaW5lIElDb250ZW50UHJvdmlkZXJfaWlkICJjb20ucHJlbWl1bWNvbnRlbnRyYWRhci5JQ29udGVudFByb3ZpZGVyLzEuMCIKUV9ERUNMQVJFX0lOVEVSRkFDRShJQ29udGVudFByb3ZpZGVyLCBJQ29udGVudFByb3ZpZGVyX2lpZCkK
+#pragma once
+
+#include <QObject>
+#include <QString>
+#include <QVector>
+#include "content_record.h"
+
+/**
+ * @brief 内容供应商接口 / Content provider interface
+ *
+ * @details 所有采集插件必须实现该接口，主程序通过 Qt 插件系统解耦调用。
+ * Every ingestion plugin implements this contract and is loaded by the host shell.
+ */
+class IContentProvider {
+ public:
+  virtual ~IContentProvider() = default;
+  virtual QString providerId() const = 0;
+  virtual QString displayName() const = 0;
+  virtual bool start(QString* errorMessage) = 0;
+  virtual void stop() = 0;
+  virtual QVector<ContentRecord> drainRecords() = 0;
+};
+
+#define IContentProvider_iid "com.premiumcontentradar.IContentProvider/1.0"
+Q_DECLARE_INTERFACE(IContentProvider, IContentProvider_iid)

@@ -1,1 +1,15 @@
-IyEvdXNyL2Jpbi9lbnYgcHl0aG9uMwpmcm9tIHBhdGhsaWIgaW1wb3J0IFBhdGgKaW1wb3J0IHJlLCBzeXMKcm9vdD1QYXRoKF9fZmlsZV9fKS5yZXNvbHZlKCkucGFyZW50c1sxXQpwYXR0ZXJucz1bcmUuY29tcGlsZShyImdpdGh1Yl9wYXRfW0EtWmEtejAtOV9dKyIpLCByZS5jb21waWxlKHIiZ2hwX1tBLVphLXowLTlfXSsiKSwgcmUuY29tcGlsZShyInNrLVtBLVphLXowLTldezIwLH0iKV0KYmFkPVtdCmZvciBwIGluIHJvb3Qucmdsb2IoJyonKToKICAgIGlmICcuZ2l0JyBpbiBwLnBhcnRzIG9yICdidWlsZCcgaW4gcC5wYXJ0cyBvciBub3QgcC5pc19maWxlKCk6CiAgICAgICAgY29udGludWUKICAgIHRyeTogdGV4dD1wLnJlYWRfdGV4dChlcnJvcnM9J2lnbm9yZScpCiAgICBleGNlcHQgRXhjZXB0aW9uOiBjb250aW51ZQogICAgaWYgYW55KHguc2VhcmNoKHRleHQpIGZvciB4IGluIHBhdHRlcm5zKTogYmFkLmFwcGVuZChzdHIocC5yZWxhdGl2ZV90byhyb290KSkpCmlmIGJhZDoKICAgIHByaW50KCdGb3JiaWRkZW4gdG9rZW5zIGZvdW5kOicsIGJhZCk7IHN5cy5leGl0KDEpCnByaW50KCdPSzogbm8gZm9yYmlkZGVuIHRva2VucycpCg==
+#!/usr/bin/env python3
+from pathlib import Path
+import re, sys
+root=Path(__file__).resolve().parents[1]
+patterns=[re.compile(r"github_pat_[A-Za-z0-9_]+"), re.compile(r"ghp_[A-Za-z0-9_]+"), re.compile(r"sk-[A-Za-z0-9]{20,}")]
+bad=[]
+for p in root.rglob('*'):
+    if '.git' in p.parts or 'build' in p.parts or not p.is_file():
+        continue
+    try: text=p.read_text(errors='ignore')
+    except Exception: continue
+    if any(x.search(text) for x in patterns): bad.append(str(p.relative_to(root)))
+if bad:
+    print('Forbidden tokens found:', bad); sys.exit(1)
+print('OK: no forbidden tokens')

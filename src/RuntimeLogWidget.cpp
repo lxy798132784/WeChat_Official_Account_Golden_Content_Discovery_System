@@ -1,1 +1,35 @@
-I2luY2x1ZGUgIlJ1bnRpbWVMb2dXaWRnZXQuaCIKCiNpbmNsdWRlIDxRUHVzaEJ1dHRvbj4KI2luY2x1ZGUgPFFUZXh0RWRpdD4KI2luY2x1ZGUgPFFWQm94TGF5b3V0PgoKUnVudGltZUxvZ1dpZGdldDo6UnVudGltZUxvZ1dpZGdldChRV2lkZ2V0KiBwYXJlbnQpCiAgICA6IFFXaWRnZXQocGFyZW50KSwgY2xlYXJCdXR0b25fKG5ldyBRUHVzaEJ1dHRvbih0aGlzKSksIGxvZ1ZpZXdfKG5ldyBRVGV4dEVkaXQodGhpcykpIHsKICBhdXRvKiBsYXlvdXQgPSBuZXcgUVZCb3hMYXlvdXQodGhpcyk7CiAgbG9nVmlld18tPnNldFJlYWRPbmx5KHRydWUpOwogIGxvZ1ZpZXdfLT5zZXRNaW5pbXVtSGVpZ2h0KDIyMCk7CiAgbGF5b3V0LT5hZGRXaWRnZXQoY2xlYXJCdXR0b25fKTsKICBsYXlvdXQtPmFkZFdpZGdldChsb2dWaWV3Xyk7CiAgY29ubmVjdChjbGVhckJ1dHRvbl8sICZRUHVzaEJ1dHRvbjo6Y2xpY2tlZCwgdGhpcywgJlJ1bnRpbWVMb2dXaWRnZXQ6OmNsZWFyKTsKICBzZXRMYW5ndWFnZShsYW5ndWFnZV8pOwp9Cgp2b2lkIFJ1bnRpbWVMb2dXaWRnZXQ6OmFwcGVuZExvZyhjb25zdCBRU3RyaW5nJiBtZXNzYWdlKSB7CiAgbG9nVmlld18tPmFwcGVuZChtZXNzYWdlKTsKfQoKUVN0cmluZyBSdW50aW1lTG9nV2lkZ2V0OjpwbGFpblRleHQoKSBjb25zdCB7CiAgcmV0dXJuIGxvZ1ZpZXdfLT50b1BsYWluVGV4dCgpOwp9Cgp2b2lkIFJ1bnRpbWVMb2dXaWRnZXQ6OmNsZWFyKCkgewogIGxvZ1ZpZXdfLT5jbGVhcigpOwp9Cgp2b2lkIFJ1bnRpbWVMb2dXaWRnZXQ6OnNldExhbmd1YWdlKFVpTGFuZ3VhZ2UgbGFuZ3VhZ2UpIHsKICBsYW5ndWFnZV8gPSBsYW5ndWFnZTsKICBjbGVhckJ1dHRvbl8tPnNldFRleHQobGFuZ3VhZ2VfID09IFVpTGFuZ3VhZ2U6OkNoaW5lc2UgPyBRU3RyaW5nTGl0ZXJhbCgi5riF56m65pel5b+XIikgOiBRU3RyaW5nTGl0ZXJhbCgiQ2xlYXIgTG9nIikpOwogIGNsZWFyQnV0dG9uXy0+c2V0VG9vbFRpcChsYW5ndWFnZV8gPT0gVWlMYW5ndWFnZTo6Q2hpbmVzZSA/IFFTdHJpbmdMaXRlcmFsKCLmuIXnqbrlvZPliY3ov5DooYzml6Xlv5fop4blm77vvIzkuI3liKDpmaTmlbDmja7lupPjgIIiKSA6IFFTdHJpbmdMaXRlcmFsKCJDbGVhciB0aGUgY3VycmVudCBydW50aW1lIGxvZyB2aWV3IHdpdGhvdXQgZGVsZXRpbmcgZGF0YWJhc2UgZGF0YS4iKSk7CiAgbG9nVmlld18tPnNldFRvb2xUaXAobGFuZ3VhZ2VfID09IFVpTGFuZ3VhZ2U6OkNoaW5lc2UgPyBRU3RyaW5nTGl0ZXJhbCgi6ISx5pWP6L+Q6KGM5pel5b+X44CCIikgOiBRU3RyaW5nTGl0ZXJhbCgiU2FuaXRpemVkIHJ1bnRpbWUgbG9nLiIpKTsKfQo=
+#include "RuntimeLogWidget.h"
+
+#include <QPushButton>
+#include <QTextEdit>
+#include <QVBoxLayout>
+
+RuntimeLogWidget::RuntimeLogWidget(QWidget* parent)
+    : QWidget(parent), clearButton_(new QPushButton(this)), logView_(new QTextEdit(this)) {
+  auto* layout = new QVBoxLayout(this);
+  logView_->setReadOnly(true);
+  logView_->setMinimumHeight(220);
+  layout->addWidget(clearButton_);
+  layout->addWidget(logView_);
+  connect(clearButton_, &QPushButton::clicked, this, &RuntimeLogWidget::clear);
+  setLanguage(language_);
+}
+
+void RuntimeLogWidget::appendLog(const QString& message) {
+  logView_->append(message);
+}
+
+QString RuntimeLogWidget::plainText() const {
+  return logView_->toPlainText();
+}
+
+void RuntimeLogWidget::clear() {
+  logView_->clear();
+}
+
+void RuntimeLogWidget::setLanguage(UiLanguage language) {
+  language_ = language;
+  clearButton_->setText(language_ == UiLanguage::Chinese ? QStringLiteral("清空日志") : QStringLiteral("Clear Log"));
+  clearButton_->setToolTip(language_ == UiLanguage::Chinese ? QStringLiteral("清空当前运行日志视图，不删除数据库。") : QStringLiteral("Clear the current runtime log view without deleting database data."));
+  logView_->setToolTip(language_ == UiLanguage::Chinese ? QStringLiteral("脱敏运行日志。") : QStringLiteral("Sanitized runtime log."));
+}

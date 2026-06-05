@@ -1,1 +1,61 @@
-IyBJbnN0YWxsYXRpb24gR3VpZGUKCiMjIExpbnV4IGZyb20gcmVsZWFzZSB0YXJiYWxsCgpgYGBiYXNoCnRhciAteHpmIHByZW1pdW0tY29udGVudC1yYWRhci0qLWxpbnV4LSoudGFyLmd6CmNkIHByZW1pdW0tY29udGVudC1yYWRhci0qLWxpbnV4LSoKLi9iaW4vcHJlbWl1bS1jb250ZW50LXJhZGFyCmBgYAoKSWYgUXQgcGx1Z2luIGRpc2NvdmVyeSBmYWlscywgcnVuIGZyb20gdGhlIGV4dHJhY3RlZCBwYWNrYWdlIHJvb3QgYW5kIGtlZXAgdGhlIGJ1bmRsZWQgYHBsdWdpbnMvYCBkaXJlY3RvcnkgbmV4dCB0byB0aGUgYmluYXJ5LgoKIyMgTGludXggZnJvbSBzb3VyY2UKCkRlcGVuZGVuY2llcyBvbiBVYnVudHUgb3IgRGViaWFuLWxpa2Ugc3lzdGVtczoKCmBgYGJhc2gKc3VkbyBhcHQtZ2V0IHVwZGF0ZQpzdWRvIGFwdC1nZXQgaW5zdGFsbCAteSBjbWFrZSBnKysgcXQ2LWJhc2UtZGV2IHF0Ni10b29scy1kZXYgbGlicXQ2c3FsNi1zcWxpdGUgbGliZ2wxLW1lc2EtZGV2CmBgYAoKQnVpbGQgYW5kIHRlc3Q6CgpgYGBiYXNoCmNtYWtlIC1TIC4gLUIgYnVpbGQgLURDTUFLRV9CVUlMRF9UWVBFPVJlbGVhc2UKY21ha2UgLS1idWlsZCBidWlsZCAtajIKY3Rlc3QgLS10ZXN0LWRpciBidWlsZCAtLW91dHB1dC1vbi1mYWlsdXJlClFUX1FQQV9QTEFURk9STT1vZmZzY3JlZW4gLi9idWlsZC9wcmVtaXVtLWNvbnRlbnQtcmFkYXIgLS1icmlkZ2Utc21va2UKLi9idWlsZC9wcmVtaXVtLWNvbnRlbnQtcmFkYXIKYGBgCgojIyBXaW5kb3dzIGZyb20gc291cmNlCgpJbnN0YWxsOgoKLSBRdCA2IGZvciBNU1ZDIG9yIE1pbkdXLgotIENNYWtlLgotIEEgbWF0Y2hpbmcgQysrIGNvbXBpbGVyLgotIFBvd2VyU2hlbGwgNyBvciBXaW5kb3dzIFBvd2VyU2hlbGwuCgpUaGVuIHJ1bjoKCmBgYHBvd2Vyc2hlbGwKJGVudjpWRVJTSU9OPSIxLjAuMSIKLlxzY3JpcHRzXHBhY2thZ2Utd2luZG93cy5wczEKYGBgCgojIyBEb2NrZXIgYnVpbGQKCmBgYGJhc2gKZG9ja2VyIGJ1aWxkeCBidWlsZCAtLXBsYXRmb3JtIGxpbnV4L2FtZDY0LGxpbnV4L2FybTY0IC10IHByZW1pdW0tY29udGVudC1yYWRhcjpsYXRlc3QgLgpgYGAKClRoZSBEb2NrZXJmaWxlIGlzIGludGVuZGVkIGZvciBidWlsZCBhbmQgcmVtb3RlIGRlc2t0b3AgZXhwZXJpbWVudGF0aW9uLiBOb3JtYWwgcHJvZHVjdGlvbiB1c2UgaXMgdGhlIG5hdGl2ZSBkZXNrdG9wIHBhY2thZ2UuCgojIyBVbmluc3RhbGwKCkRlbGV0ZSB0aGUgZXh0cmFjdGVkIHBhY2thZ2UgZGlyZWN0b3J5LiBPcHRpb25hbCB1c2VyIGRhdGEgbG9jYXRpb25zOgoKLSBTUUxpdGUgZGF0YWJhc2U6IGNvbmZpZ3VyZWQgaW4gdGhlIFdlQ2hhdCBzZXR0aW5ncyB0YWIuCi0gUnVudGltZSBjb25maWc6IHRoZSBwbGF0Zm9ybSBhcHAgY29uZmlnIGRpcmVjdG9yeSBmb3IgYHByZW1pdW0tY29udGVudC1yYWRhci9zZXR0aW5ncy5qc29uYC4K
+# Installation Guide
+
+## Linux from release tarball
+
+```bash
+tar -xzf premium-content-radar-*-linux-*.tar.gz
+cd premium-content-radar-*-linux-*
+./bin/premium-content-radar
+```
+
+If Qt plugin discovery fails, run from the extracted package root and keep the bundled `plugins/` directory next to the binary.
+
+## Linux from source
+
+Dependencies on Ubuntu or Debian-like systems:
+
+```bash
+sudo apt-get update
+sudo apt-get install -y cmake g++ qt6-base-dev qt6-tools-dev libqt6sql6-sqlite libgl1-mesa-dev
+```
+
+Build and test:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j2
+ctest --test-dir build --output-on-failure
+QT_QPA_PLATFORM=offscreen ./build/premium-content-radar --bridge-smoke
+./build/premium-content-radar
+```
+
+## Windows from source
+
+Install:
+
+- Qt 6 for MSVC or MinGW.
+- CMake.
+- A matching C++ compiler.
+- PowerShell 7 or Windows PowerShell.
+
+Then run:
+
+```powershell
+$env:VERSION="1.0.1"
+.\scripts\package-windows.ps1
+```
+
+## Docker build
+
+```bash
+docker buildx build --platform linux/amd64,linux/arm64 -t premium-content-radar:latest .
+```
+
+The Dockerfile is intended for build and remote desktop experimentation. Normal production use is the native desktop package.
+
+## Uninstall
+
+Delete the extracted package directory. Optional user data locations:
+
+- SQLite database: configured in the WeChat settings tab.
+- Runtime config: the platform app config directory for `premium-content-radar/settings.json`.

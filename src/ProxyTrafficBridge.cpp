@@ -1,1 +1,163 @@
-I2luY2x1ZGUgIlByb3h5VHJhZmZpY0JyaWRnZS5oIgoKI2luY2x1ZGUgPFFEYXRlVGltZT4KI2luY2x1ZGUgPFFKc29uRG9jdW1lbnQ+CiNpbmNsdWRlIDxRSnNvbk9iamVjdD4KI2luY2x1ZGUgPFFNdXRleExvY2tlcj4KI2luY2x1ZGUgPFFUY3BTb2NrZXQ+CgpuYW1lc3BhY2UgewoKUVN0cmluZyBlbmRwb2ludEZyb21PYmplY3QoY29uc3QgUUpzb25PYmplY3QmIG9iamVjdCkgewogIGNvbnN0IFFTdHJpbmcgZW5kcG9pbnQgPSBvYmplY3QudmFsdWUoUVN0cmluZ0xpdGVyYWwoImVuZHBvaW50IikpLnRvU3RyaW5nKCk7CiAgaWYgKCFlbmRwb2ludC5pc0VtcHR5KCkpIHsKICAgIHJldHVybiBlbmRwb2ludDsKICB9CiAgcmV0dXJuIG9iamVjdC52YWx1ZShRU3RyaW5nTGl0ZXJhbCgicGF0aCIpKS50b1N0cmluZygpOwp9CgppbnQgbWV0cmljSW50KGNvbnN0IFFKc29uT2JqZWN0JiByb290LCBjb25zdCBRSnNvbk9iamVjdCYgbmVzdGVkLCBjb25zdCBRU3RyaW5nJiBrZXkpIHsKICBpZiAobmVzdGVkLmNvbnRhaW5zKGtleSkpIHsKICAgIHJldHVybiBuZXN0ZWQudmFsdWUoa2V5KS50b0ludCgpOwogIH0KICByZXR1cm4gcm9vdC52YWx1ZShrZXkpLnRvSW50KCk7Cn0KClFEYXRlVGltZSBwYXJzZVB1Ymxpc2hUaW1lVmFsdWUoY29uc3QgUUpzb25WYWx1ZSYgdmFsdWUpIHsKICBpZiAodmFsdWUuaXNEb3VibGUoKSkgewogICAgY29uc3QgcWludDY0IHJhdyA9IHN0YXRpY19jYXN0PHFpbnQ2ND4odmFsdWUudG9Eb3VibGUoKSk7CiAgICBpZiAocmF3IDw9IDApIHsKICAgICAgcmV0dXJuIFFEYXRlVGltZSgpOwogICAgfQogICAgcmV0dXJuIHJhdyA+IDEwMDAwMDAwMDAwMExMID8gUURhdGVUaW1lOjpmcm9tTVNlY3NTaW5jZUVwb2NoKHJhdywgUXQ6OlVUQykKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA6IFFEYXRlVGltZTo6ZnJvbVNlY3NTaW5jZUVwb2NoKHJhdywgUXQ6OlVUQyk7CiAgfQogIGNvbnN0IFFTdHJpbmcgdGV4dCA9IHZhbHVlLnRvU3RyaW5nKCkudHJpbW1lZCgpOwogIGlmICh0ZXh0LmlzRW1wdHkoKSkgewogICAgcmV0dXJuIFFEYXRlVGltZSgpOwogIH0KICBib29sIG9rID0gZmFsc2U7CiAgY29uc3QgcWludDY0IG51bWVyaWMgPSB0ZXh0LnRvTG9uZ0xvbmcoJm9rKTsKICBpZiAob2sgJiYgbnVtZXJpYyA+IDApIHsKICAgIHJldHVybiBudW1lcmljID4gMTAwMDAwMDAwMDAwTEwgPyBRRGF0ZVRpbWU6OmZyb21NU2Vjc1NpbmNlRXBvY2gobnVtZXJpYywgUXQ6OlVUQykKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOiBRRGF0ZVRpbWU6OmZyb21TZWNzU2luY2VFcG9jaChudW1lcmljLCBRdDo6VVRDKTsKICB9CiAgUURhdGVUaW1lIHBhcnNlZCA9IFFEYXRlVGltZTo6ZnJvbVN0cmluZyh0ZXh0LCBRdDo6SVNPRGF0ZSk7CiAgaWYgKCFwYXJzZWQuaXNWYWxpZCgpKSB7CiAgICBwYXJzZWQgPSBRRGF0ZVRpbWU6OmZyb21TdHJpbmcodGV4dCwgUVN0cmluZ0xpdGVyYWwoInl5eXktTU0tZGQgSEg6bW06c3MiKSk7CiAgfQogIGlmICghcGFyc2VkLmlzVmFsaWQoKSkgewogICAgcGFyc2VkID0gUURhdGVUaW1lOjpmcm9tU3RyaW5nKHRleHQsIFFTdHJpbmdMaXRlcmFsKCJ5eXl5LU1NLWRkIikpOwogIH0KICBpZiAocGFyc2VkLmlzVmFsaWQoKSAmJiBwYXJzZWQudGltZVNwZWMoKSA9PSBRdDo6TG9jYWxUaW1lKSB7CiAgICBwYXJzZWQuc2V0VGltZVNwZWMoUXQ6OlVUQyk7CiAgfQogIHJldHVybiBwYXJzZWQ7Cn0KClFEYXRlVGltZSBwdWJsaXNoVGltZUZyb21PYmplY3QoY29uc3QgUUpzb25PYmplY3QmIHJvb3QpIHsKICBjb25zdCBRU3RyaW5nTGlzdCBrZXlzID0ge1FTdHJpbmdMaXRlcmFsKCJwdWJsaXNoX3RpbWUiKSwgUVN0cmluZ0xpdGVyYWwoInB1Ymxpc2hUaW1lIiksCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBRU3RyaW5nTGl0ZXJhbCgicHVibGlzaF9kYXRlIiksIFFTdHJpbmdMaXRlcmFsKCJwdWJsaXNoRGF0ZSIpLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgUVN0cmluZ0xpdGVyYWwoImNyZWF0ZV90aW1lIiksIFFTdHJpbmdMaXRlcmFsKCJjcmVhdGVUaW1lIiksCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBRU3RyaW5nTGl0ZXJhbCgiZGF0ZXRpbWUiKSwgUVN0cmluZ0xpdGVyYWwoImRhdGUiKX07CiAgZm9yIChjb25zdCBRU3RyaW5nJiBrZXkgOiBrZXlzKSB7CiAgICBpZiAocm9vdC5jb250YWlucyhrZXkpKSB7CiAgICAgIGNvbnN0IFFEYXRlVGltZSBwYXJzZWQgPSBwYXJzZVB1Ymxpc2hUaW1lVmFsdWUocm9vdC52YWx1ZShrZXkpKTsKICAgICAgaWYgKHBhcnNlZC5pc1ZhbGlkKCkpIHsKICAgICAgICByZXR1cm4gcGFyc2VkOwogICAgICB9CiAgICB9CiAgfQogIHJldHVybiBRRGF0ZVRpbWUoKTsKfQoKfSAgLy8gbmFtZXNwYWNlCgpQcm94eVRyYWZmaWNCcmlkZ2U6OlByb3h5VHJhZmZpY0JyaWRnZShRT2JqZWN0KiBwYXJlbnQpIDogUVRjcFNlcnZlcihwYXJlbnQpIHsKICBjb25uZWN0KHRoaXMsICZRVGNwU2VydmVyOjpuZXdDb25uZWN0aW9uLCB0aGlzLCAmUHJveHlUcmFmZmljQnJpZGdlOjphY2NlcHRDb25uZWN0aW9uKTsKfQoKYm9vbCBQcm94eVRyYWZmaWNCcmlkZ2U6OnN0YXJ0QnJpZGdlKHF1aW50MTYgcG9ydCkgewogIHJldHVybiBsaXN0ZW4oUUhvc3RBZGRyZXNzOjpMb2NhbEhvc3QsIHBvcnQpOwp9Cgpib29sIFByb3h5VHJhZmZpY0JyaWRnZTo6c2VuZFBheWxvYWRUb0xvY2FsQnJpZGdlKHF1aW50MTYgcG9ydCwgY29uc3QgUUJ5dGVBcnJheSYgcGF5bG9hZCwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBRU3RyaW5nKiBlcnJvck1lc3NhZ2UpIHsKICBRVGNwU29ja2V0IHNvY2tldDsKICBzb2NrZXQuY29ubmVjdFRvSG9zdChRSG9zdEFkZHJlc3M6OkxvY2FsSG9zdCwgcG9ydCk7CiAgaWYgKCFzb2NrZXQud2FpdEZvckNvbm5lY3RlZCgzMDAwKSkgewogICAgaWYgKGVycm9yTWVzc2FnZSAhPSBudWxscHRyKSB7CiAgICAgICplcnJvck1lc3NhZ2UgPSBzb2NrZXQuZXJyb3JTdHJpbmcoKTsKICAgIH0KICAgIHJldHVybiBmYWxzZTsKICB9CiAgc29ja2V0LndyaXRlKHBheWxvYWQpOwogIHNvY2tldC5mbHVzaCgpOwogIHNvY2tldC53YWl0Rm9yQnl0ZXNXcml0dGVuKDMwMDApOwogIHNvY2tldC5kaXNjb25uZWN0RnJvbUhvc3QoKTsKICByZXR1cm4gdHJ1ZTsKfQoKc3RkOjpvcHRpb25hbDxDb250ZW50UmVjb3JkPiBQcm94eVRyYWZmaWNCcmlkZ2U6OnBhcnNlUGF5bG9hZChjb25zdCBRQnl0ZUFycmF5JiBwYXlsb2FkKSB7CiAgY29uc3QgUUpzb25Eb2N1bWVudCBkb2N1bWVudCA9IFFKc29uRG9jdW1lbnQ6OmZyb21Kc29uKHBheWxvYWQpOwogIGlmICghZG9jdW1lbnQuaXNPYmplY3QoKSkgewogICAgcmV0dXJuIHN0ZDo6bnVsbG9wdDsKICB9CgogIGNvbnN0IFFKc29uT2JqZWN0IHJvb3QgPSBkb2N1bWVudC5vYmplY3QoKTsKICBjb25zdCBRU3RyaW5nIGVuZHBvaW50ID0gZW5kcG9pbnRGcm9tT2JqZWN0KHJvb3QpOwogIGNvbnN0IGJvb2wgaXNNZXRyaWNzRW5kcG9pbnQgPSBlbmRwb2ludC5jb250YWlucyhRU3RyaW5nTGl0ZXJhbCgiL21wL2dldGFwcG1zZ2V4dCIpKTsKICBjb25zdCBib29sIGlzQ29tbWVudEVuZHBvaW50ID0gZW5kcG9pbnQuY29udGFpbnMoUVN0cmluZ0xpdGVyYWwoIi9tcC9hcHBtc2dfY29tbWVudCIpKTsKICBpZiAoIWlzTWV0cmljc0VuZHBvaW50ICYmICFpc0NvbW1lbnRFbmRwb2ludCkgewogICAgcmV0dXJuIHN0ZDo6bnVsbG9wdDsKICB9CgogIENvbnRlbnRSZWNvcmQgcmVjb3JkOwogIHJlY29yZC50aXRsZSA9IHJvb3QudmFsdWUoUVN0cmluZ0xpdGVyYWwoInRpdGxlIikpLnRvU3RyaW5nKFFTdHJpbmdMaXRlcmFsKCJDYXB0dXJlZCBBcnRpY2xlIikpOwogIHJlY29yZC51cmwgPSByb290LnZhbHVlKFFTdHJpbmdMaXRlcmFsKCJ1cmwiKSkudG9TdHJpbmcoKTsKICByZWNvcmQuY2F0ZWdvcnkgPSByb290LnZhbHVlKFFTdHJpbmdMaXRlcmFsKCJjYXRlZ29yeSIpKS50b1N0cmluZygpOwogIHJlY29yZC5hY2NvdW50TmFtZSA9IHJvb3QudmFsdWUoUVN0cmluZ0xpdGVyYWwoImFjY291bnRfbmFtZSIpKS50b1N0cmluZygpOwogIHJlY29yZC5nemhJZCA9IHJvb3QudmFsdWUoUVN0cmluZ0xpdGVyYWwoImd6aF9pZCIpKS50b1N0cmluZygpOwogIHJlY29yZC5hcnRpY2xlQ291bnQzMGQgPSByb290LnZhbHVlKFFTdHJpbmdMaXRlcmFsKCJhcnRpY2xlX2NvdW50XzMwZCIpKS50b0ludCgpOwogIHJlY29yZC5wdWJsaXNoVGltZSA9IHB1Ymxpc2hUaW1lRnJvbU9iamVjdChyb290KTsKCiAgY29uc3QgUUpzb25PYmplY3QgYXBwTXNnU3RhdCA9IHJvb3QudmFsdWUoUVN0cmluZ0xpdGVyYWwoImFwcG1zZ3N0YXQiKSkudG9PYmplY3QoKTsKICBjb25zdCBRSnNvbk9iamVjdCBjb21tZW50SW5mbyA9IHJvb3QudmFsdWUoUVN0cmluZ0xpdGVyYWwoImNvbW1lbnRfaW5mbyIpKS50b09iamVjdCgpOwogIHJlY29yZC5yZWFkTnVtID0gbWV0cmljSW50KHJvb3QsIGFwcE1zZ1N0YXQsIFFTdHJpbmdMaXRlcmFsKCJyZWFkX251bSIpKTsKICByZWNvcmQubGlrZU51bSA9IG1ldHJpY0ludChyb290LCBhcHBNc2dTdGF0LCBRU3RyaW5nTGl0ZXJhbCgibGlrZV9udW0iKSk7CiAgcmVjb3JkLm9sZExpa2VOdW0gPSBtZXRyaWNJbnQocm9vdCwgYXBwTXNnU3RhdCwgUVN0cmluZ0xpdGVyYWwoIm9sZF9saWtlX251bSIpKTsKICByZWNvcmQuY29tbWVudE51bSA9IG1ldHJpY0ludChyb290LCBjb21tZW50SW5mbywgUVN0cmluZ0xpdGVyYWwoImNvbW1lbnRfbnVtIikpOwogIGlmIChyZWNvcmQuY29tbWVudE51bSA9PSAwKSB7CiAgICByZWNvcmQuY29tbWVudE51bSA9IG1ldHJpY0ludChyb290LCBjb21tZW50SW5mbywgUVN0cmluZ0xpdGVyYWwoImNvbW1lbnRfY291bnQiKSk7CiAgfQoKICBpZiAocmVjb3JkLnVybC5pc0VtcHR5KCkgJiYgcmVjb3JkLnRpdGxlID09IFFTdHJpbmdMaXRlcmFsKCJDYXB0dXJlZCBBcnRpY2xlIikpIHsKICAgIHJldHVybiBzdGQ6Om51bGxvcHQ7CiAgfQogIHJldHVybiByZWNvcmQ7Cn0KCnZvaWQgUHJveHlUcmFmZmljQnJpZGdlOjphY2NlcHRDb25uZWN0aW9uKCkgewogIHdoaWxlIChoYXNQZW5kaW5nQ29ubmVjdGlvbnMoKSkgewogICAgUVRjcFNvY2tldCogc29ja2V0ID0gbmV4dFBlbmRpbmdDb25uZWN0aW9uKCk7CiAgICBjb25uZWN0KHNvY2tldCwgJlFUY3BTb2NrZXQ6OnJlYWR5UmVhZCwgdGhpcywgW3RoaXMsIHNvY2tldF0oKSB7CiAgICAgIGNvbnN0IHN0ZDo6b3B0aW9uYWw8Q29udGVudFJlY29yZD4gcGFyc2VkID0gcGFyc2VQYXlsb2FkKHNvY2tldC0+cmVhZEFsbCgpKTsKICAgICAgaWYgKCFwYXJzZWQuaGFzX3ZhbHVlKCkpIHsKICAgICAgICByZXR1cm47CiAgICAgIH0KICAgICAgUU11dGV4TG9ja2VyIGxvY2soJm11dGV4Xyk7CiAgICAgIGJhY2tCdWZmZXJfLmVucXVldWUoKnBhcnNlZCk7CiAgICB9KTsKICAgIGNvbm5lY3Qoc29ja2V0LCAmUVRjcFNvY2tldDo6ZGlzY29ubmVjdGVkLCBzb2NrZXQsICZRT2JqZWN0OjpkZWxldGVMYXRlcik7CiAgfQp9CgpRVmVjdG9yPENvbnRlbnRSZWNvcmQ+IFByb3h5VHJhZmZpY0JyaWRnZTo6ZHJhaW5SZWNvcmRzKCkgewogIFFWZWN0b3I8Q29udGVudFJlY29yZD4gb3V0cHV0OwogIFFNdXRleExvY2tlciBsb2NrKCZtdXRleF8pOwogIGZyb250QnVmZmVyXy5zd2FwKGJhY2tCdWZmZXJfKTsKICB3aGlsZSAoIWZyb250QnVmZmVyXy5pc0VtcHR5KCkpIHsKICAgIG91dHB1dC5wdXNoX2JhY2soZnJvbnRCdWZmZXJfLmRlcXVldWUoKSk7CiAgfQogIHJldHVybiBvdXRwdXQ7Cn0K
+#include "ProxyTrafficBridge.h"
+
+#include <QDateTime>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QMutexLocker>
+#include <QTcpSocket>
+
+namespace {
+
+QString endpointFromObject(const QJsonObject& object) {
+  const QString endpoint = object.value(QStringLiteral("endpoint")).toString();
+  if (!endpoint.isEmpty()) {
+    return endpoint;
+  }
+  return object.value(QStringLiteral("path")).toString();
+}
+
+int metricInt(const QJsonObject& root, const QJsonObject& nested, const QString& key) {
+  if (nested.contains(key)) {
+    return nested.value(key).toInt();
+  }
+  return root.value(key).toInt();
+}
+
+QDateTime parsePublishTimeValue(const QJsonValue& value) {
+  if (value.isDouble()) {
+    const qint64 raw = static_cast<qint64>(value.toDouble());
+    if (raw <= 0) {
+      return QDateTime();
+    }
+    return raw > 100000000000LL ? QDateTime::fromMSecsSinceEpoch(raw, Qt::UTC)
+                                : QDateTime::fromSecsSinceEpoch(raw, Qt::UTC);
+  }
+  const QString text = value.toString().trimmed();
+  if (text.isEmpty()) {
+    return QDateTime();
+  }
+  bool ok = false;
+  const qint64 numeric = text.toLongLong(&ok);
+  if (ok && numeric > 0) {
+    return numeric > 100000000000LL ? QDateTime::fromMSecsSinceEpoch(numeric, Qt::UTC)
+                                    : QDateTime::fromSecsSinceEpoch(numeric, Qt::UTC);
+  }
+  QDateTime parsed = QDateTime::fromString(text, Qt::ISODate);
+  if (!parsed.isValid()) {
+    parsed = QDateTime::fromString(text, QStringLiteral("yyyy-MM-dd HH:mm:ss"));
+  }
+  if (!parsed.isValid()) {
+    parsed = QDateTime::fromString(text, QStringLiteral("yyyy-MM-dd"));
+  }
+  if (parsed.isValid() && parsed.timeSpec() == Qt::LocalTime) {
+    parsed.setTimeSpec(Qt::UTC);
+  }
+  return parsed;
+}
+
+QDateTime publishTimeFromObject(const QJsonObject& root) {
+  const QStringList keys = {QStringLiteral("publish_time"), QStringLiteral("publishTime"),
+                            QStringLiteral("publish_date"), QStringLiteral("publishDate"),
+                            QStringLiteral("create_time"), QStringLiteral("createTime"),
+                            QStringLiteral("datetime"), QStringLiteral("date")};
+  for (const QString& key : keys) {
+    if (root.contains(key)) {
+      const QDateTime parsed = parsePublishTimeValue(root.value(key));
+      if (parsed.isValid()) {
+        return parsed;
+      }
+    }
+  }
+  return QDateTime();
+}
+
+}  // namespace
+
+ProxyTrafficBridge::ProxyTrafficBridge(QObject* parent) : QTcpServer(parent) {
+  connect(this, &QTcpServer::newConnection, this, &ProxyTrafficBridge::acceptConnection);
+}
+
+bool ProxyTrafficBridge::startBridge(quint16 port) {
+  return listen(QHostAddress::LocalHost, port);
+}
+
+bool ProxyTrafficBridge::sendPayloadToLocalBridge(quint16 port, const QByteArray& payload,
+                                                  QString* errorMessage) {
+  QTcpSocket socket;
+  socket.connectToHost(QHostAddress::LocalHost, port);
+  if (!socket.waitForConnected(3000)) {
+    if (errorMessage != nullptr) {
+      *errorMessage = socket.errorString();
+    }
+    return false;
+  }
+  socket.write(payload);
+  socket.flush();
+  socket.waitForBytesWritten(3000);
+  socket.disconnectFromHost();
+  return true;
+}
+
+std::optional<ContentRecord> ProxyTrafficBridge::parsePayload(const QByteArray& payload) {
+  const QJsonDocument document = QJsonDocument::fromJson(payload);
+  if (!document.isObject()) {
+    return std::nullopt;
+  }
+
+  const QJsonObject root = document.object();
+  const QString endpoint = endpointFromObject(root);
+  const bool isMetricsEndpoint = endpoint.contains(QStringLiteral("/mp/getappmsgext"));
+  const bool isCommentEndpoint = endpoint.contains(QStringLiteral("/mp/appmsg_comment"));
+  if (!isMetricsEndpoint && !isCommentEndpoint) {
+    return std::nullopt;
+  }
+
+  ContentRecord record;
+  record.title = root.value(QStringLiteral("title")).toString(QStringLiteral("Captured Article"));
+  record.url = root.value(QStringLiteral("url")).toString();
+  record.category = root.value(QStringLiteral("category")).toString();
+  record.accountName = root.value(QStringLiteral("account_name")).toString();
+  record.gzhId = root.value(QStringLiteral("gzh_id")).toString();
+  record.articleCount30d = root.value(QStringLiteral("article_count_30d")).toInt();
+  record.publishTime = publishTimeFromObject(root);
+
+  const QJsonObject appMsgStat = root.value(QStringLiteral("appmsgstat")).toObject();
+  const QJsonObject commentInfo = root.value(QStringLiteral("comment_info")).toObject();
+  record.readNum = metricInt(root, appMsgStat, QStringLiteral("read_num"));
+  record.likeNum = metricInt(root, appMsgStat, QStringLiteral("like_num"));
+  record.oldLikeNum = metricInt(root, appMsgStat, QStringLiteral("old_like_num"));
+  record.commentNum = metricInt(root, commentInfo, QStringLiteral("comment_num"));
+  if (record.commentNum == 0) {
+    record.commentNum = metricInt(root, commentInfo, QStringLiteral("comment_count"));
+  }
+
+  if (record.url.isEmpty() && record.title == QStringLiteral("Captured Article")) {
+    return std::nullopt;
+  }
+  return record;
+}
+
+void ProxyTrafficBridge::acceptConnection() {
+  while (hasPendingConnections()) {
+    QTcpSocket* socket = nextPendingConnection();
+    connect(socket, &QTcpSocket::readyRead, this, [this, socket]() {
+      const std::optional<ContentRecord> parsed = parsePayload(socket->readAll());
+      if (!parsed.has_value()) {
+        return;
+      }
+      QMutexLocker lock(&mutex_);
+      backBuffer_.enqueue(*parsed);
+    });
+    connect(socket, &QTcpSocket::disconnected, socket, &QObject::deleteLater);
+  }
+}
+
+QVector<ContentRecord> ProxyTrafficBridge::drainRecords() {
+  QVector<ContentRecord> output;
+  QMutexLocker lock(&mutex_);
+  frontBuffer_.swap(backBuffer_);
+  while (!frontBuffer_.isEmpty()) {
+    output.push_back(frontBuffer_.dequeue());
+  }
+  return output;
+}

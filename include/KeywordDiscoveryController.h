@@ -1,1 +1,73 @@
-I3ByYWdtYSBvbmNlCgojaW5jbHVkZSA8UUpzb25PYmplY3Q+CiNpbmNsdWRlIDxRTmV0d29ya0FjY2Vzc01hbmFnZXI+CiNpbmNsdWRlIDxRTmV0d29ya1JlcGx5PgojaW5jbHVkZSA8UU9iamVjdD4KI2luY2x1ZGUgPFFTdHJpbmc+CiNpbmNsdWRlIDxRU3RyaW5nTGlzdD4KI2luY2x1ZGUgPFFWZWN0b3I+CgpzdHJ1Y3QgS2V5d29yZERpc2NvdmVyeVJlc3VsdCB7CiAgUVN0cmluZyBrZXl3b3JkOwogIFFTdHJpbmcgdGl0bGU7CiAgUVN0cmluZyBhY2NvdW50TmFtZTsKICBRU3RyaW5nIGNhdGVnb3J5OwogIFFTdHJpbmcgdXJsOwogIGludCByZWFkTnVtID0gMDsKICBpbnQgbGlrZU51bSA9IDA7CiAgaW50IGNvbW1lbnROdW0gPSAwOwogIGRvdWJsZSBob3RTY29yZSA9IDAuMDsKfTsKCi8qKgogKiBLZXl3b3JkLWZpcnN0IGRpc2NvdmVyeSBtb2R1bGUuCiAqCiAqIFRoaXMgbW9kdWxlIGRvZXMgbm90IGRlcGVuZCBvbiBzZWVkIGFjY291bnRzLiBJdCBjcmVhdGVzIGxhd2Z1bCBleHRlcm5hbCBzZWFyY2gKICogVVJMcyBmb3Igb3BlcmF0b3Iga2V5d29yZHMgYW5kIGNhbiBpbXBvcnQgc2FuaXRpemVkIHNlYXJjaC1yZXN1bHQgSlNPTiBleHBvcnRlZAogKiBieSBhIGxvY2FsIGFkYXB0ZXIuIFRoZSBpbXBvcnRlZCByZXN1bHQgVVJMcyBjYW4gdGhlbiBiZSBhcHBlbmRlZCB0byB0aGUgQURCCiAqIGF1dG8taW5nZXN0aW9uIHF1ZXVlLgogKi8KY2xhc3MgS2V5d29yZERpc2NvdmVyeUNvbnRyb2xsZXIgZmluYWwgOiBwdWJsaWMgUU9iamVjdCB7CiAgUV9PQkpFQ1QKIHB1YmxpYzoKICBleHBsaWNpdCBLZXl3b3JkRGlzY292ZXJ5Q29udHJvbGxlcihRT2JqZWN0KiBwYXJlbnQgPSBudWxscHRyKTsKCiAgYm9vbCBpc1NlYXJjaGluZygpIGNvbnN0OwogIFFWZWN0b3I8S2V5d29yZERpc2NvdmVyeVJlc3VsdD4gcmVzdWx0cygpIGNvbnN0OwogIGludCBtYXhSZXN1bHRzUGVyS2V5d29yZCgpIGNvbnN0OwogIHZvaWQgc2V0TWF4UmVzdWx0c1BlcktleXdvcmQoaW50IGNvdW50KTsKCiAgc3RhdGljIFFTdHJpbmdMaXN0IHBhcnNlS2V5d29yZHMoY29uc3QgUVN0cmluZyYgdGV4dCk7CiAgc3RhdGljIGJvb2wgbWF0Y2hlc0hvdENyaXRlcmlhKGNvbnN0IEtleXdvcmREaXNjb3ZlcnlSZXN1bHQmIHJlc3VsdCwgaW50IG1pbmltdW1SZWFkQ291bnQsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGludCBtaW5pbXVtTGlrZUNvdW50LCBpbnQgbWluaW11bUNvbW1lbnRDb3VudCwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaW50IG1pbmltdW1Ib3RTY29yZSk7CiAgc3RhdGljIFFTdHJpbmcgc2VhcmNoVXJsRm9yS2V5d29yZChjb25zdCBRU3RyaW5nJiBrZXl3b3JkKTsKICBzdGF0aWMgUVZlY3RvcjxLZXl3b3JkRGlzY292ZXJ5UmVzdWx0PiBwYXJzZVJlc3VsdHNKc29uKGNvbnN0IFFCeXRlQXJyYXkmIGRhdGEsIFFTdHJpbmcqIGVycm9yTWVzc2FnZSA9IG51bGxwdHIpOwogIHN0YXRpYyBRVmVjdG9yPEtleXdvcmREaXNjb3ZlcnlSZXN1bHQ+IHBhcnNlU2VhcmNoSHRtbChjb25zdCBRU3RyaW5nJiBrZXl3b3JkLCBjb25zdCBRQnl0ZUFycmF5JiBodG1sKTsKICBzdGF0aWMgUVN0cmluZyByZXN1bHRzVG9RdWV1ZVRleHQoY29uc3QgUVZlY3RvcjxLZXl3b3JkRGlzY292ZXJ5UmVzdWx0PiYgcmVzdWx0cywgaW50IG1pbmltdW1SZWFkQ291bnQpOwogIHN0YXRpYyBRU3RyaW5nIHJlc3VsdHNUb1F1ZXVlVGV4dChjb25zdCBRVmVjdG9yPEtleXdvcmREaXNjb3ZlcnlSZXN1bHQ+JiByZXN1bHRzLCBpbnQgbWluaW11bVJlYWRDb3VudCwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaW50IG1pbmltdW1MaWtlQ291bnQsIGludCBtaW5pbXVtQ29tbWVudENvdW50LAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpbnQgbWluaW11bUhvdFNjb3JlKTsKICBzdGF0aWMgZG91YmxlIGVzdGltYXRlSG90U2NvcmUoaW50IHJlYWROdW0sIGludCBsaWtlTnVtLCBpbnQgY29tbWVudE51bSk7CgogcHVibGljIHNsb3RzOgogIHZvaWQgc2VhcmNoS2V5d29yZHMoY29uc3QgUVN0cmluZyYgdGV4dCk7CiAgdm9pZCBjYW5jZWxTZWFyY2goKTsKCiBzaWduYWxzOgogIHZvaWQgc2VhcmNoU3RhcnRlZCgpOwogIHZvaWQgc2VhcmNoRmluaXNoZWQoY29uc3QgUVZlY3RvcjxLZXl3b3JkRGlzY292ZXJ5UmVzdWx0PiYgcmVzdWx0cyk7CiAgdm9pZCBsb2dNZXNzYWdlKGNvbnN0IFFTdHJpbmcmIG1lc3NhZ2UpOwoKIHByaXZhdGU6CiAgdm9pZCBzdGFydE5leHRLZXl3b3JkKCk7CiAgdm9pZCBmaW5pc2hTZWFyY2goKTsKICB2b2lkIGhhbmRsZVJlcGx5KFFOZXR3b3JrUmVwbHkqIHJlcGx5LCBjb25zdCBRU3RyaW5nJiBrZXl3b3JkKTsKCiAgUU5ldHdvcmtBY2Nlc3NNYW5hZ2VyIG5ldHdvcmtfOwogIFFTdHJpbmdMaXN0IHBlbmRpbmdLZXl3b3Jkc187CiAgUVZlY3RvcjxLZXl3b3JkRGlzY292ZXJ5UmVzdWx0PiByZXN1bHRzXzsKICBpbnQgbWF4UmVzdWx0c1BlcktleXdvcmRfID0gMTA7CiAgYm9vbCBzZWFyY2hpbmdfID0gZmFsc2U7Cn07Cg==
+#pragma once
+
+#include <QJsonObject>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QObject>
+#include <QString>
+#include <QStringList>
+#include <QVector>
+
+struct KeywordDiscoveryResult {
+  QString keyword;
+  QString title;
+  QString accountName;
+  QString category;
+  QString url;
+  int readNum = 0;
+  int likeNum = 0;
+  int commentNum = 0;
+  double hotScore = 0.0;
+};
+
+/**
+ * Keyword-first discovery module.
+ *
+ * This module does not depend on seed accounts. It creates lawful external search
+ * URLs for operator keywords and can import sanitized search-result JSON exported
+ * by a local adapter. The imported result URLs can then be appended to the ADB
+ * auto-ingestion queue.
+ */
+class KeywordDiscoveryController final : public QObject {
+  Q_OBJECT
+ public:
+  explicit KeywordDiscoveryController(QObject* parent = nullptr);
+
+  bool isSearching() const;
+  QVector<KeywordDiscoveryResult> results() const;
+  int maxResultsPerKeyword() const;
+  void setMaxResultsPerKeyword(int count);
+
+  static QStringList parseKeywords(const QString& text);
+  static bool matchesHotCriteria(const KeywordDiscoveryResult& result, int minimumReadCount,
+                                 int minimumLikeCount, int minimumCommentCount,
+                                 int minimumHotScore);
+  static QString searchUrlForKeyword(const QString& keyword);
+  static QVector<KeywordDiscoveryResult> parseResultsJson(const QByteArray& data, QString* errorMessage = nullptr);
+  static QVector<KeywordDiscoveryResult> parseSearchHtml(const QString& keyword, const QByteArray& html);
+  static QString resultsToQueueText(const QVector<KeywordDiscoveryResult>& results, int minimumReadCount);
+  static QString resultsToQueueText(const QVector<KeywordDiscoveryResult>& results, int minimumReadCount,
+                                    int minimumLikeCount, int minimumCommentCount,
+                                    int minimumHotScore);
+  static double estimateHotScore(int readNum, int likeNum, int commentNum);
+
+ public slots:
+  void searchKeywords(const QString& text);
+  void cancelSearch();
+
+ signals:
+  void searchStarted();
+  void searchFinished(const QVector<KeywordDiscoveryResult>& results);
+  void logMessage(const QString& message);
+
+ private:
+  void startNextKeyword();
+  void finishSearch();
+  void handleReply(QNetworkReply* reply, const QString& keyword);
+
+  QNetworkAccessManager network_;
+  QStringList pendingKeywords_;
+  QVector<KeywordDiscoveryResult> results_;
+  int maxResultsPerKeyword_ = 10;
+  bool searching_ = false;
+};

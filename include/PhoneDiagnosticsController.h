@@ -1,1 +1,102 @@
-I3ByYWdtYSBvbmNlCgojaW5jbHVkZSA8UUpzb25BcnJheT4KI2luY2x1ZGUgPFFKc29uT2JqZWN0PgojaW5jbHVkZSA8UU9iamVjdD4KI2luY2x1ZGUgPFFTdHJpbmc+CiNpbmNsdWRlIDxRU3RyaW5nTGlzdD4KI2luY2x1ZGUgPFFWZWN0b3I+CgovKioKICogQGJyaWVmIEEgc2luZ2xlIHBob25lL0FEQiBkaWFnbm9zdGljIHJlc3VsdC4KICogQGJyaWVmIOWNlemhueaJi+acui9BREIg6K+K5pat57uT5p6c44CCCiAqCiAqIEVuZ2xpc2g6IEVhY2ggaXRlbSBpcyBpbnRlbnRpb25hbGx5IHVzZXItZmFjaW5nOiBpdCBjb250YWlucyBhIHN0YWJsZSBpZCBmb3IKICogYXV0b21hdGlvbiwgYmlsaW5ndWFsLXJlYWR5IGxhYmVsL2RldGFpbHMvaGludHMgZnJvbSB0aGUgY2FsbGVyLCBhbmQgcmF3IGNvbW1hbmQKICogb3V0cHV0IGZvciBzdXBwb3J0LiBUaGlzIGF2b2lkcyB0aGUgY29tbW9uIOKAnEFEQiBmYWlsZWTigJ0gYmxhY2sgYm94LgogKiDkuK3mlofvvJrmr4/kuKror4rmlq3pobnpg73pnaLlkJHnlKjmiLflsZXnpLrvvJrnqLPlrpogaWQg5L6/5LqO6Ieq5Yqo5YyW77yMbGFiZWwvZGV0YWlscy9oaW50cyDlj6/nv7vor5HvvIwKICogcmF3T3V0cHV0IOS/neeVmeWOn+Wni+WRveS7pOi+k+WHuu+8jOmBv+WFjeeUqOaIt+WPqueci+WIsOKAnEFEQuWksei0peKAneWNtOS4jeefpemBk+WOn+WboOOAggogKi8Kc3RydWN0IFBob25lRGlhZ25vc3RpY0l0ZW0gewogIFFTdHJpbmcgaWQ7CiAgUVN0cmluZyBsYWJlbDsKICBRU3RyaW5nIHN0YXR1cyA9IFFTdHJpbmdMaXRlcmFsKCJ1bmtub3duIik7ICAvLyBwYXNzIC8gd2FybiAvIGZhaWwgLyB1bmtub3duCiAgUVN0cmluZyBkZXRhaWxzOwogIFFTdHJpbmcgZml4SGludDsKICBRU3RyaW5nIHJhd091dHB1dDsKfTsKCi8qKgogKiBAYnJpZWYgQSBkZXRlY3RlZCBBbmRyb2lkIGRldmljZSBmcm9tIGBhZGIgZGV2aWNlcyAtbGAuCiAqIEBicmllZiDku44gYGFkYiBkZXZpY2VzIC1sYCDop6PmnpDlh7rnmoTlronljZPorr7lpIfjgIIKICovCnN0cnVjdCBQaG9uZURldmljZUluZm8gewogIFFTdHJpbmcgc2VyaWFsOwogIFFTdHJpbmcgc3RhdGU7CiAgUVN0cmluZyBtb2RlbDsKICBRU3RyaW5nIHByb2R1Y3Q7CiAgUVN0cmluZyB0cmFuc3BvcnRJZDsKICBRU3RyaW5nIHJhd0xpbmU7Cn07CgovKioKICogQGJyaWVmIEZ1bGwgZGlhZ25vc3RpYyByZXBvcnQgZm9yIHBob25lIGF1dG8taW5nZXN0aW9uIHJlYWRpbmVzcy4KICogQGJyaWVmIOaJi+acuuiHquWKqOmHh+mbhuWwsee7queKtuaAgeeahOWujOaVtOiviuaWreaKpeWRiuOAggogKi8Kc3RydWN0IFBob25lRGlhZ25vc3RpY1JlcG9ydCB7CiAgUVN0cmluZyBvdmVyYWxsU3RhdHVzID0gUVN0cmluZ0xpdGVyYWwoInVua25vd24iKTsgIC8vIHJlYWR5IC8gd2FybmluZyAvIGJsb2NrZWQgLyB1bmtub3duCiAgUVN0cmluZyB0YXJnZXRTZXJpYWw7CiAgUVN0cmluZyBwbGF0Zm9ybTsKICBRVmVjdG9yPFBob25lRGV2aWNlSW5mbz4gZGV2aWNlczsKICBRVmVjdG9yPFBob25lRGlhZ25vc3RpY0l0ZW0+IGl0ZW1zOwp9OwoKLyoqCiAqIEBicmllZiBQaG9uZURpYWdub3N0aWNzQ29udHJvbGxlciBydW5zIFAwL1AxL1AyIGNoZWNrcyBmb3IgQURCLCBwaG9uZSwgcHJveHksIGFuZCBicmlkZ2UgcmVhZGluZXNzLgogKiBAYnJpZWYg5omL5py66K+K5pat5o6n5Yi25Zmo77ya5omn6KGMIFAwL1AxL1AyIOeahCBBRELjgIHmiYvmnLrjgIHku6PnkIbjgIHmnKzlnLDmoaXlsLHnu6rmo4DmtYvjgIIKICoKICogRW5nbGlzaCBkZXNpZ24gaW50ZW50OgogKiAtIFAwOiBtYWtlIHN1cmUgQURCIGV4aXN0cywgc2VydmVyIHN0YXJ0cywgYSB1c2FibGUgYXV0aG9yaXplZCBwaG9uZSBpcyBzZWxlY3RlZCwKICogICBzaGVsbCBjb21tYW5kcyB3b3JrLCBhbmQgYXJ0aWNsZSBVUkxzIGNhbiBiZSBvcGVuZWQuCiAqIC0gUDE6IGNoZWNrIGxvY2FsIHByb3h5IHBvcnQsIHBob25lLXRvLWNvbXB1dGVyIHJlYWNoYWJpbGl0eSBoaW50LCBhbmQgbG9jYWxob3N0CiAqICAgYnJpZGdlIHNtb2tlIHJlYWRpbmVzcy4KICogLSBQMjogZ2VuZXJhdGUgcGxhdGZvcm0tc3BlY2lmaWMgZHJpdmVyL3VkZXYgZ3VpZGFuY2UgYW5kIGV4cG9ydGFibGUgSlNPTiByZXBvcnQuCiAqCiAqIOS4reaWh+iuvuiuoeaEj+Wbvu+8mgogKiAtIFAw77ya56Gu6K6kIEFEQiDlrZjlnKjjgIHmnI3liqHlj6/lkK/liqjjgIHmnInmjojmnYPmiYvmnLrjgIFzaGVsbCDlj6/mjqfjgIHog73miZPlvIDmlofnq6Dpk77mjqXjgIIKICogLSBQMe+8muajgOafpeacrOWcsOS7o+eQhuerr+WPo+OAgeaJi+acuuiuv+mXrueUteiEkemTvui3r+aPkOekuuOAgeacrOWcsOahpeWGkueDn+iDveWKm+OAggogKiAtIFAy77ya55Sf5oiQ5oyJ5bmz5Y+w5Yy65YiG55qE6amx5YqoL3VkZXYg5L+u5aSN5bu66K6u77yM5bm25Y+v5a+85Ye6IEpTT04g6K+K5pat5oql5ZGK44CCCiAqLwpjbGFzcyBQaG9uZURpYWdub3N0aWNzQ29udHJvbGxlciBmaW5hbCA6IHB1YmxpYyBRT2JqZWN0IHsKICBRX09CSkVDVAogcHVibGljOgogIGV4cGxpY2l0IFBob25lRGlhZ25vc3RpY3NDb250cm9sbGVyKFFPYmplY3QqIHBhcmVudCA9IG51bGxwdHIpOwoKICBzdGF0aWMgUVN0cmluZyBjdXJyZW50UGxhdGZvcm1OYW1lKCk7CiAgc3RhdGljIFFWZWN0b3I8UGhvbmVEZXZpY2VJbmZvPiBwYXJzZUFkYkRldmljZXMoY29uc3QgUVN0cmluZyYgb3V0cHV0KTsKICBzdGF0aWMgUVN0cmluZyBkZXZpY2VTdW1tYXJ5KGNvbnN0IFBob25lRGV2aWNlSW5mbyYgZGV2aWNlKTsKICBzdGF0aWMgUUpzb25PYmplY3QgcmVwb3J0VG9Kc29uKGNvbnN0IFBob25lRGlhZ25vc3RpY1JlcG9ydCYgcmVwb3J0KTsKICBzdGF0aWMgUVN0cmluZyByZXBvcnRUb1RleHQoY29uc3QgUGhvbmVEaWFnbm9zdGljUmVwb3J0JiByZXBvcnQpOwogIHN0YXRpYyBib29sIGlzQ29yZVJlYWR5KGNvbnN0IFBob25lRGlhZ25vc3RpY1JlcG9ydCYgcmVwb3J0LCBRU3RyaW5nKiByZWFzb24gPSBudWxscHRyKTsKCiAgUGhvbmVEaWFnbm9zdGljUmVwb3J0IHJ1bkRpYWdub3N0aWNzKGNvbnN0IFFTdHJpbmcmIHByZWZlcnJlZFNlcmlhbCA9IFFTdHJpbmcoKSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcXVpbnQxNiBicmlkZ2VQb3J0ID0gOTAwMCwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcXVpbnQxNiBwcm94eVBvcnQgPSAwLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBib29sIGluY2x1ZGVMaW5rT3BlblRlc3QgPSBmYWxzZSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29uc3QgUVN0cmluZyYgdGVzdFVybCA9IFFTdHJpbmdMaXRlcmFsKCJodHRwczovL21wLndlaXhpbi5xcS5jb20vcy90ZXN0IikpOwoKIHNpZ25hbHM6CiAgdm9pZCBkaWFnbm9zdGljTG9nKGNvbnN0IFFTdHJpbmcmIG1lc3NhZ2UpOwoKIHByaXZhdGU6CiAgc3RhdGljIFBob25lRGlhZ25vc3RpY0l0ZW0gbWFrZUl0ZW0oY29uc3QgUVN0cmluZyYgaWQsIGNvbnN0IFFTdHJpbmcmIGxhYmVsLCBjb25zdCBRU3RyaW5nJiBzdGF0dXMsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29uc3QgUVN0cmluZyYgZGV0YWlscywgY29uc3QgUVN0cmluZyYgZml4SGludCwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb25zdCBRU3RyaW5nJiByYXdPdXRwdXQgPSBRU3RyaW5nKCkpOwogIHN0YXRpYyBRU3RyaW5nIHNlbGVjdGVkU2VyaWFsKGNvbnN0IFFWZWN0b3I8UGhvbmVEZXZpY2VJbmZvPiYgZGV2aWNlcywgY29uc3QgUVN0cmluZyYgcHJlZmVycmVkU2VyaWFsKTsKICBzdGF0aWMgUVN0cmluZyBhZGJFeGVjdXRhYmxlKCk7CiAgc3RhdGljIFFTdHJpbmdMaXN0IHNlcmlhbEFyZ3MoY29uc3QgUVN0cmluZyYgc2VyaWFsKTsKICBzdGF0aWMgUVN0cmluZyBydW5Qcm9jZXNzKGNvbnN0IFFTdHJpbmcmIHByb2dyYW0sIGNvbnN0IFFTdHJpbmdMaXN0JiBhcmdzLCBpbnQgdGltZW91dE1zLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgaW50KiBleGl0Q29kZSA9IG51bGxwdHIsIFFTdHJpbmcqIHN0ZEVyciA9IG51bGxwdHIpOwogIHN0YXRpYyBib29sIGNhbkNvbm5lY3RUb0xvY2FsUG9ydChxdWludDE2IHBvcnQsIGludCB0aW1lb3V0TXMsIFFTdHJpbmcqIGVycm9yTWVzc2FnZSA9IG51bGxwdHIpOwogIHN0YXRpYyBRU3RyaW5nIHBsYXRmb3JtRHJpdmVySGludCgpOwp9Owo=
+#pragma once
+
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QObject>
+#include <QString>
+#include <QStringList>
+#include <QVector>
+
+/**
+ * @brief A single phone/ADB diagnostic result.
+ * @brief 单项手机/ADB 诊断结果。
+ *
+ * English: Each item is intentionally user-facing: it contains a stable id for
+ * automation, bilingual-ready label/details/hints from the caller, and raw command
+ * output for support. This avoids the common “ADB failed” black box.
+ * 中文：每个诊断项都面向用户展示：稳定 id 便于自动化，label/details/hints 可翻译，
+ * rawOutput 保留原始命令输出，避免用户只看到“ADB失败”却不知道原因。
+ */
+struct PhoneDiagnosticItem {
+  QString id;
+  QString label;
+  QString status = QStringLiteral("unknown");  // pass / warn / fail / unknown
+  QString details;
+  QString fixHint;
+  QString rawOutput;
+};
+
+/**
+ * @brief A detected Android device from `adb devices -l`.
+ * @brief 从 `adb devices -l` 解析出的安卓设备。
+ */
+struct PhoneDeviceInfo {
+  QString serial;
+  QString state;
+  QString model;
+  QString product;
+  QString transportId;
+  QString rawLine;
+};
+
+/**
+ * @brief Full diagnostic report for phone auto-ingestion readiness.
+ * @brief 手机自动采集就绪状态的完整诊断报告。
+ */
+struct PhoneDiagnosticReport {
+  QString overallStatus = QStringLiteral("unknown");  // ready / warning / blocked / unknown
+  QString targetSerial;
+  QString platform;
+  QVector<PhoneDeviceInfo> devices;
+  QVector<PhoneDiagnosticItem> items;
+};
+
+/**
+ * @brief PhoneDiagnosticsController runs P0/P1/P2 checks for ADB, phone, proxy, and bridge readiness.
+ * @brief 手机诊断控制器：执行 P0/P1/P2 的 ADB、手机、代理、本地桥就绪检测。
+ *
+ * English design intent:
+ * - P0: make sure ADB exists, server starts, a usable authorized phone is selected,
+ *   shell commands work, and article URLs can be opened.
+ * - P1: check local proxy port, phone-to-computer reachability hint, and localhost
+ *   bridge smoke readiness.
+ * - P2: generate platform-specific driver/udev guidance and exportable JSON report.
+ *
+ * 中文设计意图：
+ * - P0：确认 ADB 存在、服务可启动、有授权手机、shell 可控、能打开文章链接。
+ * - P1：检查本地代理端口、手机访问电脑链路提示、本地桥冒烟能力。
+ * - P2：生成按平台区分的驱动/udev 修复建议，并可导出 JSON 诊断报告。
+ */
+class PhoneDiagnosticsController final : public QObject {
+  Q_OBJECT
+ public:
+  explicit PhoneDiagnosticsController(QObject* parent = nullptr);
+
+  static QString currentPlatformName();
+  static QVector<PhoneDeviceInfo> parseAdbDevices(const QString& output);
+  static QString deviceSummary(const PhoneDeviceInfo& device);
+  static QJsonObject reportToJson(const PhoneDiagnosticReport& report);
+  static QString reportToText(const PhoneDiagnosticReport& report);
+  static bool isCoreReady(const PhoneDiagnosticReport& report, QString* reason = nullptr);
+
+  PhoneDiagnosticReport runDiagnostics(const QString& preferredSerial = QString(),
+                                       quint16 bridgePort = 9000,
+                                       quint16 proxyPort = 0,
+                                       bool includeLinkOpenTest = false,
+                                       const QString& testUrl = QStringLiteral("https://mp.weixin.qq.com/s/test"));
+
+ signals:
+  void diagnosticLog(const QString& message);
+
+ private:
+  static PhoneDiagnosticItem makeItem(const QString& id, const QString& label, const QString& status,
+                                      const QString& details, const QString& fixHint,
+                                      const QString& rawOutput = QString());
+  static QString selectedSerial(const QVector<PhoneDeviceInfo>& devices, const QString& preferredSerial);
+  static QString adbExecutable();
+  static QStringList serialArgs(const QString& serial);
+  static QString runProcess(const QString& program, const QStringList& args, int timeoutMs,
+                            int* exitCode = nullptr, QString* stdErr = nullptr);
+  static bool canConnectToLocalPort(quint16 port, int timeoutMs, QString* errorMessage = nullptr);
+  static QString platformDriverHint();
+};

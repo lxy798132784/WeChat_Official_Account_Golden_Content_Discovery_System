@@ -1,1 +1,52 @@
-I3ByYWdtYSBvbmNlCgojaW5jbHVkZSA8UVdpZGdldD4KCiNpbmNsdWRlICJBcHBTZXR0aW5ncy5oIgojaW5jbHVkZSAiVWlUZXh0LmgiCgpjbGFzcyBRQ2hlY2tCb3g7CmNsYXNzIFFMYWJlbDsKY2xhc3MgUUxpbmVFZGl0OwpjbGFzcyBRUHVzaEJ1dHRvbjsKY2xhc3MgUVNwaW5Cb3g7CmNsYXNzIFFUZXh0RWRpdDsKCi8qKiBXaWRnZXQgZm9yIGxvY2FsIFdlQ2hhdCBpbmdlc3Rpb24gcnVudGltZSBzZXR0aW5ncyBhbmQgbG9ncy4gKi8KY2xhc3MgV2VDaGF0Q29uZmlnV2lkZ2V0IGZpbmFsIDogcHVibGljIFFXaWRnZXQgewogIFFfT0JKRUNUCiBwdWJsaWM6CiAgZXhwbGljaXQgV2VDaGF0Q29uZmlnV2lkZ2V0KFFXaWRnZXQqIHBhcmVudCA9IG51bGxwdHIpOwogIHF1aW50MTYgYnJpZGdlUG9ydCgpIGNvbnN0OwogIGJvb2wgYWRiQXV0b21hdGlvbkVuYWJsZWQoKSBjb25zdDsKICBRU3RyaW5nIGRhdGFiYXNlUGF0aCgpIGNvbnN0OwogIFFTdHJpbmcgcGx1Z2luRGlyZWN0b3J5KCkgY29uc3Q7CiAgYm9vbCBhdXRvTG9hZFNhbXBsZXMoKSBjb25zdDsKICBBcHBTZXR0aW5ncyBzZXR0aW5ncygpIGNvbnN0OwogIHZvaWQgc2V0U2V0dGluZ3MoY29uc3QgQXBwU2V0dGluZ3MmIHNldHRpbmdzKTsKICB2b2lkIGFwcGVuZExvZyhjb25zdCBRU3RyaW5nJiBtZXNzYWdlKTsKICB2b2lkIHNldExhbmd1YWdlKFVpTGFuZ3VhZ2UgbGFuZ3VhZ2UpOwoKIHNpZ25hbHM6CiAgdm9pZCBzZXR0aW5nc1NhdmVSZXF1ZXN0ZWQoY29uc3QgQXBwU2V0dGluZ3MmIHNldHRpbmdzKTsKICB2b2lkIHRlc3RCcmlkZ2VSZXF1ZXN0ZWQoKTsKICB2b2lkIGJyb3dzZURhdGFiYXNlUmVxdWVzdGVkKCk7CiAgdm9pZCBicm93c2VQbHVnaW5EaXJlY3RvcnlSZXF1ZXN0ZWQoKTsKCiBwcml2YXRlOgogIFVpTGFuZ3VhZ2UgbGFuZ3VhZ2VfID0gVWlMYW5ndWFnZTo6RW5nbGlzaDsKICBRTGFiZWwqIGRhdGFiYXNlTGFiZWxfID0gbnVsbHB0cjsKICBRTGFiZWwqIHBsdWdpbkxhYmVsXyA9IG51bGxwdHI7CiAgUUxhYmVsKiBwb3J0TGFiZWxfID0gbnVsbHB0cjsKICBRTGFiZWwqIGxvZ0xhYmVsXyA9IG51bGxwdHI7CiAgUUxpbmVFZGl0KiBkYXRhYmFzZVBhdGhFZGl0XyA9IG51bGxwdHI7CiAgUUxpbmVFZGl0KiBwbHVnaW5EaXJlY3RvcnlFZGl0XyA9IG51bGxwdHI7CiAgUVNwaW5Cb3gqIHBvcnRTcGluQm94XyA9IG51bGxwdHI7CiAgUUNoZWNrQm94KiBhZGJDaGVja0JveF8gPSBudWxscHRyOwogIFFDaGVja0JveCogc2FtcGxlQ2hlY2tCb3hfID0gbnVsbHB0cjsKICBRUHVzaEJ1dHRvbiogZGF0YWJhc2VCcm93c2VCdXR0b25fID0gbnVsbHB0cjsKICBRUHVzaEJ1dHRvbiogcGx1Z2luQnJvd3NlQnV0dG9uXyA9IG51bGxwdHI7CiAgUVB1c2hCdXR0b24qIHNhdmVCdXR0b25fID0gbnVsbHB0cjsKICBRUHVzaEJ1dHRvbiogdGVzdEJyaWRnZUJ1dHRvbl8gPSBudWxscHRyOwogIFFUZXh0RWRpdCogbG9nVmlld18gPSBudWxscHRyOwp9Owo=
+#pragma once
+
+#include <QWidget>
+
+#include "AppSettings.h"
+#include "UiText.h"
+
+class QCheckBox;
+class QLabel;
+class QLineEdit;
+class QPushButton;
+class QSpinBox;
+class QTextEdit;
+
+/** Widget for local WeChat ingestion runtime settings and logs. */
+class WeChatConfigWidget final : public QWidget {
+  Q_OBJECT
+ public:
+  explicit WeChatConfigWidget(QWidget* parent = nullptr);
+  quint16 bridgePort() const;
+  bool adbAutomationEnabled() const;
+  QString databasePath() const;
+  QString pluginDirectory() const;
+  bool autoLoadSamples() const;
+  AppSettings settings() const;
+  void setSettings(const AppSettings& settings);
+  void appendLog(const QString& message);
+  void setLanguage(UiLanguage language);
+
+ signals:
+  void settingsSaveRequested(const AppSettings& settings);
+  void testBridgeRequested();
+  void browseDatabaseRequested();
+  void browsePluginDirectoryRequested();
+
+ private:
+  UiLanguage language_ = UiLanguage::English;
+  QLabel* databaseLabel_ = nullptr;
+  QLabel* pluginLabel_ = nullptr;
+  QLabel* portLabel_ = nullptr;
+  QLabel* logLabel_ = nullptr;
+  QLineEdit* databasePathEdit_ = nullptr;
+  QLineEdit* pluginDirectoryEdit_ = nullptr;
+  QSpinBox* portSpinBox_ = nullptr;
+  QCheckBox* adbCheckBox_ = nullptr;
+  QCheckBox* sampleCheckBox_ = nullptr;
+  QPushButton* databaseBrowseButton_ = nullptr;
+  QPushButton* pluginBrowseButton_ = nullptr;
+  QPushButton* saveButton_ = nullptr;
+  QPushButton* testBridgeButton_ = nullptr;
+  QTextEdit* logView_ = nullptr;
+};

@@ -1,1 +1,89 @@
-IyBEZXZlbG9wZXIgR3VpZGUKCiMjIEFyY2hpdGVjdHVyZQoKUHJlbWl1bSBDb250ZW50IFJhZGFyIGlzIGEgUXQgV2lkZ2V0cyBhcHBsaWNhdGlvbiB3aXRoIGEgc291cmNlLWZpcnN0IENNYWtlIGxheW91dC4KCk1haW4gY29tcG9uZW50czoKCi0gYHByZW1pdW0tY29udGVudC1yYWRhcmA6IGRlc2t0b3AgaG9zdCBleGVjdXRhYmxlLgotIGByYWRhcl9jb3JlYDogc3RhdGljIGNvcmUgbGlicmFyeSBmb3IgcmVjb3Jkcywgc2NvcmluZywgc3RvcmFnZSwgc2V0dGluZ3MsIGV4cG9ydCwgcGx1Z2luIG1hbmFnZXIsIGFuZCBicmlkZ2UgaGVscGVycy4KLSBgV2VDaGF0UHJvdmlkZXJQbHVnaW5gOiBydW50aW1lIGNvbnRlbnQgcHJvdmlkZXIgbG9hZGVkIHRocm91Z2ggYFFQbHVnaW5Mb2FkZXJgLgotIGByYWRhcl90ZXN0c2A6IFF0IFRlc3Qgc3VpdGUgZm9yIHN0b3JhZ2UsIGV4cG9ydCwgc2NvcmluZywgYW5kIGJyaWRnZSBwYXJzaW5nLgoKIyMgRGF0YSBmbG93CgoxLiBUaGUgYXBwIGxvYWRzIHJ1bnRpbWUgc2V0dGluZ3MgZnJvbSBhIHVzZXIgY29uZmlnIEpTT04gZmlsZS4KMi4gVGhlIHBsdWdpbiBtYW5hZ2VyIHNjYW5zIHRoZSBjb25maWd1cmVkIHBsdWdpbiBkaXJlY3RvcnkuCjMuIFByb3ZpZGVycyBzdGFydCBhbmQgZXhwb3NlIHJlY29yZHMgdGhyb3VnaCBgZHJhaW5SZWNvcmRzKClgLgo0LiBSZWNvcmRzIGFyZSB3cml0dGVuIHRvIFNRTGl0ZSB3aXRoIFVSTC1iYXNlZCB1cHNlcnQgYmVoYXZpb3IuCjUuIFRoZSB0YWJsZSBpcyByZWZyZXNoZWQgdGhyb3VnaCBgUHJlbWl1bUNvbnRlbnRGaWx0ZXJQcm94eU1vZGVsYC4KNi4gRXhwb3J0cyBhcmUgZ2VuZXJhdGVkIGZyb20gZGF0YWJhc2UgcXVlcnkgcmVzdWx0cy4KCiMjIFJ1bnRpbWUgc2V0dGluZ3MKCmBBcHBTZXR0aW5nc0NvbnRyb2xsZXJgIG93bnMgZGVmYXVsdHMgYW5kIHBlcnNpc3RlbmNlLiBJdCBzdG9yZXM6CgotIFNRTGl0ZSBkYXRhYmFzZSBwYXRoLgotIFBsdWdpbiBkaXJlY3RvcnkuCi0gTG9jYWwgYnJpZGdlIHBvcnQuCi0gQURCIGF1dG9tYXRpb24gdG9nZ2xlLgotIFNhbXBsZS1kYXRhIHN0YXJ0dXAgdG9nZ2xlLgoKVGhlIFdlQ2hhdCBwcm92aWRlciBhbHNvIHJlYWRzOgoKLSBgUFJFTUlVTV9SQURBUl9CUklER0VfUE9SVGAuCi0gYFBSRU1JVU1fUkFEQVJfRU5BQkxFX0FEQmAuCgpUaGUgaG9zdCBzZXRzIHRoZXNlIGVudmlyb25tZW50IHZhcmlhYmxlcyBiZWZvcmUgbG9hZGluZyBwbHVnaW5zLgoKIyMgVGhyZWFkaW5nIG1vZGVsCgotIFVJIHdvcmsgcnVucyBvbiB0aGUgUXQgbWFpbiB0aHJlYWQuCi0gYFByb3h5VHJhZmZpY0JyaWRnZWAgdXNlcyBgUVRjcFNlcnZlcmAgb24gbG9jYWxob3N0IGFuZCBhIG11dGV4LXByb3RlY3RlZCBkb3VibGUgYnVmZmVyLgotIGBBZGJBdXRvbWF0aW9uRW5naW5lYCBpcyBhIGBRVGhyZWFkYCBhbmQgaXMgZGlzYWJsZWQgYnkgZGVmYXVsdC4KLSBEYXRhYmFzZSBvcGVyYXRpb25zIGFyZSBleGVjdXRlZCBieSB0aGUgaG9zdCB0aHJlYWQuCgojIyBCcmlkZ2UgcGFyc2VyIGNvbnRyYWN0CgpBY2NlcHRlZCBlbmRwb2ludHM6CgotIGAvbXAvZ2V0YXBwbXNnZXh0YAotIGAvbXAvYXBwbXNnX2NvbW1lbnRgCgpBY2NlcHRlZCBtZXRyaWMga2V5czoKCi0gYHJlYWRfbnVtYAotIGBsaWtlX251bWAKLSBgb2xkX2xpa2VfbnVtYAotIGBjb21tZW50X251bWAKLSBgY29tbWVudF9jb3VudGAKLSBuZXN0ZWQgYGFwcG1zZ3N0YXRgCi0gbmVzdGVkIGBjb21tZW50X2luZm9gCgpVbmtub3duIGVuZHBvaW50cyByZXR1cm4gbm8gcmVjb3JkLgoKIyMgVGVzdGluZwoKYGBgYmFzaAouL3NjcmlwdHMvdmVyaWZ5LWFsbC5zaApgYGAKClRoZSBnYXRlIHJ1bnM6CgotIENNYWtlIGNvbmZpZ3VyZSBhbmQgYnVpbGQuCi0gQ1Rlc3QuCi0gQXBwbGljYXRpb24gc2VsZi10ZXN0LgotIExvY2FsIGJyaWRnZSBzbW9rZSB0ZXN0LgotIFNjcmVlbnNob3QgZ2VuZXJhdGlvbi4KLSBTZWNyZXQgc2Nhbi4KLSBSZXF1aXJlbWVudCBhdWRpdC4KLSBEb2N1bWVudGF0aW9uIGxhbmd1YWdlIHNwbGl0IGF1ZGl0LgoKIyMgQ29kaW5nIGNvbnZlbnRpb25zCgotIFVzZSBDKysyMCBhbmQgUXQgaWRpb21zLgotIEtlZXAgcnVudGltZSBhcnRpZmFjdHMgb3V0IG9mIGdpdC4KLSBLZWVwIHVzZXItZmFjaW5nIEVuZ2xpc2ggZG9jcyBmcmVlIG9mIENoaW5lc2UgdGV4dC4KLSBLZWVwIENoaW5lc2UgZG9jcyB1bmRlciBgZG9jcy96aC1DTi9gLgotIERvIG5vdCBlbWJlZCBjcmVkZW50aWFscyBvciB0cmFmZmljIGNhcHR1cmVzLgo=
+# Developer Guide
+
+## Architecture
+
+Premium Content Radar is a Qt Widgets application with a source-first CMake layout.
+
+Main components:
+
+- `premium-content-radar`: desktop host executable.
+- `radar_core`: static core library for records, scoring, storage, settings, export, plugin manager, and bridge helpers.
+- `WeChatProviderPlugin`: runtime content provider loaded through `QPluginLoader`.
+- `radar_tests`: Qt Test suite for storage, export, scoring, and bridge parsing.
+
+## Data flow
+
+1. The app loads runtime settings from a user config JSON file.
+2. The plugin manager scans the configured plugin directory.
+3. Providers start and expose records through `drainRecords()`.
+4. Records are written to SQLite with URL-based upsert behavior.
+5. The table is refreshed through `PremiumContentFilterProxyModel`.
+6. Exports are generated from database query results.
+
+## Runtime settings
+
+`AppSettingsController` owns defaults and persistence. It stores:
+
+- SQLite database path.
+- Plugin directory.
+- Local bridge port.
+- ADB automation toggle.
+- Sample-data startup toggle.
+
+The WeChat provider also reads:
+
+- `PREMIUM_RADAR_BRIDGE_PORT`.
+- `PREMIUM_RADAR_ENABLE_ADB`.
+
+The host sets these environment variables before loading plugins.
+
+## Threading model
+
+- UI work runs on the Qt main thread.
+- `ProxyTrafficBridge` uses `QTcpServer` on localhost and a mutex-protected double buffer.
+- `AdbAutomationEngine` is a `QThread` and is disabled by default.
+- Database operations are executed by the host thread.
+
+## Bridge parser contract
+
+Accepted endpoints:
+
+- `/mp/getappmsgext`
+- `/mp/appmsg_comment`
+
+Accepted metric keys:
+
+- `read_num`
+- `like_num`
+- `old_like_num`
+- `comment_num`
+- `comment_count`
+- nested `appmsgstat`
+- nested `comment_info`
+
+Unknown endpoints return no record.
+
+## Testing
+
+```bash
+./scripts/verify-all.sh
+```
+
+The gate runs:
+
+- CMake configure and build.
+- CTest.
+- Application self-test.
+- Local bridge smoke test.
+- Screenshot generation.
+- Secret scan.
+- Requirement audit.
+- Documentation language split audit.
+
+## Coding conventions
+
+- Use C++20 and Qt idioms.
+- Keep runtime artifacts out of git.
+- Keep user-facing English docs free of Chinese text.
+- Keep Chinese docs under `docs/zh-CN/`.
+- Do not embed credentials or traffic captures.

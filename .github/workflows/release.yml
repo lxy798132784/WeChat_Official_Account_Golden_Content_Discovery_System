@@ -1,1 +1,90 @@
-bmFtZTogcmVsZWFzZQpvbjoKICBwdXNoOgogICAgdGFnczoKICAgICAgLSAndionCiAgd29ya2Zsb3dfZGlzcGF0Y2g6CiAgICBpbnB1dHM6CiAgICAgIHZlcnNpb246CiAgICAgICAgZGVzY3JpcHRpb246ICdSZWxlYXNlIHZlcnNpb24gd2l0aG91dCB2IHByZWZpeCcKICAgICAgICByZXF1aXJlZDogdHJ1ZQogICAgICAgIGRlZmF1bHQ6ICcxLjAuMScKcGVybWlzc2lvbnM6CiAgY29udGVudHM6IHdyaXRlCmpvYnM6CiAgbGludXgtcGFja2FnZToKICAgIG5hbWU6IExpbnV4IHBhY2thZ2UgKCR7eyBtYXRyaXgucGxhdGZvcm0gfX0pCiAgICBzdHJhdGVneToKICAgICAgZmFpbC1mYXN0OiBmYWxzZQogICAgICBtYXRyaXg6CiAgICAgICAgaW5jbHVkZToKICAgICAgICAgIC0gcnVubmVyOiB1YnVudHUtMjQuMDQKICAgICAgICAgICAgcGxhdGZvcm06IGxpbnV4LWFtZDY0CiAgICAgICAgICAtIHJ1bm5lcjogdWJ1bnR1LTI0LjA0LWFybQogICAgICAgICAgICBwbGF0Zm9ybTogbGludXgtYXJtNjQKICAgIHJ1bnMtb246ICR7eyBtYXRyaXgucnVubmVyIH19CiAgICBzdGVwczoKICAgICAgLSB1c2VzOiBhY3Rpb25zL2NoZWNrb3V0QHY0CiAgICAgIC0gbmFtZTogSW5zdGFsbCBkZXBlbmRlbmNpZXMKICAgICAgICBydW46IHN1ZG8gYXB0LWdldCB1cGRhdGUgJiYgc3VkbyBhcHQtZ2V0IGluc3RhbGwgLXkgY21ha2UgZysrIHF0Ni1iYXNlLWRldiBxdDYtdG9vbHMtZGV2IGxpYnF0NnNxbDYtc3FsaXRlIGxpYmdsMS1tZXNhLWRldiBsaWJ4a2Jjb21tb24tZGV2IHppcAogICAgICAtIG5hbWU6IFBhY2thZ2UgTGludXgKICAgICAgICBydW46IHwKICAgICAgICAgIFZFUlNJT049JHt7IGdpdGh1Yi5ldmVudC5pbnB1dHMudmVyc2lvbiB8fCBnaXRodWIucmVmX25hbWUgfX0KICAgICAgICAgIFZFUlNJT049JHtWRVJTSU9OI3Z9CiAgICAgICAgICBWRVJTSU9OPSRWRVJTSU9OIEpPQlM9MiAuL3NjcmlwdHMvcGFja2FnZS1saW51eC5zaAogICAgICAtIG5hbWU6IFVwbG9hZCBMaW51eCBwYWNrYWdlIGFydGlmYWN0CiAgICAgICAgdXNlczogYWN0aW9ucy91cGxvYWQtYXJ0aWZhY3RAdjQKICAgICAgICB3aXRoOgogICAgICAgICAgbmFtZTogcHJlbWl1bS1jb250ZW50LXJhZGFyLSR7eyBtYXRyaXgucGxhdGZvcm0gfX0KICAgICAgICAgIHBhdGg6IGRpc3QvJHt7IG1hdHJpeC5wbGF0Zm9ybSB9fS8qCgogIHdpbmRvd3MtcGFja2FnZToKICAgIG5hbWU6IFdpbmRvd3MgcGFja2FnZSAod2luZG93cy14NjQpCiAgICBydW5zLW9uOiB3aW5kb3dzLTIwMjIKICAgIHN0ZXBzOgogICAgICAtIHVzZXM6IGFjdGlvbnMvY2hlY2tvdXRAdjQKICAgICAgLSBuYW1lOiBJbnN0YWxsIFF0CiAgICAgICAgdXNlczoganVycGxlbC9pbnN0YWxsLXF0LWFjdGlvbkB2NAogICAgICAgIHdpdGg6CiAgICAgICAgICB2ZXJzaW9uOiAnNi42LjMnCiAgICAgICAgICBhcmNoOiB3aW42NF9tc3ZjMjAxOV82NAogICAgICAgICAgY2FjaGU6IHRydWUKICAgICAgLSBuYW1lOiBDb25maWd1cmUgTVNWQwogICAgICAgIHVzZXM6IGlsYW1teS9tc3ZjLWRldi1jbWRAdjEKICAgICAgLSBuYW1lOiBQYWNrYWdlIFdpbmRvd3MKICAgICAgICBzaGVsbDogcHdzaAogICAgICAgIHJ1bjogfAogICAgICAgICAgJHZlcnNpb24gPSAiJHt7IGdpdGh1Yi5ldmVudC5pbnB1dHMudmVyc2lvbiB8fCBnaXRodWIucmVmX25hbWUgfX0iCiAgICAgICAgICAkdmVyc2lvbiA9ICR2ZXJzaW9uLlRyaW1TdGFydCgidiIpCiAgICAgICAgICAkZW52OlZFUlNJT04gPSAkdmVyc2lvbgogICAgICAgICAgLlxzY3JpcHRzXHBhY2thZ2Utd2luZG93cy5wczEKICAgICAgLSBuYW1lOiBVcGxvYWQgV2luZG93cyBwYWNrYWdlIGFydGlmYWN0CiAgICAgICAgdXNlczogYWN0aW9ucy91cGxvYWQtYXJ0aWZhY3RAdjQKICAgICAgICB3aXRoOgogICAgICAgICAgbmFtZTogcHJlbWl1bS1jb250ZW50LXJhZGFyLXdpbmRvd3MteDY0CiAgICAgICAgICBwYXRoOiBkaXN0L3dpbmRvd3MteDY0LyoKCiAgcmVsZWFzZToKICAgIG5hbWU6IFB1Ymxpc2ggR2l0SHViIFJlbGVhc2UKICAgIG5lZWRzOiBbbGludXgtcGFja2FnZSwgd2luZG93cy1wYWNrYWdlXQogICAgcnVucy1vbjogdWJ1bnR1LTI0LjA0CiAgICBzdGVwczoKICAgICAgLSB1c2VzOiBhY3Rpb25zL2NoZWNrb3V0QHY0CiAgICAgIC0gbmFtZTogRG93bmxvYWQgcGFja2FnZSBhcnRpZmFjdHMKICAgICAgICB1c2VzOiBhY3Rpb25zL2Rvd25sb2FkLWFydGlmYWN0QHY0CiAgICAgICAgd2l0aDoKICAgICAgICAgIHBhdGg6IGRpc3QvYXJ0aWZhY3RzCiAgICAgIC0gbmFtZTogU291cmNlLCBkb2NzLCBhbmQgY2hlY2tzdW1zCiAgICAgICAgcnVuOiB8CiAgICAgICAgICBWRVJTSU9OPSR7eyBnaXRodWIuZXZlbnQuaW5wdXRzLnZlcnNpb24gfHwgZ2l0aHViLnJlZl9uYW1lIH19CiAgICAgICAgICBWRVJTSU9OPSR7VkVSU0lPTiN2fQogICAgICAgICAgbWtkaXIgLXAgZGlzdC9yZWxlYXNlCiAgICAgICAgICBnaXQgYXJjaGl2ZSAtLWZvcm1hdD10YXIuZ3ogLS1wcmVmaXg9cHJlbWl1bS1jb250ZW50LXJhZGFyLSRWRVJTSU9OLXNvdXJjZS8gSEVBRCA+IGRpc3QvcmVsZWFzZS9wcmVtaXVtLWNvbnRlbnQtcmFkYXItJFZFUlNJT04tc291cmNlLnRhci5negogICAgICAgICAgZ2l0IGFyY2hpdmUgLS1mb3JtYXQ9emlwIC0tcHJlZml4PXByZW1pdW0tY29udGVudC1yYWRhci0kVkVSU0lPTi1zb3VyY2UvIEhFQUQgPiBkaXN0L3JlbGVhc2UvcHJlbWl1bS1jb250ZW50LXJhZGFyLSRWRVJTSU9OLXNvdXJjZS56aXAKICAgICAgICAgIHppcCAtciBkaXN0L3JlbGVhc2UvcHJlbWl1bS1jb250ZW50LXJhZGFyLSRWRVJTSU9OLWRvY3MuemlwIFJFQURNRS5tZCBkb2NzIExJQ0VOU0UgQ09OVFJJQlVUSU5HLm1kIFNFQ1VSSVRZLm1kIENPREVfT0ZfQ09ORFVDVC5tZCBDSEFOR0VMT0cubWQKICAgICAgICAgIGZpbmQgZGlzdC9hcnRpZmFjdHMgLXR5cGUgZiBcKCAtbmFtZSAnKi50YXIuZ3onIC1vIC1uYW1lICcqLnppcCcgLW8gLW5hbWUgJ1NIQTI1NlNVTVMqJyBcKSAtZXhlYyBjcCB7fSBkaXN0L3JlbGVhc2UvIFw7CiAgICAgICAgICAoY2QgZGlzdC9yZWxlYXNlICYmIHNoYTI1NnN1bSAqID4gU0hBMjU2U1VNUykKICAgICAgLSB1c2VzOiBzb2Z0cHJvcHMvYWN0aW9uLWdoLXJlbGVhc2VAdjIKICAgICAgICB3aXRoOgogICAgICAgICAgZmlsZXM6IGRpc3QvcmVsZWFzZS8qCiAgICAgICAgICBnZW5lcmF0ZV9yZWxlYXNlX25vdGVzOiB0cnVlCg==
+name: release
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version without v prefix'
+        required: true
+        default: '1.0.1'
+permissions:
+  contents: write
+jobs:
+  linux-package:
+    name: Linux package (${{ matrix.platform }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            platform: linux-amd64
+          - runner: ubuntu-24.04-arm
+            platform: linux-arm64
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y cmake g++ qt6-base-dev qt6-tools-dev libqt6sql6-sqlite libgl1-mesa-dev libxkbcommon-dev zip
+      - name: Package Linux
+        run: |
+          VERSION=${{ github.event.inputs.version || github.ref_name }}
+          VERSION=${VERSION#v}
+          VERSION=$VERSION JOBS=2 ./scripts/package-linux.sh
+      - name: Upload Linux package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: premium-content-radar-${{ matrix.platform }}
+          path: dist/${{ matrix.platform }}/*
+
+  windows-package:
+    name: Windows package (windows-x64)
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.6.3'
+          arch: win64_msvc2019_64
+          cache: true
+      - name: Configure MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+      - name: Package Windows
+        shell: pwsh
+        run: |
+          $version = "${{ github.event.inputs.version || github.ref_name }}"
+          $version = $version.TrimStart("v")
+          $env:VERSION = $version
+          .\scripts\package-windows.ps1
+      - name: Upload Windows package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: premium-content-radar-windows-x64
+          path: dist/windows-x64/*
+
+  release:
+    name: Publish GitHub Release
+    needs: [linux-package, windows-package]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download package artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist/artifacts
+      - name: Source, docs, and checksums
+        run: |
+          VERSION=${{ github.event.inputs.version || github.ref_name }}
+          VERSION=${VERSION#v}
+          mkdir -p dist/release
+          git archive --format=tar.gz --prefix=premium-content-radar-$VERSION-source/ HEAD > dist/release/premium-content-radar-$VERSION-source.tar.gz
+          git archive --format=zip --prefix=premium-content-radar-$VERSION-source/ HEAD > dist/release/premium-content-radar-$VERSION-source.zip
+          zip -r dist/release/premium-content-radar-$VERSION-docs.zip README.md docs LICENSE CONTRIBUTING.md SECURITY.md CODE_OF_CONDUCT.md CHANGELOG.md
+          find dist/artifacts -type f \( -name '*.tar.gz' -o -name '*.zip' -o -name 'SHA256SUMS*' \) -exec cp {} dist/release/ \;
+          (cd dist/release && sha256sum * > SHA256SUMS)
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: dist/release/*
+          generate_release_notes: true

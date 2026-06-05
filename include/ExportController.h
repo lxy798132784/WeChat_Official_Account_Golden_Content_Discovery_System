@@ -1,1 +1,21 @@
-I3ByYWdtYSBvbmNlCgojaW5jbHVkZSA8UVZlY3Rvcj4KCiNpbmNsdWRlICJjb250ZW50X3JlY29yZC5oIgoKLyoqCiAqIEBicmllZiDlr7zlh7rmjqfliLblmaggLyBFeHBvcnQgY29udHJvbGxlcgogKgogKiBAZGV0YWlscyDlsIbmlofnq6Dlkoznp43lrZDmsaDlr7zlh7rkuLogQ1NWIOaIliBKU09OIOaWh+S7tuOAggogKiBFeHBvcnRzIGFydGljbGVzIGFuZCBzZWVkcyB0byBDU1Ygb3IgSlNPTiBmaWxlcy4KICovCmNsYXNzIEV4cG9ydENvbnRyb2xsZXIgZmluYWwgewogcHVibGljOgogIHN0YXRpYyBib29sIGV4cG9ydEFydGljbGVzQ3N2KGNvbnN0IFFWZWN0b3I8Q29udGVudFJlY29yZD4mIHJlY29yZHMsIGNvbnN0IFFTdHJpbmcmIHBhdGgsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUVN0cmluZyogZXJyb3JNZXNzYWdlID0gbnVsbHB0cik7CiAgc3RhdGljIGJvb2wgZXhwb3J0QXJ0aWNsZXNKc29uKGNvbnN0IFFWZWN0b3I8Q29udGVudFJlY29yZD4mIHJlY29yZHMsIGNvbnN0IFFTdHJpbmcmIHBhdGgsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFFTdHJpbmcqIGVycm9yTWVzc2FnZSA9IG51bGxwdHIpOwogIHN0YXRpYyBib29sIGV4cG9ydFNlZWRzQ3N2KGNvbnN0IFFWZWN0b3I8U2VlZFJlY29yZD4mIHJlY29yZHMsIGNvbnN0IFFTdHJpbmcmIHBhdGgsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUVN0cmluZyogZXJyb3JNZXNzYWdlID0gbnVsbHB0cik7Cn07Cg==
+#pragma once
+
+#include <QVector>
+
+#include "content_record.h"
+
+/**
+ * @brief 导出控制器 / Export controller
+ *
+ * @details 将文章和种子池导出为 CSV 或 JSON 文件。
+ * Exports articles and seeds to CSV or JSON files.
+ */
+class ExportController final {
+ public:
+  static bool exportArticlesCsv(const QVector<ContentRecord>& records, const QString& path,
+                                QString* errorMessage = nullptr);
+  static bool exportArticlesJson(const QVector<ContentRecord>& records, const QString& path,
+                                 QString* errorMessage = nullptr);
+  static bool exportSeedsCsv(const QVector<SeedRecord>& records, const QString& path,
+                             QString* errorMessage = nullptr);
+};

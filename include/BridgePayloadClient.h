@@ -1,1 +1,11 @@
-I3ByYWdtYSBvbmNlCgojaW5jbHVkZSA8UVN0cmluZz4KCmNsYXNzIEJyaWRnZVBheWxvYWRDbGllbnQgZmluYWwgewogcHVibGljOgogIHN0YXRpYyBib29sIHNlbmRQYXlsb2FkKGNvbnN0IFFTdHJpbmcmIGhvc3QsIHF1aW50MTYgcG9ydCwgY29uc3QgUUJ5dGVBcnJheSYgcGF5bG9hZCwKICAgICAgICAgICAgICAgICAgICAgICAgICBRU3RyaW5nKiBlcnJvck1lc3NhZ2UgPSBudWxscHRyKTsKICBzdGF0aWMgUUJ5dGVBcnJheSBzYW1wbGVNZXRyaWNzUGF5bG9hZCgpOwogIHN0YXRpYyBRQnl0ZUFycmF5IHNhbXBsZUNvbW1lbnRQYXlsb2FkKCk7Cn07Cg==
+#pragma once
+
+#include <QString>
+
+class BridgePayloadClient final {
+ public:
+  static bool sendPayload(const QString& host, quint16 port, const QByteArray& payload,
+                          QString* errorMessage = nullptr);
+  static QByteArray sampleMetricsPayload();
+  static QByteArray sampleCommentPayload();
+};

@@ -1,1 +1,51 @@
-I3ByYWdtYSBvbmNlCgojaW5jbHVkZSA8UVN0YW5kYXJkSXRlbU1vZGVsPgojaW5jbHVkZSA8UVdpZGdldD4KCiNpbmNsdWRlICJVaVRleHQuaCIKI2luY2x1ZGUgImNvbnRlbnRfcmVjb3JkLmgiCgpjbGFzcyBRTGFiZWw7CmNsYXNzIFFMaW5lRWRpdDsKY2xhc3MgUUNvbWJvQm94OwpjbGFzcyBRUHVzaEJ1dHRvbjsKY2xhc3MgUVRhYmxlVmlldzsKCi8qKgogKiBAYnJpZWYg56eN5a2Q5rGg566h55CG57uE5Lu2IC8gU2VlZCBwb29sIG1hbmFnZXIgd2lkZ2V0CiAqLwpjbGFzcyBTZWVkTWFuYWdlcldpZGdldCBmaW5hbCA6IHB1YmxpYyBRV2lkZ2V0IHsKICBRX09CSkVDVAogcHVibGljOgogIGV4cGxpY2l0IFNlZWRNYW5hZ2VyV2lkZ2V0KFFXaWRnZXQqIHBhcmVudCA9IG51bGxwdHIpOwogIHZvaWQgc2V0U2VlZHMoY29uc3QgUVZlY3RvcjxTZWVkUmVjb3JkPiYgc2VlZHMpOwogIFFTdHJpbmcgc2VsZWN0ZWRHemhJZCgpIGNvbnN0OwogIHZvaWQgc2V0TGFuZ3VhZ2UoVWlMYW5ndWFnZSBsYW5ndWFnZSk7Cgogc2lnbmFsczoKICB2b2lkIGFkZFNlZWRSZXF1ZXN0ZWQoY29uc3QgUVN0cmluZyYgZ3poSWQsIGNvbnN0IFFTdHJpbmcmIG5hbWUsIGNvbnN0IFFTdHJpbmcmIGNhdGVnb3J5KTsKICB2b2lkIHJlbW92ZVNlZWRSZXF1ZXN0ZWQoY29uc3QgUVN0cmluZyYgZ3poSWQpOwogIHZvaWQgZXhwb3J0U2VlZHNSZXF1ZXN0ZWQoKTsKCiBwcml2YXRlIHNsb3RzOgogIHZvaWQgZW1pdEFkZFNlZWQoKTsKICB2b2lkIGVtaXRSZW1vdmVTZWVkKCk7CgogcHJpdmF0ZToKICB2b2lkIGFwcGx5SGVhZGVycygpOwogIHZvaWQgcmVidWlsZENhdGVnb3JpZXMoKTsKCiAgVWlMYW5ndWFnZSBsYW5ndWFnZV8gPSBVaUxhbmd1YWdlOjpFbmdsaXNoOwogIFFMYWJlbCogZ3poSWRMYWJlbF8gPSBudWxscHRyOwogIFFMYWJlbCogbmFtZUxhYmVsXyA9IG51bGxwdHI7CiAgUUxhYmVsKiBjYXRlZ29yeUxhYmVsXyA9IG51bGxwdHI7CiAgUUxpbmVFZGl0KiBnemhJZEVkaXRfID0gbnVsbHB0cjsKICBRTGluZUVkaXQqIG5hbWVFZGl0XyA9IG51bGxwdHI7CiAgUUNvbWJvQm94KiBjYXRlZ29yeUNvbWJvXyA9IG51bGxwdHI7CiAgUVB1c2hCdXR0b24qIGFkZEJ1dHRvbl8gPSBudWxscHRyOwogIFFQdXNoQnV0dG9uKiByZW1vdmVCdXR0b25fID0gbnVsbHB0cjsKICBRUHVzaEJ1dHRvbiogZXhwb3J0QnV0dG9uXyA9IG51bGxwdHI7CiAgUVRhYmxlVmlldyogdGFibGVfID0gbnVsbHB0cjsKICBRU3RhbmRhcmRJdGVtTW9kZWwqIG1vZGVsXyA9IG51bGxwdHI7Cn07Cg==
+#pragma once
+
+#include <QStandardItemModel>
+#include <QWidget>
+
+#include "UiText.h"
+#include "content_record.h"
+
+class QLabel;
+class QLineEdit;
+class QComboBox;
+class QPushButton;
+class QTableView;
+
+/**
+ * @brief 种子池管理组件 / Seed pool manager widget
+ */
+class SeedManagerWidget final : public QWidget {
+  Q_OBJECT
+ public:
+  explicit SeedManagerWidget(QWidget* parent = nullptr);
+  void setSeeds(const QVector<SeedRecord>& seeds);
+  QString selectedGzhId() const;
+  void setLanguage(UiLanguage language);
+
+ signals:
+  void addSeedRequested(const QString& gzhId, const QString& name, const QString& category);
+  void removeSeedRequested(const QString& gzhId);
+  void exportSeedsRequested();
+
+ private slots:
+  void emitAddSeed();
+  void emitRemoveSeed();
+
+ private:
+  void applyHeaders();
+  void rebuildCategories();
+
+  UiLanguage language_ = UiLanguage::English;
+  QLabel* gzhIdLabel_ = nullptr;
+  QLabel* nameLabel_ = nullptr;
+  QLabel* categoryLabel_ = nullptr;
+  QLineEdit* gzhIdEdit_ = nullptr;
+  QLineEdit* nameEdit_ = nullptr;
+  QComboBox* categoryCombo_ = nullptr;
+  QPushButton* addButton_ = nullptr;
+  QPushButton* removeButton_ = nullptr;
+  QPushButton* exportButton_ = nullptr;
+  QTableView* table_ = nullptr;
+  QStandardItemModel* model_ = nullptr;
+};

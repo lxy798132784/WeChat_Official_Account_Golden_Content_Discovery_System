@@ -1,1 +1,45 @@
-I2luY2x1ZGUgIlBsdWdpbk1hbmFnZXIuaCIKCiNpbmNsdWRlIDxRQ29yZUFwcGxpY2F0aW9uPgojaW5jbHVkZSA8UUZpbGVJbmZvPgoKUGx1Z2luTWFuYWdlcjo6UGx1Z2luTWFuYWdlcihRT2JqZWN0KiBwYXJlbnQpIDogUU9iamVjdChwYXJlbnQpIHt9CgppbnQgUGx1Z2luTWFuYWdlcjo6bG9hZEZyb21EaXJlY3RvcnkoY29uc3QgUVN0cmluZyYgZGlyZWN0b3J5UGF0aCkgewogIFFEaXIgZGlyZWN0b3J5KGRpcmVjdG9yeVBhdGgpOwogIGlmICghZGlyZWN0b3J5LmV4aXN0cygpKSB7CiAgICBsb2dMaW5lc18uYXBwZW5kKFFTdHJpbmdMaXRlcmFsKCJQbHVnaW4gZGlyZWN0b3J5IG5vdCBmb3VuZDogJTEiKS5hcmcoZGlyZWN0b3J5UGF0aCkpOwogICAgcmV0dXJuIHByb3ZpZGVyc18uc2l6ZSgpOwogIH0KCiAgY29uc3QgUVN0cmluZ0xpc3QgZW50cmllcyA9IGRpcmVjdG9yeS5lbnRyeUxpc3QoUURpcjo6RmlsZXMgfCBRRGlyOjpOb0RvdEFuZERvdERvdCk7CiAgZm9yIChjb25zdCBRU3RyaW5nJiBlbnRyeSA6IGVudHJpZXMpIHsKICAgIGNvbnN0IFFTdHJpbmcgYWJzb2x1dGVQYXRoID0gZGlyZWN0b3J5LmFic29sdXRlRmlsZVBhdGgoZW50cnkpOwogICAgYXV0byBsb2FkZXIgPSBzdGQ6Om1ha2VfdW5pcXVlPFFQbHVnaW5Mb2FkZXI+KGFic29sdXRlUGF0aCk7CiAgICBRT2JqZWN0KiBpbnN0YW5jZSA9IGxvYWRlci0+aW5zdGFuY2UoKTsKICAgIGlmIChpbnN0YW5jZSA9PSBudWxscHRyKSB7CiAgICAgIGxvZ0xpbmVzXy5hcHBlbmQoUVN0cmluZ0xpdGVyYWwoIlNraXBwZWQgJTE6ICUyIikuYXJnKGVudHJ5LCBsb2FkZXItPmVycm9yU3RyaW5nKCkpKTsKICAgICAgY29udGludWU7CiAgICB9CgogICAgYXV0byogcHJvdmlkZXIgPSBxb2JqZWN0X2Nhc3Q8SUNvbnRlbnRQcm92aWRlcio+KGluc3RhbmNlKTsKICAgIGlmIChwcm92aWRlciA9PSBudWxscHRyKSB7CiAgICAgIGxvZ0xpbmVzXy5hcHBlbmQoUVN0cmluZ0xpdGVyYWwoIlNraXBwZWQgJTE6IGludGVyZmFjZSBtaXNtYXRjaCIpLmFyZyhlbnRyeSkpOwogICAgICBsb2FkZXItPnVubG9hZCgpOwogICAgICBjb250aW51ZTsKICAgIH0KCiAgICBwcm92aWRlcnNfLmFwcGVuZChwcm92aWRlcik7CiAgICBsb2dMaW5lc18uYXBwZW5kKFFTdHJpbmdMaXRlcmFsKCJMb2FkZWQgJTEgKCUyKSIpLmFyZyhwcm92aWRlci0+ZGlzcGxheU5hbWUoKSwgcHJvdmlkZXItPnByb3ZpZGVySWQoKSkpOwogICAgbG9hZGVyc18ucHVzaF9iYWNrKHN0ZDo6bW92ZShsb2FkZXIpKTsKICB9CiAgcmV0dXJuIHByb3ZpZGVyc18uc2l6ZSgpOwp9CgpRVmVjdG9yPElDb250ZW50UHJvdmlkZXIqPiBQbHVnaW5NYW5hZ2VyOjpwcm92aWRlcnMoKSBjb25zdCB7CiAgcmV0dXJuIHByb3ZpZGVyc187Cn0KClFTdHJpbmdMaXN0IFBsdWdpbk1hbmFnZXI6OmxvZ0xpbmVzKCkgY29uc3QgewogIHJldHVybiBsb2dMaW5lc187Cn0K
+#include "PluginManager.h"
+
+#include <QCoreApplication>
+#include <QFileInfo>
+
+PluginManager::PluginManager(QObject* parent) : QObject(parent) {}
+
+int PluginManager::loadFromDirectory(const QString& directoryPath) {
+  QDir directory(directoryPath);
+  if (!directory.exists()) {
+    logLines_.append(QStringLiteral("Plugin directory not found: %1").arg(directoryPath));
+    return providers_.size();
+  }
+
+  const QStringList entries = directory.entryList(QDir::Files | QDir::NoDotAndDotDot);
+  for (const QString& entry : entries) {
+    const QString absolutePath = directory.absoluteFilePath(entry);
+    auto loader = std::make_unique<QPluginLoader>(absolutePath);
+    QObject* instance = loader->instance();
+    if (instance == nullptr) {
+      logLines_.append(QStringLiteral("Skipped %1: %2").arg(entry, loader->errorString()));
+      continue;
+    }
+
+    auto* provider = qobject_cast<IContentProvider*>(instance);
+    if (provider == nullptr) {
+      logLines_.append(QStringLiteral("Skipped %1: interface mismatch").arg(entry));
+      loader->unload();
+      continue;
+    }
+
+    providers_.append(provider);
+    logLines_.append(QStringLiteral("Loaded %1 (%2)").arg(provider->displayName(), provider->providerId()));
+    loaders_.push_back(std::move(loader));
+  }
+  return providers_.size();
+}
+
+QVector<IContentProvider*> PluginManager::providers() const {
+  return providers_;
+}
+
+QStringList PluginManager::logLines() const {
+  return logLines_;
+}

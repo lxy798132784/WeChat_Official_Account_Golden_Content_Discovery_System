@@ -1,1 +1,88 @@
-I2luY2x1ZGUgIkRhdGFWaWV3ZXJXaWRnZXQuaCIKCiNpbmNsdWRlIDxRSGVhZGVyVmlldz4KI2luY2x1ZGUgPFFJdGVtU2VsZWN0aW9uTW9kZWw+CiNpbmNsdWRlIDxRU3RhbmRhcmRJdGVtPgojaW5jbHVkZSA8UVZCb3hMYXlvdXQ+CgpEYXRhVmlld2VyV2lkZ2V0OjpEYXRhVmlld2VyV2lkZ2V0KFFXaWRnZXQqIHBhcmVudCkKICAgIDogUVdpZGdldChwYXJlbnQpLAogICAgICBtb2RlbF8obmV3IFFTdGFuZGFyZEl0ZW1Nb2RlbCh0aGlzKSksCiAgICAgIHByb3h5XyhuZXcgUHJlbWl1bUNvbnRlbnRGaWx0ZXJQcm94eU1vZGVsKHRoaXMpKSwKICAgICAgdGFibGVfKG5ldyBRVGFibGVWaWV3KHRoaXMpKSB7CiAgYXBwbHlIZWFkZXJzKCk7CiAgcHJveHlfLT5zZXRTb3VyY2VNb2RlbChtb2RlbF8pOwogIHRhYmxlXy0+c2V0TW9kZWwocHJveHlfKTsKICB0YWJsZV8tPnNldFNvcnRpbmdFbmFibGVkKHRydWUpOwogIHRhYmxlXy0+c2V0U2VsZWN0aW9uQmVoYXZpb3IoUUFic3RyYWN0SXRlbVZpZXc6OlNlbGVjdFJvd3MpOwogIHRhYmxlXy0+c2V0U2VsZWN0aW9uTW9kZShRQWJzdHJhY3RJdGVtVmlldzo6U2luZ2xlU2VsZWN0aW9uKTsKICB0YWJsZV8tPmhvcml6b250YWxIZWFkZXIoKS0+c2V0U3RyZXRjaExhc3RTZWN0aW9uKHRydWUpOwogIHRhYmxlXy0+aG9yaXpvbnRhbEhlYWRlcigpLT5zZXRTZWN0aW9uUmVzaXplTW9kZShRSGVhZGVyVmlldzo6SW50ZXJhY3RpdmUpOwogIHRhYmxlXy0+c2V0VG9vbFRpcChVaVRleHQ6OnRleHQoInRpcC5kYXRhLnRhYmxlIiwgbGFuZ3VhZ2VfKSk7CgogIGF1dG8qIGxheW91dCA9IG5ldyBRVkJveExheW91dCh0aGlzKTsKICBsYXlvdXQtPmFkZFdpZGdldCh0YWJsZV8pOwogIGNvbm5lY3QodGFibGVfLT5zZWxlY3Rpb25Nb2RlbCgpLCAmUUl0ZW1TZWxlY3Rpb25Nb2RlbDo6c2VsZWN0aW9uQ2hhbmdlZCwgdGhpcywKICAgICAgICAgICZEYXRhVmlld2VyV2lkZ2V0OjpzZWxlY3Rpb25DaGFuZ2VkKTsKfQoKdm9pZCBEYXRhVmlld2VyV2lkZ2V0OjphcHBseUhlYWRlcnMoKSB7CiAgbW9kZWxfLT5zZXRIb3Jpem9udGFsSGVhZGVyTGFiZWxzKHtVaVRleHQ6OnRleHQoImRhdGEudGl0bGUiLCBsYW5ndWFnZV8pLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgVWlUZXh0Ojp0ZXh0KCJkYXRhLmFjY291bnQiLCBsYW5ndWFnZV8pLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgVWlUZXh0Ojp0ZXh0KCJkYXRhLmNhdGVnb3J5IiwgbGFuZ3VhZ2VfKSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFVpVGV4dDo6dGV4dCgiZGF0YS5wdWJsaXNoX3RpbWUiLCBsYW5ndWFnZV8pLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgVWlUZXh0Ojp0ZXh0KCJkYXRhLnJlYWQiLCBsYW5ndWFnZV8pLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgVWlUZXh0Ojp0ZXh0KCJkYXRhLmxpa2UiLCBsYW5ndWFnZV8pLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgVWlUZXh0Ojp0ZXh0KCJkYXRhLm9sZF9saWtlIiwgbGFuZ3VhZ2VfKSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFVpVGV4dDo6dGV4dCgiZGF0YS5jb21tZW50IiwgbGFuZ3VhZ2VfKSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFVpVGV4dDo6dGV4dCgiZGF0YS5mcmVxIiwgbGFuZ3VhZ2VfKSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFVpVGV4dDo6dGV4dCgiZGF0YS5zY29yZSIsIGxhbmd1YWdlXyksCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBVaVRleHQ6OnRleHQoImRhdGEudXJsIiwgbGFuZ3VhZ2VfKX0pOwp9Cgp2b2lkIERhdGFWaWV3ZXJXaWRnZXQ6OnNldFJlY29yZHMoY29uc3QgUVZlY3RvcjxDb250ZW50UmVjb3JkPiYgcmVjb3JkcykgewogIHJlY29yZHNfID0gcmVjb3JkczsKICBtb2RlbF8tPnJlbW92ZVJvd3MoMCwgbW9kZWxfLT5yb3dDb3VudCgpKTsKICBmb3IgKGNvbnN0IGF1dG8mIHJlY29yZCA6IHJlY29yZHMpIHsKICAgIGNvbnN0IFFTdHJpbmcgcHVibGlzaFRpbWUgPSByZWNvcmQucHVibGlzaFRpbWUuaXNWYWxpZCgpCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgID8gcmVjb3JkLnB1Ymxpc2hUaW1lLnRvTG9jYWxUaW1lKCkudG9TdHJpbmcoUVN0cmluZ0xpdGVyYWwoInl5eXktTU0tZGQgSEg6bW0iKSkKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOiBRU3RyaW5nKCk7CiAgICBRTGlzdDxRU3RhbmRhcmRJdGVtKj4gcm93OwogICAgcm93IDw8IG5ldyBRU3RhbmRhcmRJdGVtKHJlY29yZC50aXRsZSkgPDwgbmV3IFFTdGFuZGFyZEl0ZW0ocmVjb3JkLmFjY291bnROYW1lKQogICAgICAgIDw8IG5ldyBRU3RhbmRhcmRJdGVtKHJlY29yZC5jYXRlZ29yeSkgPDwgbmV3IFFTdGFuZGFyZEl0ZW0ocHVibGlzaFRpbWUpCiAgICAgICAgPDwgbmV3IFFTdGFuZGFyZEl0ZW0oUVN0cmluZzo6bnVtYmVyKHJlY29yZC5yZWFkTnVtKSkKICAgICAgICA8PCBuZXcgUVN0YW5kYXJkSXRlbShRU3RyaW5nOjpudW1iZXIocmVjb3JkLmxpa2VOdW0pKQogICAgICAgIDw8IG5ldyBRU3RhbmRhcmRJdGVtKFFTdHJpbmc6Om51bWJlcihyZWNvcmQub2xkTGlrZU51bSkpCiAgICAgICAgPDwgbmV3IFFTdGFuZGFyZEl0ZW0oUVN0cmluZzo6bnVtYmVyKHJlY29yZC5jb21tZW50TnVtKSkKICAgICAgICA8PCBuZXcgUVN0YW5kYXJkSXRlbShRU3RyaW5nOjpudW1iZXIocmVjb3JkLmFydGljbGVDb3VudDMwZCkpIDw8IG5ldyBRU3RhbmRhcmRJdGVtKFFTdHJpbmcoKSkKICAgICAgICA8PCBuZXcgUVN0YW5kYXJkSXRlbShyZWNvcmQudXJsKTsKICAgIG1vZGVsXy0+YXBwZW5kUm93KHJvdyk7CiAgfQogIGFwcGx5SGVhZGVycygpOwp9CgpQcmVtaXVtQ29udGVudEZpbHRlclByb3h5TW9kZWwqIERhdGFWaWV3ZXJXaWRnZXQ6OnByb3h5KCkgewogIHJldHVybiBwcm94eV87Cn0KCmJvb2wgRGF0YVZpZXdlcldpZGdldDo6aGFzU2VsZWN0aW9uKCkgY29uc3QgewogIHJldHVybiB0YWJsZV8tPnNlbGVjdGlvbk1vZGVsKCkgIT0gbnVsbHB0ciAmJiB0YWJsZV8tPnNlbGVjdGlvbk1vZGVsKCktPmhhc1NlbGVjdGlvbigpOwp9CgpDb250ZW50UmVjb3JkIERhdGFWaWV3ZXJXaWRnZXQ6OnNlbGVjdGVkUmVjb3JkKCkgY29uc3QgewogIGlmICghaGFzU2VsZWN0aW9uKCkpIHsKICAgIHJldHVybiBDb250ZW50UmVjb3JkKCk7CiAgfQogIGNvbnN0IFFNb2RlbEluZGV4IHByb3h5SW5kZXggPSB0YWJsZV8tPnNlbGVjdGlvbk1vZGVsKCktPnNlbGVjdGVkUm93cygpLmZpcnN0KCk7CiAgY29uc3QgUU1vZGVsSW5kZXggc291cmNlSW5kZXggPSBwcm94eV8tPm1hcFRvU291cmNlKHByb3h5SW5kZXgpOwogIGlmICghc291cmNlSW5kZXguaXNWYWxpZCgpIHx8IHNvdXJjZUluZGV4LnJvdygpIDwgMCB8fCBzb3VyY2VJbmRleC5yb3coKSA+PSByZWNvcmRzXy5zaXplKCkpIHsKICAgIHJldHVybiBDb250ZW50UmVjb3JkKCk7CiAgfQogIHJldHVybiByZWNvcmRzXy5hdChzb3VyY2VJbmRleC5yb3coKSk7Cn0KCnZvaWQgRGF0YVZpZXdlcldpZGdldDo6c2V0TGFuZ3VhZ2UoVWlMYW5ndWFnZSBsYW5ndWFnZSkgewogIGxhbmd1YWdlXyA9IGxhbmd1YWdlOwogIHRhYmxlXy0+c2V0VG9vbFRpcChVaVRleHQ6OnRleHQoInRpcC5kYXRhLnRhYmxlIiwgbGFuZ3VhZ2VfKSk7CiAgYXBwbHlIZWFkZXJzKCk7Cn0K
+#include "DataViewerWidget.h"
+
+#include <QHeaderView>
+#include <QItemSelectionModel>
+#include <QStandardItem>
+#include <QVBoxLayout>
+
+DataViewerWidget::DataViewerWidget(QWidget* parent)
+    : QWidget(parent),
+      model_(new QStandardItemModel(this)),
+      proxy_(new PremiumContentFilterProxyModel(this)),
+      table_(new QTableView(this)) {
+  applyHeaders();
+  proxy_->setSourceModel(model_);
+  table_->setModel(proxy_);
+  table_->setSortingEnabled(true);
+  table_->setSelectionBehavior(QAbstractItemView::SelectRows);
+  table_->setSelectionMode(QAbstractItemView::SingleSelection);
+  table_->horizontalHeader()->setStretchLastSection(true);
+  table_->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
+  table_->setToolTip(UiText::text("tip.data.table", language_));
+
+  auto* layout = new QVBoxLayout(this);
+  layout->addWidget(table_);
+  connect(table_->selectionModel(), &QItemSelectionModel::selectionChanged, this,
+          &DataViewerWidget::selectionChanged);
+}
+
+void DataViewerWidget::applyHeaders() {
+  model_->setHorizontalHeaderLabels({UiText::text("data.title", language_),
+                                     UiText::text("data.account", language_),
+                                     UiText::text("data.category", language_),
+                                     UiText::text("data.publish_time", language_),
+                                     UiText::text("data.read", language_),
+                                     UiText::text("data.like", language_),
+                                     UiText::text("data.old_like", language_),
+                                     UiText::text("data.comment", language_),
+                                     UiText::text("data.freq", language_),
+                                     UiText::text("data.score", language_),
+                                     UiText::text("data.url", language_)});
+}
+
+void DataViewerWidget::setRecords(const QVector<ContentRecord>& records) {
+  records_ = records;
+  model_->removeRows(0, model_->rowCount());
+  for (const auto& record : records) {
+    const QString publishTime = record.publishTime.isValid()
+                                    ? record.publishTime.toLocalTime().toString(QStringLiteral("yyyy-MM-dd HH:mm"))
+                                    : QString();
+    QList<QStandardItem*> row;
+    row << new QStandardItem(record.title) << new QStandardItem(record.accountName)
+        << new QStandardItem(record.category) << new QStandardItem(publishTime)
+        << new QStandardItem(QString::number(record.readNum))
+        << new QStandardItem(QString::number(record.likeNum))
+        << new QStandardItem(QString::number(record.oldLikeNum))
+        << new QStandardItem(QString::number(record.commentNum))
+        << new QStandardItem(QString::number(record.articleCount30d)) << new QStandardItem(QString())
+        << new QStandardItem(record.url);
+    model_->appendRow(row);
+  }
+  applyHeaders();
+}
+
+PremiumContentFilterProxyModel* DataViewerWidget::proxy() {
+  return proxy_;
+}
+
+bool DataViewerWidget::hasSelection() const {
+  return table_->selectionModel() != nullptr && table_->selectionModel()->hasSelection();
+}
+
+ContentRecord DataViewerWidget::selectedRecord() const {
+  if (!hasSelection()) {
+    return ContentRecord();
+  }
+  const QModelIndex proxyIndex = table_->selectionModel()->selectedRows().first();
+  const QModelIndex sourceIndex = proxy_->mapToSource(proxyIndex);
+  if (!sourceIndex.isValid() || sourceIndex.row() < 0 || sourceIndex.row() >= records_.size()) {
+    return ContentRecord();
+  }
+  return records_.at(sourceIndex.row());
+}
+
+void DataViewerWidget::setLanguage(UiLanguage language) {
+  language_ = language;
+  table_->setToolTip(UiText::text("tip.data.table", language_));
+  applyHeaders();
+}

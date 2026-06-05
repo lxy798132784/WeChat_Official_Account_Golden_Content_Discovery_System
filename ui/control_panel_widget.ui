@@ -1,1 +1,2 @@
-PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHVpIHZlcnNpb249IjQuMCI+PGNsYXNzPmNvbnRyb2xfcGFuZWxfd2lkZ2V0PC9jbGFzcz48d2lkZ2V0IGNsYXNzPSJRV2lkZ2V0IiBuYW1lPSJjb250cm9sX3BhbmVsX3dpZGdldCI+PHByb3BlcnR5IG5hbWU9Imdlb21ldHJ5Ij48cmVjdD48eD4wPC94Pjx5PjA8L3k+PHdpZHRoPjY0MDwvd2lkdGg+PGhlaWdodD40ODA8L2hlaWdodD48L3JlY3Q+PC9wcm9wZXJ0eT48L3dpZGdldD48cmVzb3VyY2VzLz48Y29ubmVjdGlvbnMvPjwvdWk+Cg==
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0"><class>control_panel_widget</class><widget class="QWidget" name="control_panel_widget"><property name="geometry"><rect><x>0</x><y>0</y><width>640</width><height>480</height></rect></property></widget><resources/><connections/></ui>

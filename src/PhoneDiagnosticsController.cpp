@@ -1,1 +1,357 @@
-I2luY2x1ZGUgIlBob25lRGlhZ25vc3RpY3NDb250cm9sbGVyLmgiCgojaW5jbHVkZSA8UUNvcmVBcHBsaWNhdGlvbj4KI2luY2x1ZGUgPFFEYXRlVGltZT4KI2luY2x1ZGUgPFFKc29uRG9jdW1lbnQ+CiNpbmNsdWRlIDxRSnNvbk9iamVjdD4KI2luY2x1ZGUgPFFQcm9jZXNzPgojaW5jbHVkZSA8UVJlZ3VsYXJFeHByZXNzaW9uPgojaW5jbHVkZSA8UVRjcFNvY2tldD4KI2luY2x1ZGUgPFFTeXNJbmZvPgoKbmFtZXNwYWNlIHsKUVN0cmluZyBzdGF0dXNMYWJlbChjb25zdCBRU3RyaW5nJiBzdGF0dXMpIHsKICBpZiAoc3RhdHVzID09IFFTdHJpbmdMaXRlcmFsKCJwYXNzIikpIHJldHVybiBRU3RyaW5nTGl0ZXJhbCgiUEFTUyIpOwogIGlmIChzdGF0dXMgPT0gUVN0cmluZ0xpdGVyYWwoIndhcm4iKSkgcmV0dXJuIFFTdHJpbmdMaXRlcmFsKCJXQVJOIik7CiAgaWYgKHN0YXR1cyA9PSBRU3RyaW5nTGl0ZXJhbCgiZmFpbCIpKSByZXR1cm4gUVN0cmluZ0xpdGVyYWwoIkZBSUwiKTsKICByZXR1cm4gUVN0cmluZ0xpdGVyYWwoIlVOS05PV04iKTsKfQoKUVN0cmluZyB2YWx1ZUFmdGVyUHJlZml4KGNvbnN0IFFTdHJpbmdMaXN0JiB0b2tlbnMsIGNvbnN0IFFTdHJpbmcmIHByZWZpeCkgewogIGZvciAoY29uc3QgUVN0cmluZyYgdG9rZW4gOiB0b2tlbnMpIHsKICAgIGlmICh0b2tlbi5zdGFydHNXaXRoKHByZWZpeCkpIHsKICAgICAgcmV0dXJuIHRva2VuLm1pZChwcmVmaXguc2l6ZSgpKS50cmltbWVkKCk7CiAgICB9CiAgfQogIHJldHVybiBRU3RyaW5nKCk7Cn0KfSAgLy8gbmFtZXNwYWNlCgpQaG9uZURpYWdub3N0aWNzQ29udHJvbGxlcjo6UGhvbmVEaWFnbm9zdGljc0NvbnRyb2xsZXIoUU9iamVjdCogcGFyZW50KSA6IFFPYmplY3QocGFyZW50KSB7fQoKUVN0cmluZyBQaG9uZURpYWdub3N0aWNzQ29udHJvbGxlcjo6Y3VycmVudFBsYXRmb3JtTmFtZSgpIHsKICByZXR1cm4gUVN5c0luZm86OnByZXR0eVByb2R1Y3ROYW1lKCkuaXNFbXB0eSgpID8gUVN5c0luZm86OnByb2R1Y3RUeXBlKCkgOiBRU3lzSW5mbzo6cHJldHR5UHJvZHVjdE5hbWUoKTsKfQoKUVZlY3RvcjxQaG9uZURldmljZUluZm8+IFBob25lRGlhZ25vc3RpY3NDb250cm9sbGVyOjpwYXJzZUFkYkRldmljZXMoY29uc3QgUVN0cmluZyYgb3V0cHV0KSB7CiAgUVZlY3RvcjxQaG9uZURldmljZUluZm8+IGRldmljZXM7CiAgY29uc3QgUVN0cmluZ0xpc3QgbGluZXMgPSBvdXRwdXQuc3BsaXQoUVJlZ3VsYXJFeHByZXNzaW9uKFFTdHJpbmdMaXRlcmFsKCJbXHJcbl0rIikpLCBRdDo6U2tpcEVtcHR5UGFydHMpOwogIGZvciAoY29uc3QgUVN0cmluZyYgcmF3IDogbGluZXMpIHsKICAgIGNvbnN0IFFTdHJpbmcgbGluZSA9IHJhdy50cmltbWVkKCk7CiAgICBpZiAobGluZS5pc0VtcHR5KCkgfHwgbGluZS5zdGFydHNXaXRoKFFTdHJpbmdMaXRlcmFsKCJMaXN0IG9mIGRldmljZXMiKSkgfHwgbGluZS5zdGFydHNXaXRoKFFTdHJpbmdMaXRlcmFsKCIqIGRhZW1vbiIpKSkgewogICAgICBjb250aW51ZTsKICAgIH0KICAgIGNvbnN0IFFTdHJpbmdMaXN0IHRva2VucyA9IGxpbmUuc3BsaXQoUVJlZ3VsYXJFeHByZXNzaW9uKFFTdHJpbmdMaXRlcmFsKCJcXHMrIikpLCBRdDo6U2tpcEVtcHR5UGFydHMpOwogICAgaWYgKHRva2Vucy5zaXplKCkgPCAyKSB7CiAgICAgIGNvbnRpbnVlOwogICAgfQogICAgUGhvbmVEZXZpY2VJbmZvIGRldmljZTsKICAgIGRldmljZS5zZXJpYWwgPSB0b2tlbnMuYXQoMCk7CiAgICBkZXZpY2Uuc3RhdGUgPSB0b2tlbnMuYXQoMSk7CiAgICBkZXZpY2UucmF3TGluZSA9IGxpbmU7CiAgICBkZXZpY2UubW9kZWwgPSB2YWx1ZUFmdGVyUHJlZml4KHRva2VucywgUVN0cmluZ0xpdGVyYWwoIm1vZGVsOiIpKTsKICAgIGRldmljZS5wcm9kdWN0ID0gdmFsdWVBZnRlclByZWZpeCh0b2tlbnMsIFFTdHJpbmdMaXRlcmFsKCJwcm9kdWN0OiIpKTsKICAgIGRldmljZS50cmFuc3BvcnRJZCA9IHZhbHVlQWZ0ZXJQcmVmaXgodG9rZW5zLCBRU3RyaW5nTGl0ZXJhbCgidHJhbnNwb3J0X2lkOiIpKTsKICAgIGRldmljZXMucHVzaF9iYWNrKGRldmljZSk7CiAgfQogIHJldHVybiBkZXZpY2VzOwp9CgpRU3RyaW5nIFBob25lRGlhZ25vc3RpY3NDb250cm9sbGVyOjpkZXZpY2VTdW1tYXJ5KGNvbnN0IFBob25lRGV2aWNlSW5mbyYgZGV2aWNlKSB7CiAgUVN0cmluZ0xpc3QgcGFydHM7CiAgcGFydHMgPDwgZGV2aWNlLnNlcmlhbCA8PCBkZXZpY2Uuc3RhdGU7CiAgaWYgKCFkZXZpY2UubW9kZWwuaXNFbXB0eSgpKSBwYXJ0cyA8PCBRU3RyaW5nTGl0ZXJhbCgibW9kZWw9JTEiKS5hcmcoZGV2aWNlLm1vZGVsKTsKICBpZiAoIWRldmljZS5wcm9kdWN0LmlzRW1wdHkoKSkgcGFydHMgPDwgUVN0cmluZ0xpdGVyYWwoInByb2R1Y3Q9JTEiKS5hcmcoZGV2aWNlLnByb2R1Y3QpOwogIGlmICghZGV2aWNlLnRyYW5zcG9ydElkLmlzRW1wdHkoKSkgcGFydHMgPDwgUVN0cmluZ0xpdGVyYWwoInRyYW5zcG9ydD0lMSIpLmFyZyhkZXZpY2UudHJhbnNwb3J0SWQpOwogIHJldHVybiBwYXJ0cy5qb2luKFFTdHJpbmdMaXRlcmFsKCIgfCAiKSk7Cn0KClBob25lRGlhZ25vc3RpY0l0ZW0gUGhvbmVEaWFnbm9zdGljc0NvbnRyb2xsZXI6Om1ha2VJdGVtKGNvbnN0IFFTdHJpbmcmIGlkLCBjb25zdCBRU3RyaW5nJiBsYWJlbCwgY29uc3QgUVN0cmluZyYgc3RhdHVzLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb25zdCBRU3RyaW5nJiBkZXRhaWxzLCBjb25zdCBRU3RyaW5nJiBmaXhIaW50LAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb25zdCBRU3RyaW5nJiByYXdPdXRwdXQpIHsKICBQaG9uZURpYWdub3N0aWNJdGVtIGl0ZW07CiAgaXRlbS5pZCA9IGlkOwogIGl0ZW0ubGFiZWwgPSBsYWJlbDsKICBpdGVtLnN0YXR1cyA9IHN0YXR1czsKICBpdGVtLmRldGFpbHMgPSBkZXRhaWxzOwogIGl0ZW0uZml4SGludCA9IGZpeEhpbnQ7CiAgaXRlbS5yYXdPdXRwdXQgPSByYXdPdXRwdXQ7CiAgcmV0dXJuIGl0ZW07Cn0KClFTdHJpbmcgUGhvbmVEaWFnbm9zdGljc0NvbnRyb2xsZXI6OmFkYkV4ZWN1dGFibGUoKSB7CiAgcmV0dXJuIFFTdHJpbmdMaXRlcmFsKCJhZGIiKTsKfQoKUVN0cmluZ0xpc3QgUGhvbmVEaWFnbm9zdGljc0NvbnRyb2xsZXI6OnNlcmlhbEFyZ3MoY29uc3QgUVN0cmluZyYgc2VyaWFsKSB7CiAgaWYgKHNlcmlhbC50cmltbWVkKCkuaXNFbXB0eSgpKSB7CiAgICByZXR1cm4ge307CiAgfQogIHJldHVybiB7UVN0cmluZ0xpdGVyYWwoIi1zIiksIHNlcmlhbC50cmltbWVkKCl9Owp9CgpRU3RyaW5nIFBob25lRGlhZ25vc3RpY3NDb250cm9sbGVyOjpydW5Qcm9jZXNzKGNvbnN0IFFTdHJpbmcmIHByb2dyYW0sIGNvbnN0IFFTdHJpbmdMaXN0JiBhcmdzLCBpbnQgdGltZW91dE1zLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGludCogZXhpdENvZGUsIFFTdHJpbmcqIHN0ZEVycikgewogIFFQcm9jZXNzIHByb2Nlc3M7CiAgcHJvY2Vzcy5zdGFydChwcm9ncmFtLCBhcmdzKTsKICBpZiAoIXByb2Nlc3Mud2FpdEZvclN0YXJ0ZWQodGltZW91dE1zKSkgewogICAgaWYgKGV4aXRDb2RlICE9IG51bGxwdHIpICpleGl0Q29kZSA9IC0xOwogICAgaWYgKHN0ZEVyciAhPSBudWxscHRyKSAqc3RkRXJyID0gcHJvY2Vzcy5lcnJvclN0cmluZygpOwogICAgcmV0dXJuIFFTdHJpbmcoKTsKICB9CiAgaWYgKCFwcm9jZXNzLndhaXRGb3JGaW5pc2hlZCh0aW1lb3V0TXMpKSB7CiAgICBwcm9jZXNzLmtpbGwoKTsKICAgIHByb2Nlc3Mud2FpdEZvckZpbmlzaGVkKDEwMDApOwogICAgaWYgKGV4aXRDb2RlICE9IG51bGxwdHIpICpleGl0Q29kZSA9IC0yOwogICAgaWYgKHN0ZEVyciAhPSBudWxscHRyKSAqc3RkRXJyID0gUVN0cmluZ0xpdGVyYWwoInRpbWVvdXQiKTsKICAgIHJldHVybiBRU3RyaW5nOjpmcm9tTG9jYWw4Qml0KHByb2Nlc3MucmVhZEFsbFN0YW5kYXJkT3V0cHV0KCkpOwogIH0KICBpZiAoZXhpdENvZGUgIT0gbnVsbHB0cikgKmV4aXRDb2RlID0gcHJvY2Vzcy5leGl0Q29kZSgpOwogIGlmIChzdGRFcnIgIT0gbnVsbHB0cikgKnN0ZEVyciA9IFFTdHJpbmc6OmZyb21Mb2NhbDhCaXQocHJvY2Vzcy5yZWFkQWxsU3RhbmRhcmRFcnJvcigpKTsKICByZXR1cm4gUVN0cmluZzo6ZnJvbUxvY2FsOEJpdChwcm9jZXNzLnJlYWRBbGxTdGFuZGFyZE91dHB1dCgpKTsKfQoKYm9vbCBQaG9uZURpYWdub3N0aWNzQ29udHJvbGxlcjo6Y2FuQ29ubmVjdFRvTG9jYWxQb3J0KHF1aW50MTYgcG9ydCwgaW50IHRpbWVvdXRNcywgUVN0cmluZyogZXJyb3JNZXNzYWdlKSB7CiAgUVRjcFNvY2tldCBzb2NrZXQ7CiAgc29ja2V0LmNvbm5lY3RUb0hvc3QoUVN0cmluZ0xpdGVyYWwoIjEyNy4wLjAuMSIpLCBwb3J0KTsKICBpZiAoc29ja2V0LndhaXRGb3JDb25uZWN0ZWQodGltZW91dE1zKSkgewogICAgc29ja2V0LmRpc2Nvbm5lY3RGcm9tSG9zdCgpOwogICAgcmV0dXJuIHRydWU7CiAgfQogIGlmIChlcnJvck1lc3NhZ2UgIT0gbnVsbHB0cikgewogICAgKmVycm9yTWVzc2FnZSA9IHNvY2tldC5lcnJvclN0cmluZygpOwogIH0KICByZXR1cm4gZmFsc2U7Cn0KClFTdHJpbmcgUGhvbmVEaWFnbm9zdGljc0NvbnRyb2xsZXI6OnNlbGVjdGVkU2VyaWFsKGNvbnN0IFFWZWN0b3I8UGhvbmVEZXZpY2VJbmZvPiYgZGV2aWNlcywgY29uc3QgUVN0cmluZyYgcHJlZmVycmVkU2VyaWFsKSB7CiAgY29uc3QgUVN0cmluZyBwcmVmZXJyZWQgPSBwcmVmZXJyZWRTZXJpYWwudHJpbW1lZCgpOwogIGlmICghcHJlZmVycmVkLmlzRW1wdHkoKSkgewogICAgZm9yIChjb25zdCBQaG9uZURldmljZUluZm8mIGRldmljZSA6IGRldmljZXMpIHsKICAgICAgaWYgKGRldmljZS5zZXJpYWwgPT0gcHJlZmVycmVkKSByZXR1cm4gcHJlZmVycmVkOwogICAgfQogIH0KICBmb3IgKGNvbnN0IFBob25lRGV2aWNlSW5mbyYgZGV2aWNlIDogZGV2aWNlcykgewogICAgaWYgKGRldmljZS5zdGF0ZSA9PSBRU3RyaW5nTGl0ZXJhbCgiZGV2aWNlIikpIHJldHVybiBkZXZpY2Uuc2VyaWFsOwogIH0KICByZXR1cm4gUVN0cmluZygpOwp9CgpRU3RyaW5nIFBob25lRGlhZ25vc3RpY3NDb250cm9sbGVyOjpwbGF0Zm9ybURyaXZlckhpbnQoKSB7CiNpZiBkZWZpbmVkKFFfT1NfV0lOKQogIHJldHVybiBRU3RyaW5nTGl0ZXJhbCgiV2luZG93czogaW5zdGFsbCBBbmRyb2lkIFBsYXRmb3JtIFRvb2xzLCB0aGVuIGluc3RhbGwgdGhlIHBob25lIHZlbmRvciBVU0IgZHJpdmVyIG9yIEdvb2dsZSBVU0IgRHJpdmVyLiBPcGVuIERldmljZSBNYW5hZ2VyIGFuZCBjb25maXJtIHRoZSBwaG9uZSBhcHBlYXJzIGFzIEFuZHJvaWQgQURCIEludGVyZmFjZSBpbnN0ZWFkIG9mIFVua25vd24gRGV2aWNlLiIpOwojZWxpZiBkZWZpbmVkKFFfT1NfTElOVVgpCiAgcmV0dXJuIFFTdHJpbmdMaXRlcmFsKCJMaW51eDogaW5zdGFsbCBhbmRyb2lkLXRvb2xzLWFkYi4gSWYgdGhlIGRldmljZSBzaG93cyBubyBwZXJtaXNzaW9ucywgYWRkIHVkZXYgcnVsZXMgZm9yIHRoZSB2ZW5kb3IgaWQsIHJlbG9hZCB1ZGV2LCByZXBsdWcgdGhlIHBob25lLCB0aGVuIHJ1biBhZGIga2lsbC1zZXJ2ZXIgJiYgYWRiIHN0YXJ0LXNlcnZlci4iKTsKI2VsaWYgZGVmaW5lZChRX09TX01BQ09TKQogIHJldHVybiBRU3RyaW5nTGl0ZXJhbCgibWFjT1M6IGluc3RhbGwgQW5kcm9pZCBQbGF0Zm9ybSBUb29scy4gQSB2ZW5kb3IgVVNCIGRyaXZlciBpcyB1c3VhbGx5IG5vdCByZXF1aXJlZDsgY2hlY2sgdGhhdCB0aGUgY2FibGUgc3VwcG9ydHMgZGF0YSB0cmFuc2ZlciBhbmQgdGhlIHBob25lIHRydXN0cyB0aGlzIGNvbXB1dGVyLiIpOwojZWxzZQogIHJldHVybiBRU3RyaW5nTGl0ZXJhbCgiSW5zdGFsbCBBbmRyb2lkIFBsYXRmb3JtIFRvb2xzLCB1c2UgYSBkYXRhLWNhcGFibGUgVVNCIGNhYmxlLCBlbmFibGUgRGV2ZWxvcGVyIG9wdGlvbnMgYW5kIFVTQiBkZWJ1Z2dpbmcsIHRoZW4gYXV0aG9yaXplIHRoaXMgY29tcHV0ZXIgb24gdGhlIHBob25lLiIpOwojZW5kaWYKfQoKUGhvbmVEaWFnbm9zdGljUmVwb3J0IFBob25lRGlhZ25vc3RpY3NDb250cm9sbGVyOjpydW5EaWFnbm9zdGljcyhjb25zdCBRU3RyaW5nJiBwcmVmZXJyZWRTZXJpYWwsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcXVpbnQxNiBicmlkZ2VQb3J0LAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHF1aW50MTYgcHJveHlQb3J0LAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJvb2wgaW5jbHVkZUxpbmtPcGVuVGVzdCwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb25zdCBRU3RyaW5nJiB0ZXN0VXJsKSB7CiAgUGhvbmVEaWFnbm9zdGljUmVwb3J0IHJlcG9ydDsKICByZXBvcnQucGxhdGZvcm0gPSBjdXJyZW50UGxhdGZvcm1OYW1lKCk7CgogIGludCBjb2RlID0gMDsKICBRU3RyaW5nIGVycjsKICBjb25zdCBRU3RyaW5nIHZlcnNpb24gPSBydW5Qcm9jZXNzKGFkYkV4ZWN1dGFibGUoKSwge1FTdHJpbmdMaXRlcmFsKCJ2ZXJzaW9uIil9LCA1MDAwLCAmY29kZSwgJmVycik7CiAgaWYgKGNvZGUgPT0gMCAmJiB2ZXJzaW9uLmNvbnRhaW5zKFFTdHJpbmdMaXRlcmFsKCJBbmRyb2lkIERlYnVnIEJyaWRnZSIpLCBRdDo6Q2FzZUluc2Vuc2l0aXZlKSkgewogICAgcmVwb3J0Lml0ZW1zLnB1c2hfYmFjayhtYWtlSXRlbShRU3RyaW5nTGl0ZXJhbCgiYWRiX3Rvb2wiKSwgUVN0cmluZ0xpdGVyYWwoIkFEQiB0b29sIiksIFFTdHJpbmdMaXRlcmFsKCJwYXNzIiksCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFFTdHJpbmdMaXRlcmFsKCJBREIgaXMgaW5zdGFsbGVkIGFuZCBleGVjdXRhYmxlLiIpLCBRU3RyaW5nTGl0ZXJhbCgiTm8gYWN0aW9uIG5lZWRlZC4iKSwgdmVyc2lvbikpOwogIH0gZWxzZSB7CiAgICByZXBvcnQuaXRlbXMucHVzaF9iYWNrKG1ha2VJdGVtKFFTdHJpbmdMaXRlcmFsKCJhZGJfdG9vbCIpLCBRU3RyaW5nTGl0ZXJhbCgiQURCIHRvb2wiKSwgUVN0cmluZ0xpdGVyYWwoImZhaWwiKSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUVN0cmluZ0xpdGVyYWwoIkFEQiBpcyBtaXNzaW5nIG9yIGNhbm5vdCBydW4uIiksIHBsYXRmb3JtRHJpdmVySGludCgpLCBlcnIgKyB2ZXJzaW9uKSk7CiAgICByZXBvcnQub3ZlcmFsbFN0YXR1cyA9IFFTdHJpbmdMaXRlcmFsKCJibG9ja2VkIik7CiAgICByZXR1cm4gcmVwb3J0OwogIH0KCiAgY29uc3QgUVN0cmluZyBzZXJ2ZXIgPSBydW5Qcm9jZXNzKGFkYkV4ZWN1dGFibGUoKSwge1FTdHJpbmdMaXRlcmFsKCJzdGFydC1zZXJ2ZXIiKX0sIDgwMDAsICZjb2RlLCAmZXJyKTsKICByZXBvcnQuaXRlbXMucHVzaF9iYWNrKG1ha2VJdGVtKFFTdHJpbmdMaXRlcmFsKCJhZGJfc2VydmVyIiksIFFTdHJpbmdMaXRlcmFsKCJBREIgc2VydmVyIiksIGNvZGUgPT0gMCA/IFFTdHJpbmdMaXRlcmFsKCJwYXNzIikgOiBRU3RyaW5nTGl0ZXJhbCgiZmFpbCIpLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29kZSA9PSAwID8gUVN0cmluZ0xpdGVyYWwoIkFEQiBzZXJ2ZXIgaXMgcnVubmluZy4iKSA6IFFTdHJpbmdMaXRlcmFsKCJBREIgc2VydmVyIGZhaWxlZCB0byBzdGFydC4iKSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFFTdHJpbmdMaXRlcmFsKCJUcnkgYWRiIGtpbGwtc2VydmVyLCByZXBsdWcgdGhlIHBob25lLCB0aGVuIHJ1biBkaWFnbm9zdGljcyBhZ2Fpbi4iKSwgc2VydmVyICsgZXJyKSk7CgogIGNvbnN0IFFTdHJpbmcgZGV2aWNlc091dHB1dCA9IHJ1blByb2Nlc3MoYWRiRXhlY3V0YWJsZSgpLCB7UVN0cmluZ0xpdGVyYWwoImRldmljZXMiKSwgUVN0cmluZ0xpdGVyYWwoIi1sIil9LCA4MDAwLCAmY29kZSwgJmVycik7CiAgcmVwb3J0LmRldmljZXMgPSBwYXJzZUFkYkRldmljZXMoZGV2aWNlc091dHB1dCk7CiAgUVN0cmluZ0xpc3Qgc3VtbWFyaWVzOwogIGZvciAoY29uc3QgUGhvbmVEZXZpY2VJbmZvJiBkZXZpY2UgOiByZXBvcnQuZGV2aWNlcykgc3VtbWFyaWVzIDw8IGRldmljZVN1bW1hcnkoZGV2aWNlKTsKCiAgaWYgKHJlcG9ydC5kZXZpY2VzLmlzRW1wdHkoKSkgewogICAgcmVwb3J0Lml0ZW1zLnB1c2hfYmFjayhtYWtlSXRlbShRU3RyaW5nTGl0ZXJhbCgiZGV2aWNlX2RldGVjdGVkIiksIFFTdHJpbmdMaXRlcmFsKCJQaG9uZSBkZXRlY3Rpb24iKSwgUVN0cmluZ0xpdGVyYWwoImZhaWwiKSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUVN0cmluZ0xpdGVyYWwoIk5vIEFuZHJvaWQgZGV2aWNlIGlzIHZpc2libGUgdG8gQURCLiIpLCBwbGF0Zm9ybURyaXZlckhpbnQoKSwgZGV2aWNlc091dHB1dCArIGVycikpOwogICAgcmVwb3J0Lm92ZXJhbGxTdGF0dXMgPSBRU3RyaW5nTGl0ZXJhbCgiYmxvY2tlZCIpOwogIH0gZWxzZSB7CiAgICByZXBvcnQuaXRlbXMucHVzaF9iYWNrKG1ha2VJdGVtKFFTdHJpbmdMaXRlcmFsKCJkZXZpY2VfZGV0ZWN0ZWQiKSwgUVN0cmluZ0xpdGVyYWwoIlBob25lIGRldGVjdGlvbiIpLCBRU3RyaW5nTGl0ZXJhbCgicGFzcyIpLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBRU3RyaW5nTGl0ZXJhbCgiRGV0ZWN0ZWQgZGV2aWNlKHMpOiAlMSIpLmFyZyhzdW1tYXJpZXMuam9pbihRU3RyaW5nTGl0ZXJhbCgiOyAiKSkpLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBRU3RyaW5nTGl0ZXJhbCgiSWYgdGhpcyBpcyBub3QgdGhlIHRhcmdldCBwaG9uZSwgc2VsZWN0IHRoZSBjb3JyZWN0IHNlcmlhbCBpbiB0aGUgZGlhZ25vc3RpY3MgVUkuIiksIGRldmljZXNPdXRwdXQpKTsKICB9CgogIGludCBhdXRob3JpemVkQ291bnQgPSAwOwogIGludCB1bmF1dGhvcml6ZWRDb3VudCA9IDA7CiAgaW50IG9mZmxpbmVDb3VudCA9IDA7CiAgZm9yIChjb25zdCBQaG9uZURldmljZUluZm8mIGRldmljZSA6IHJlcG9ydC5kZXZpY2VzKSB7CiAgICBpZiAoZGV2aWNlLnN0YXRlID09IFFTdHJpbmdMaXRlcmFsKCJkZXZpY2UiKSkgKythdXRob3JpemVkQ291bnQ7CiAgICBpZiAoZGV2aWNlLnN0YXRlID09IFFTdHJpbmdMaXRlcmFsKCJ1bmF1dGhvcml6ZWQiKSkgKyt1bmF1dGhvcml6ZWRDb3VudDsKICAgIGlmIChkZXZpY2Uuc3RhdGUgPT0gUVN0cmluZ0xpdGVyYWwoIm9mZmxpbmUiKSkgKytvZmZsaW5lQ291bnQ7CiAgfQogIGlmICh1bmF1dGhvcml6ZWRDb3VudCA+IDApIHsKICAgIHJlcG9ydC5pdGVtcy5wdXNoX2JhY2sobWFrZUl0ZW0oUVN0cmluZ0xpdGVyYWwoInVzYl9hdXRob3JpemF0aW9uIiksIFFTdHJpbmdMaXRlcmFsKCJVU0IgYXV0aG9yaXphdGlvbiIpLCBRU3RyaW5nTGl0ZXJhbCgiZmFpbCIpLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBRU3RyaW5nTGl0ZXJhbCgiQSBwaG9uZSBpcyBjb25uZWN0ZWQgYnV0IGhhcyBub3QgYXV0aG9yaXplZCBVU0IgZGVidWdnaW5nLiIpLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBRU3RyaW5nTGl0ZXJhbCgiVW5sb2NrIHRoZSBwaG9uZSwgZW5hYmxlIERldmVsb3BlciBvcHRpb25zIC0+IFVTQiBkZWJ1Z2dpbmcsIHJlcGx1ZyBVU0IsIHRoZW4gdGFwIEFsbG93IG9uIHRoZSBhdXRob3JpemF0aW9uIGRpYWxvZy4iKSwgZGV2aWNlc091dHB1dCkpOwogIH0gZWxzZSBpZiAob2ZmbGluZUNvdW50ID4gMCkgewogICAgcmVwb3J0Lml0ZW1zLnB1c2hfYmFjayhtYWtlSXRlbShRU3RyaW5nTGl0ZXJhbCgidXNiX2F1dGhvcml6YXRpb24iKSwgUVN0cmluZ0xpdGVyYWwoIlVTQiBhdXRob3JpemF0aW9uIiksIFFTdHJpbmdMaXRlcmFsKCJmYWlsIiksCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFFTdHJpbmdMaXRlcmFsKCJBIHBob25lIGlzIG9mZmxpbmUgZnJvbSBBREIncyBwb2ludCBvZiB2aWV3LiIpLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBRU3RyaW5nTGl0ZXJhbCgiUmVwbHVnIFVTQiwgcmVzdGFydCBBREIgc2VydmVyLCBvciByZWJvb3QgdGhlIHBob25lIGlmIGl0IHN0YXlzIG9mZmxpbmUuIiksIGRldmljZXNPdXRwdXQpKTsKICB9IGVsc2UgaWYgKGF1dGhvcml6ZWRDb3VudCA+IDApIHsKICAgIHJlcG9ydC5pdGVtcy5wdXNoX2JhY2sobWFrZUl0ZW0oUVN0cmluZ0xpdGVyYWwoInVzYl9hdXRob3JpemF0aW9uIiksIFFTdHJpbmdMaXRlcmFsKCJVU0IgYXV0aG9yaXphdGlvbiIpLCBRU3RyaW5nTGl0ZXJhbCgicGFzcyIpLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBRU3RyaW5nTGl0ZXJhbCgiQXQgbGVhc3Qgb25lIHBob25lIGlzIGF1dGhvcml6ZWQuIiksIFFTdHJpbmdMaXRlcmFsKCJObyBhY3Rpb24gbmVlZGVkLiIpLCBkZXZpY2VzT3V0cHV0KSk7CiAgfQoKICBpZiAoYXV0aG9yaXplZENvdW50ID4gMSAmJiBwcmVmZXJyZWRTZXJpYWwudHJpbW1lZCgpLmlzRW1wdHkoKSkgewogICAgcmVwb3J0Lml0ZW1zLnB1c2hfYmFjayhtYWtlSXRlbShRU3RyaW5nTGl0ZXJhbCgidGFyZ2V0X2RldmljZSIpLCBRU3RyaW5nTGl0ZXJhbCgiVGFyZ2V0IGRldmljZSBzZWxlY3Rpb24iKSwgUVN0cmluZ0xpdGVyYWwoIndhcm4iKSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUVN0cmluZ0xpdGVyYWwoIk11bHRpcGxlIGF1dGhvcml6ZWQgZGV2aWNlcyBhcmUgY29ubmVjdGVkLiBBdXRvLWluZ2VzdGlvbiBzaG91bGQgdXNlIGFuIGV4cGxpY2l0IHNlcmlhbC4iKSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUVN0cmluZ0xpdGVyYWwoIlNlbGVjdCBvbmUgdGFyZ2V0IGRldmljZSBpbiB0aGUgZGlhZ25vc3RpY3MgVUkgdG8gYXZvaWQgQURCICdtb3JlIHRoYW4gb25lIGRldmljZScgZmFpbHVyZXMuIiksIGRldmljZXNPdXRwdXQpKTsKICB9CgogIHJlcG9ydC50YXJnZXRTZXJpYWwgPSBzZWxlY3RlZFNlcmlhbChyZXBvcnQuZGV2aWNlcywgcHJlZmVycmVkU2VyaWFsKTsKICBpZiAoIXJlcG9ydC50YXJnZXRTZXJpYWwuaXNFbXB0eSgpKSB7CiAgICBjb25zdCBRU3RyaW5nTGlzdCBiYXNlQXJncyA9IHNlcmlhbEFyZ3MocmVwb3J0LnRhcmdldFNlcmlhbCk7CiAgICBjb25zdCBRU3RyaW5nIG1vZGVsID0gcnVuUHJvY2VzcyhhZGJFeGVjdXRhYmxlKCksIGJhc2VBcmdzICsgUVN0cmluZ0xpc3R7UVN0cmluZ0xpdGVyYWwoInNoZWxsIiksIFFTdHJpbmdMaXRlcmFsKCJnZXRwcm9wIiksIFFTdHJpbmdMaXRlcmFsKCJyby5wcm9kdWN0Lm1vZGVsIil9LCA4MDAwLCAmY29kZSwgJmVycikudHJpbW1lZCgpOwogICAgY29uc3QgUVN0cmluZyBhbmRyb2lkID0gcnVuUHJvY2VzcyhhZGJFeGVjdXRhYmxlKCksIGJhc2VBcmdzICsgUVN0cmluZ0xpc3R7UVN0cmluZ0xpdGVyYWwoInNoZWxsIiksIFFTdHJpbmdMaXRlcmFsKCJnZXRwcm9wIiksIFFTdHJpbmdMaXRlcmFsKCJyby5idWlsZC52ZXJzaW9uLnJlbGVhc2UiKX0sIDgwMDAsICZjb2RlLCAmZXJyKS50cmltbWVkKCk7CiAgICBjb25zdCBRU3RyaW5nIGVjaG8gPSBydW5Qcm9jZXNzKGFkYkV4ZWN1dGFibGUoKSwgYmFzZUFyZ3MgKyBRU3RyaW5nTGlzdHtRU3RyaW5nTGl0ZXJhbCgic2hlbGwiKSwgUVN0cmluZ0xpdGVyYWwoImVjaG8iKSwgUVN0cmluZ0xpdGVyYWwoIm9rIil9LCA4MDAwLCAmY29kZSwgJmVycikudHJpbW1lZCgpOwogICAgY29uc3QgYm9vbCBzaGVsbE9rID0gY29kZSA9PSAwICYmIGVjaG8uY29udGFpbnMoUVN0cmluZ0xpdGVyYWwoIm9rIikpOwogICAgcmVwb3J0Lml0ZW1zLnB1c2hfYmFjayhtYWtlSXRlbShRU3RyaW5nTGl0ZXJhbCgic2hlbGxfY29udHJvbCIpLCBRU3RyaW5nTGl0ZXJhbCgiU2hlbGwgY29udHJvbCIpLCBzaGVsbE9rID8gUVN0cmluZ0xpdGVyYWwoInBhc3MiKSA6IFFTdHJpbmdMaXRlcmFsKCJmYWlsIiksCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNoZWxsT2sgPyBRU3RyaW5nTGl0ZXJhbCgiQURCIHNoZWxsIHdvcmtzLiBNb2RlbD0lMSBBbmRyb2lkPSUyIikuYXJnKG1vZGVsLCBhbmRyb2lkKQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDogUVN0cmluZ0xpdGVyYWwoIkFEQiBzaGVsbCBjb21tYW5kIGZhaWxlZC4iKSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUVN0cmluZ0xpdGVyYWwoIklmIHNoZWxsIGZhaWxzLCByZS1hdXRob3JpemUgVVNCIGRlYnVnZ2luZyBvciByZXN0YXJ0IEFEQiBzZXJ2ZXIuIiksIGVjaG8gKyBlcnIpKTsKCiAgICBpZiAoaW5jbHVkZUxpbmtPcGVuVGVzdCkgewogICAgICBjb25zdCBRU3RyaW5nIG9wZW5PdXRwdXQgPSBydW5Qcm9jZXNzKGFkYkV4ZWN1dGFibGUoKSwgYmFzZUFyZ3MgKyBRU3RyaW5nTGlzdHtRU3RyaW5nTGl0ZXJhbCgic2hlbGwiKSwgUVN0cmluZ0xpdGVyYWwoImFtIiksIFFTdHJpbmdMaXRlcmFsKCJzdGFydCIpLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFFTdHJpbmdMaXRlcmFsKCItYSIpLCBRU3RyaW5nTGl0ZXJhbCgiYW5kcm9pZC5pbnRlbnQuYWN0aW9uLlZJRVciKSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBRU3RyaW5nTGl0ZXJhbCgiLWQiKSwgdGVzdFVybH0sIDEwMDAwLCAmY29kZSwgJmVycik7CiAgICAgIGNvbnN0IGJvb2wgb3Blbk9rID0gY29kZSA9PSAwICYmIChvcGVuT3V0cHV0LmNvbnRhaW5zKFFTdHJpbmdMaXRlcmFsKCJTdGFydGluZyIpLCBRdDo6Q2FzZUluc2Vuc2l0aXZlKSB8fCBlcnIuaXNFbXB0eSgpKTsKICAgICAgcmVwb3J0Lml0ZW1zLnB1c2hfYmFjayhtYWtlSXRlbShRU3RyaW5nTGl0ZXJhbCgib3Blbl9saW5rIiksIFFTdHJpbmdMaXRlcmFsKCJPcGVuIGFydGljbGUgbGluayIpLCBvcGVuT2sgPyBRU3RyaW5nTGl0ZXJhbCgicGFzcyIpIDogUVN0cmluZ0xpdGVyYWwoImZhaWwiKSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBvcGVuT2sgPyBRU3RyaW5nTGl0ZXJhbCgiVGhlIHBob25lIGFjY2VwdGVkIGFuIGFydGljbGUgVVJMIG9wZW4gY29tbWFuZC4iKSA6IFFTdHJpbmdMaXRlcmFsKCJUaGUgcGhvbmUgZGlkIG5vdCBhY2NlcHQgdGhlIFVSTCBvcGVuIGNvbW1hbmQuIiksCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUVN0cmluZ0xpdGVyYWwoIkNoZWNrIHRoYXQgYSBicm93c2VyIG9yIFdlQ2hhdCBjYW4gaGFuZGxlIHRoZSBVUkwgYW5kIHRoYXQgdGhlIHBob25lIGlzIHVubG9ja2VkLiIpLCBvcGVuT3V0cHV0ICsgZXJyKSk7CiAgICB9IGVsc2UgewogICAgICByZXBvcnQuaXRlbXMucHVzaF9iYWNrKG1ha2VJdGVtKFFTdHJpbmdMaXRlcmFsKCJvcGVuX2xpbmsiKSwgUVN0cmluZ0xpdGVyYWwoIk9wZW4gYXJ0aWNsZSBsaW5rIiksIFFTdHJpbmdMaXRlcmFsKCJ3YXJuIiksCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUVN0cmluZ0xpdGVyYWwoIk9wZW4tbGluayB0ZXN0IHdhcyBza2lwcGVkIHRvIGF2b2lkIGNoYW5naW5nIHRoZSBwaG9uZSBzY3JlZW4uIiksCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUVN0cmluZ0xpdGVyYWwoIkNsaWNrIFRlc3QgT3BlbiBMaW5rIHdoZW4geW91IHdhbnQgdG8gdmVyaWZ5IHRoZSBmdWxsIEFEQiBhcnRpY2xlLW9wZW5pbmcgcGF0aC4iKSkpOwogICAgfQogIH0KCiAgUVN0cmluZyBwb3J0RXJyb3I7CiAgY29uc3QgYm9vbCBicmlkZ2VPayA9IGNhbkNvbm5lY3RUb0xvY2FsUG9ydChicmlkZ2VQb3J0LCA4MDAsICZwb3J0RXJyb3IpOwogIHJlcG9ydC5pdGVtcy5wdXNoX2JhY2sobWFrZUl0ZW0oUVN0cmluZ0xpdGVyYWwoImxvY2FsX2JyaWRnZSIpLCBRU3RyaW5nTGl0ZXJhbCgiTG9jYWwgYnJpZGdlIHBvcnQiKSwgYnJpZGdlT2sgPyBRU3RyaW5nTGl0ZXJhbCgicGFzcyIpIDogUVN0cmluZ0xpdGVyYWwoIndhcm4iKSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJyaWRnZU9rID8gUVN0cmluZ0xpdGVyYWwoIkxvY2FsIGJyaWRnZSBwb3J0ICUxIGlzIHJlYWNoYWJsZS4iKS5hcmcoYnJpZGdlUG9ydCkKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDogUVN0cmluZ0xpdGVyYWwoIkxvY2FsIGJyaWRnZSBwb3J0ICUxIGlzIG5vdCByZWFjaGFibGUgcmlnaHQgbm93LiIpLmFyZyhicmlkZ2VQb3J0KSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFFTdHJpbmdMaXRlcmFsKCJTdGFydCB0aGUgYXBwIGJyaWRnZSBvciBydW4gdGhlIGJ1aWx0LWluIGJyaWRnZSBzbW9rZSB0ZXN0IGZyb20gV2VDaGF0IEludGVncmF0aW9uLiIpLCBwb3J0RXJyb3IpKTsKCiAgaWYgKHByb3h5UG9ydCA+IDApIHsKICAgIGNvbnN0IGJvb2wgcHJveHlPayA9IGNhbkNvbm5lY3RUb0xvY2FsUG9ydChwcm94eVBvcnQsIDgwMCwgJnBvcnRFcnJvcik7CiAgICByZXBvcnQuaXRlbXMucHVzaF9iYWNrKG1ha2VJdGVtKFFTdHJpbmdMaXRlcmFsKCJwcm94eV9wb3J0IiksIFFTdHJpbmdMaXRlcmFsKCJMb2NhbCBwcm94eSBwb3J0IiksIHByb3h5T2sgPyBRU3RyaW5nTGl0ZXJhbCgicGFzcyIpIDogUVN0cmluZ0xpdGVyYWwoIndhcm4iKSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcHJveHlPayA/IFFTdHJpbmdMaXRlcmFsKCJMb2NhbCBwcm94eSBwb3J0ICUxIGlzIHJlYWNoYWJsZS4iKS5hcmcocHJveHlQb3J0KQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDogUVN0cmluZ0xpdGVyYWwoIkxvY2FsIHByb3h5IHBvcnQgJTEgaXMgbm90IHJlYWNoYWJsZSBvbiB0aGlzIGNvbXB1dGVyLiIpLmFyZyhwcm94eVBvcnQpLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBRU3RyaW5nTGl0ZXJhbCgiU3RhcnQgUmVxYWJsZS9taXRtcHJveHkvRmlkZGxlci9DaGFybGVzL3doaXN0bGUvUHJveHltYW4gYW5kIGNvbmZpcm0gaXRzIGxpc3RlbmluZyBwb3J0LiIpLCBwb3J0RXJyb3IpKTsKICB9IGVsc2UgewogICAgcmVwb3J0Lml0ZW1zLnB1c2hfYmFjayhtYWtlSXRlbShRU3RyaW5nTGl0ZXJhbCgicHJveHlfcG9ydCIpLCBRU3RyaW5nTGl0ZXJhbCgiTG9jYWwgcHJveHkgcG9ydCIpLCBRU3RyaW5nTGl0ZXJhbCgid2FybiIpLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBRU3RyaW5nTGl0ZXJhbCgiUHJveHkgcG9ydCB3YXMgbm90IGNvbmZpZ3VyZWQuIiksCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFFTdHJpbmdMaXRlcmFsKCJTZXQgdGhlIGxvY2FsIHByb3h5IGFkYXB0ZXIgcG9ydCBpZiB5b3Ugd2FudCB0aGUgYXBwIHRvIHRlc3Qgd2hldGhlciB0aGUgcHJveHkgcHJvY2VzcyBpcyBydW5uaW5nLiIpKSk7CiAgfQoKICByZXBvcnQuaXRlbXMucHVzaF9iYWNrKG1ha2VJdGVtKFFTdHJpbmdMaXRlcmFsKCJwbGF0Zm9ybV9ndWlkYW5jZSIpLCBRU3RyaW5nTGl0ZXJhbCgiRHJpdmVyIGFuZCBPUyBndWlkYW5jZSIpLCBRU3RyaW5nTGl0ZXJhbCgicGFzcyIpLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUVN0cmluZ0xpdGVyYWwoIlBsYXRmb3JtOiAlMSIpLmFyZyhyZXBvcnQucGxhdGZvcm0pLCBwbGF0Zm9ybURyaXZlckhpbnQoKSkpOwoKICBRU3RyaW5nIHJlYXNvbjsKICByZXBvcnQub3ZlcmFsbFN0YXR1cyA9IGlzQ29yZVJlYWR5KHJlcG9ydCwgJnJlYXNvbikgPyBRU3RyaW5nTGl0ZXJhbCgicmVhZHkiKSA6IFFTdHJpbmdMaXRlcmFsKCJibG9ja2VkIik7CiAgaWYgKHJlcG9ydC5vdmVyYWxsU3RhdHVzID09IFFTdHJpbmdMaXRlcmFsKCJyZWFkeSIpKSB7CiAgICBmb3IgKGNvbnN0IFBob25lRGlhZ25vc3RpY0l0ZW0mIGl0ZW0gOiByZXBvcnQuaXRlbXMpIHsKICAgICAgaWYgKGl0ZW0uc3RhdHVzID09IFFTdHJpbmdMaXRlcmFsKCJ3YXJuIikpIHsKICAgICAgICByZXBvcnQub3ZlcmFsbFN0YXR1cyA9IFFTdHJpbmdMaXRlcmFsKCJ3YXJuaW5nIik7CiAgICAgICAgYnJlYWs7CiAgICAgIH0KICAgIH0KICB9CiAgcmV0dXJuIHJlcG9ydDsKfQoKYm9vbCBQaG9uZURpYWdub3N0aWNzQ29udHJvbGxlcjo6aXNDb3JlUmVhZHkoY29uc3QgUGhvbmVEaWFnbm9zdGljUmVwb3J0JiByZXBvcnQsIFFTdHJpbmcqIHJlYXNvbikgewogIGNvbnN0IFFTdHJpbmdMaXN0IHJlcXVpcmVkID0ge1FTdHJpbmdMaXRlcmFsKCJhZGJfdG9vbCIpLCBRU3RyaW5nTGl0ZXJhbCgiYWRiX3NlcnZlciIpLCBRU3RyaW5nTGl0ZXJhbCgiZGV2aWNlX2RldGVjdGVkIiksCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUVN0cmluZ0xpdGVyYWwoInVzYl9hdXRob3JpemF0aW9uIiksIFFTdHJpbmdMaXRlcmFsKCJzaGVsbF9jb250cm9sIil9OwogIGZvciAoY29uc3QgUVN0cmluZyYgaWQgOiByZXF1aXJlZCkgewogICAgYm9vbCBmb3VuZCA9IGZhbHNlOwogICAgZm9yIChjb25zdCBQaG9uZURpYWdub3N0aWNJdGVtJiBpdGVtIDogcmVwb3J0Lml0ZW1zKSB7CiAgICAgIGlmIChpdGVtLmlkID09IGlkKSB7CiAgICAgICAgZm91bmQgPSB0cnVlOwogICAgICAgIGlmIChpdGVtLnN0YXR1cyAhPSBRU3RyaW5nTGl0ZXJhbCgicGFzcyIpKSB7CiAgICAgICAgICBpZiAocmVhc29uICE9IG51bGxwdHIpICpyZWFzb24gPSBpdGVtLmRldGFpbHM7CiAgICAgICAgICByZXR1cm4gZmFsc2U7CiAgICAgICAgfQogICAgICB9CiAgICB9CiAgICBpZiAoIWZvdW5kKSB7CiAgICAgIGlmIChyZWFzb24gIT0gbnVsbHB0cikgKnJlYXNvbiA9IFFTdHJpbmdMaXRlcmFsKCJNaXNzaW5nIGRpYWdub3N0aWMgaXRlbTogJTEiKS5hcmcoaWQpOwogICAgICByZXR1cm4gZmFsc2U7CiAgICB9CiAgfQogIGlmIChyZXBvcnQudGFyZ2V0U2VyaWFsLmlzRW1wdHkoKSkgewogICAgaWYgKHJlYXNvbiAhPSBudWxscHRyKSAqcmVhc29uID0gUVN0cmluZ0xpdGVyYWwoIk5vIHRhcmdldCBwaG9uZSBzZXJpYWwgc2VsZWN0ZWQuIik7CiAgICByZXR1cm4gZmFsc2U7CiAgfQogIHJldHVybiB0cnVlOwp9CgpRSnNvbk9iamVjdCBQaG9uZURpYWdub3N0aWNzQ29udHJvbGxlcjo6cmVwb3J0VG9Kc29uKGNvbnN0IFBob25lRGlhZ25vc3RpY1JlcG9ydCYgcmVwb3J0KSB7CiAgUUpzb25PYmplY3Qgcm9vdDsKICByb290Lmluc2VydChRU3RyaW5nTGl0ZXJhbCgiZ2VuZXJhdGVkX2F0IiksIFFEYXRlVGltZTo6Y3VycmVudERhdGVUaW1lVXRjKCkudG9TdHJpbmcoUXQ6OklTT0RhdGUpKTsKICByb290Lmluc2VydChRU3RyaW5nTGl0ZXJhbCgib3ZlcmFsbF9zdGF0dXMiKSwgcmVwb3J0Lm92ZXJhbGxTdGF0dXMpOwogIHJvb3QuaW5zZXJ0KFFTdHJpbmdMaXRlcmFsKCJ0YXJnZXRfc2VyaWFsIiksIHJlcG9ydC50YXJnZXRTZXJpYWwpOwogIHJvb3QuaW5zZXJ0KFFTdHJpbmdMaXRlcmFsKCJwbGF0Zm9ybSIpLCByZXBvcnQucGxhdGZvcm0pOwogIFFKc29uQXJyYXkgZGV2aWNlczsKICBmb3IgKGNvbnN0IFBob25lRGV2aWNlSW5mbyYgZGV2aWNlIDogcmVwb3J0LmRldmljZXMpIHsKICAgIFFKc29uT2JqZWN0IG9iamVjdDsKICAgIG9iamVjdC5pbnNlcnQoUVN0cmluZ0xpdGVyYWwoInNlcmlhbCIpLCBkZXZpY2Uuc2VyaWFsKTsKICAgIG9iamVjdC5pbnNlcnQoUVN0cmluZ0xpdGVyYWwoInN0YXRlIiksIGRldmljZS5zdGF0ZSk7CiAgICBvYmplY3QuaW5zZXJ0KFFTdHJpbmdMaXRlcmFsKCJtb2RlbCIpLCBkZXZpY2UubW9kZWwpOwogICAgb2JqZWN0Lmluc2VydChRU3RyaW5nTGl0ZXJhbCgicHJvZHVjdCIpLCBkZXZpY2UucHJvZHVjdCk7CiAgICBvYmplY3QuaW5zZXJ0KFFTdHJpbmdMaXRlcmFsKCJ0cmFuc3BvcnRfaWQiKSwgZGV2aWNlLnRyYW5zcG9ydElkKTsKICAgIG9iamVjdC5pbnNlcnQoUVN0cmluZ0xpdGVyYWwoInJhd19saW5lIiksIGRldmljZS5yYXdMaW5lKTsKICAgIGRldmljZXMucHVzaF9iYWNrKG9iamVjdCk7CiAgfQogIHJvb3QuaW5zZXJ0KFFTdHJpbmdMaXRlcmFsKCJkZXZpY2VzIiksIGRldmljZXMpOwogIFFKc29uQXJyYXkgaXRlbXM7CiAgZm9yIChjb25zdCBQaG9uZURpYWdub3N0aWNJdGVtJiBpdGVtIDogcmVwb3J0Lml0ZW1zKSB7CiAgICBRSnNvbk9iamVjdCBvYmplY3Q7CiAgICBvYmplY3QuaW5zZXJ0KFFTdHJpbmdMaXRlcmFsKCJpZCIpLCBpdGVtLmlkKTsKICAgIG9iamVjdC5pbnNlcnQoUVN0cmluZ0xpdGVyYWwoImxhYmVsIiksIGl0ZW0ubGFiZWwpOwogICAgb2JqZWN0Lmluc2VydChRU3RyaW5nTGl0ZXJhbCgic3RhdHVzIiksIGl0ZW0uc3RhdHVzKTsKICAgIG9iamVjdC5pbnNlcnQoUVN0cmluZ0xpdGVyYWwoImRldGFpbHMiKSwgaXRlbS5kZXRhaWxzKTsKICAgIG9iamVjdC5pbnNlcnQoUVN0cmluZ0xpdGVyYWwoImZpeF9oaW50IiksIGl0ZW0uZml4SGludCk7CiAgICBvYmplY3QuaW5zZXJ0KFFTdHJpbmdMaXRlcmFsKCJyYXdfb3V0cHV0IiksIGl0ZW0ucmF3T3V0cHV0KTsKICAgIGl0ZW1zLnB1c2hfYmFjayhvYmplY3QpOwogIH0KICByb290Lmluc2VydChRU3RyaW5nTGl0ZXJhbCgiaXRlbXMiKSwgaXRlbXMpOwogIHJldHVybiByb290Owp9CgpRU3RyaW5nIFBob25lRGlhZ25vc3RpY3NDb250cm9sbGVyOjpyZXBvcnRUb1RleHQoY29uc3QgUGhvbmVEaWFnbm9zdGljUmVwb3J0JiByZXBvcnQpIHsKICBRU3RyaW5nTGlzdCBsaW5lczsKICBsaW5lcyA8PCBRU3RyaW5nTGl0ZXJhbCgiUGhvbmUgRGlhZ25vc3RpY3MgUmVwb3J0IikKICAgICAgICA8PCBRU3RyaW5nTGl0ZXJhbCgiT3ZlcmFsbDogJTEiKS5hcmcocmVwb3J0Lm92ZXJhbGxTdGF0dXMpCiAgICAgICAgPDwgUVN0cmluZ0xpdGVyYWwoIlBsYXRmb3JtOiAlMSIpLmFyZyhyZXBvcnQucGxhdGZvcm0pCiAgICAgICAgPDwgUVN0cmluZ0xpdGVyYWwoIlRhcmdldCBzZXJpYWw6ICUxIikuYXJnKHJlcG9ydC50YXJnZXRTZXJpYWwuaXNFbXB0eSgpID8gUVN0cmluZ0xpdGVyYWwoIjxub25lPiIpIDogcmVwb3J0LnRhcmdldFNlcmlhbCkKICAgICAgICA8PCBRU3RyaW5nTGl0ZXJhbCgiIik7CiAgZm9yIChjb25zdCBQaG9uZURpYWdub3N0aWNJdGVtJiBpdGVtIDogcmVwb3J0Lml0ZW1zKSB7CiAgICBsaW5lcyA8PCBRU3RyaW5nTGl0ZXJhbCgiWyUxXSAlMiIpLmFyZyhzdGF0dXNMYWJlbChpdGVtLnN0YXR1cyksIGl0ZW0ubGFiZWwpCiAgICAgICAgICA8PCBRU3RyaW5nTGl0ZXJhbCgiICBEZXRhaWxzOiAlMSIpLmFyZyhpdGVtLmRldGFpbHMpCiAgICAgICAgICA8PCBRU3RyaW5nTGl0ZXJhbCgiICBGaXg6ICUxIikuYXJnKGl0ZW0uZml4SGludCk7CiAgICBpZiAoIWl0ZW0ucmF3T3V0cHV0LnRyaW1tZWQoKS5pc0VtcHR5KCkpIHsKICAgICAgbGluZXMgPDwgUVN0cmluZ0xpdGVyYWwoIiAgUmF3OiAlMSIpLmFyZyhpdGVtLnJhd091dHB1dC50cmltbWVkKCkubGVmdCg2MDApKTsKICAgIH0KICB9CiAgcmV0dXJuIGxpbmVzLmpvaW4oUVN0cmluZ0xpdGVyYWwoIlxuIikpOwp9Cg==
+#include "PhoneDiagnosticsController.h"
+
+#include <QCoreApplication>
+#include <QDateTime>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QProcess>
+#include <QRegularExpression>
+#include <QTcpSocket>
+#include <QSysInfo>
+
+namespace {
+QString statusLabel(const QString& status) {
+  if (status == QStringLiteral("pass")) return QStringLiteral("PASS");
+  if (status == QStringLiteral("warn")) return QStringLiteral("WARN");
+  if (status == QStringLiteral("fail")) return QStringLiteral("FAIL");
+  return QStringLiteral("UNKNOWN");
+}
+
+QString valueAfterPrefix(const QStringList& tokens, const QString& prefix) {
+  for (const QString& token : tokens) {
+    if (token.startsWith(prefix)) {
+      return token.mid(prefix.size()).trimmed();
+    }
+  }
+  return QString();
+}
+}  // namespace
+
+PhoneDiagnosticsController::PhoneDiagnosticsController(QObject* parent) : QObject(parent) {}
+
+QString PhoneDiagnosticsController::currentPlatformName() {
+  return QSysInfo::prettyProductName().isEmpty() ? QSysInfo::productType() : QSysInfo::prettyProductName();
+}
+
+QVector<PhoneDeviceInfo> PhoneDiagnosticsController::parseAdbDevices(const QString& output) {
+  QVector<PhoneDeviceInfo> devices;
+  const QStringList lines = output.split(QRegularExpression(QStringLiteral("[\r\n]+")), Qt::SkipEmptyParts);
+  for (const QString& raw : lines) {
+    const QString line = raw.trimmed();
+    if (line.isEmpty() || line.startsWith(QStringLiteral("List of devices")) || line.startsWith(QStringLiteral("* daemon"))) {
+      continue;
+    }
+    const QStringList tokens = line.split(QRegularExpression(QStringLiteral("\\s+")), Qt::SkipEmptyParts);
+    if (tokens.size() < 2) {
+      continue;
+    }
+    PhoneDeviceInfo device;
+    device.serial = tokens.at(0);
+    device.state = tokens.at(1);
+    device.rawLine = line;
+    device.model = valueAfterPrefix(tokens, QStringLiteral("model:"));
+    device.product = valueAfterPrefix(tokens, QStringLiteral("product:"));
+    device.transportId = valueAfterPrefix(tokens, QStringLiteral("transport_id:"));
+    devices.push_back(device);
+  }
+  return devices;
+}
+
+QString PhoneDiagnosticsController::deviceSummary(const PhoneDeviceInfo& device) {
+  QStringList parts;
+  parts << device.serial << device.state;
+  if (!device.model.isEmpty()) parts << QStringLiteral("model=%1").arg(device.model);
+  if (!device.product.isEmpty()) parts << QStringLiteral("product=%1").arg(device.product);
+  if (!device.transportId.isEmpty()) parts << QStringLiteral("transport=%1").arg(device.transportId);
+  return parts.join(QStringLiteral(" | "));
+}
+
+PhoneDiagnosticItem PhoneDiagnosticsController::makeItem(const QString& id, const QString& label, const QString& status,
+                                                         const QString& details, const QString& fixHint,
+                                                         const QString& rawOutput) {
+  PhoneDiagnosticItem item;
+  item.id = id;
+  item.label = label;
+  item.status = status;
+  item.details = details;
+  item.fixHint = fixHint;
+  item.rawOutput = rawOutput;
+  return item;
+}
+
+QString PhoneDiagnosticsController::adbExecutable() {
+  return QStringLiteral("adb");
+}
+
+QStringList PhoneDiagnosticsController::serialArgs(const QString& serial) {
+  if (serial.trimmed().isEmpty()) {
+    return {};
+  }
+  return {QStringLiteral("-s"), serial.trimmed()};
+}
+
+QString PhoneDiagnosticsController::runProcess(const QString& program, const QStringList& args, int timeoutMs,
+                                               int* exitCode, QString* stdErr) {
+  QProcess process;
+  process.start(program, args);
+  if (!process.waitForStarted(timeoutMs)) {
+    if (exitCode != nullptr) *exitCode = -1;
+    if (stdErr != nullptr) *stdErr = process.errorString();
+    return QString();
+  }
+  if (!process.waitForFinished(timeoutMs)) {
+    process.kill();
+    process.waitForFinished(1000);
+    if (exitCode != nullptr) *exitCode = -2;
+    if (stdErr != nullptr) *stdErr = QStringLiteral("timeout");
+    return QString::fromLocal8Bit(process.readAllStandardOutput());
+  }
+  if (exitCode != nullptr) *exitCode = process.exitCode();
+  if (stdErr != nullptr) *stdErr = QString::fromLocal8Bit(process.readAllStandardError());
+  return QString::fromLocal8Bit(process.readAllStandardOutput());
+}
+
+bool PhoneDiagnosticsController::canConnectToLocalPort(quint16 port, int timeoutMs, QString* errorMessage) {
+  QTcpSocket socket;
+  socket.connectToHost(QStringLiteral("127.0.0.1"), port);
+  if (socket.waitForConnected(timeoutMs)) {
+    socket.disconnectFromHost();
+    return true;
+  }
+  if (errorMessage != nullptr) {
+    *errorMessage = socket.errorString();
+  }
+  return false;
+}
+
+QString PhoneDiagnosticsController::selectedSerial(const QVector<PhoneDeviceInfo>& devices, const QString& preferredSerial) {
+  const QString preferred = preferredSerial.trimmed();
+  if (!preferred.isEmpty()) {
+    for (const PhoneDeviceInfo& device : devices) {
+      if (device.serial == preferred) return preferred;
+    }
+  }
+  for (const PhoneDeviceInfo& device : devices) {
+    if (device.state == QStringLiteral("device")) return device.serial;
+  }
+  return QString();
+}
+
+QString PhoneDiagnosticsController::platformDriverHint() {
+#if defined(Q_OS_WIN)
+  return QStringLiteral("Windows: install Android Platform Tools, then install the phone vendor USB driver or Google USB Driver. Open Device Manager and confirm the phone appears as Android ADB Interface instead of Unknown Device.");
+#elif defined(Q_OS_LINUX)
+  return QStringLiteral("Linux: install android-tools-adb. If the device shows no permissions, add udev rules for the vendor id, reload udev, replug the phone, then run adb kill-server && adb start-server.");
+#elif defined(Q_OS_MACOS)
+  return QStringLiteral("macOS: install Android Platform Tools. A vendor USB driver is usually not required; check that the cable supports data transfer and the phone trusts this computer.");
+#else
+  return QStringLiteral("Install Android Platform Tools, use a data-capable USB cable, enable Developer options and USB debugging, then authorize this computer on the phone.");
+#endif
+}
+
+PhoneDiagnosticReport PhoneDiagnosticsController::runDiagnostics(const QString& preferredSerial,
+                                                                 quint16 bridgePort,
+                                                                 quint16 proxyPort,
+                                                                 bool includeLinkOpenTest,
+                                                                 const QString& testUrl) {
+  PhoneDiagnosticReport report;
+  report.platform = currentPlatformName();
+
+  int code = 0;
+  QString err;
+  const QString version = runProcess(adbExecutable(), {QStringLiteral("version")}, 5000, &code, &err);
+  if (code == 0 && version.contains(QStringLiteral("Android Debug Bridge"), Qt::CaseInsensitive)) {
+    report.items.push_back(makeItem(QStringLiteral("adb_tool"), QStringLiteral("ADB tool"), QStringLiteral("pass"),
+                                    QStringLiteral("ADB is installed and executable."), QStringLiteral("No action needed."), version));
+  } else {
+    report.items.push_back(makeItem(QStringLiteral("adb_tool"), QStringLiteral("ADB tool"), QStringLiteral("fail"),
+                                    QStringLiteral("ADB is missing or cannot run."), platformDriverHint(), err + version));
+    report.overallStatus = QStringLiteral("blocked");
+    return report;
+  }
+
+  const QString server = runProcess(adbExecutable(), {QStringLiteral("start-server")}, 8000, &code, &err);
+  report.items.push_back(makeItem(QStringLiteral("adb_server"), QStringLiteral("ADB server"), code == 0 ? QStringLiteral("pass") : QStringLiteral("fail"),
+                                  code == 0 ? QStringLiteral("ADB server is running.") : QStringLiteral("ADB server failed to start."),
+                                  QStringLiteral("Try adb kill-server, replug the phone, then run diagnostics again."), server + err));
+
+  const QString devicesOutput = runProcess(adbExecutable(), {QStringLiteral("devices"), QStringLiteral("-l")}, 8000, &code, &err);
+  report.devices = parseAdbDevices(devicesOutput);
+  QStringList summaries;
+  for (const PhoneDeviceInfo& device : report.devices) summaries << deviceSummary(device);
+
+  if (report.devices.isEmpty()) {
+    report.items.push_back(makeItem(QStringLiteral("device_detected"), QStringLiteral("Phone detection"), QStringLiteral("fail"),
+                                    QStringLiteral("No Android device is visible to ADB."), platformDriverHint(), devicesOutput + err));
+    report.overallStatus = QStringLiteral("blocked");
+  } else {
+    report.items.push_back(makeItem(QStringLiteral("device_detected"), QStringLiteral("Phone detection"), QStringLiteral("pass"),
+                                    QStringLiteral("Detected device(s): %1").arg(summaries.join(QStringLiteral("; "))),
+                                    QStringLiteral("If this is not the target phone, select the correct serial in the diagnostics UI."), devicesOutput));
+  }
+
+  int authorizedCount = 0;
+  int unauthorizedCount = 0;
+  int offlineCount = 0;
+  for (const PhoneDeviceInfo& device : report.devices) {
+    if (device.state == QStringLiteral("device")) ++authorizedCount;
+    if (device.state == QStringLiteral("unauthorized")) ++unauthorizedCount;
+    if (device.state == QStringLiteral("offline")) ++offlineCount;
+  }
+  if (unauthorizedCount > 0) {
+    report.items.push_back(makeItem(QStringLiteral("usb_authorization"), QStringLiteral("USB authorization"), QStringLiteral("fail"),
+                                    QStringLiteral("A phone is connected but has not authorized USB debugging."),
+                                    QStringLiteral("Unlock the phone, enable Developer options -> USB debugging, replug USB, then tap Allow on the authorization dialog."), devicesOutput));
+  } else if (offlineCount > 0) {
+    report.items.push_back(makeItem(QStringLiteral("usb_authorization"), QStringLiteral("USB authorization"), QStringLiteral("fail"),
+                                    QStringLiteral("A phone is offline from ADB's point of view."),
+                                    QStringLiteral("Replug USB, restart ADB server, or reboot the phone if it stays offline."), devicesOutput));
+  } else if (authorizedCount > 0) {
+    report.items.push_back(makeItem(QStringLiteral("usb_authorization"), QStringLiteral("USB authorization"), QStringLiteral("pass"),
+                                    QStringLiteral("At least one phone is authorized."), QStringLiteral("No action needed."), devicesOutput));
+  }
+
+  if (authorizedCount > 1 && preferredSerial.trimmed().isEmpty()) {
+    report.items.push_back(makeItem(QStringLiteral("target_device"), QStringLiteral("Target device selection"), QStringLiteral("warn"),
+                                    QStringLiteral("Multiple authorized devices are connected. Auto-ingestion should use an explicit serial."),
+                                    QStringLiteral("Select one target device in the diagnostics UI to avoid ADB 'more than one device' failures."), devicesOutput));
+  }
+
+  report.targetSerial = selectedSerial(report.devices, preferredSerial);
+  if (!report.targetSerial.isEmpty()) {
+    const QStringList baseArgs = serialArgs(report.targetSerial);
+    const QString model = runProcess(adbExecutable(), baseArgs + QStringList{QStringLiteral("shell"), QStringLiteral("getprop"), QStringLiteral("ro.product.model")}, 8000, &code, &err).trimmed();
+    const QString android = runProcess(adbExecutable(), baseArgs + QStringList{QStringLiteral("shell"), QStringLiteral("getprop"), QStringLiteral("ro.build.version.release")}, 8000, &code, &err).trimmed();
+    const QString echo = runProcess(adbExecutable(), baseArgs + QStringList{QStringLiteral("shell"), QStringLiteral("echo"), QStringLiteral("ok")}, 8000, &code, &err).trimmed();
+    const bool shellOk = code == 0 && echo.contains(QStringLiteral("ok"));
+    report.items.push_back(makeItem(QStringLiteral("shell_control"), QStringLiteral("Shell control"), shellOk ? QStringLiteral("pass") : QStringLiteral("fail"),
+                                    shellOk ? QStringLiteral("ADB shell works. Model=%1 Android=%2").arg(model, android)
+                                            : QStringLiteral("ADB shell command failed."),
+                                    QStringLiteral("If shell fails, re-authorize USB debugging or restart ADB server."), echo + err));
+
+    if (includeLinkOpenTest) {
+      const QString openOutput = runProcess(adbExecutable(), baseArgs + QStringList{QStringLiteral("shell"), QStringLiteral("am"), QStringLiteral("start"),
+                                                                                   QStringLiteral("-a"), QStringLiteral("android.intent.action.VIEW"),
+                                                                                   QStringLiteral("-d"), testUrl}, 10000, &code, &err);
+      const bool openOk = code == 0 && (openOutput.contains(QStringLiteral("Starting"), Qt::CaseInsensitive) || err.isEmpty());
+      report.items.push_back(makeItem(QStringLiteral("open_link"), QStringLiteral("Open article link"), openOk ? QStringLiteral("pass") : QStringLiteral("fail"),
+                                      openOk ? QStringLiteral("The phone accepted an article URL open command.") : QStringLiteral("The phone did not accept the URL open command."),
+                                      QStringLiteral("Check that a browser or WeChat can handle the URL and that the phone is unlocked."), openOutput + err));
+    } else {
+      report.items.push_back(makeItem(QStringLiteral("open_link"), QStringLiteral("Open article link"), QStringLiteral("warn"),
+                                      QStringLiteral("Open-link test was skipped to avoid changing the phone screen."),
+                                      QStringLiteral("Click Test Open Link when you want to verify the full ADB article-opening path.")));
+    }
+  }
+
+  QString portError;
+  const bool bridgeOk = canConnectToLocalPort(bridgePort, 800, &portError);
+  report.items.push_back(makeItem(QStringLiteral("local_bridge"), QStringLiteral("Local bridge port"), bridgeOk ? QStringLiteral("pass") : QStringLiteral("warn"),
+                                  bridgeOk ? QStringLiteral("Local bridge port %1 is reachable.").arg(bridgePort)
+                                           : QStringLiteral("Local bridge port %1 is not reachable right now.").arg(bridgePort),
+                                  QStringLiteral("Start the app bridge or run the built-in bridge smoke test from WeChat Integration."), portError));
+
+  if (proxyPort > 0) {
+    const bool proxyOk = canConnectToLocalPort(proxyPort, 800, &portError);
+    report.items.push_back(makeItem(QStringLiteral("proxy_port"), QStringLiteral("Local proxy port"), proxyOk ? QStringLiteral("pass") : QStringLiteral("warn"),
+                                    proxyOk ? QStringLiteral("Local proxy port %1 is reachable.").arg(proxyPort)
+                                            : QStringLiteral("Local proxy port %1 is not reachable on this computer.").arg(proxyPort),
+                                    QStringLiteral("Start Reqable/mitmproxy/Fiddler/Charles/whistle/Proxyman and confirm its listening port."), portError));
+  } else {
+    report.items.push_back(makeItem(QStringLiteral("proxy_port"), QStringLiteral("Local proxy port"), QStringLiteral("warn"),
+                                    QStringLiteral("Proxy port was not configured."),
+                                    QStringLiteral("Set the local proxy adapter port if you want the app to test whether the proxy process is running.")));
+  }
+
+  report.items.push_back(makeItem(QStringLiteral("platform_guidance"), QStringLiteral("Driver and OS guidance"), QStringLiteral("pass"),
+                                  QStringLiteral("Platform: %1").arg(report.platform), platformDriverHint()));
+
+  QString reason;
+  report.overallStatus = isCoreReady(report, &reason) ? QStringLiteral("ready") : QStringLiteral("blocked");
+  if (report.overallStatus == QStringLiteral("ready")) {
+    for (const PhoneDiagnosticItem& item : report.items) {
+      if (item.status == QStringLiteral("warn")) {
+        report.overallStatus = QStringLiteral("warning");
+        break;
+      }
+    }
+  }
+  return report;
+}
+
+bool PhoneDiagnosticsController::isCoreReady(const PhoneDiagnosticReport& report, QString* reason) {
+  const QStringList required = {QStringLiteral("adb_tool"), QStringLiteral("adb_server"), QStringLiteral("device_detected"),
+                                QStringLiteral("usb_authorization"), QStringLiteral("shell_control")};
+  for (const QString& id : required) {
+    bool found = false;
+    for (const PhoneDiagnosticItem& item : report.items) {
+      if (item.id == id) {
+        found = true;
+        if (item.status != QStringLiteral("pass")) {
+          if (reason != nullptr) *reason = item.details;
+          return false;
+        }
+      }
+    }
+    if (!found) {
+      if (reason != nullptr) *reason = QStringLiteral("Missing diagnostic item: %1").arg(id);
+      return false;
+    }
+  }
+  if (report.targetSerial.isEmpty()) {
+    if (reason != nullptr) *reason = QStringLiteral("No target phone serial selected.");
+    return false;
+  }
+  return true;
+}
+
+QJsonObject PhoneDiagnosticsController::reportToJson(const PhoneDiagnosticReport& report) {
+  QJsonObject root;
+  root.insert(QStringLiteral("generated_at"), QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
+  root.insert(QStringLiteral("overall_status"), report.overallStatus);
+  root.insert(QStringLiteral("target_serial"), report.targetSerial);
+  root.insert(QStringLiteral("platform"), report.platform);
+  QJsonArray devices;
+  for (const PhoneDeviceInfo& device : report.devices) {
+    QJsonObject object;
+    object.insert(QStringLiteral("serial"), device.serial);
+    object.insert(QStringLiteral("state"), device.state);
+    object.insert(QStringLiteral("model"), device.model);
+    object.insert(QStringLiteral("product"), device.product);
+    object.insert(QStringLiteral("transport_id"), device.transportId);
+    object.insert(QStringLiteral("raw_line"), device.rawLine);
+    devices.push_back(object);
+  }
+  root.insert(QStringLiteral("devices"), devices);
+  QJsonArray items;
+  for (const PhoneDiagnosticItem& item : report.items) {
+    QJsonObject object;
+    object.insert(QStringLiteral("id"), item.id);
+    object.insert(QStringLiteral("label"), item.label);
+    object.insert(QStringLiteral("status"), item.status);
+    object.insert(QStringLiteral("details"), item.details);
+    object.insert(QStringLiteral("fix_hint"), item.fixHint);
+    object.insert(QStringLiteral("raw_output"), item.rawOutput);
+    items.push_back(object);
+  }
+  root.insert(QStringLiteral("items"), items);
+  return root;
+}
+
+QString PhoneDiagnosticsController::reportToText(const PhoneDiagnosticReport& report) {
+  QStringList lines;
+  lines << QStringLiteral("Phone Diagnostics Report")
+        << QStringLiteral("Overall: %1").arg(report.overallStatus)
+        << QStringLiteral("Platform: %1").arg(report.platform)
+        << QStringLiteral("Target serial: %1").arg(report.targetSerial.isEmpty() ? QStringLiteral("<none>") : report.targetSerial)
+        << QStringLiteral("");
+  for (const PhoneDiagnosticItem& item : report.items) {
+    lines << QStringLiteral("[%1] %2").arg(statusLabel(item.status), item.label)
+          << QStringLiteral("  Details: %1").arg(item.details)
+          << QStringLiteral("  Fix: %1").arg(item.fixHint);
+    if (!item.rawOutput.trimmed().isEmpty()) {
+      lines << QStringLiteral("  Raw: %1").arg(item.rawOutput.trimmed().left(600));
+    }
+  }
+  return lines.join(QStringLiteral("\n"));
+}

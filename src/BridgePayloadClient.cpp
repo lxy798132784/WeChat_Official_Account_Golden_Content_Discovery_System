@@ -1,1 +1,44 @@
-I2luY2x1ZGUgIkJyaWRnZVBheWxvYWRDbGllbnQuaCIKCiNpbmNsdWRlIDxRSnNvbkRvY3VtZW50PgojaW5jbHVkZSA8UUpzb25PYmplY3Q+CgojaW5jbHVkZSAiUHJveHlUcmFmZmljQnJpZGdlLmgiCgpib29sIEJyaWRnZVBheWxvYWRDbGllbnQ6OnNlbmRQYXlsb2FkKGNvbnN0IFFTdHJpbmcmIGhvc3QsIHF1aW50MTYgcG9ydCwgY29uc3QgUUJ5dGVBcnJheSYgcGF5bG9hZCwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBRU3RyaW5nKiBlcnJvck1lc3NhZ2UpIHsKICBpZiAoaG9zdCAhPSBRU3RyaW5nTGl0ZXJhbCgiMTI3LjAuMC4xIikgJiYgaG9zdCAhPSBRU3RyaW5nTGl0ZXJhbCgibG9jYWxob3N0IikpIHsKICAgIGlmIChlcnJvck1lc3NhZ2UgIT0gbnVsbHB0cikgewogICAgICAqZXJyb3JNZXNzYWdlID0gUVN0cmluZ0xpdGVyYWwoIk9ubHkgbG9jYWxob3N0IGJyaWRnZSB0YXJnZXRzIGFyZSBzdXBwb3J0ZWQiKTsKICAgIH0KICAgIHJldHVybiBmYWxzZTsKICB9CiAgcmV0dXJuIFByb3h5VHJhZmZpY0JyaWRnZTo6c2VuZFBheWxvYWRUb0xvY2FsQnJpZGdlKHBvcnQsIHBheWxvYWQsIGVycm9yTWVzc2FnZSk7Cn0KClFCeXRlQXJyYXkgQnJpZGdlUGF5bG9hZENsaWVudDo6c2FtcGxlTWV0cmljc1BheWxvYWQoKSB7CiAgUUpzb25PYmplY3Qgc3RhdDsKICBzdGF0Lmluc2VydChRU3RyaW5nTGl0ZXJhbCgicmVhZF9udW0iKSwgMzYwMDApOwogIHN0YXQuaW5zZXJ0KFFTdHJpbmdMaXRlcmFsKCJsaWtlX251bSIpLCAxNjAwKTsKICBzdGF0Lmluc2VydChRU3RyaW5nTGl0ZXJhbCgib2xkX2xpa2VfbnVtIiksIDUwMCk7CiAgUUpzb25PYmplY3Qgb2JqZWN0OwogIG9iamVjdC5pbnNlcnQoUVN0cmluZ0xpdGVyYWwoImVuZHBvaW50IiksIFFTdHJpbmdMaXRlcmFsKCIvbXAvZ2V0YXBwbXNnZXh0IikpOwogIG9iamVjdC5pbnNlcnQoUVN0cmluZ0xpdGVyYWwoInRpdGxlIiksIFFTdHJpbmdMaXRlcmFsKCJMb2NhbCBCcmlkZ2UgUHJvZHVjdGlvbiBTbW9rZSBBcnRpY2xlIikpOwogIG9iamVjdC5pbnNlcnQoUVN0cmluZ0xpdGVyYWwoInVybCIpLCBRU3RyaW5nTGl0ZXJhbCgiaHR0cHM6Ly9leGFtcGxlLmxvY2FsL2JyaWRnZS1zbW9rZSIpKTsKICBvYmplY3QuaW5zZXJ0KFFTdHJpbmdMaXRlcmFsKCJhY2NvdW50X25hbWUiKSwgUVN0cmluZ0xpdGVyYWwoIkxvY2FsIEJyaWRnZSBMYWIiKSk7CiAgb2JqZWN0Lmluc2VydChRU3RyaW5nTGl0ZXJhbCgiZ3poX2lkIiksIFFTdHJpbmdMaXRlcmFsKCJnaF9icmlkZ2Vfc21va2UiKSk7CiAgb2JqZWN0Lmluc2VydChRU3RyaW5nTGl0ZXJhbCgiY2F0ZWdvcnkiKSwgUVN0cmluZ0xpdGVyYWwoIk9wZXJhdGlvbnMiKSk7CiAgb2JqZWN0Lmluc2VydChRU3RyaW5nTGl0ZXJhbCgicHVibGlzaF90aW1lIiksIFFTdHJpbmdMaXRlcmFsKCIyMDI2LTA2LTA1VDA5OjMwOjAwWiIpKTsKICBvYmplY3QuaW5zZXJ0KFFTdHJpbmdMaXRlcmFsKCJhcnRpY2xlX2NvdW50XzMwZCIpLCAxMSk7CiAgb2JqZWN0Lmluc2VydChRU3RyaW5nTGl0ZXJhbCgiYXBwbXNnc3RhdCIpLCBzdGF0KTsKICByZXR1cm4gUUpzb25Eb2N1bWVudChvYmplY3QpLnRvSnNvbihRSnNvbkRvY3VtZW50OjpDb21wYWN0KTsKfQoKUUJ5dGVBcnJheSBCcmlkZ2VQYXlsb2FkQ2xpZW50OjpzYW1wbGVDb21tZW50UGF5bG9hZCgpIHsKICBRSnNvbk9iamVjdCBvYmplY3Q7CiAgb2JqZWN0Lmluc2VydChRU3RyaW5nTGl0ZXJhbCgicGF0aCIpLCBRU3RyaW5nTGl0ZXJhbCgiL21wL2FwcG1zZ19jb21tZW50P2FjdGlvbj1nZXRjb21tZW50IikpOwogIG9iamVjdC5pbnNlcnQoUVN0cmluZ0xpdGVyYWwoInRpdGxlIiksIFFTdHJpbmdMaXRlcmFsKCJMb2NhbCBCcmlkZ2UgUHJvZHVjdGlvbiBTbW9rZSBBcnRpY2xlIikpOwogIG9iamVjdC5pbnNlcnQoUVN0cmluZ0xpdGVyYWwoInVybCIpLCBRU3RyaW5nTGl0ZXJhbCgiaHR0cHM6Ly9leGFtcGxlLmxvY2FsL2JyaWRnZS1zbW9rZSIpKTsKICBvYmplY3QuaW5zZXJ0KFFTdHJpbmdMaXRlcmFsKCJjb21tZW50X2NvdW50IiksIDk2KTsKICByZXR1cm4gUUpzb25Eb2N1bWVudChvYmplY3QpLnRvSnNvbihRSnNvbkRvY3VtZW50OjpDb21wYWN0KTsKfQo=
+#include "BridgePayloadClient.h"
+
+#include <QJsonDocument>
+#include <QJsonObject>
+
+#include "ProxyTrafficBridge.h"
+
+bool BridgePayloadClient::sendPayload(const QString& host, quint16 port, const QByteArray& payload,
+                                      QString* errorMessage) {
+  if (host != QStringLiteral("127.0.0.1") && host != QStringLiteral("localhost")) {
+    if (errorMessage != nullptr) {
+      *errorMessage = QStringLiteral("Only localhost bridge targets are supported");
+    }
+    return false;
+  }
+  return ProxyTrafficBridge::sendPayloadToLocalBridge(port, payload, errorMessage);
+}
+
+QByteArray BridgePayloadClient::sampleMetricsPayload() {
+  QJsonObject stat;
+  stat.insert(QStringLiteral("read_num"), 36000);
+  stat.insert(QStringLiteral("like_num"), 1600);
+  stat.insert(QStringLiteral("old_like_num"), 500);
+  QJsonObject object;
+  object.insert(QStringLiteral("endpoint"), QStringLiteral("/mp/getappmsgext"));
+  object.insert(QStringLiteral("title"), QStringLiteral("Local Bridge Production Smoke Article"));
+  object.insert(QStringLiteral("url"), QStringLiteral("https://example.local/bridge-smoke"));
+  object.insert(QStringLiteral("account_name"), QStringLiteral("Local Bridge Lab"));
+  object.insert(QStringLiteral("gzh_id"), QStringLiteral("gh_bridge_smoke"));
+  object.insert(QStringLiteral("category"), QStringLiteral("Operations"));
+  object.insert(QStringLiteral("publish_time"), QStringLiteral("2026-06-05T09:30:00Z"));
+  object.insert(QStringLiteral("article_count_30d"), 11);
+  object.insert(QStringLiteral("appmsgstat"), stat);
+  return QJsonDocument(object).toJson(QJsonDocument::Compact);
+}
+
+QByteArray BridgePayloadClient::sampleCommentPayload() {
+  QJsonObject object;
+  object.insert(QStringLiteral("path"), QStringLiteral("/mp/appmsg_comment?action=getcomment"));
+  object.insert(QStringLiteral("title"), QStringLiteral("Local Bridge Production Smoke Article"));
+  object.insert(QStringLiteral("url"), QStringLiteral("https://example.local/bridge-smoke"));
+  object.insert(QStringLiteral("comment_count"), 96);
+  return QJsonDocument(object).toJson(QJsonDocument::Compact);
+}

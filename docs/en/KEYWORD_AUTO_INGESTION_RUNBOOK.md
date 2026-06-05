@@ -1,1 +1,134 @@
-IyBLZXl3b3JkIEF1dG8gSW5nZXN0aW9uIFJ1bmJvb2sKCiMjIFByb2R1Y3QgZ29hbAoKVGhlIHByaW1hcnkgcGF0aCBpcyBrZXl3b3JkLWZpcnN0IGF1dG8gaW5nZXN0aW9uLiBUaGUgb3BlcmF0b3Igc2hvdWxkIG9ubHkgbmVlZCB0bzoKCjEuIENvbm5lY3QgYW4gYXV0aG9yaXplZCBBbmRyb2lkIHRlc3QgcGhvbmUuCjIuIEVudGVyIG1hcmtldCBrZXl3b3Jkcy4KMy4gU2V0IGhvdC1hcnRpY2xlIG1ldHJpYyB0aHJlc2hvbGRzLgo0LiBDbGljayAqKlN0YXJ0IEtleXdvcmQgQXV0byBJbmdlc3Rpb24qKi4KClRoZSBhcHAgdGhlbiBhdXRvbWF0aWNhbGx5IHNlYXJjaGVzIGtleXdvcmQgcmVzdWx0IHBhZ2VzLCBleHRyYWN0cyBXZUNoYXQgYXJ0aWNsZSBjYW5kaWRhdGUgVVJMcywgYXBwbGllcyB0aGUgaG90LWFydGljbGUgY29udHJvbHMsIGVucXVldWVzIG1hdGNoaW5nIGNhbmRpZGF0ZXMsIG9wZW5zIHRoZW0gb24gdGhlIHBob25lIHRocm91Z2ggQURCLCBhbmQgd2FpdHMgZm9yIHRoZSBsb2NhbCBwcm94eSBhZGFwdGVyIHRvIHNlbmQgcmVhbCBhcnRpY2xlIG1ldHJpY3MgdG8gdGhlIGxvY2FsaG9zdCBicmlkZ2UuCgojIyBIb3QtYXJ0aWNsZSBtZXRyaWMgY29udHJvbHMKClRoZSBLZXl3b3JkIERpc2NvdmVyeSBwYWdlIGV4cG9zZXMgdGhlc2UgY29udHJvbHM6CgotICoqTWluaW11bSByZWFkcyoqOiBtaW5pbXVtIGByZWFkX251bWAgYWNjZXB0ZWQgZm9yIGF1dG8gZW5xdWV1ZS4KLSAqKk1pbmltdW0gbGlrZXMqKjogbWluaW11bSBgbGlrZV9udW1gIGFjY2VwdGVkIGZvciBhdXRvIGVucXVldWUuCi0gKipNaW5pbXVtIGNvbW1lbnRzKio6IG1pbmltdW0gYGNvbW1lbnRfbnVtYCBhY2NlcHRlZCBmb3IgYXV0byBlbnF1ZXVlLgotICoqTWluaW11bSBob3Qgc2NvcmUqKjogbWluaW11bSBlc3RpbWF0ZWQgc2NvcmUgYWNjZXB0ZWQgZm9yIGF1dG8gZW5xdWV1ZS4KLSAqKk1heCBwZXIga2V5d29yZCoqOiBtYXhpbXVtIGNhbmRpZGF0ZSBhcnRpY2xlIGxpbmtzIHBhcnNlZCBmcm9tIGVhY2gga2V5d29yZCBzZWFyY2ggcGFnZS4KClNlYXJjaCBwYWdlcyBtYXkgbm90IGV4cG9zZSByZWFsIHJlYWRzLCBsaWtlcywgb3IgY29tbWVudHMuIFdoZW4gdGhvc2UgbWV0cmljcyBhcmUgdW5hdmFpbGFibGUsIGNhbmRpZGF0ZXMgY2FuIHN0aWxsIGJlIG9wZW5lZCB3aGVuIHRocmVzaG9sZHMgYXJlIHNldCB0byB6ZXJvOyBmaW5hbCBob3RuZXNzIG11c3QgYmUganVkZ2VkIGFmdGVyIHRoZSBwcm94eSBjYXB0dXJlcyBgL21wL2dldGFwcG1zZ2V4dGAgYW5kIGAvbXAvYXBwbXNnX2NvbW1lbnRgIGZyb20gdGhlIGxvYWRlZCBhcnRpY2xlLgoKVGhlIGN1cnJlbnQgZXN0aW1hdGVkIGhvdCBzY29yZSBpczoKCmBgYHRleHQKaG90X3Njb3JlID0gcmVhZF9udW0gKyBsaWtlX251bSAqIDIwICsgY29tbWVudF9udW0gKiA1MApgYGAKCiMjIFJlY29tbWVuZGVkIHByb2R1Y3Rpb24gc2V0dGluZ3MKCkZvciBmaXJzdC10aW1lIHZhbGlkYXRpb246CgpgYGB0ZXh0Ck1pbmltdW0gcmVhZHM6IDAKTWluaW11bSBsaWtlczogMApNaW5pbXVtIGNvbW1lbnRzOiAwCk1pbmltdW0gaG90IHNjb3JlOiAwCk1heCBwZXIga2V5d29yZDogNQpgYGAKClRoaXMgcHJvdmVzIHNlYXJjaCwgcXVldWVpbmcsIEFEQiBvcGVuaW5nLCBwcm94eSBjYXB0dXJlLCBhbmQgZGF0YWJhc2UgaW5nZXN0aW9uLgoKQWZ0ZXIgcHJveHkgbWV0cmljcyBhcmUgY29uZmlybWVkOgoKYGBgdGV4dApNaW5pbXVtIHJlYWRzOiAxMDAwMApNaW5pbXVtIGxpa2VzOiAxMDAKTWluaW11bSBjb21tZW50czogMTAKTWluaW11bSBob3Qgc2NvcmU6IDE1MDAwCk1heCBwZXIga2V5d29yZDogMTAKYGBgCgpUdW5lIHRocmVzaG9sZHMgYnkgdG9waWMuIE5hcnJvdyBCMkIgdG9waWNzIG1heSBuZWVkIGxvd2VyIHJlYWQgdGhyZXNob2xkczsgbWFzcy1tYXJrZXQgZW50ZXJ0YWlubWVudCBvciBjb25zdW1lciB0b3BpY3MgY2FuIHVzZSBoaWdoZXIgdGhyZXNob2xkcy4KCiMjIE9wZXJhdGlvbiBmbG93CgoxLiBPcGVuIHRoZSBhcHAuCjIuIFJlb3BlbiB0aGUgbGVmdCBwYW5lbCB3aXRoICoqQWN0aW9ucyAtPiBTaG93IENvbnRyb2wgQ2VudGVyKiogb3IgYEN0cmwrQmAgaWYgaXQgd2FzIGNsb3NlZC4KMy4gT3BlbiAqKldlQ2hhdCBJbnRlZ3JhdGlvbioqLgo0LiBTYXZlIGRhdGFiYXNlIHBhdGgsIHBsdWdpbiBkaXJlY3RvcnksIGJyaWRnZSBwb3J0LCBhbmQgcHJveHkvQURCIHNldHRpbmdzLgo1LiBTdGFydCB0aGUgbG9jYWwgcHJveHkgYWRhcHRlciBhbmQgY29uZmlybSBpdCBjYW4gc2VuZCBjb21wYWN0IEpTT04gdG8gYDEyNy4wLjAuMTo5MDAwYC4KNi4gQ29ubmVjdCB0aGUgQW5kcm9pZCB0ZXN0IHBob25lIGFuZCBhbGxvdyBVU0IgZGVidWdnaW5nLgo3LiBPcGVuICoqS2V5d29yZCBEaXNjb3ZlcnkqKi4KOC4gRW50ZXIga2V5d29yZHMsIG9uZSBwZXIgbGluZS4KOS4gU2V0IHRoZSBob3QtYXJ0aWNsZSBtZXRyaWMgY29udHJvbHMuCjEwLiBDbGljayAqKlN0YXJ0IEtleXdvcmQgQXV0byBJbmdlc3Rpb24qKi4KMTEuIFdhdGNoICoqUnVudGltZSBMb2dzKiosICoqQXV0byBJbmdlc3Rpb24qKiwgYW5kIHRoZSBhcnRpY2xlIHRhYmxlLgoKIyMgV2hhdCBpcyBhdXRvbWF0aWMgbm93CgpBZnRlciB0aGUgYnV0dG9uIGNsaWNrLCB0aGUgYXBwIGF1dG9tYXRpY2FsbHk6CgotIENoZWNrcyBgYWRiIGRldmljZXNgLgotIFNlYXJjaGVzIHRoZSBrZXl3b3JkIHJlc3VsdCBwYWdlLgotIFBhcnNlcyBXZUNoYXQgYXJ0aWNsZSBVUkxzLgotIERlZHVwbGljYXRlcyBVUkxzLgotIEFwcGxpZXMgdGhlIGhvdC1hcnRpY2xlIG1ldHJpYyBjb250cm9scy4KLSBBZGRzIG1hdGNoZWQgVVJMcyB0byB0aGUgYXV0by1pbmdlc3Rpb24gcXVldWUuCi0gU3RhcnRzIHRoZSBzY2hlZHVsZXIuCi0gT3BlbnMgYXJ0aWNsZSBVUkxzIG9uIHRoZSBjb25uZWN0ZWQgcGhvbmUgdGhyb3VnaCBBREIuCgpUaGUgbG9jYWwgcHJveHkgYWRhcHRlciBzdGlsbCBwcm92aWRlcyB0aGUgcmVhbCBtZXRyaWNzIGJlY2F1c2UgV2VDaGF0IGFydGljbGUgZW5nYWdlbWVudCBmaWVsZHMgYXJlIG9ubHkgcmVsaWFibHkgYXZhaWxhYmxlIHdoZW4gdGhlIGFydGljbGUgaXMgb3BlbmVkIGluIHRoZSBhdXRob3JpemVkIHBob25lL2Jyb3dzZXIgZW52aXJvbm1lbnQuCgojIyBUcm91Ymxlc2hvb3RpbmcKCiMjIyBObyBwaG9uZSBmb3VuZAoKUnVuOgoKYGBgYmFzaAphZGIgZGV2aWNlcwpgYGAKCkV4cGVjdGVkOgoKYGBgdGV4dApTRVJJQUxfTlVNQkVSICAgIGRldmljZQpgYGAKCklmIGl0IHNheXMgYHVuYXV0aG9yaXplZGAsIHVubG9jayB0aGUgcGhvbmUgYW5kIGFsbG93IFVTQiBkZWJ1Z2dpbmcuCgojIyMgU2VhcmNoIHJldHVybnMgemVybyBjYW5kaWRhdGVzCgpQb3NzaWJsZSByZWFzb25zOgoKLSBTZWFyY2ggZW5kcG9pbnQgYmxvY2tlZCBhdXRvbWF0aW9uIG9yIHJldHVybmVkIGEgY2FwdGNoYSBwYWdlLgotIE5ldHdvcmsvcHJveHkgZmFpbGVkLgotIEtleXdvcmQgdG9vIG5hcnJvdy4KLSBTZWFyY2ggcGFnZSBtYXJrdXAgY2hhbmdlZC4KCldvcmthcm91bmRzOgoKLSBVc2UgYnJvYWRlciBrZXl3b3Jkcy4KLSBMb3dlciBgTWF4IHBlciBrZXl3b3JkYCBvbmx5IGFmdGVyIGEgc3VjY2Vzc2Z1bCB0ZXN0LgotIFVzZSAqKkdlbmVyYXRlIFNlYXJjaCBVUkxzKiogZm9yIGRlYnVnZ2luZy4KLSBVc2UgKipJbXBvcnQgUmVzdWx0cyBKU09OKiogYXMgYSBmYWxsYmFjayBhZGFwdGVyIHBhdGguCgojIyMgQXJ0aWNsZXMgb3BlbiBidXQgbWV0cmljcyBkbyBub3QgYXBwZWFyCgpUaGlzIG1lYW5zIEFEQiBvcGVuaW5nIHdvcmtlZCBidXQgdGhlIHByb3h5IGJyaWRnZSBkaWQgbm90IGluZ2VzdCBtZXRyaWNzLiBDaGVjazoKCi0gUGhvbmUgV2ktRmkgcHJveHkgaXMgcG9pbnRpbmcgdG8gdGhlIGxvY2FsIHByb3h5IGhvc3QvcG9ydC4KLSBQcm94eSBjZXJ0aWZpY2F0ZSBpcyB0cnVzdGVkIGlmIEhUVFBTIGludGVyY2VwdGlvbiBpcyB1c2VkLgotIEFkYXB0ZXIgcmVjb2duaXplcyBgL21wL2dldGFwcG1zZ2V4dGAgYW5kIGAvbXAvYXBwbXNnX2NvbW1lbnRgLgotIEFwcCBicmlkZ2UgcG9ydCBtYXRjaGVzIGFkYXB0ZXIgdGFyZ2V0LgoKIyMgU2FmZXR5IG5vdGVzCgotIERvIG5vdCBzdG9yZSByYXcgV2VDaGF0IGNyZWRlbnRpYWxzLCBjb29raWVzLCBwcml2YXRlIGtleXMsIG9yIHByb3h5IGNlcnRpZmljYXRlIHNlY3JldHMgaW4gdGhpcyByZXBvc2l0b3J5LgotIFVzZSBvbmx5IGFjY291bnRzIGFuZCBkYXRhIHlvdSBhcmUgYXV0aG9yaXplZCB0byBhbmFseXplLgotIFN0YXJ0IHdpdGggc21hbGwgbGltaXRzIHRvIGF2b2lkIG5vaXN5IHRyYWZmaWMgYW5kIGFjY291bnQgcmlzay4K
+# Keyword Auto Ingestion Runbook
+
+## Product goal
+
+The primary path is keyword-first auto ingestion. The operator should only need to:
+
+1. Connect an authorized Android test phone.
+2. Enter market keywords.
+3. Set hot-article metric thresholds.
+4. Click **Start Keyword Auto Ingestion**.
+
+The app then automatically searches keyword result pages, extracts WeChat article candidate URLs, applies the hot-article controls, enqueues matching candidates, opens them on the phone through ADB, and waits for the local proxy adapter to send real article metrics to the localhost bridge.
+
+## Hot-article metric controls
+
+The Keyword Discovery page exposes these controls:
+
+- **Minimum reads**: minimum `read_num` accepted for auto enqueue.
+- **Minimum likes**: minimum `like_num` accepted for auto enqueue.
+- **Minimum comments**: minimum `comment_num` accepted for auto enqueue.
+- **Minimum hot score**: minimum estimated score accepted for auto enqueue.
+- **Max per keyword**: maximum candidate article links parsed from each keyword search page.
+
+Search pages may not expose real reads, likes, or comments. When those metrics are unavailable, candidates can still be opened when thresholds are set to zero; final hotness must be judged after the proxy captures `/mp/getappmsgext` and `/mp/appmsg_comment` from the loaded article.
+
+The current estimated hot score is:
+
+```text
+hot_score = read_num + like_num * 20 + comment_num * 50
+```
+
+## Recommended production settings
+
+For first-time validation:
+
+```text
+Minimum reads: 0
+Minimum likes: 0
+Minimum comments: 0
+Minimum hot score: 0
+Max per keyword: 5
+```
+
+This proves search, queueing, ADB opening, proxy capture, and database ingestion.
+
+After proxy metrics are confirmed:
+
+```text
+Minimum reads: 10000
+Minimum likes: 100
+Minimum comments: 10
+Minimum hot score: 15000
+Max per keyword: 10
+```
+
+Tune thresholds by topic. Narrow B2B topics may need lower read thresholds; mass-market entertainment or consumer topics can use higher thresholds.
+
+## Operation flow
+
+1. Open the app.
+2. Reopen the left panel with **Actions -> Show Control Center** or `Ctrl+B` if it was closed.
+3. Open **WeChat Integration**.
+4. Save database path, plugin directory, bridge port, and proxy/ADB settings.
+5. Start the local proxy adapter and confirm it can send compact JSON to `127.0.0.1:9000`.
+6. Connect the Android test phone and allow USB debugging.
+7. Open **Keyword Discovery**.
+8. Enter keywords, one per line.
+9. Set the hot-article metric controls.
+10. Click **Start Keyword Auto Ingestion**.
+11. Watch **Runtime Logs**, **Auto Ingestion**, and the article table.
+
+## What is automatic now
+
+After the button click, the app automatically:
+
+- Checks `adb devices`.
+- Searches the keyword result page.
+- Parses WeChat article URLs.
+- Deduplicates URLs.
+- Applies the hot-article metric controls.
+- Adds matched URLs to the auto-ingestion queue.
+- Starts the scheduler.
+- Opens article URLs on the connected phone through ADB.
+
+The local proxy adapter still provides the real metrics because WeChat article engagement fields are only reliably available when the article is opened in the authorized phone/browser environment.
+
+## Troubleshooting
+
+### No phone found
+
+Run:
+
+```bash
+adb devices
+```
+
+Expected:
+
+```text
+SERIAL_NUMBER    device
+```
+
+If it says `unauthorized`, unlock the phone and allow USB debugging.
+
+### Search returns zero candidates
+
+Possible reasons:
+
+- Search endpoint blocked automation or returned a captcha page.
+- Network/proxy failed.
+- Keyword too narrow.
+- Search page markup changed.
+
+Workarounds:
+
+- Use broader keywords.
+- Lower `Max per keyword` only after a successful test.
+- Use **Generate Search URLs** for debugging.
+- Use **Import Results JSON** as a fallback adapter path.
+
+### Articles open but metrics do not appear
+
+This means ADB opening worked but the proxy bridge did not ingest metrics. Check:
+
+- Phone Wi-Fi proxy is pointing to the local proxy host/port.
+- Proxy certificate is trusted if HTTPS interception is used.
+- Adapter recognizes `/mp/getappmsgext` and `/mp/appmsg_comment`.
+- App bridge port matches adapter target.
+
+## Safety notes
+
+- Do not store raw WeChat credentials, cookies, private keys, or proxy certificate secrets in this repository.
+- Use only accounts and data you are authorized to analyze.
+- Start with small limits to avoid noisy traffic and account risk.

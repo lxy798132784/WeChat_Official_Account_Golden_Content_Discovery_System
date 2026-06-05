@@ -1,1 +1,38 @@
-I3ByYWdtYSBvbmNlCgojaW5jbHVkZSA8UVN0YW5kYXJkSXRlbU1vZGVsPgojaW5jbHVkZSA8UVRhYmxlVmlldz4KI2luY2x1ZGUgPFFXaWRnZXQ+CgojaW5jbHVkZSAiUHJlbWl1bUNvbnRlbnRGaWx0ZXJQcm94eU1vZGVsLmgiCiNpbmNsdWRlICJVaVRleHQuaCIKI2luY2x1ZGUgImNvbnRlbnRfcmVjb3JkLmgiCgovKioKICogQGJyaWVmIOaVsOaNruafpeeci+e7hOS7tiAvIERhdGEgdmlld2VyIHdpZGdldAogKgogKiBAZGV0YWlscyDlsIblhoXlrrnorrDlvZXoo4XlhaXmoIflh4bmqKHlnovlubbkuqTnu5npq5jku7flgLzor4TliIbku6PnkIbmqKHlnovlsZXnpLrjgIIKICogTG9hZHMgY29udGVudCByZWNvcmRzIGludG8gYSBzdGFuZGFyZCBtb2RlbCBhbmQgZGlzcGxheXMgdGhlbSB0aHJvdWdoIHRoZSBzY29yaW5nIHByb3h5LgogKi8KY2xhc3MgRGF0YVZpZXdlcldpZGdldCBmaW5hbCA6IHB1YmxpYyBRV2lkZ2V0IHsKICBRX09CSkVDVAogcHVibGljOgogIGV4cGxpY2l0IERhdGFWaWV3ZXJXaWRnZXQoUVdpZGdldCogcGFyZW50ID0gbnVsbHB0cik7CiAgdm9pZCBzZXRSZWNvcmRzKGNvbnN0IFFWZWN0b3I8Q29udGVudFJlY29yZD4mIHJlY29yZHMpOwogIFByZW1pdW1Db250ZW50RmlsdGVyUHJveHlNb2RlbCogcHJveHkoKTsKICBDb250ZW50UmVjb3JkIHNlbGVjdGVkUmVjb3JkKCkgY29uc3Q7CiAgYm9vbCBoYXNTZWxlY3Rpb24oKSBjb25zdDsKICB2b2lkIHNldExhbmd1YWdlKFVpTGFuZ3VhZ2UgbGFuZ3VhZ2UpOwoKIHNpZ25hbHM6CiAgdm9pZCBzZWxlY3Rpb25DaGFuZ2VkKCk7CgogcHJpdmF0ZToKICB2b2lkIGFwcGx5SGVhZGVycygpOwoKICBVaUxhbmd1YWdlIGxhbmd1YWdlXyA9IFVpTGFuZ3VhZ2U6OkVuZ2xpc2g7CiAgUVN0YW5kYXJkSXRlbU1vZGVsKiBtb2RlbF8gPSBudWxscHRyOwogIFByZW1pdW1Db250ZW50RmlsdGVyUHJveHlNb2RlbCogcHJveHlfID0gbnVsbHB0cjsKICBRVGFibGVWaWV3KiB0YWJsZV8gPSBudWxscHRyOwogIFFWZWN0b3I8Q29udGVudFJlY29yZD4gcmVjb3Jkc187Cn07Cg==
+#pragma once
+
+#include <QStandardItemModel>
+#include <QTableView>
+#include <QWidget>
+
+#include "PremiumContentFilterProxyModel.h"
+#include "UiText.h"
+#include "content_record.h"
+
+/**
+ * @brief 数据查看组件 / Data viewer widget
+ *
+ * @details 将内容记录装入标准模型并交给高价值评分代理模型展示。
+ * Loads content records into a standard model and displays them through the scoring proxy.
+ */
+class DataViewerWidget final : public QWidget {
+  Q_OBJECT
+ public:
+  explicit DataViewerWidget(QWidget* parent = nullptr);
+  void setRecords(const QVector<ContentRecord>& records);
+  PremiumContentFilterProxyModel* proxy();
+  ContentRecord selectedRecord() const;
+  bool hasSelection() const;
+  void setLanguage(UiLanguage language);
+
+ signals:
+  void selectionChanged();
+
+ private:
+  void applyHeaders();
+
+  UiLanguage language_ = UiLanguage::English;
+  QStandardItemModel* model_ = nullptr;
+  PremiumContentFilterProxyModel* proxy_ = nullptr;
+  QTableView* table_ = nullptr;
+  QVector<ContentRecord> records_;
+};

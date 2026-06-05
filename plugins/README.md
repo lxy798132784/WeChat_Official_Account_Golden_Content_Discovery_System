@@ -1,1 +1,17 @@
-IyBQbHVnaW5zIC8g5o+S5Lu2CgpSdW50aW1lIHBsdWdpbnMgYXJlIGxvYWRlZCBmcm9tIHRoZSBleGVjdXRhYmxlIGRpcmVjdG9yeSdzIGBwbHVnaW5zL2AgZm9sZGVyIHdpdGggYFFQbHVnaW5Mb2FkZXJgLgoK6L+Q6KGM5pe25o+S5Lu25Lya5LuO5Y+v5omn6KGM5paH5Lu25ZCM57qnIGBwbHVnaW5zL2Ag55uu5b2V6YCa6L+HIGBRUGx1Z2luTG9hZGVyYCDliqDovb3jgIIKCkN1cnJlbnQgcHJvdmlkZXI6CgotIGBXZUNoYXRQcm92aWRlclBsdWdpbmA6IGxvY2FsLWZpcnN0IFdlQ2hhdCBPZmZpY2lhbCBBY2NvdW50IG1ldHJpY3MgcHJvdmlkZXIuIEl0IHN0YXJ0cyB0aGUgbG9jYWxob3N0IGJyaWRnZSBhbmQgQURCIGF1dG9tYXRpb24gc2NhZmZvbGQuCgrlvZPliY3kvpvlupTllYbvvJoKCi0gYFdlQ2hhdFByb3ZpZGVyUGx1Z2luYO+8muacrOWcsOS8mOWFiOeahOW+ruS/oeWFrOS8l+WPt+aMh+agh+S+m+W6lOWVhu+8jOWQr+WKqOacrOWcsOahpeWSjCBBREIg6Ieq5Yqo5YyW6aqo5p6244CCCgpVbmtub3duIGxpYnJhcmllcyBvciBpbnRlcmZhY2UtbWlzbWF0Y2hlZCBwbHVnaW5zIGFyZSBza2lwcGVkIGFuZCBsb2dnZWQuCgrmnKrnn6XlupPmiJbmjqXlj6PkuI3ljLnphY3mj5Lku7bkvJrooqvot7Pov4flubblhpnlhaXml6Xlv5fjgIIK
+# Plugins / 插件
+
+Runtime plugins are loaded from the executable directory's `plugins/` folder with `QPluginLoader`.
+
+运行时插件会从可执行文件同级 `plugins/` 目录通过 `QPluginLoader` 加载。
+
+Current provider:
+
+- `WeChatProviderPlugin`: local-first WeChat Official Account metrics provider. It starts the localhost bridge and ADB automation scaffold.
+
+当前供应商：
+
+- `WeChatProviderPlugin`：本地优先的微信公众号指标供应商，启动本地桥和 ADB 自动化骨架。
+
+Unknown libraries or interface-mismatched plugins are skipped and logged.
+
+未知库或接口不匹配插件会被跳过并写入日志。

@@ -1,1 +1,16 @@
-LS0tCm5hbWU6IEJ1ZyByZXBvcnQKYWJvdXQ6IFJlcG9ydCBhIHJlcHJvZHVjaWJsZSBidWcKLS0tCgojIyBTdW1tYXJ5IC8g5pGY6KaBCgojIyBTdGVwcyB0byByZXByb2R1Y2UgLyDlpI3njrDmraXpqqQKCiMjIEV4cGVjdGVkIGJlaGF2aW9yIC8g5pyf5pyb6KGM5Li6CgojIyBBY3R1YWwgYmVoYXZpb3IgLyDlrp7pmYXooYzkuLoKCiMjIEVudmlyb25tZW50IC8g546v5aKDCgojIyBMb2dzIC8g5pel5b+XCg==
+---
+name: Bug report
+about: Report a reproducible bug
+---
+
+## Summary / 摘要
+
+## Steps to reproduce / 复现步骤
+
+## Expected behavior / 期望行为
+
+## Actual behavior / 实际行为
+
+## Environment / 环境
+
+## Logs / 日志

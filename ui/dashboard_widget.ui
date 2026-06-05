@@ -1,1 +1,2 @@
-PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHVpIHZlcnNpb249IjQuMCI+PGNsYXNzPmRhc2hib2FyZF93aWRnZXQ8L2NsYXNzPjx3aWRnZXQgY2xhc3M9IlFXaWRnZXQiIG5hbWU9ImRhc2hib2FyZF93aWRnZXQiPjxwcm9wZXJ0eSBuYW1lPSJnZW9tZXRyeSI+PHJlY3Q+PHg+MDwveD48eT4wPC95Pjx3aWR0aD42NDA8L3dpZHRoPjxoZWlnaHQ+NDgwPC9oZWlnaHQ+PC9yZWN0PjwvcHJvcGVydHk+PC93aWRnZXQ+PHJlc291cmNlcy8+PGNvbm5lY3Rpb25zLz48L3VpPgo=
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0"><class>dashboard_widget</class><widget class="QWidget" name="dashboard_widget"><property name="geometry"><rect><x>0</x><y>0</y><width>640</width><height>480</height></rect></property></widget><resources/><connections/></ui>

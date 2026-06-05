@@ -1,1 +1,64 @@
-bmFtZTogY2kKb246IFtwdXNoLCBwdWxsX3JlcXVlc3QsIHdvcmtmbG93X2Rpc3BhdGNoXQpqb2JzOgogIGxpbnV4OgogICAgcnVucy1vbjogdWJ1bnR1LTI0LjA0CiAgICBzdGVwczoKICAgICAgLSB1c2VzOiBhY3Rpb25zL2NoZWNrb3V0QHY0CiAgICAgIC0gbmFtZTogSW5zdGFsbCBkZXBlbmRlbmNpZXMKICAgICAgICBydW46IHN1ZG8gYXB0LWdldCB1cGRhdGUgJiYgc3VkbyBhcHQtZ2V0IGluc3RhbGwgLXkgY21ha2UgZysrIG5pbmphLWJ1aWxkIHF0Ni1iYXNlLWRldiBxdDYtdG9vbHMtZGV2IGxpYnF0NnNxbDYtc3FsaXRlIGxpYmdsMS1tZXNhLWRldiBsaWJ4a2Jjb21tb24tZGV2CiAgICAgIC0gbmFtZTogQ29uZmlndXJlCiAgICAgICAgcnVuOiBjbWFrZSAtUyAuIC1CIGJ1aWxkIC1HIE5pbmphIC1EQ01BS0VfQlVJTERfVFlQRT1SZWxlYXNlCiAgICAgIC0gbmFtZTogQnVpbGQgYW5kIHZlcmlmeQogICAgICAgIHJ1bjogfAogICAgICAgICAgY21ha2UgLS1idWlsZCBidWlsZAogICAgICAgICAgY3Rlc3QgLS10ZXN0LWRpciBidWlsZCAtLW91dHB1dC1vbi1mYWlsdXJlCiAgICAgICAgICBRVF9RUEFfUExBVEZPUk09b2Zmc2NyZWVuIC4vYnVpbGQvcHJlbWl1bS1jb250ZW50LXJhZGFyIC0tc2VsZi10ZXN0CiAgICAgICAgICBRVF9RUEFfUExBVEZPUk09b2Zmc2NyZWVuIC4vYnVpbGQvcHJlbWl1bS1jb250ZW50LXJhZGFyIC0tYnJpZGdlLXNtb2tlCiAgICAgICAgICBRVF9RUEFfUExBVEZPUk09b2Zmc2NyZWVuIC4vYnVpbGQvcHJlbWl1bS1jb250ZW50LXJhZGFyIC0tc2NyZWVuc2hvdCBkb2NzL2Fzc2V0cy9wcmV2aWV3LXJ1bnRpbWUtY2kucG5nCiAgICAgICAgICBweXRob24zIHNjcmlwdHMvYXVkaXRfbm9fZm9yYmlkZGVuX3Rva2Vucy5weQogICAgICAgICAgcHl0aG9uMyBzY3JpcHRzL2F1ZGl0X3JlcXVpcmVtZW50cy5weQogICAgICAgICAgcHl0aG9uMyBzY3JpcHRzL2F1ZGl0X2xhbmd1YWdlX3NwbGl0LnB5CiAgcGFja2FnZS1saW51eDoKICAgIHN0cmF0ZWd5OgogICAgICBmYWlsLWZhc3Q6IGZhbHNlCiAgICAgIG1hdHJpeDoKICAgICAgICBpbmNsdWRlOgogICAgICAgICAgLSBydW5uZXI6IHVidW50dS0yNC4wNAogICAgICAgICAgICBwbGF0Zm9ybTogbGludXgtYW1kNjQKICAgICAgICAgIC0gcnVubmVyOiB1YnVudHUtMjQuMDQtYXJtCiAgICAgICAgICAgIHBsYXRmb3JtOiBsaW51eC1hcm02NAogICAgcnVucy1vbjogJHt7IG1hdHJpeC5ydW5uZXIgfX0KICAgIG5lZWRzOiBsaW51eAogICAgc3RlcHM6CiAgICAgIC0gdXNlczogYWN0aW9ucy9jaGVja291dEB2NAogICAgICAtIG5hbWU6IEluc3RhbGwgZGVwZW5kZW5jaWVzCiAgICAgICAgcnVuOiBzdWRvIGFwdC1nZXQgdXBkYXRlICYmIHN1ZG8gYXB0LWdldCBpbnN0YWxsIC15IGNtYWtlIGcrKyBxdDYtYmFzZS1kZXYgcXQ2LXRvb2xzLWRldiBsaWJxdDZzcWw2LXNxbGl0ZSBsaWJnbDEtbWVzYS1kZXYgbGlieGtiY29tbW9uLWRldgogICAgICAtIG5hbWU6IEJ1aWxkIHBhY2thZ2UKICAgICAgICBydW46IFZFUlNJT049MS4wLjEgSk9CUz0yIC4vc2NyaXB0cy9wYWNrYWdlLWxpbnV4LnNoCiAgICAgIC0gdXNlczogYWN0aW9ucy91cGxvYWQtYXJ0aWZhY3RAdjQKICAgICAgICB3aXRoOgogICAgICAgICAgbmFtZTogcHJlbWl1bS1jb250ZW50LXJhZGFyLSR7eyBtYXRyaXgucGxhdGZvcm0gfX0KICAgICAgICAgIHBhdGg6IGRpc3QvJHt7IG1hdHJpeC5wbGF0Zm9ybSB9fS8qCiAgcGFja2FnZS13aW5kb3dzOgogICAgcnVucy1vbjogd2luZG93cy0yMDIyCiAgICBuZWVkczogbGludXgKICAgIHN0ZXBzOgogICAgICAtIHVzZXM6IGFjdGlvbnMvY2hlY2tvdXRAdjQKICAgICAgLSBuYW1lOiBJbnN0YWxsIFF0CiAgICAgICAgdXNlczoganVycGxlbC9pbnN0YWxsLXF0LWFjdGlvbkB2NAogICAgICAgIHdpdGg6CiAgICAgICAgICB2ZXJzaW9uOiAnNi42LjMnCiAgICAgICAgICBhcmNoOiB3aW42NF9tc3ZjMjAxOV82NAogICAgICAgICAgY2FjaGU6IHRydWUKICAgICAgLSBuYW1lOiBDb25maWd1cmUgTVNWQwogICAgICAgIHVzZXM6IGlsYW1teS9tc3ZjLWRldi1jbWRAdjEKICAgICAgLSBuYW1lOiBCdWlsZCBwYWNrYWdlCiAgICAgICAgc2hlbGw6IHB3c2gKICAgICAgICBydW46IHwKICAgICAgICAgICRlbnY6VkVSU0lPTiA9ICIxLjAuMSIKICAgICAgICAgIC5cc2NyaXB0c1xwYWNrYWdlLXdpbmRvd3MucHMxCiAgICAgIC0gdXNlczogYWN0aW9ucy91cGxvYWQtYXJ0aWZhY3RAdjQKICAgICAgICB3aXRoOgogICAgICAgICAgbmFtZTogcHJlbWl1bS1jb250ZW50LXJhZGFyLXdpbmRvd3MteDY0CiAgICAgICAgICBwYXRoOiBkaXN0L3dpbmRvd3MteDY0LyoK
+name: ci
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  linux:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y cmake g++ ninja-build qt6-base-dev qt6-tools-dev libqt6sql6-sqlite libgl1-mesa-dev libxkbcommon-dev
+      - name: Configure
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+      - name: Build and verify
+        run: |
+          cmake --build build
+          ctest --test-dir build --output-on-failure
+          QT_QPA_PLATFORM=offscreen ./build/premium-content-radar --self-test
+          QT_QPA_PLATFORM=offscreen ./build/premium-content-radar --bridge-smoke
+          QT_QPA_PLATFORM=offscreen ./build/premium-content-radar --screenshot docs/assets/preview-runtime-ci.png
+          python3 scripts/audit_no_forbidden_tokens.py
+          python3 scripts/audit_requirements.py
+          python3 scripts/audit_language_split.py
+  package-linux:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            platform: linux-amd64
+          - runner: ubuntu-24.04-arm
+            platform: linux-arm64
+    runs-on: ${{ matrix.runner }}
+    needs: linux
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y cmake g++ qt6-base-dev qt6-tools-dev libqt6sql6-sqlite libgl1-mesa-dev libxkbcommon-dev
+      - name: Build package
+        run: VERSION=1.0.1 JOBS=2 ./scripts/package-linux.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: premium-content-radar-${{ matrix.platform }}
+          path: dist/${{ matrix.platform }}/*
+  package-windows:
+    runs-on: windows-2022
+    needs: linux
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.6.3'
+          arch: win64_msvc2019_64
+          cache: true
+      - name: Configure MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+      - name: Build package
+        shell: pwsh
+        run: |
+          $env:VERSION = "1.0.1"
+          .\scripts\package-windows.ps1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: premium-content-radar-windows-x64
+          path: dist/windows-x64/*

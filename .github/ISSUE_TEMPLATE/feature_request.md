@@ -1,1 +1,12 @@
-LS0tCm5hbWU6IEZlYXR1cmUgcmVxdWVzdAphYm91dDogU3VnZ2VzdCBhbiBpbXByb3ZlbWVudAotLS0KCiMjIFByb2JsZW0gLyDpl67popgKCiMjIFByb3Bvc2FsIC8g5pa55qGICgojIyBBbHRlcm5hdGl2ZXMgLyDmm7/ku6PmlrnmoYgKCiMjIEFkZGl0aW9uYWwgY29udGV4dCAvIOihpeWFheS/oeaBrwo=
+---
+name: Feature request
+about: Suggest an improvement
+---
+
+## Problem / 问题
+
+## Proposal / 方案
+
+## Alternatives / 替代方案
+
+## Additional context / 补充信息

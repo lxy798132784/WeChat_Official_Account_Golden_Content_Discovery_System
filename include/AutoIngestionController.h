@@ -1,1 +1,77 @@
-I3ByYWdtYSBvbmNlCgojaW5jbHVkZSA8UURhdGVUaW1lPgojaW5jbHVkZSA8UU1hcD4KI2luY2x1ZGUgPFFPYmplY3Q+CiNpbmNsdWRlIDxRUHJvY2Vzcz4KI2luY2x1ZGUgPFFRdWV1ZT4KI2luY2x1ZGUgPFFTdHJpbmc+CiNpbmNsdWRlIDxRVGltZXI+CiNpbmNsdWRlIDxRVmVjdG9yPgoKc3RydWN0IEF1dG9Jbmdlc3Rpb25UYXNrIHsKICBRU3RyaW5nIHVybDsKICBRU3RyaW5nIGFjY291bnROYW1lOwogIFFTdHJpbmcgY2F0ZWdvcnk7CiAgUVN0cmluZyBzdGF0dXMgPSBRU3RyaW5nTGl0ZXJhbCgicGVuZGluZyIpOwogIGludCBhdHRlbXB0cyA9IDA7CiAgUURhdGVUaW1lIGxhc3RBdHRlbXB0OwogIFFTdHJpbmcgbGFzdEVycm9yOwp9OwoKLyoqCiAqIENvbnRyb2xsZWQgYXV0by1pbmdlc3Rpb24gc2NoZWR1bGVyLgogKgogKiBJdCBkb2VzIG5vdCBzY3JhcGUgV2VDaGF0IGJ5IGl0c2VsZiBhbmQgZG9lcyBub3Qgc3RvcmUgY3JlZGVudGlhbHMuIEl0IG9ubHkgb3BlbnMKICogb3BlcmF0b3ItcHJvdmlkZWQgYXJ0aWNsZSBVUkxzIG9uIGEgY29uZmlndXJlZCBBbmRyb2lkIHRlc3QgZGV2aWNlIHRocm91Z2ggQURCOwogKiBhIGxvY2FsIHByb3h5IGFkYXB0ZXIgdGhlbiBjYXB0dXJlcyBhbGxvd2VkIG1ldHJpYyBlbmRwb2ludHMgYW5kIHNlbmRzIGNvbXBhY3QKICogSlNPTiB0byB0aGUgZXhpc3RpbmcgbG9jYWxob3N0IGJyaWRnZS4KICovCmNsYXNzIEF1dG9Jbmdlc3Rpb25Db250cm9sbGVyIGZpbmFsIDogcHVibGljIFFPYmplY3QgewogIFFfT0JKRUNUCiBwdWJsaWM6CiAgZXhwbGljaXQgQXV0b0luZ2VzdGlvbkNvbnRyb2xsZXIoUU9iamVjdCogcGFyZW50ID0gbnVsbHB0cik7CgogIHZvaWQgc2V0SW50ZXJ2YWxTZWNvbmRzKGludCBzZWNvbmRzKTsKICB2b2lkIHNldE1heEF0dGVtcHRzKGludCBhdHRlbXB0cyk7CiAgdm9pZCBzZXRFbmFibGVkKGJvb2wgZW5hYmxlZCk7CiAgYm9vbCBpc1J1bm5pbmcoKSBjb25zdDsKICBRVmVjdG9yPEF1dG9Jbmdlc3Rpb25UYXNrPiB0YXNrcygpIGNvbnN0OwogIGludCBwZW5kaW5nQ291bnQoKSBjb25zdDsKCiAgYm9vbCBlbnF1ZXVlVXJsKGNvbnN0IFFTdHJpbmcmIHVybCwgY29uc3QgUVN0cmluZyYgYWNjb3VudE5hbWUgPSBRU3RyaW5nKCksCiAgICAgICAgICAgICAgICAgIGNvbnN0IFFTdHJpbmcmIGNhdGVnb3J5ID0gUVN0cmluZygpLCBRU3RyaW5nKiBlcnJvck1lc3NhZ2UgPSBudWxscHRyKTsKICBpbnQgZW5xdWV1ZVVybHNGcm9tVGV4dChjb25zdCBRU3RyaW5nJiB0ZXh0LCBRU3RyaW5nKiBlcnJvck1lc3NhZ2UgPSBudWxscHRyKTsKICB2b2lkIGNsZWFyQ29tcGxldGVkKCk7CiAgdm9pZCBjbGVhckFsbCgpOwoKICBib29sIHNhdmVRdWV1ZShjb25zdCBRU3RyaW5nJiBwYXRoLCBRU3RyaW5nKiBlcnJvck1lc3NhZ2UgPSBudWxscHRyKSBjb25zdDsKICBib29sIGxvYWRRdWV1ZShjb25zdCBRU3RyaW5nJiBwYXRoLCBRU3RyaW5nKiBlcnJvck1lc3NhZ2UgPSBudWxscHRyKTsKCiAgc3RhdGljIGJvb2wgaXNTdXBwb3J0ZWRBcnRpY2xlVXJsKGNvbnN0IFFTdHJpbmcmIHVybCk7CiAgc3RhdGljIFFTdHJpbmdMaXN0IGFkYk9wZW5VcmxBcmd1bWVudHMoY29uc3QgUVN0cmluZyYgdXJsKTsKICBzdGF0aWMgYm9vbCBoYXNDb25uZWN0ZWRBZGJEZXZpY2UoUVN0cmluZyogZXJyb3JNZXNzYWdlID0gbnVsbHB0cik7CgogcHVibGljIHNsb3RzOgogIHZvaWQgc3RhcnQoKTsKICB2b2lkIHN0b3AoKTsKICB2b2lkIHJ1bk5leHROb3coKTsKCiBzaWduYWxzOgogIHZvaWQgbG9nTWVzc2FnZShjb25zdCBRU3RyaW5nJiBtZXNzYWdlKTsKICB2b2lkIHF1ZXVlQ2hhbmdlZCgpOwoKIHByaXZhdGUgc2xvdHM6CiAgdm9pZCBvblRpY2soKTsKCiBwcml2YXRlOgogIGludCBuZXh0UnVubmFibGVJbmRleCgpIGNvbnN0OwogIHZvaWQgb3BlblRhc2soaW50IGluZGV4KTsKICBib29sIG9wZW5VcmxXaXRoQWRiKGNvbnN0IFFTdHJpbmcmIHVybCwgUVN0cmluZyogZXJyb3JNZXNzYWdlKSBjb25zdDsKCiAgUVZlY3RvcjxBdXRvSW5nZXN0aW9uVGFzaz4gdGFza3NfOwogIFFUaW1lciB0aW1lcl87CiAgaW50IGludGVydmFsU2Vjb25kc18gPSAzMDsKICBpbnQgbWF4QXR0ZW1wdHNfID0gMzsKICBib29sIGVuYWJsZWRfID0gZmFsc2U7Cn07Cg==
+#pragma once
+
+#include <QDateTime>
+#include <QMap>
+#include <QObject>
+#include <QProcess>
+#include <QQueue>
+#include <QString>
+#include <QTimer>
+#include <QVector>
+
+struct AutoIngestionTask {
+  QString url;
+  QString accountName;
+  QString category;
+  QString status = QStringLiteral("pending");
+  int attempts = 0;
+  QDateTime lastAttempt;
+  QString lastError;
+};
+
+/**
+ * Controlled auto-ingestion scheduler.
+ *
+ * It does not scrape WeChat by itself and does not store credentials. It only opens
+ * operator-provided article URLs on a configured Android test device through ADB;
+ * a local proxy adapter then captures allowed metric endpoints and sends compact
+ * JSON to the existing localhost bridge.
+ */
+class AutoIngestionController final : public QObject {
+  Q_OBJECT
+ public:
+  explicit AutoIngestionController(QObject* parent = nullptr);
+
+  void setIntervalSeconds(int seconds);
+  void setMaxAttempts(int attempts);
+  void setEnabled(bool enabled);
+  bool isRunning() const;
+  QVector<AutoIngestionTask> tasks() const;
+  int pendingCount() const;
+
+  bool enqueueUrl(const QString& url, const QString& accountName = QString(),
+                  const QString& category = QString(), QString* errorMessage = nullptr);
+  int enqueueUrlsFromText(const QString& text, QString* errorMessage = nullptr);
+  void clearCompleted();
+  void clearAll();
+
+  bool saveQueue(const QString& path, QString* errorMessage = nullptr) const;
+  bool loadQueue(const QString& path, QString* errorMessage = nullptr);
+
+  static bool isSupportedArticleUrl(const QString& url);
+  static QStringList adbOpenUrlArguments(const QString& url);
+  static bool hasConnectedAdbDevice(QString* errorMessage = nullptr);
+
+ public slots:
+  void start();
+  void stop();
+  void runNextNow();
+
+ signals:
+  void logMessage(const QString& message);
+  void queueChanged();
+
+ private slots:
+  void onTick();
+
+ private:
+  int nextRunnableIndex() const;
+  void openTask(int index);
+  bool openUrlWithAdb(const QString& url, QString* errorMessage) const;
+
+  QVector<AutoIngestionTask> tasks_;
+  QTimer timer_;
+  int intervalSeconds_ = 30;
+  int maxAttempts_ = 3;
+  bool enabled_ = false;
+};

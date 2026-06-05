@@ -1,1 +1,119 @@
-I2luY2x1ZGUgIlNlZWRNYW5hZ2VyV2lkZ2V0LmgiCgojaW5jbHVkZSA8UUNvbWJvQm94PgojaW5jbHVkZSA8UUZvcm1MYXlvdXQ+CiNpbmNsdWRlIDxRSGVhZGVyVmlldz4KI2luY2x1ZGUgPFFMYWJlbD4KI2luY2x1ZGUgPFFMaW5lRWRpdD4KI2luY2x1ZGUgPFFQdXNoQnV0dG9uPgojaW5jbHVkZSA8UVN0YW5kYXJkSXRlbT4KI2luY2x1ZGUgPFFUYWJsZVZpZXc+CiNpbmNsdWRlIDxRVkJveExheW91dD4KClNlZWRNYW5hZ2VyV2lkZ2V0OjpTZWVkTWFuYWdlcldpZGdldChRV2lkZ2V0KiBwYXJlbnQpCiAgICA6IFFXaWRnZXQocGFyZW50KSwKICAgICAgZ3poSWRMYWJlbF8obmV3IFFMYWJlbCh0aGlzKSksCiAgICAgIG5hbWVMYWJlbF8obmV3IFFMYWJlbCh0aGlzKSksCiAgICAgIGNhdGVnb3J5TGFiZWxfKG5ldyBRTGFiZWwodGhpcykpLAogICAgICBnemhJZEVkaXRfKG5ldyBRTGluZUVkaXQodGhpcykpLAogICAgICBuYW1lRWRpdF8obmV3IFFMaW5lRWRpdCh0aGlzKSksCiAgICAgIGNhdGVnb3J5Q29tYm9fKG5ldyBRQ29tYm9Cb3godGhpcykpLAogICAgICBhZGRCdXR0b25fKG5ldyBRUHVzaEJ1dHRvbih0aGlzKSksCiAgICAgIHJlbW92ZUJ1dHRvbl8obmV3IFFQdXNoQnV0dG9uKHRoaXMpKSwKICAgICAgZXhwb3J0QnV0dG9uXyhuZXcgUVB1c2hCdXR0b24odGhpcykpLAogICAgICB0YWJsZV8obmV3IFFUYWJsZVZpZXcodGhpcykpLAogICAgICBtb2RlbF8obmV3IFFTdGFuZGFyZEl0ZW1Nb2RlbCh0aGlzKSkgewogIGF1dG8qIHJvb3QgPSBuZXcgUVZCb3hMYXlvdXQodGhpcyk7CiAgYXV0byogZm9ybSA9IG5ldyBRRm9ybUxheW91dCgpOwogIGZvcm0tPmFkZFJvdyhnemhJZExhYmVsXywgZ3poSWRFZGl0Xyk7CiAgZm9ybS0+YWRkUm93KG5hbWVMYWJlbF8sIG5hbWVFZGl0Xyk7CiAgZm9ybS0+YWRkUm93KGNhdGVnb3J5TGFiZWxfLCBjYXRlZ29yeUNvbWJvXyk7CiAgcm9vdC0+YWRkTGF5b3V0KGZvcm0pOwoKICByb290LT5hZGRXaWRnZXQoYWRkQnV0dG9uXyk7CiAgcm9vdC0+YWRkV2lkZ2V0KHJlbW92ZUJ1dHRvbl8pOwogIHJvb3QtPmFkZFdpZGdldChleHBvcnRCdXR0b25fKTsKCiAgYXBwbHlIZWFkZXJzKCk7CiAgdGFibGVfLT5zZXRNb2RlbChtb2RlbF8pOwogIHRhYmxlXy0+c2V0U2VsZWN0aW9uQmVoYXZpb3IoUUFic3RyYWN0SXRlbVZpZXc6OlNlbGVjdFJvd3MpOwogIHRhYmxlXy0+c2V0U2VsZWN0aW9uTW9kZShRQWJzdHJhY3RJdGVtVmlldzo6U2luZ2xlU2VsZWN0aW9uKTsKICB0YWJsZV8tPmhvcml6b250YWxIZWFkZXIoKS0+c2V0U3RyZXRjaExhc3RTZWN0aW9uKHRydWUpOwogIHJvb3QtPmFkZFdpZGdldCh0YWJsZV8pOwoKICBjb25uZWN0KGFkZEJ1dHRvbl8sICZRUHVzaEJ1dHRvbjo6Y2xpY2tlZCwgdGhpcywgJlNlZWRNYW5hZ2VyV2lkZ2V0OjplbWl0QWRkU2VlZCk7CiAgY29ubmVjdChyZW1vdmVCdXR0b25fLCAmUVB1c2hCdXR0b246OmNsaWNrZWQsIHRoaXMsICZTZWVkTWFuYWdlcldpZGdldDo6ZW1pdFJlbW92ZVNlZWQpOwogIGNvbm5lY3QoZXhwb3J0QnV0dG9uXywgJlFQdXNoQnV0dG9uOjpjbGlja2VkLCB0aGlzLCAmU2VlZE1hbmFnZXJXaWRnZXQ6OmV4cG9ydFNlZWRzUmVxdWVzdGVkKTsKICBzZXRMYW5ndWFnZShsYW5ndWFnZV8pOwp9Cgp2b2lkIFNlZWRNYW5hZ2VyV2lkZ2V0OjphcHBseUhlYWRlcnMoKSB7CiAgbW9kZWxfLT5zZXRIb3Jpem9udGFsSGVhZGVyTGFiZWxzKHtVaVRleHQ6OnRleHQoInNlZWQuZ3poIiwgbGFuZ3VhZ2VfKSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFVpVGV4dDo6dGV4dCgic2VlZC5uYW1lIiwgbGFuZ3VhZ2VfKSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFVpVGV4dDo6dGV4dCgic2VlZC5jYXRlZ29yeSIsIGxhbmd1YWdlXyksCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBVaVRleHQ6OnRleHQoInNlZWQuY291bnQzMGQiLCBsYW5ndWFnZV8pLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgVWlUZXh0Ojp0ZXh0KCJzZWVkLnNjb3JlIiwgbGFuZ3VhZ2VfKX0pOwp9Cgp2b2lkIFNlZWRNYW5hZ2VyV2lkZ2V0OjpzZXRTZWVkcyhjb25zdCBRVmVjdG9yPFNlZWRSZWNvcmQ+JiBzZWVkcykgewogIG1vZGVsXy0+cmVtb3ZlUm93cygwLCBtb2RlbF8tPnJvd0NvdW50KCkpOwogIGZvciAoY29uc3QgYXV0byYgc2VlZCA6IHNlZWRzKSB7CiAgICBRTGlzdDxRU3RhbmRhcmRJdGVtKj4gcm93OwogICAgcm93IDw8IG5ldyBRU3RhbmRhcmRJdGVtKHNlZWQuZ3poSWQpIDw8IG5ldyBRU3RhbmRhcmRJdGVtKHNlZWQubmFtZSkgPDwgbmV3IFFTdGFuZGFyZEl0ZW0oc2VlZC5jYXRlZ29yeSkKICAgICAgICA8PCBuZXcgUVN0YW5kYXJkSXRlbShRU3RyaW5nOjpudW1iZXIoc2VlZC5hcnRpY2xlQ291bnQzMGQpKQogICAgICAgIDw8IG5ldyBRU3RhbmRhcmRJdGVtKFFTdHJpbmc6Om51bWJlcihzZWVkLmFjY291bnRTY29yZSwgJ2YnLCAyKSk7CiAgICBtb2RlbF8tPmFwcGVuZFJvdyhyb3cpOwogIH0KICBhcHBseUhlYWRlcnMoKTsKfQoKUVN0cmluZyBTZWVkTWFuYWdlcldpZGdldDo6c2VsZWN0ZWRHemhJZCgpIGNvbnN0IHsKICBpZiAodGFibGVfLT5zZWxlY3Rpb25Nb2RlbCgpID09IG51bGxwdHIgfHwgIXRhYmxlXy0+c2VsZWN0aW9uTW9kZWwoKS0+aGFzU2VsZWN0aW9uKCkpIHsKICAgIHJldHVybiBRU3RyaW5nKCk7CiAgfQogIGNvbnN0IFFNb2RlbEluZGV4IGluZGV4ID0gdGFibGVfLT5zZWxlY3Rpb25Nb2RlbCgpLT5zZWxlY3RlZFJvd3MoKS5maXJzdCgpOwogIHJldHVybiBtb2RlbF8tPml0ZW0oaW5kZXgucm93KCksIDApLT50ZXh0KCk7Cn0KCnZvaWQgU2VlZE1hbmFnZXJXaWRnZXQ6OnJlYnVpbGRDYXRlZ29yaWVzKCkgewogIGNvbnN0IFFTdHJpbmcgc2VsZWN0ZWQgPSBjYXRlZ29yeUNvbWJvXy0+Y3VycmVudERhdGEoKS50b1N0cmluZygpOwogIGNhdGVnb3J5Q29tYm9fLT5ibG9ja1NpZ25hbHModHJ1ZSk7CiAgY2F0ZWdvcnlDb21ib18tPmNsZWFyKCk7CiAgY2F0ZWdvcnlDb21ib18tPmFkZEl0ZW0oVWlUZXh0Ojp0ZXh0KCJmaWx0ZXIudGVjaG5vbG9neSIsIGxhbmd1YWdlXyksIFFTdHJpbmdMaXRlcmFsKCJUZWNobm9sb2d5IikpOwogIGNhdGVnb3J5Q29tYm9fLT5hZGRJdGVtKFVpVGV4dDo6dGV4dCgiZmlsdGVyLmZpbmFuY2UiLCBsYW5ndWFnZV8pLCBRU3RyaW5nTGl0ZXJhbCgiRmluYW5jZSIpKTsKICBjYXRlZ29yeUNvbWJvXy0+YWRkSXRlbShRU3RyaW5nTGl0ZXJhbCgiTWVkaWEiKSwgUVN0cmluZ0xpdGVyYWwoIk1lZGlhIikpOwogIGNhdGVnb3J5Q29tYm9fLT5hZGRJdGVtKFVpVGV4dDo6dGV4dCgiZmlsdGVyLmxpZmVzdHlsZSIsIGxhbmd1YWdlXyksIFFTdHJpbmdMaXRlcmFsKCJMaWZlc3R5bGUiKSk7CiAgY2F0ZWdvcnlDb21ib18tPmFkZEl0ZW0obGFuZ3VhZ2VfID09IFVpTGFuZ3VhZ2U6OkNoaW5lc2UgPyBRU3RyaW5nTGl0ZXJhbCgi5YW25LuWIikgOiBRU3RyaW5nTGl0ZXJhbCgiT3RoZXIiKSwgUVN0cmluZ0xpdGVyYWwoIk90aGVyIikpOwogIGNvbnN0IGludCBpbmRleCA9IGNhdGVnb3J5Q29tYm9fLT5maW5kRGF0YShzZWxlY3RlZC5pc0VtcHR5KCkgPyBRU3RyaW5nTGl0ZXJhbCgiVGVjaG5vbG9neSIpIDogc2VsZWN0ZWQpOwogIGNhdGVnb3J5Q29tYm9fLT5zZXRDdXJyZW50SW5kZXgoaW5kZXggPj0gMCA/IGluZGV4IDogMCk7CiAgY2F0ZWdvcnlDb21ib18tPmJsb2NrU2lnbmFscyhmYWxzZSk7Cn0KCnZvaWQgU2VlZE1hbmFnZXJXaWRnZXQ6OnNldExhbmd1YWdlKFVpTGFuZ3VhZ2UgbGFuZ3VhZ2UpIHsKICBsYW5ndWFnZV8gPSBsYW5ndWFnZTsKICBnemhJZExhYmVsXy0+c2V0VGV4dChVaVRleHQ6OnRleHQoInNlZWQuZ3poIiwgbGFuZ3VhZ2VfKSk7CiAgbmFtZUxhYmVsXy0+c2V0VGV4dChVaVRleHQ6OnRleHQoInNlZWQubmFtZSIsIGxhbmd1YWdlXykpOwogIGNhdGVnb3J5TGFiZWxfLT5zZXRUZXh0KFVpVGV4dDo6dGV4dCgic2VlZC5jYXRlZ29yeSIsIGxhbmd1YWdlXykpOwogIGd6aElkRWRpdF8tPnNldFBsYWNlaG9sZGVyVGV4dChVaVRleHQ6OnRleHQoInNlZWQucGxhY2Vob2xkZXIuZ3poIiwgbGFuZ3VhZ2VfKSk7CiAgbmFtZUVkaXRfLT5zZXRQbGFjZWhvbGRlclRleHQoVWlUZXh0Ojp0ZXh0KCJzZWVkLnBsYWNlaG9sZGVyLm5hbWUiLCBsYW5ndWFnZV8pKTsKICBhZGRCdXR0b25fLT5zZXRUZXh0KFVpVGV4dDo6dGV4dCgic2VlZC5hZGQiLCBsYW5ndWFnZV8pKTsKICByZW1vdmVCdXR0b25fLT5zZXRUZXh0KFVpVGV4dDo6dGV4dCgic2VlZC5yZW1vdmUiLCBsYW5ndWFnZV8pKTsKICBleHBvcnRCdXR0b25fLT5zZXRUZXh0KFVpVGV4dDo6dGV4dCgic2VlZC5leHBvcnQiLCBsYW5ndWFnZV8pKTsKICBnemhJZEVkaXRfLT5zZXRUb29sVGlwKFVpVGV4dDo6dGV4dCgidGlwLnNlZWQuZ3poIiwgbGFuZ3VhZ2VfKSk7CiAgbmFtZUVkaXRfLT5zZXRUb29sVGlwKFVpVGV4dDo6dGV4dCgidGlwLnNlZWQubmFtZSIsIGxhbmd1YWdlXykpOwogIGNhdGVnb3J5Q29tYm9fLT5zZXRUb29sVGlwKFVpVGV4dDo6dGV4dCgidGlwLnNlZWQuY2F0ZWdvcnkiLCBsYW5ndWFnZV8pKTsKICBhZGRCdXR0b25fLT5zZXRUb29sVGlwKFVpVGV4dDo6dGV4dCgidGlwLnNlZWQuYWRkIiwgbGFuZ3VhZ2VfKSk7CiAgcmVtb3ZlQnV0dG9uXy0+c2V0VG9vbFRpcChVaVRleHQ6OnRleHQoInRpcC5zZWVkLnJlbW92ZSIsIGxhbmd1YWdlXykpOwogIGV4cG9ydEJ1dHRvbl8tPnNldFRvb2xUaXAoVWlUZXh0Ojp0ZXh0KCJ0aXAuc2VlZC5leHBvcnQiLCBsYW5ndWFnZV8pKTsKICB0YWJsZV8tPnNldFRvb2xUaXAoVWlUZXh0Ojp0ZXh0KCJ0aXAuc2VlZC50YWJsZSIsIGxhbmd1YWdlXykpOwogIHJlYnVpbGRDYXRlZ29yaWVzKCk7CiAgYXBwbHlIZWFkZXJzKCk7Cn0KCnZvaWQgU2VlZE1hbmFnZXJXaWRnZXQ6OmVtaXRBZGRTZWVkKCkgewogIGVtaXQgYWRkU2VlZFJlcXVlc3RlZChnemhJZEVkaXRfLT50ZXh0KCksIG5hbWVFZGl0Xy0+dGV4dCgpLCBjYXRlZ29yeUNvbWJvXy0+Y3VycmVudERhdGEoKS50b1N0cmluZygpKTsKfQoKdm9pZCBTZWVkTWFuYWdlcldpZGdldDo6ZW1pdFJlbW92ZVNlZWQoKSB7CiAgZW1pdCByZW1vdmVTZWVkUmVxdWVzdGVkKHNlbGVjdGVkR3poSWQoKSk7Cn0K
+#include "SeedManagerWidget.h"
+
+#include <QComboBox>
+#include <QFormLayout>
+#include <QHeaderView>
+#include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QStandardItem>
+#include <QTableView>
+#include <QVBoxLayout>
+
+SeedManagerWidget::SeedManagerWidget(QWidget* parent)
+    : QWidget(parent),
+      gzhIdLabel_(new QLabel(this)),
+      nameLabel_(new QLabel(this)),
+      categoryLabel_(new QLabel(this)),
+      gzhIdEdit_(new QLineEdit(this)),
+      nameEdit_(new QLineEdit(this)),
+      categoryCombo_(new QComboBox(this)),
+      addButton_(new QPushButton(this)),
+      removeButton_(new QPushButton(this)),
+      exportButton_(new QPushButton(this)),
+      table_(new QTableView(this)),
+      model_(new QStandardItemModel(this)) {
+  auto* root = new QVBoxLayout(this);
+  auto* form = new QFormLayout();
+  form->addRow(gzhIdLabel_, gzhIdEdit_);
+  form->addRow(nameLabel_, nameEdit_);
+  form->addRow(categoryLabel_, categoryCombo_);
+  root->addLayout(form);
+
+  root->addWidget(addButton_);
+  root->addWidget(removeButton_);
+  root->addWidget(exportButton_);
+
+  applyHeaders();
+  table_->setModel(model_);
+  table_->setSelectionBehavior(QAbstractItemView::SelectRows);
+  table_->setSelectionMode(QAbstractItemView::SingleSelection);
+  table_->horizontalHeader()->setStretchLastSection(true);
+  root->addWidget(table_);
+
+  connect(addButton_, &QPushButton::clicked, this, &SeedManagerWidget::emitAddSeed);
+  connect(removeButton_, &QPushButton::clicked, this, &SeedManagerWidget::emitRemoveSeed);
+  connect(exportButton_, &QPushButton::clicked, this, &SeedManagerWidget::exportSeedsRequested);
+  setLanguage(language_);
+}
+
+void SeedManagerWidget::applyHeaders() {
+  model_->setHorizontalHeaderLabels({UiText::text("seed.gzh", language_),
+                                     UiText::text("seed.name", language_),
+                                     UiText::text("seed.category", language_),
+                                     UiText::text("seed.count30d", language_),
+                                     UiText::text("seed.score", language_)});
+}
+
+void SeedManagerWidget::setSeeds(const QVector<SeedRecord>& seeds) {
+  model_->removeRows(0, model_->rowCount());
+  for (const auto& seed : seeds) {
+    QList<QStandardItem*> row;
+    row << new QStandardItem(seed.gzhId) << new QStandardItem(seed.name) << new QStandardItem(seed.category)
+        << new QStandardItem(QString::number(seed.articleCount30d))
+        << new QStandardItem(QString::number(seed.accountScore, 'f', 2));
+    model_->appendRow(row);
+  }
+  applyHeaders();
+}
+
+QString SeedManagerWidget::selectedGzhId() const {
+  if (table_->selectionModel() == nullptr || !table_->selectionModel()->hasSelection()) {
+    return QString();
+  }
+  const QModelIndex index = table_->selectionModel()->selectedRows().first();
+  return model_->item(index.row(), 0)->text();
+}
+
+void SeedManagerWidget::rebuildCategories() {
+  const QString selected = categoryCombo_->currentData().toString();
+  categoryCombo_->blockSignals(true);
+  categoryCombo_->clear();
+  categoryCombo_->addItem(UiText::text("filter.technology", language_), QStringLiteral("Technology"));
+  categoryCombo_->addItem(UiText::text("filter.finance", language_), QStringLiteral("Finance"));
+  categoryCombo_->addItem(QStringLiteral("Media"), QStringLiteral("Media"));
+  categoryCombo_->addItem(UiText::text("filter.lifestyle", language_), QStringLiteral("Lifestyle"));
+  categoryCombo_->addItem(language_ == UiLanguage::Chinese ? QStringLiteral("其他") : QStringLiteral("Other"), QStringLiteral("Other"));
+  const int index = categoryCombo_->findData(selected.isEmpty() ? QStringLiteral("Technology") : selected);
+  categoryCombo_->setCurrentIndex(index >= 0 ? index : 0);
+  categoryCombo_->blockSignals(false);
+}
+
+void SeedManagerWidget::setLanguage(UiLanguage language) {
+  language_ = language;
+  gzhIdLabel_->setText(UiText::text("seed.gzh", language_));
+  nameLabel_->setText(UiText::text("seed.name", language_));
+  categoryLabel_->setText(UiText::text("seed.category", language_));
+  gzhIdEdit_->setPlaceholderText(UiText::text("seed.placeholder.gzh", language_));
+  nameEdit_->setPlaceholderText(UiText::text("seed.placeholder.name", language_));
+  addButton_->setText(UiText::text("seed.add", language_));
+  removeButton_->setText(UiText::text("seed.remove", language_));
+  exportButton_->setText(UiText::text("seed.export", language_));
+  gzhIdEdit_->setToolTip(UiText::text("tip.seed.gzh", language_));
+  nameEdit_->setToolTip(UiText::text("tip.seed.name", language_));
+  categoryCombo_->setToolTip(UiText::text("tip.seed.category", language_));
+  addButton_->setToolTip(UiText::text("tip.seed.add", language_));
+  removeButton_->setToolTip(UiText::text("tip.seed.remove", language_));
+  exportButton_->setToolTip(UiText::text("tip.seed.export", language_));
+  table_->setToolTip(UiText::text("tip.seed.table", language_));
+  rebuildCategories();
+  applyHeaders();
+}
+
+void SeedManagerWidget::emitAddSeed() {
+  emit addSeedRequested(gzhIdEdit_->text(), nameEdit_->text(), categoryCombo_->currentData().toString());
+}
+
+void SeedManagerWidget::emitRemoveSeed() {
+  emit removeSeedRequested(selectedGzhId());
+}
