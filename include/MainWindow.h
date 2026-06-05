@@ -4,6 +4,7 @@
 #include <QTimer>
 
 #include "AppSettings.h"
+#include "AutoIngestionController.h"
 #include "DatabaseController.h"
 #include "PluginManager.h"
 #include "UiText.h"
@@ -12,6 +13,7 @@ class QAction;
 class QDockWidget;
 class QMenu;
 class QTabWidget;
+class AutoIngestionWidget;
 class ControlPanelWidget;
 class DashboardWidget;
 class DataViewerWidget;
@@ -50,6 +52,14 @@ class MainWindow final : public QMainWindow {
   void browseDatabasePath();
   void browsePluginDirectory();
   void toggleLanguage();
+  void addAutoIngestionUrls(const QString& text);
+  void startAutoIngestion();
+  void stopAutoIngestion();
+  void runNextAutoIngestionTask();
+  void clearCompletedAutoIngestionTasks();
+  void clearAllAutoIngestionTasks();
+  void saveAutoIngestionQueue();
+  void loadAutoIngestionQueue();
 
  private:
   void applyTheme();
@@ -61,10 +71,12 @@ class MainWindow final : public QMainWindow {
   UiLanguage currentLanguage() const;
   QString trLog(const QString& key, const QString& value = QString()) const;
   void appendLogKey(const QString& key, const QString& value = QString());
+  void refreshAutoIngestionQueue();
 
   AppSettings settings_;
   DatabaseController database_;
   PluginManager pluginManager_;
+  AutoIngestionController autoIngestion_;
   QTimer pluginDrainTimer_;
   UiLanguage language_ = UiLanguage::English;
   QTabWidget* dockTabs_ = nullptr;
@@ -86,6 +98,7 @@ class MainWindow final : public QMainWindow {
   QAction* aboutAction_ = nullptr;
   DashboardWidget* dashboard_ = nullptr;
   ControlPanelWidget* controls_ = nullptr;
+  AutoIngestionWidget* autoIngestionWidget_ = nullptr;
   DataViewerWidget* viewer_ = nullptr;
   SeedManagerWidget* seeds_ = nullptr;
   RuntimeLogWidget* logs_ = nullptr;

@@ -1,6 +1,7 @@
 #include <QStandardItemModel>
 #include <QtTest/QtTest>
 
+#include "AutoIngestionController.h"
 #include "BridgePayloadClient.h"
 #include "DatabaseController.h"
 #include "ExportController.h"
@@ -19,6 +20,7 @@ class RadarCoreTest : public QObject {
   void trafficBridgeParsesCommentPayload();
   void trafficBridgeIgnoresUnknownEndpoint();
   void bridgePayloadClientSamplesParse();
+  void autoIngestionQueueAndAdbArgs();
 };
 
 void RadarCoreTest::databaseStoresArticles() {
@@ -160,6 +162,25 @@ void RadarCoreTest::bridgePayloadClientSamplesParse() {
   auto comments = ProxyTrafficBridge::parsePayload(BridgePayloadClient::sampleCommentPayload());
   QVERIFY(comments.has_value());
   QCOMPARE(comments->commentNum, 96);
+}
+
+
+void RadarCoreTest::autoIngestionQueueAndAdbArgs() {
+  AutoIngestionController controller;
+  QString error;
+  QVERIFY(controller.enqueueUrl("https://mp.weixin.qq.com/s/test_article", "Account", "Tech", &error));
+  QCOMPARE(controller.tasks().size(), 1);
+  QCOMPARE(controller.pendingCount(), 1);
+  QVERIFY(!controller.enqueueUrl("https://example.com/not-wechat", QString(), QString(), &error));
+  const QStringList args = AutoIngestionController::adbOpenUrlArguments("https://mp.weixin.qq.com/s/test_article");
+  QVERIFY(args.contains("android.intent.action.VIEW"));
+  QVERIFY(args.contains("https://mp.weixin.qq.com/s/test_article"));
+  QTemporaryDir dir;
+  const QString path = dir.filePath("queue.json");
+  QVERIFY(controller.saveQueue(path, &error));
+  AutoIngestionController loaded;
+  QVERIFY(loaded.loadQueue(path, &error));
+  QCOMPARE(loaded.tasks().size(), 1);
 }
 
 QTEST_MAIN(RadarCoreTest)

@@ -8,6 +8,7 @@
 #include <QDir>
 #include <QDockWidget>
 #include <QFileDialog>
+#include <QInputDialog>
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QProcessEnvironment>
@@ -18,6 +19,7 @@
 #include <QVBoxLayout>
 
 #include "ControlPanelWidget.h"
+#include "AutoIngestionWidget.h"
 #include "DashboardWidget.h"
 #include "DataViewerWidget.h"
 #include "ExportController.h"
@@ -31,6 +33,7 @@ MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
       dashboard_(new DashboardWidget(this)),
       controls_(new ControlPanelWidget(this)),
+      autoIngestionWidget_(new AutoIngestionWidget(this)),
       viewer_(new DataViewerWidget(this)),
       seeds_(new SeedManagerWidget(this)),
       logs_(new RuntimeLogWidget(this)),
@@ -49,6 +52,7 @@ MainWindow::MainWindow(QWidget* parent)
 
   dockTabs_ = new QTabWidget(this);
   dockTabs_->addTab(controls_, QString());
+  dockTabs_->addTab(autoIngestionWidget_, QString());
   dockTabs_->addTab(seeds_, QString());
   dockTabs_->addTab(wechatConfig_, QString());
   dockTabs_->addTab(logs_, QString());
@@ -73,6 +77,16 @@ MainWindow::MainWindow(QWidget* parent)
   connect(wechatConfig_, &WeChatConfigWidget::testBridgeRequested, this, &MainWindow::testLocalBridgePayload);
   connect(wechatConfig_, &WeChatConfigWidget::browseDatabaseRequested, this, &MainWindow::browseDatabasePath);
   connect(wechatConfig_, &WeChatConfigWidget::browsePluginDirectoryRequested, this, &MainWindow::browsePluginDirectory);
+  connect(autoIngestionWidget_, &AutoIngestionWidget::addUrlsRequested, this, &MainWindow::addAutoIngestionUrls);
+  connect(autoIngestionWidget_, &AutoIngestionWidget::startRequested, this, &MainWindow::startAutoIngestion);
+  connect(autoIngestionWidget_, &AutoIngestionWidget::stopRequested, this, &MainWindow::stopAutoIngestion);
+  connect(autoIngestionWidget_, &AutoIngestionWidget::runNextRequested, this, &MainWindow::runNextAutoIngestionTask);
+  connect(autoIngestionWidget_, &AutoIngestionWidget::clearCompletedRequested, this, &MainWindow::clearCompletedAutoIngestionTasks);
+  connect(autoIngestionWidget_, &AutoIngestionWidget::clearAllRequested, this, &MainWindow::clearAllAutoIngestionTasks);
+  connect(autoIngestionWidget_, &AutoIngestionWidget::saveQueueRequested, this, &MainWindow::saveAutoIngestionQueue);
+  connect(autoIngestionWidget_, &AutoIngestionWidget::loadQueueRequested, this, &MainWindow::loadAutoIngestionQueue);
+  connect(&autoIngestion_, &AutoIngestionController::logMessage, this, &MainWindow::appendLog);
+  connect(&autoIngestion_, &AutoIngestionController::queueChanged, this, &MainWindow::refreshAutoIngestionQueue);
   connect(&pluginDrainTimer_, &QTimer::timeout, this, &MainWindow::drainPluginRecords);
 
   fileMenu_ = menuBar()->addMenu(QString());
@@ -134,10 +148,11 @@ void MainWindow::applyLanguage() {
   if (dock_ != nullptr) dock_->setWindowTitle(UiText::text("dock.title", language_));
   if (dockTabs_ != nullptr) {
     dockTabs_->setTabText(0, UiText::text("tab.filters", language_));
-    dockTabs_->setTabText(1, UiText::text("tab.seeds", language_));
-    dockTabs_->setTabText(2, UiText::text("tab.wechat", language_));
-    dockTabs_->setTabText(3, UiText::text("tab.logs", language_));
-    dockTabs_->setTabText(4, UiText::text("tab.guide", language_));
+    dockTabs_->setTabText(1, UiText::text("tab.auto", language_));
+    dockTabs_->setTabText(2, UiText::text("tab.seeds", language_));
+    dockTabs_->setTabText(3, UiText::text("tab.wechat", language_));
+    dockTabs_->setTabText(4, UiText::text("tab.logs", language_));
+    dockTabs_->setTabText(5, UiText::text("tab.guide", language_));
   }
   if (fileMenu_ != nullptr) fileMenu_->setTitle(UiText::text("menu.file", language_));
   if (pluginMenu_ != nullptr) pluginMenu_->setTitle(UiText::text("menu.plugins", language_));
@@ -156,6 +171,7 @@ void MainWindow::applyLanguage() {
   if (aboutAction_ != nullptr) aboutAction_->setText(UiText::text("action.about", language_));
   dashboard_->setLanguage(language_);
   controls_->setLanguage(language_);
+  autoIngestionWidget_->setLanguage(language_);
   viewer_->setLanguage(language_);
   seeds_->setLanguage(language_);
   logs_->setLanguage(language_);
@@ -436,6 +452,74 @@ void MainWindow::exportSeedsCsv() {
     return;
   }
   appendLogKey(QStringLiteral("seeds_csv_exported"), path);
+}
+
+void MainWindow::refreshAutoIngestionQueue() {
+  autoIngestionWidget_->setQueue(autoIngestion_.tasks());
+  autoIngestionWidget_->setRunning(autoIngestion_.isRunning());
+}
+
+void MainWindow::addAutoIngestionUrls(const QString& text) {
+  QString error;
+  const int added = autoIngestion_.enqueueUrlsFromText(text, &error);
+  appendLog(language_ == UiLanguage::Chinese
+                ? QStringLiteral("自动采集队列新增 %1 条 URL%2").arg(added).arg(error.isEmpty() ? QString() : QStringLiteral("；跳过：%1").arg(error))
+                : QStringLiteral("Added %1 URL(s) to auto-ingestion queue%2").arg(added).arg(error.isEmpty() ? QString() : QStringLiteral("; skipped: %1").arg(error)));
+  refreshAutoIngestionQueue();
+}
+
+void MainWindow::startAutoIngestion() {
+  autoIngestion_.setEnabled(autoIngestionWidget_->automationEnabled());
+  autoIngestion_.setIntervalSeconds(autoIngestionWidget_->intervalSeconds());
+  autoIngestion_.setMaxAttempts(autoIngestionWidget_->maxAttempts());
+  autoIngestion_.start();
+  refreshAutoIngestionQueue();
+}
+
+void MainWindow::stopAutoIngestion() {
+  autoIngestion_.stop();
+  refreshAutoIngestionQueue();
+}
+
+void MainWindow::runNextAutoIngestionTask() {
+  autoIngestion_.setEnabled(autoIngestionWidget_->automationEnabled());
+  autoIngestion_.setIntervalSeconds(autoIngestionWidget_->intervalSeconds());
+  autoIngestion_.setMaxAttempts(autoIngestionWidget_->maxAttempts());
+  autoIngestion_.runNextNow();
+  refreshAutoIngestionQueue();
+}
+
+void MainWindow::clearCompletedAutoIngestionTasks() {
+  autoIngestion_.clearCompleted();
+  refreshAutoIngestionQueue();
+}
+
+void MainWindow::clearAllAutoIngestionTasks() {
+  autoIngestion_.clearAll();
+  refreshAutoIngestionQueue();
+}
+
+void MainWindow::saveAutoIngestionQueue() {
+  const QString path = QFileDialog::getSaveFileName(this, "Save Auto Ingestion Queue", "auto-ingestion-queue.json", "JSON (*.json)");
+  if (path.isEmpty()) return;
+  QString error;
+  if (!autoIngestion_.saveQueue(path, &error)) {
+    appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("自动采集队列保存失败：%1").arg(error) : QStringLiteral("Auto-ingestion queue save failed: %1").arg(error));
+    return;
+  }
+  appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("自动采集队列已保存：%1").arg(path) : QStringLiteral("Auto-ingestion queue saved: %1").arg(path));
+}
+
+void MainWindow::loadAutoIngestionQueue() {
+  const QString path = QFileDialog::getOpenFileName(this, "Load Auto Ingestion Queue", QString(), "JSON (*.json)");
+  if (path.isEmpty()) return;
+  QString error;
+  if (!autoIngestion_.loadQueue(path, &error)) {
+    appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("自动采集队列加载失败：%1").arg(error) : QStringLiteral("Auto-ingestion queue load failed: %1").arg(error));
+    return;
+  }
+  appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("自动采集队列已加载：%1").arg(path) : QStringLiteral("Auto-ingestion queue loaded: %1").arg(path));
+  refreshAutoIngestionQueue();
 }
 
 void MainWindow::showAboutDialog() {
