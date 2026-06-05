@@ -214,6 +214,42 @@ QStringList AutoIngestionController::adbOpenUrlArguments(const QString& url) {
           QStringLiteral("-d"), url};
 }
 
+bool AutoIngestionController::hasConnectedAdbDevice(QString* errorMessage) {
+  QProcess process;
+  process.start(QStringLiteral("adb"), {QStringLiteral("devices")});
+  if (!process.waitForStarted(3000)) {
+    if (errorMessage != nullptr) {
+      *errorMessage = QStringLiteral("adb did not start. Install adb first.");
+    }
+    return false;
+  }
+  if (!process.waitForFinished(10000)) {
+    process.kill();
+    if (errorMessage != nullptr) {
+      *errorMessage = QStringLiteral("adb devices timed out.");
+    }
+    return false;
+  }
+  const QString output = QString::fromUtf8(process.readAllStandardOutput()) +
+                         QString::fromUtf8(process.readAllStandardError());
+  if (process.exitStatus() != QProcess::NormalExit || process.exitCode() != 0) {
+    if (errorMessage != nullptr) {
+      *errorMessage = output.trimmed().isEmpty() ? QStringLiteral("adb devices failed") : output.trimmed();
+    }
+    return false;
+  }
+  const QStringList lines = output.split(QRegularExpression(QStringLiteral("[\\r\\n]+")), Qt::SkipEmptyParts);
+  for (const QString& line : lines) {
+    if (line.contains(QStringLiteral("\tdevice"))) {
+      return true;
+    }
+  }
+  if (errorMessage != nullptr) {
+    *errorMessage = QStringLiteral("No authorized Android device found. Connect the phone and allow USB debugging.");
+  }
+  return false;
+}
+
 void AutoIngestionController::start() {
   if (!enabled_) {
     emit logMessage(QStringLiteral("Auto ingestion requires ADB automation to be explicitly enabled"));

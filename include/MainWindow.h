@@ -6,6 +6,8 @@
 #include "AppSettings.h"
 #include "AutoIngestionController.h"
 #include "DatabaseController.h"
+#include "KeywordDiscoveryController.h"
+#include "KeywordDiscoveryWidget.h"
 #include "PluginManager.h"
 #include "UiText.h"
 
@@ -17,6 +19,7 @@ class AutoIngestionWidget;
 class ControlPanelWidget;
 class DashboardWidget;
 class DataViewerWidget;
+class KeywordDiscoveryWidget;
 class RuntimeLogWidget;
 class SeedManagerWidget;
 class ManualWidget;
@@ -52,6 +55,14 @@ class MainWindow final : public QMainWindow {
   void browseDatabasePath();
   void browsePluginDirectory();
   void toggleLanguage();
+  void showControlCenter();
+  void generateKeywordSearchUrls(const QString& keywords);
+  void autoSearchKeywords(const QString& keywords, int maxCandidatesPerKeyword);
+  void startKeywordAutoIngestion(const QString& keywords, int maxCandidatesPerKeyword, const KeywordHotCriteria& criteria);
+  void onKeywordSearchStarted();
+  void onKeywordSearchFinished(const QVector<KeywordDiscoveryResult>& results);
+  void importKeywordDiscoveryResults();
+  void enqueueKeywordDiscoveryResults(const KeywordHotCriteria& criteria);
   void addAutoIngestionUrls(const QString& text);
   void startAutoIngestion();
   void stopAutoIngestion();
@@ -77,6 +88,10 @@ class MainWindow final : public QMainWindow {
   DatabaseController database_;
   PluginManager pluginManager_;
   AutoIngestionController autoIngestion_;
+  KeywordDiscoveryController keywordDiscovery_;
+  QVector<KeywordDiscoveryResult> keywordResults_;
+  bool startAutoAfterKeywordSearch_ = false;
+  KeywordHotCriteria pendingKeywordCriteria_;
   QTimer pluginDrainTimer_;
   UiLanguage language_ = UiLanguage::English;
   QTabWidget* dockTabs_ = nullptr;
@@ -95,9 +110,11 @@ class MainWindow final : public QMainWindow {
   QAction* bridgeSmokeAction_ = nullptr;
   QAction* resetAction_ = nullptr;
   QAction* languageAction_ = nullptr;
+  QAction* showControlCenterAction_ = nullptr;
   QAction* aboutAction_ = nullptr;
   DashboardWidget* dashboard_ = nullptr;
   ControlPanelWidget* controls_ = nullptr;
+  KeywordDiscoveryWidget* keywordDiscoveryWidget_ = nullptr;
   AutoIngestionWidget* autoIngestionWidget_ = nullptr;
   DataViewerWidget* viewer_ = nullptr;
   SeedManagerWidget* seeds_ = nullptr;

@@ -2,6 +2,7 @@
 #include <QtTest/QtTest>
 
 #include "AutoIngestionController.h"
+#include "KeywordDiscoveryController.h"
 #include "BridgePayloadClient.h"
 #include "DatabaseController.h"
 #include "ExportController.h"
