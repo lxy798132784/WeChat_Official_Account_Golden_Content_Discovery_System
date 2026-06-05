@@ -3,6 +3,7 @@
 
 #include "DatabaseController.h"
 #include "PremiumContentFilterProxyModel.h"
+#include "ProxyTrafficBridge.h"
 
 class RadarCoreTest : public QObject {
   Q_OBJECT
@@ -10,6 +11,9 @@ class RadarCoreTest : public QObject {
  private slots:
   void databaseStoresArticles();
   void proxyScoresAndFilters();
+  void trafficBridgeParsesGetAppMsgExtPayload();
+  void trafficBridgeParsesCommentPayload();
+  void trafficBridgeIgnoresUnknownEndpoint();
 };
 
 void RadarCoreTest::databaseStoresArticles() {
@@ -48,6 +52,54 @@ void RadarCoreTest::proxyScoresAndFilters() {
   proxy.setMinimums(1000, 1.0);
   QVERIFY(proxy.rowCount() > 0);
   QVERIFY(proxy.scoreForSourceRow(0) > 0.0);
+}
+
+void RadarCoreTest::trafficBridgeParsesGetAppMsgExtPayload() {
+  const QByteArray payload = R"({
+    "endpoint": "/mp/getappmsgext",
+    "title": "Metrics Article",
+    "url": "https://example.test/article",
+    "category": "Tech",
+    "account_name": "Metric Lab",
+    "gzh_id": "gh_metric",
+    "article_count_30d": 16,
+    "appmsgstat": {
+      "read_num": 24000,
+      "like_num": 1200,
+      "old_like_num": 320
+    }
+  })";
+
+  auto parsed = ProxyTrafficBridge::parsePayload(payload);
+  QVERIFY(parsed.has_value());
+  QCOMPARE(parsed->title, QString("Metrics Article"));
+  QCOMPARE(parsed->readNum, 24000);
+  QCOMPARE(parsed->likeNum, 1200);
+  QCOMPARE(parsed->oldLikeNum, 320);
+  QCOMPARE(parsed->articleCount30d, 16);
+}
+
+void RadarCoreTest::trafficBridgeParsesCommentPayload() {
+  const QByteArray payload = R"({
+    "path": "/mp/appmsg_comment?action=getcomment",
+    "title": "Comment Article",
+    "url": "https://example.test/comment",
+    "comment_count": 88
+  })";
+
+  auto parsed = ProxyTrafficBridge::parsePayload(payload);
+  QVERIFY(parsed.has_value());
+  QCOMPARE(parsed->title, QString("Comment Article"));
+  QCOMPARE(parsed->commentNum, 88);
+}
+
+void RadarCoreTest::trafficBridgeIgnoresUnknownEndpoint() {
+  const QByteArray payload = R"({
+    "endpoint": "/cgi-bin/unknown",
+    "read_num": 999999
+  })";
+
+  QVERIFY(!ProxyTrafficBridge::parsePayload(payload).has_value());
 }
 
 QTEST_MAIN(RadarCoreTest)

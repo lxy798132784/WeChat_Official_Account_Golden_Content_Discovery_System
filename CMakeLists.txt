@@ -14,14 +14,17 @@ add_library(radar_core STATIC
     include/IContentProvider.h
     include/PremiumContentFilterProxyModel.h src/PremiumContentFilterProxyModel.cpp
     include/DatabaseController.h src/DatabaseController.cpp
+    include/ProxyTrafficBridge.h src/ProxyTrafficBridge.cpp
+    include/PluginManager.h src/PluginManager.cpp
 )
 target_include_directories(radar_core PUBLIC include)
+set_target_properties(radar_core PROPERTIES POSITION_INDEPENDENT_CODE ON)
 target_link_libraries(radar_core PUBLIC Qt6::Core Qt6::Widgets Qt6::Sql Qt6::Network)
 
 add_library(WeChatProviderPlugin SHARED
     include/WeChatProviderPlugin.h src/WeChatProviderPlugin.cpp
     include/AdbAutomationEngine.h src/AdbAutomationEngine.cpp
-    include/ProxyTrafficBridge.h src/ProxyTrafficBridge.cpp
+    include/WeChatConfigWidget.h src/WeChatConfigWidget.cpp
     ui/wechat_config_widget.ui
 )
 target_include_directories(WeChatProviderPlugin PRIVATE include)

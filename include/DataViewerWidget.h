@@ -1,12 +1,11 @@
 #pragma once
 
 #include <QStandardItemModel>
+#include <QTableView>
 #include <QWidget>
 
 #include "PremiumContentFilterProxyModel.h"
 #include "content_record.h"
-
-class QTableView;
 
 /**
  * @brief 数据查看组件 / Data viewer widget
@@ -20,9 +19,15 @@ class DataViewerWidget final : public QWidget {
   explicit DataViewerWidget(QWidget* parent = nullptr);
   void setRecords(const QVector<ContentRecord>& records);
   PremiumContentFilterProxyModel* proxy();
+  ContentRecord selectedRecord() const;
+  bool hasSelection() const;
+
+ signals:
+  void selectionChanged();
 
  private:
   QStandardItemModel* model_ = nullptr;
   PremiumContentFilterProxyModel* proxy_ = nullptr;
   QTableView* table_ = nullptr;
+  QVector<ContentRecord> records_;
 };

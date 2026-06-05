@@ -9,5 +9,18 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y cmake g++ ninja-build qt6-base-dev qt6-tools-dev libgl1-mesa-dev libxkbcommon-dev
       - name: Configure
         run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
-      - name: Build and test
-        run: cmake --build build && ctest --test-dir build --output-on-failure && QT_QPA_PLATFORM=offscreen ./build/premium-content-radar --self-test && python3 scripts/audit_no_forbidden_tokens.py
+      - name: Build and verify
+        run: cmake --build build && ctest --test-dir build --output-on-failure && QT_QPA_PLATFORM=offscreen ./build/premium-content-radar --self-test && python3 scripts/audit_no_forbidden_tokens.py && python3 scripts/audit_requirements.py
+  package-linux:
+    runs-on: ubuntu-24.04
+    needs: linux
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y cmake g++ qt6-base-dev qt6-tools-dev libgl1-mesa-dev libxkbcommon-dev
+      - name: Build package
+        run: VERSION=0.1.0 JOBS=2 ./scripts/package-linux.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: premium-content-radar-linux-package
+          path: dist/linux-*/*

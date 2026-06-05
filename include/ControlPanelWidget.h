@@ -20,6 +20,8 @@ class ControlPanelWidget final : public QWidget {
   double commentWeight() const;
   double frequencyWeight() const;
   int minimumRead() const;
+  void resetDefaults();
+  void clearSearch();
 
  signals:
   void filtersChanged();

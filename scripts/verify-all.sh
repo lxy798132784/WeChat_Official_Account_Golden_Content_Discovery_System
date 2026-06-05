@@ -6,5 +6,5 @@ cmake --build "$ROOT/build" -j"${JOBS:-2}"
 ctest --test-dir "$ROOT/build" --output-on-failure
 QT_QPA_PLATFORM=offscreen "$ROOT/build/premium-content-radar" --self-test
 python3 "$ROOT/scripts/audit_no_forbidden_tokens.py"
-printf 'OK: build, tests, self-test, and secret audit passed
-'
+python3 "$ROOT/scripts/audit_requirements.py"
+printf 'OK: build, tests, self-test, requirements audit, and secret audit passed\n'
