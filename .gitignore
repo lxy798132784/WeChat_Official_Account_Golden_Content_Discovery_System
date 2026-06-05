@@ -1,9 +1,1 @@
-build*/
-dist*/
-*.db
-*.sqlite
-*.log
-*.user
-.DS_Store
-.cache/
-__pycache__/
+YnVpbGQqLwpkaXN0Ki8KKi5kYgoqLnNxbGl0ZQoqLmxvZwoqLnVzZXIKLkRTX1N0b3JlCi5jYWNoZS8KX19weWNhY2hlX18vCg==

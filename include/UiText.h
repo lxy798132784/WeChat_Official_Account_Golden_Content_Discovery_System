@@ -1,10 +1,1 @@
-#pragma once
-
-#include <QString>
-
-enum class UiLanguage { English, Chinese };
-
-class UiText final {
- public:
-  static QString text(const QString& key, UiLanguage language);
-};
+I3ByYWdtYSBvbmNlCgojaW5jbHVkZSA8UVN0cmluZz4KCmVudW0gY2xhc3MgVWlMYW5ndWFnZSB7IEVuZ2xpc2gsIENoaW5lc2UgfTsKCmNsYXNzIFVpVGV4dCBmaW5hbCB7CiBwdWJsaWM6CiAgc3RhdGljIFFTdHJpbmcgdGV4dChjb25zdCBRU3RyaW5nJiBrZXksIFVpTGFuZ3VhZ2UgbGFuZ3VhZ2UpOwp9Owo=

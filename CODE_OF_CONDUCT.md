@@ -1,12 +1,1 @@
-# Code of Conduct
-
-Participants are expected to be respectful, professional, and safety-minded.
-
-Unacceptable behavior includes:
-
-- Publishing credentials, cookies, or private data.
-- Encouraging unauthorized collection or platform abuse.
-- Personal attacks, harassment, or discrimination.
-- Posting unredacted sensitive material in issues or pull requests.
-
-Maintainers may remove unsafe content and request a sanitized reproduction.
+IyBDb2RlIG9mIENvbmR1Y3QKClBhcnRpY2lwYW50cyBhcmUgZXhwZWN0ZWQgdG8gYmUgcmVzcGVjdGZ1bCwgcHJvZmVzc2lvbmFsLCBhbmQgc2FmZXR5LW1pbmRlZC4KClVuYWNjZXB0YWJsZSBiZWhhdmlvciBpbmNsdWRlczoKCi0gUHVibGlzaGluZyBjcmVkZW50aWFscywgY29va2llcywgb3IgcHJpdmF0ZSBkYXRhLgotIEVuY291cmFnaW5nIHVuYXV0aG9yaXplZCBjb2xsZWN0aW9uIG9yIHBsYXRmb3JtIGFidXNlLgotIFBlcnNvbmFsIGF0dGFja3MsIGhhcmFzc21lbnQsIG9yIGRpc2NyaW1pbmF0aW9uLgotIFBvc3RpbmcgdW5yZWRhY3RlZCBzZW5zaXRpdmUgbWF0ZXJpYWwgaW4gaXNzdWVzIG9yIHB1bGwgcmVxdWVzdHMuCgpNYWludGFpbmVycyBtYXkgcmVtb3ZlIHVuc2FmZSBjb250ZW50IGFuZCByZXF1ZXN0IGEgc2FuaXRpemVkIHJlcHJvZHVjdGlvbi4K
