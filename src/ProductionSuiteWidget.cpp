@@ -16,6 +16,68 @@
 #include <QTextEdit>
 #include <QVBoxLayout>
 
+namespace {
+QString localizedSuiteStatus(const QString& status, UiLanguage language) {
+  if (language != UiLanguage::Chinese) return status;
+  if (status == QStringLiteral("pass")) return QStringLiteral("通过");
+  if (status == QStringLiteral("warn")) return QStringLiteral("提醒");
+  if (status == QStringLiteral("fail")) return QStringLiteral("失败");
+  if (status == QStringLiteral("healthy")) return QStringLiteral("健康");
+  if (status == QStringLiteral("warning")) return QStringLiteral("有风险");
+  if (status == QStringLiteral("blocked")) return QStringLiteral("阻塞");
+  return status;
+}
+
+QString localizedProxyStepName(const QString& id, UiLanguage language) {
+  if (language != UiLanguage::Chinese) return id;
+  if (id == QStringLiteral("proxy_port")) return QStringLiteral("本地代理端口");
+  if (id == QStringLiteral("bridge_port")) return QStringLiteral("本地桥端口");
+  if (id == QStringLiteral("phone_to_pc")) return QStringLiteral("手机访问电脑");
+  if (id == QStringLiteral("metrics_hit")) return QStringLiteral("指标接口命中");
+  if (id == QStringLiteral("comments_hit")) return QStringLiteral("评论接口命中");
+  return id;
+}
+
+QString localizedHealthName(const QString& id, UiLanguage language) {
+  if (language != UiLanguage::Chinese) return id;
+  if (id == QStringLiteral("phone")) return QStringLiteral("手机接入");
+  if (id == QStringLiteral("proxy")) return QStringLiteral("本地代理");
+  if (id == QStringLiteral("bridge")) return QStringLiteral("本地桥");
+  if (id == QStringLiteral("database")) return QStringLiteral("数据库");
+  if (id == QStringLiteral("queue")) return QStringLiteral("任务队列");
+  return id;
+}
+
+QString localizedSuiteText(QString text, UiLanguage language) {
+  if (language != UiLanguage::Chinese) return text;
+  text.replace(QStringLiteral("Proxy port is not configured"), QStringLiteral("未配置代理端口"));
+  text.replace(QStringLiteral("Set the local proxy listening port. Use 0 only when you intentionally skip proxy checks."), QStringLiteral("设置本地代理监听端口。只有明确跳过代理检测时才使用 0。"));
+  text.replace(QStringLiteral("Local bridge port:"), QStringLiteral("本地桥端口："));
+  text.replace(QStringLiteral("Bridge port is invalid"), QStringLiteral("本地桥端口无效"));
+  text.replace(QStringLiteral("Open WeChat Integration and set a valid local bridge port."), QStringLiteral("打开微信接入页，设置有效的本地桥端口。"));
+  text.replace(QStringLiteral("Phone can reach this computer"), QStringLiteral("手机可以访问这台电脑"));
+  text.replace(QStringLiteral("Phone reachability is not verified"), QStringLiteral("尚未验证手机能否访问这台电脑"));
+  text.replace(QStringLiteral("Configure the phone Wi-Fi proxy and open the local ping/check URL from the phone."), QStringLiteral("配置手机无线网络代理，并从手机打开本地检测地址。"));
+  text.replace(QStringLiteral("/mp/getappmsgext has been observed"), QStringLiteral("已观察到文章指标接口"));
+  text.replace(QStringLiteral("No metric interface hit yet"), QStringLiteral("尚未命中文章指标接口"));
+  text.replace(QStringLiteral("Open a WeChat article on the test phone and check whether the proxy adapter forwards compact JSON."), QStringLiteral("在测试手机打开一篇微信文章，确认代理适配器会转发精简数据。"));
+  text.replace(QStringLiteral("/mp/appmsg_comment has been observed"), QStringLiteral("已观察到评论接口"));
+  text.replace(QStringLiteral("No comment interface hit yet"), QStringLiteral("尚未命中评论接口"));
+  text.replace(QStringLiteral("Open the comment area if comment density is required for scoring."), QStringLiteral("如果评分需要评论密度，请打开文章评论区。"));
+  text.replace(QStringLiteral("Phone preflight passed"), QStringLiteral("手机预检通过"));
+  text.replace(QStringLiteral("Phone preflight is not ready"), QStringLiteral("手机预检未就绪"));
+  text.replace(QStringLiteral("Proxy adapter is reachable"), QStringLiteral("代理适配器可访问"));
+  text.replace(QStringLiteral("Proxy adapter is not fully verified"), QStringLiteral("代理适配器尚未完整验证"));
+  text.replace(QStringLiteral("Local bridge is reachable"), QStringLiteral("本地桥可访问"));
+  text.replace(QStringLiteral("Local bridge is not reachable"), QStringLiteral("本地桥不可访问"));
+  text.replace(QStringLiteral("Database is writable"), QStringLiteral("数据库可写"));
+  text.replace(QStringLiteral("Database is not writable"), QStringLiteral("数据库不可写"));
+  text.replace(QStringLiteral("pending"), QStringLiteral("待处理"));
+  text.replace(QStringLiteral("failed"), QStringLiteral("失败"));
+  return text;
+}
+}  // namespace
+
 ProductionSuiteWidget::ProductionSuiteWidget(QWidget* parent)
     : QWidget(parent), tabs_(new QTabWidget(this)) {
   auto* layout = new QVBoxLayout(this);
@@ -220,7 +282,7 @@ void ProductionSuiteWidget::fillTable(QTableWidget* table, const QStringList& he
 void ProductionSuiteWidget::runProxyWizard() {
   lastProxySteps_ = controller_.buildProxyWizard(proxyPort_->value(), bridgePort_->value(), phoneReachable_->isChecked(), metricHit_->isChecked(), commentHit_->isChecked());
   QList<QStringList> rows;
-  for (const auto& step : lastProxySteps_) rows.push_back({step.status, step.name, step.detail, step.fixHint});
+  for (const auto& step : lastProxySteps_) rows.push_back({localizedSuiteStatus(step.status, language_), localizedProxyStepName(step.name, language_), localizedSuiteText(step.detail, language_), localizedSuiteText(step.fixHint, language_)});
   fillTable(proxyTable_, {UiText::text(QStringLiteral("suite.col.status"), language_), UiText::text(QStringLiteral("suite.col.item"), language_), UiText::text(QStringLiteral("suite.col.detail"), language_), UiText::text(QStringLiteral("suite.col.fix"), language_)}, rows);
   proxyReport_->setPlainText(controller_.proxyWizardReport(lastProxySteps_, language_ == UiLanguage::Chinese));
 }
@@ -239,7 +301,7 @@ void ProductionSuiteWidget::refreshHealth() {
   const bool proxyReady = metricHit_->isChecked() || commentHit_->isChecked();
   lastHealthItems_ = controller_.buildHealthItems(pendingTasks_, failedTasks_, phoneReady_, proxyReady, bridgeReady_, databaseReady_);
   QList<QStringList> rows;
-  for (const auto& item : lastHealthItems_) rows.push_back({item.status, item.name, item.detail});
+  for (const auto& item : lastHealthItems_) rows.push_back({localizedSuiteStatus(item.status, language_), localizedHealthName(item.name, language_), localizedSuiteText(item.detail, language_)});
   fillTable(healthTable_, {UiText::text(QStringLiteral("suite.col.status"), language_), UiText::text(QStringLiteral("suite.col.item"), language_), UiText::text(QStringLiteral("suite.col.detail"), language_)}, rows);
 }
 
@@ -257,7 +319,9 @@ void ProductionSuiteWidget::updateScorePreview() {
   const auto profile = scoreProfile();
   QString text;
   QTextStream stream(&text);
-  stream << QStringLiteral("Score = read*%1 + like*%2 + comment*%3 + old_like*%4 + original*%5\n\n")
+  stream << (language_ == UiLanguage::Chinese
+                 ? QStringLiteral("评分 = 阅读*%1 + 点赞*%2 + 评论*%3 + 在看*%4 + 原创*%5\n\n")
+                 : QStringLiteral("Score = read*%1 + like*%2 + comment*%3 + old_like*%4 + original*%5\n\n"))
                 .arg(profile.readWeight).arg(profile.likeWeight).arg(profile.commentWeight).arg(profile.oldLikeWeight).arg(profile.originalityWeight);
   for (const ContentRecord& r : records_) stream << r.title << QStringLiteral(" => ") << controller_.scoreRecord(r, profile) << '\n';
   stream << '\n' << controller_.accountInsights(records_, language_ == UiLanguage::Chinese).join('\n') << '\n';

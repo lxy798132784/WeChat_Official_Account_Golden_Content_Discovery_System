@@ -107,14 +107,14 @@ bool AutoIngestionController::enqueueUrl(const QString& url, const QString& acco
   const QString normalized = normalizedUrl(url);
   if (normalized.isEmpty() || !isSupportedArticleUrl(normalized)) {
     if (errorMessage != nullptr) {
-      *errorMessage = QStringLiteral("Only valid WeChat article URLs are accepted");
+      *errorMessage = QStringLiteral("只接受有效的微信文章链接");
     }
     return false;
   }
   for (const AutoIngestionTask& task : tasks_) {
     if (task.url == normalized) {
       if (errorMessage != nullptr) {
-        *errorMessage = QStringLiteral("URL already exists in the queue");
+        *errorMessage = QStringLiteral("链接已在队列中");
       }
       return false;
     }
@@ -189,7 +189,7 @@ bool AutoIngestionController::loadQueue(const QString& path, QString* errorMessa
   const QJsonDocument document = QJsonDocument::fromJson(file.readAll());
   if (!document.isArray()) {
     if (errorMessage != nullptr) {
-      *errorMessage = QStringLiteral("Queue file must be a JSON array");
+      *errorMessage = QStringLiteral("队列文件必须是数组格式");
     }
     return false;
   }
@@ -219,14 +219,14 @@ bool AutoIngestionController::hasConnectedAdbDevice(QString* errorMessage) {
   process.start(QStringLiteral("adb"), {QStringLiteral("devices")});
   if (!process.waitForStarted(3000)) {
     if (errorMessage != nullptr) {
-      *errorMessage = QStringLiteral("adb did not start. Install adb first.");
+      *errorMessage = QStringLiteral("手机调试工具未启动，请先安装。");
     }
     return false;
   }
   if (!process.waitForFinished(10000)) {
     process.kill();
     if (errorMessage != nullptr) {
-      *errorMessage = QStringLiteral("adb devices timed out.");
+      *errorMessage = QStringLiteral("手机设备检测超时。");
     }
     return false;
   }
@@ -234,7 +234,7 @@ bool AutoIngestionController::hasConnectedAdbDevice(QString* errorMessage) {
                          QString::fromUtf8(process.readAllStandardError());
   if (process.exitStatus() != QProcess::NormalExit || process.exitCode() != 0) {
     if (errorMessage != nullptr) {
-      *errorMessage = output.trimmed().isEmpty() ? QStringLiteral("adb devices failed") : output.trimmed();
+      *errorMessage = output.trimmed().isEmpty() ? QStringLiteral("手机设备检测失败") : output.trimmed();
     }
     return false;
   }
@@ -245,21 +245,21 @@ bool AutoIngestionController::hasConnectedAdbDevice(QString* errorMessage) {
     }
   }
   if (errorMessage != nullptr) {
-    *errorMessage = QStringLiteral("No authorized Android device found. Connect the phone and allow USB debugging.");
+    *errorMessage = QStringLiteral("未发现已授权安卓设备。请连接手机并允许 USB 调试。");
   }
   return false;
 }
 
 void AutoIngestionController::start() {
   if (!enabled_) {
-    emit logMessage(QStringLiteral("Auto ingestion requires ADB automation to be explicitly enabled"));
+    emit logMessage(QStringLiteral("自动采集需要先明确打开手机调试自动化开关"));
     return;
   }
   if (timer_.isActive()) {
     return;
   }
   timer_.start(intervalSeconds_ * 1000);
-  emit logMessage(QStringLiteral("Auto ingestion scheduler started"));
+  emit logMessage(QStringLiteral("自动采集调度已启动"));
   onTick();
 }
 
@@ -267,7 +267,7 @@ void AutoIngestionController::stop() {
   if (timer_.isActive()) {
     timer_.stop();
   }
-  emit logMessage(QStringLiteral("Auto ingestion scheduler stopped"));
+  emit logMessage(QStringLiteral("自动采集调度已停止"));
 }
 
 void AutoIngestionController::runNextNow() {
@@ -281,7 +281,7 @@ void AutoIngestionController::onTick() {
   }
   const int index = nextRunnableIndex();
   if (index < 0) {
-    emit logMessage(QStringLiteral("Auto ingestion queue has no runnable task"));
+    emit logMessage(QStringLiteral("自动采集队列没有可执行任务"));
     return;
   }
   openTask(index);
@@ -312,11 +312,11 @@ void AutoIngestionController::openTask(int index) {
   QString error;
   if (openUrlWithAdb(task.url, &error)) {
     task.status = QStringLiteral("opened");
-    emit logMessage(QStringLiteral("Opened article with ADB: %1").arg(task.url));
+    emit logMessage(QStringLiteral("已通过手机调试打开文章：%1").arg(task.url));
   } else {
     task.status = QStringLiteral("failed");
     task.lastError = error;
-    emit logMessage(QStringLiteral("ADB open failed: %1").arg(error));
+    emit logMessage(QStringLiteral("手机调试打开失败：%1").arg(error));
   }
   emit queueChanged();
 }

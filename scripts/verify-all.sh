@@ -11,4 +11,5 @@ test -s "$ROOT/docs/assets/preview-runtime.png"
 python3 "$ROOT/scripts/audit_no_forbidden_tokens.py"
 python3 "$ROOT/scripts/audit_requirements.py"
 python3 "$ROOT/scripts/audit_language_split.py"
-printf 'OK: build, tests, self-test, bridge smoke, screenshot, requirements audit, language audit, and secret audit passed\n'
+python3 "$ROOT/scripts/audit_chinese_ui_i18n.py"
+printf 'OK: build, tests, self-test, bridge smoke, screenshot, requirements audit, language audit, Chinese UI i18n audit, and secret audit passed\n'

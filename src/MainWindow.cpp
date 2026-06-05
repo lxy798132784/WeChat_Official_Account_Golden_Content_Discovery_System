@@ -36,6 +36,16 @@
 #include "SeedManagerWidget.h"
 #include "WeChatConfigWidget.h"
 
+namespace {
+QString localizedOverallStatusForLog(const QString& status, UiLanguage language) {
+  if (language != UiLanguage::Chinese) return status;
+  if (status == QStringLiteral("ready")) return QStringLiteral("就绪");
+  if (status == QStringLiteral("warning")) return QStringLiteral("有提醒");
+  if (status == QStringLiteral("blocked")) return QStringLiteral("阻塞");
+  return status;
+}
+}
+
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
       dashboard_(new DashboardWidget(this)),
@@ -252,20 +262,20 @@ QString MainWindow::trLog(const QString& key, const QString& value) const {
   if (key == QStringLiteral("settings_save_failed")) return zh ? QStringLiteral("配置保存失败：%1").arg(value) : QStringLiteral("Settings save failed: %1").arg(value);
   if (key == QStringLiteral("database_reopen_failed")) return zh ? QStringLiteral("数据库重新打开失败：%1").arg(value) : QStringLiteral("Database reopen failed: %1").arg(value);
   if (key == QStringLiteral("runtime_settings_saved")) return zh ? QStringLiteral("运行配置已保存：%1").arg(value) : QStringLiteral("Runtime settings saved: %1").arg(value);
-  if (key == QStringLiteral("restart_reload_providers")) return zh ? QStringLiteral("更改本地桥端口或 ADB 设置后，请重启或重新加载 Provider。") : QStringLiteral("Restart or reload providers after changing the bridge port or ADB setting.");
-  if (key == QStringLiteral("bridge_smoke_failed")) return zh ? QStringLiteral("本地桥冒烟载荷发送失败：%1").arg(value) : QStringLiteral("Bridge smoke payload failed: %1").arg(value);
-  if (key == QStringLiteral("bridge_smoke_sent")) return zh ? QStringLiteral("本地桥冒烟载荷已发送：%1").arg(value) : QStringLiteral("Bridge smoke payload sent: %1").arg(value);
+  if (key == QStringLiteral("restart_reload_providers")) return zh ? QStringLiteral("更改本地桥端口或手机调试设置后，请重启或重新加载内容提供者。") : QStringLiteral("Restart or reload providers after changing the bridge port or ADB setting.");
+  if (key == QStringLiteral("bridge_smoke_failed")) return zh ? QStringLiteral("本地桥测试载荷发送失败：%1").arg(value) : QStringLiteral("Bridge smoke payload failed: %1").arg(value);
+  if (key == QStringLiteral("bridge_smoke_sent")) return zh ? QStringLiteral("本地桥测试载荷已发送：%1").arg(value) : QStringLiteral("Bridge smoke payload sent: %1").arg(value);
   if (key == QStringLiteral("controls_reset")) return zh ? QStringLiteral("控件已重置") : QStringLiteral("Controls reset");
   if (key == QStringLiteral("add_seed_failed")) return zh ? QStringLiteral("添加种子失败：%1").arg(value) : QStringLiteral("Add seed failed: %1").arg(value);
   if (key == QStringLiteral("seed_saved")) return zh ? QStringLiteral("种子已保存：%1").arg(value) : QStringLiteral("Seed saved: %1").arg(value);
   if (key == QStringLiteral("no_seed_selected")) return zh ? QStringLiteral("未选中种子") : QStringLiteral("No seed selected");
   if (key == QStringLiteral("seed_removed")) return zh ? QStringLiteral("种子已删除：%1").arg(value) : QStringLiteral("Seed removed: %1").arg(value);
-  if (key == QStringLiteral("export_articles_csv_failed")) return zh ? QStringLiteral("导出文章 CSV 失败：%1").arg(value) : QStringLiteral("Export articles CSV failed: %1").arg(value);
-  if (key == QStringLiteral("articles_csv_exported")) return zh ? QStringLiteral("文章 CSV 已导出：%1").arg(value) : QStringLiteral("Articles CSV exported: %1").arg(value);
-  if (key == QStringLiteral("export_articles_json_failed")) return zh ? QStringLiteral("导出文章 JSON 失败：%1").arg(value) : QStringLiteral("Export articles JSON failed: %1").arg(value);
-  if (key == QStringLiteral("articles_json_exported")) return zh ? QStringLiteral("文章 JSON 已导出：%1").arg(value) : QStringLiteral("Articles JSON exported: %1").arg(value);
+  if (key == QStringLiteral("export_articles_csv_failed")) return zh ? QStringLiteral("导出文章表格失败：%1").arg(value) : QStringLiteral("Export articles CSV failed: %1").arg(value);
+  if (key == QStringLiteral("articles_csv_exported")) return zh ? QStringLiteral("文章表格已导出：%1").arg(value) : QStringLiteral("Articles CSV exported: %1").arg(value);
+  if (key == QStringLiteral("export_articles_json_failed")) return zh ? QStringLiteral("导出文章数据失败：%1").arg(value) : QStringLiteral("Export articles JSON failed: %1").arg(value);
+  if (key == QStringLiteral("articles_json_exported")) return zh ? QStringLiteral("文章数据已导出：%1").arg(value) : QStringLiteral("Articles JSON exported: %1").arg(value);
   if (key == QStringLiteral("export_seeds_failed")) return zh ? QStringLiteral("导出种子失败：%1").arg(value) : QStringLiteral("Export seeds failed: %1").arg(value);
-  if (key == QStringLiteral("seeds_csv_exported")) return zh ? QStringLiteral("种子 CSV 已导出：%1").arg(value) : QStringLiteral("Seeds CSV exported: %1").arg(value);
+  if (key == QStringLiteral("seeds_csv_exported")) return zh ? QStringLiteral("种子表格已导出：%1").arg(value) : QStringLiteral("Seeds CSV exported: %1").arg(value);
   return value.isEmpty() ? key : QStringLiteral("%1: %2").arg(key, value);
 }
 
@@ -428,14 +438,14 @@ void MainWindow::runPhoneDiagnostics() {
       phoneDiagnosticsWidget_->testUrl());
   phoneDiagnosticsWidget_->setReport(lastPhoneReport_);
   appendLog(language_ == UiLanguage::Chinese
-                ? QStringLiteral("手机诊断完成：%1").arg(lastPhoneReport_.overallStatus)
+                ? QStringLiteral("手机诊断完成：%1").arg(localizedOverallStatusForLog(lastPhoneReport_.overallStatus, language_))
                 : QStringLiteral("Phone diagnostics completed: %1").arg(lastPhoneReport_.overallStatus));
 }
 
 void MainWindow::restartAdbServer() {
   QProcess::execute(QStringLiteral("adb"), {QStringLiteral("kill-server")});
   QProcess::execute(QStringLiteral("adb"), {QStringLiteral("start-server")});
-  appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("已请求重启 ADB 服务") : QStringLiteral("ADB server restart requested"));
+  appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("已请求重启手机调试服务") : QStringLiteral("ADB server restart requested"));
   runPhoneDiagnostics();
 }
 
@@ -454,20 +464,20 @@ void MainWindow::copyPhoneDiagnosticsReport() {
 
 void MainWindow::exportPhoneDiagnosticsJson() {
   const QString path = QFileDialog::getSaveFileName(this,
-                                                    language_ == UiLanguage::Chinese ? QStringLiteral("导出手机诊断 JSON") : QStringLiteral("Export phone diagnostics JSON"),
-                                                    QStringLiteral("phone-diagnostics.json"), QStringLiteral("JSON (*.json)"));
+                                                    language_ == UiLanguage::Chinese ? QStringLiteral("导出手机诊断文件") : QStringLiteral("Export phone diagnostics JSON"),
+                                                    QStringLiteral("phone-diagnostics.json"), (language_ == UiLanguage::Chinese ? QStringLiteral("数据文件 (*.json)") : QStringLiteral("JSON (*.json)")));
   if (path.isEmpty()) return;
   QFile file(path);
   if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-    appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("诊断 JSON 导出失败：%1").arg(file.errorString()) : QStringLiteral("Diagnostics JSON export failed: %1").arg(file.errorString()));
+    appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("诊断文件导出失败：%1").arg(file.errorString()) : QStringLiteral("Diagnostics JSON export failed: %1").arg(file.errorString()));
     return;
   }
   file.write(QJsonDocument(PhoneDiagnosticsController::reportToJson(lastPhoneReport_)).toJson(QJsonDocument::Indented));
-  appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("手机诊断 JSON 已导出：%1").arg(path) : QStringLiteral("Phone diagnostics JSON exported: %1").arg(path));
+  appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("手机诊断文件已导出：%1").arg(path) : QStringLiteral("Phone diagnostics JSON exported: %1").arg(path));
 }
 
 void MainWindow::browseDatabasePath() {
-  const QString path = QFileDialog::getSaveFileName(this, "SQLite Database", wechatConfig_->databasePath(), "SQLite (*.db *.sqlite);;All files (*)");
+  const QString path = QFileDialog::getSaveFileName(this, language_ == UiLanguage::Chinese ? QStringLiteral("选择本地数据库") : QStringLiteral("SQLite Database"), wechatConfig_->databasePath(), language_ == UiLanguage::Chinese ? QStringLiteral("数据库文件 (*.db *.sqlite);;全部文件 (*)") : QStringLiteral("SQLite (*.db *.sqlite);;All files (*)"));
   if (path.isEmpty()) {
     return;
   }
@@ -477,7 +487,7 @@ void MainWindow::browseDatabasePath() {
 }
 
 void MainWindow::browsePluginDirectory() {
-  const QString path = QFileDialog::getExistingDirectory(this, "Plugin Directory", wechatConfig_->pluginDirectory());
+  const QString path = QFileDialog::getExistingDirectory(this, language_ == UiLanguage::Chinese ? QStringLiteral("选择插件目录") : QStringLiteral("Plugin Directory"), wechatConfig_->pluginDirectory());
   if (path.isEmpty()) {
     return;
   }
@@ -513,7 +523,7 @@ void MainWindow::removeSeedFromWidget(const QString& gzhId) {
 }
 
 void MainWindow::exportArticlesCsv() {
-  const QString path = QFileDialog::getSaveFileName(this, "Export CSV", "articles.csv", "CSV (*.csv)");
+  const QString path = QFileDialog::getSaveFileName(this, language_ == UiLanguage::Chinese ? QStringLiteral("导出文章表格") : QStringLiteral("Export CSV"), QStringLiteral("articles.csv"), language_ == UiLanguage::Chinese ? QStringLiteral("表格文件 (*.csv)") : QStringLiteral("CSV (*.csv)"));
   if (path.isEmpty()) return;
   QString error;
   if (!ExportController::exportArticlesCsv(database_.listArticles(), path, &error)) {
@@ -524,7 +534,7 @@ void MainWindow::exportArticlesCsv() {
 }
 
 void MainWindow::exportArticlesJson() {
-  const QString path = QFileDialog::getSaveFileName(this, "Export JSON", "articles.json", "JSON (*.json)");
+  const QString path = QFileDialog::getSaveFileName(this, language_ == UiLanguage::Chinese ? QStringLiteral("导出文章数据") : QStringLiteral("Export JSON"), QStringLiteral("articles.json"), language_ == UiLanguage::Chinese ? QStringLiteral("数据文件 (*.json)") : QStringLiteral("JSON (*.json)"));
   if (path.isEmpty()) return;
   QString error;
   if (!ExportController::exportArticlesJson(database_.listArticles(), path, &error)) {
@@ -535,7 +545,7 @@ void MainWindow::exportArticlesJson() {
 }
 
 void MainWindow::exportSeedsCsv() {
-  const QString path = QFileDialog::getSaveFileName(this, "Export Seeds", "seeds.csv", "CSV (*.csv)");
+  const QString path = QFileDialog::getSaveFileName(this, language_ == UiLanguage::Chinese ? QStringLiteral("导出种子表格") : QStringLiteral("Export Seeds"), QStringLiteral("seeds.csv"), language_ == UiLanguage::Chinese ? QStringLiteral("表格文件 (*.csv)") : QStringLiteral("CSV (*.csv)"));
   if (path.isEmpty()) return;
   QString error;
   if (!ExportController::exportSeedsCsv(database_.listSeeds(), path, &error)) {
@@ -565,7 +575,7 @@ void MainWindow::generateKeywordSearchUrls(const QString& keywords) {
                            language_ == UiLanguage::Chinese ? QStringLiteral("关键词搜索入口") : QStringLiteral("Keyword search URLs"),
                            message);
   appendLog(language_ == UiLanguage::Chinese
-                ? QStringLiteral("已生成 %1 个关键词搜索入口，优先用外部适配器抓取这些搜索结果。原始搜索结果不要入库，只导入精简 JSON。").arg(urls.size())
+                ? QStringLiteral("已生成 %1 个关键词搜索入口，优先用外部适配器抓取这些搜索结果。原始搜索结果不要入库，只导入精简数据文件。").arg(urls.size())
                 : QStringLiteral("Generated %1 keyword search URL(s). Use an external adapter to collect search results, then import sanitized JSON only.").arg(urls.size()));
 }
 
@@ -629,17 +639,17 @@ void MainWindow::onKeywordSearchFinished(const QVector<KeywordDiscoveryResult>& 
 void MainWindow::importKeywordDiscoveryResults() {
   const QString path = QFileDialog::getOpenFileName(this,
                                                     language_ == UiLanguage::Chinese ? QStringLiteral("导入关键词发现结果") : QStringLiteral("Import keyword discovery results"),
-                                                    QString(), QStringLiteral("JSON (*.json)"));
+                                                    QString(), (language_ == UiLanguage::Chinese ? QStringLiteral("数据文件 (*.json)") : QStringLiteral("JSON (*.json)")));
   if (path.isEmpty()) return;
   QFile file(path);
   if (!file.open(QIODevice::ReadOnly)) {
-    appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("关键词结果读取失败：%1").arg(file.errorString()) : QStringLiteral("Keyword result read failed: %1").arg(file.errorString()));
+    appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("关键词结果文件读取失败：%1").arg(file.errorString()) : QStringLiteral("Keyword result read failed: %1").arg(file.errorString()));
     return;
   }
   QString error;
   keywordResults_ = KeywordDiscoveryController::parseResultsJson(file.readAll(), &error);
   if (keywordResults_.isEmpty()) {
-    appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("关键词结果导入失败：%1").arg(error) : QStringLiteral("Keyword result import failed: %1").arg(error));
+    appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("关键词结果文件导入失败：%1").arg(error) : QStringLiteral("Keyword result import failed: %1").arg(error));
     return;
   }
   keywordDiscoveryWidget_->setResults(keywordResults_);
@@ -666,7 +676,7 @@ void MainWindow::addAutoIngestionUrls(const QString& text) {
   QString error;
   const int added = autoIngestion_.enqueueUrlsFromText(text, &error);
   appendLog(language_ == UiLanguage::Chinese
-                ? QStringLiteral("自动采集队列新增 %1 条 URL%2").arg(added).arg(error.isEmpty() ? QString() : QStringLiteral("；跳过：%1").arg(error))
+                ? QStringLiteral("自动采集队列新增 %1 条链接%2").arg(added).arg(error.isEmpty() ? QString() : QStringLiteral("；跳过：%1").arg(error))
                 : QStringLiteral("Added %1 URL(s) to auto-ingestion queue%2").arg(added).arg(error.isEmpty() ? QString() : QStringLiteral("; skipped: %1").arg(error)));
   refreshAutoIngestionQueue();
 }
@@ -703,7 +713,7 @@ void MainWindow::clearAllAutoIngestionTasks() {
 }
 
 void MainWindow::saveAutoIngestionQueue() {
-  const QString path = QFileDialog::getSaveFileName(this, "Save Auto Ingestion Queue", "auto-ingestion-queue.json", "JSON (*.json)");
+  const QString path = QFileDialog::getSaveFileName(this, language_ == UiLanguage::Chinese ? QStringLiteral("保存自动采集队列") : QStringLiteral("Save Auto Ingestion Queue"), QStringLiteral("auto-ingestion-queue.json"), language_ == UiLanguage::Chinese ? QStringLiteral("队列文件 (*.json)") : QStringLiteral("JSON (*.json)"));
   if (path.isEmpty()) return;
   QString error;
   if (!autoIngestion_.saveQueue(path, &error)) {
@@ -714,7 +724,7 @@ void MainWindow::saveAutoIngestionQueue() {
 }
 
 void MainWindow::loadAutoIngestionQueue() {
-  const QString path = QFileDialog::getOpenFileName(this, "Load Auto Ingestion Queue", QString(), "JSON (*.json)");
+  const QString path = QFileDialog::getOpenFileName(this, language_ == UiLanguage::Chinese ? QStringLiteral("加载自动采集队列") : QStringLiteral("Load Auto Ingestion Queue"), QString(), language_ == UiLanguage::Chinese ? QStringLiteral("队列文件 (*.json)") : QStringLiteral("JSON (*.json)"));
   if (path.isEmpty()) return;
   QString error;
   if (!autoIngestion_.loadQueue(path, &error)) {

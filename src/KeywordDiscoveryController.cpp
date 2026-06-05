@@ -247,19 +247,19 @@ QString KeywordDiscoveryController::resultsToQueueText(const QVector<KeywordDisc
 
 void KeywordDiscoveryController::searchKeywords(const QString& text) {
   if (searching_) {
-    emit logMessage(QStringLiteral("Keyword search is already running"));
+    emit logMessage(QStringLiteral("关键词搜索正在运行"));
     return;
   }
   pendingKeywords_ = parseKeywords(text);
   results_.clear();
   if (pendingKeywords_.isEmpty()) {
-    emit logMessage(QStringLiteral("No keyword provided"));
+    emit logMessage(QStringLiteral("未提供关键词"));
     emit searchFinished(results_);
     return;
   }
   searching_ = true;
   emit searchStarted();
-  emit logMessage(QStringLiteral("Keyword search started: %1 keyword(s)").arg(pendingKeywords_.size()));
+  emit logMessage(QStringLiteral("关键词搜索已启动：%1 个关键词").arg(pendingKeywords_.size()));
   startNextKeyword();
 }
 
@@ -290,7 +290,7 @@ void KeywordDiscoveryController::startNextKeyword() {
 void KeywordDiscoveryController::handleReply(QNetworkReply* reply, const QString& keyword) {
   reply->deleteLater();
   if (reply->error() != QNetworkReply::NoError) {
-    emit logMessage(QStringLiteral("Keyword search failed for [%1]: %2").arg(keyword, reply->errorString()));
+    emit logMessage(QStringLiteral("关键词 [%1] 搜索失败：%2").arg(keyword, reply->errorString()));
     startNextKeyword();
     return;
   }
@@ -310,7 +310,7 @@ void KeywordDiscoveryController::handleReply(QNetworkReply* reply, const QString
       ++added;
     }
   }
-  emit logMessage(QStringLiteral("Keyword [%1] discovered %2 candidate article(s)").arg(keyword).arg(added));
+  emit logMessage(QStringLiteral("关键词 [%1] 发现 %2 条候选文章").arg(keyword).arg(added));
   startNextKeyword();
 }
 
@@ -319,6 +319,6 @@ void KeywordDiscoveryController::finishSearch() {
   std::sort(results_.begin(), results_.end(), [](const KeywordDiscoveryResult& left, const KeywordDiscoveryResult& right) {
     return left.hotScore > right.hotScore;
   });
-  emit logMessage(QStringLiteral("Keyword search finished: %1 candidate article(s)").arg(results_.size()));
+  emit logMessage(QStringLiteral("关键词搜索完成：%1 条候选文章").arg(results_.size()));
   emit searchFinished(results_);
 }

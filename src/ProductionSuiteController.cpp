@@ -75,7 +75,37 @@ QString ProductionSuiteController::proxyWizardReport(const QVector<ProxyStep>& s
   QTextStream stream(&out);
   stream << (chinese ? QStringLiteral("代理适配器向导报告\n") : QStringLiteral("Proxy Adapter Wizard Report\n"));
   for (const ProxyStep& step : steps) {
-    stream << QStringLiteral("- [%1] %2: %3\n  %4\n").arg(step.status, step.name, step.detail, step.fixHint);
+    if (chinese) {
+      QString status = step.status;
+      if (status == QStringLiteral("pass")) status = QStringLiteral("通过");
+      else if (status == QStringLiteral("warn")) status = QStringLiteral("提醒");
+      else if (status == QStringLiteral("fail")) status = QStringLiteral("失败");
+      QString name = step.name;
+      if (name == QStringLiteral("proxy_port")) name = QStringLiteral("本地代理端口");
+      else if (name == QStringLiteral("bridge_port")) name = QStringLiteral("本地桥端口");
+      else if (name == QStringLiteral("phone_to_pc")) name = QStringLiteral("手机访问电脑");
+      else if (name == QStringLiteral("metrics_hit")) name = QStringLiteral("指标接口命中");
+      else if (name == QStringLiteral("comments_hit")) name = QStringLiteral("评论接口命中");
+      QString detail = step.detail;
+      QString fix = step.fixHint;
+      detail.replace(QStringLiteral("Proxy port is not configured"), QStringLiteral("未配置代理端口"));
+      detail.replace(QStringLiteral("Local bridge port:"), QStringLiteral("本地桥端口："));
+      detail.replace(QStringLiteral("Bridge port is invalid"), QStringLiteral("本地桥端口无效"));
+      detail.replace(QStringLiteral("Phone can reach this computer"), QStringLiteral("手机可以访问这台电脑"));
+      detail.replace(QStringLiteral("Phone reachability is not verified"), QStringLiteral("尚未验证手机能否访问这台电脑"));
+      detail.replace(QStringLiteral("/mp/getappmsgext has been observed"), QStringLiteral("已观察到文章指标接口"));
+      detail.replace(QStringLiteral("No metric interface hit yet"), QStringLiteral("尚未命中文章指标接口"));
+      detail.replace(QStringLiteral("/mp/appmsg_comment has been observed"), QStringLiteral("已观察到评论接口"));
+      detail.replace(QStringLiteral("No comment interface hit yet"), QStringLiteral("尚未命中评论接口"));
+      fix.replace(QStringLiteral("Set the local proxy listening port. Use 0 only when you intentionally skip proxy checks."), QStringLiteral("设置本地代理监听端口。只有明确跳过代理检测时才使用 0。"));
+      fix.replace(QStringLiteral("Open WeChat Integration and set a valid local bridge port."), QStringLiteral("打开微信接入页，设置有效的本地桥端口。"));
+      fix.replace(QStringLiteral("Configure the phone Wi-Fi proxy and open the local ping/check URL from the phone."), QStringLiteral("配置手机无线网络代理，并从手机打开本地检测地址。"));
+      fix.replace(QStringLiteral("Open a WeChat article on the test phone and check whether the proxy adapter forwards compact JSON."), QStringLiteral("在测试手机打开一篇微信文章，确认代理适配器会转发精简数据。"));
+      fix.replace(QStringLiteral("Open the comment area if comment density is required for scoring."), QStringLiteral("如果评分需要评论密度，请打开文章评论区。"));
+      stream << QStringLiteral("- [%1] %2：%3\n  %4\n").arg(status, name, detail, fix);
+    } else {
+      stream << QStringLiteral("- [%1] %2: %3\n  %4\n").arg(step.status, step.name, step.detail, step.fixHint);
+    }
   }
   return out;
 }
@@ -135,7 +165,7 @@ double ProductionSuiteController::scoreRecord(const ContentRecord& record, const
 
 QStringList ProductionSuiteController::accountInsights(const QVector<ContentRecord>& records, bool chinese) const {
   QHash<QString, QVector<ContentRecord>> byAccount;
-  for (const ContentRecord& record : records) byAccount[record.accountName.isEmpty() ? QStringLiteral("Unknown") : record.accountName].push_back(record);
+  for (const ContentRecord& record : records) byAccount[record.accountName.isEmpty() ? chinese ? QStringLiteral("未知账号") : QStringLiteral("Unknown") : record.accountName].push_back(record);
   QStringList lines;
   for (auto it = byAccount.cbegin(); it != byAccount.cend(); ++it) {
     int reads = 0;
@@ -150,7 +180,7 @@ QStringList ProductionSuiteController::accountInsights(const QVector<ContentReco
 
 QStringList ProductionSuiteController::keywordInsights(const QVector<ContentRecord>& records, bool chinese) const {
   QHash<QString, int> byCategory;
-  for (const ContentRecord& record : records) byCategory[record.category.isEmpty() ? QStringLiteral("Uncategorized") : record.category]++;
+  for (const ContentRecord& record : records) byCategory[record.category.isEmpty() ? chinese ? QStringLiteral("未分类") : QStringLiteral("Uncategorized") : record.category]++;
   QStringList lines;
   for (auto it = byCategory.cbegin(); it != byCategory.cend(); ++it) {
     lines.push_back(chinese ? QStringLiteral("%1：%2 条候选/采集记录").arg(it.key()).arg(it.value())
@@ -166,7 +196,8 @@ QString ProductionSuiteController::generateMarkdownReport(const QVector<ContentR
   stream << (chinese ? QStringLiteral("# 内容发现报告\n\n") : QStringLiteral("# Content Discovery Report\n\n"));
   stream << (chinese ? QStringLiteral("工作区：") : QStringLiteral("Workspace: ")) << workspace << QStringLiteral("\n\n");
   stream << (chinese ? QStringLiteral("记录数：") : QStringLiteral("Records: ")) << records.size() << QStringLiteral("\n\n");
-  stream << QStringLiteral("Score = read*%1 + like*%2 + comment*%3 + old_like*%4 + original*%5\n\n")
+  stream << (chinese ? QStringLiteral("评分 = 阅读*%1 + 点赞*%2 + 评论*%3 + 在看*%4 + 原创*%5\n\n")
+                     : QStringLiteral("Score = read*%1 + like*%2 + comment*%3 + old_like*%4 + original*%5\n\n"))
                 .arg(profile.readWeight).arg(profile.likeWeight).arg(profile.commentWeight).arg(profile.oldLikeWeight).arg(profile.originalityWeight);
   for (const QString& line : accountInsights(records, chinese)) stream << QStringLiteral("- ") << line << '\n';
   return out;
@@ -174,7 +205,7 @@ QString ProductionSuiteController::generateMarkdownReport(const QVector<ContentR
 
 QString ProductionSuiteController::privacyBoundaryText(bool chinese) const {
   if (chinese) {
-    return QStringLiteral("隐私边界：软件不保存 Cookie、Header、Token、证书或原始抓包；ADB 只用于打开用户队列里的文章链接；本地桥只接收脱敏 JSON；导出报告不应包含账号密码或私密凭证。");
+    return QStringLiteral("隐私边界：软件不保存登录凭证、请求头、访问令牌、证书或原始抓包；手机调试只用于打开用户队列里的文章链接；本地桥只接收脱敏数据；导出报告不应包含账号密码或私密凭证。");
   }
   return QStringLiteral("Privacy boundary: the app does not store cookies, headers, tokens, certificates, or raw packet captures. ADB only opens article URLs in the user queue. The local bridge accepts sanitized JSON only. Reports must not contain credentials.");
 }

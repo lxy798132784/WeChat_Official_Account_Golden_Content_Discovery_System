@@ -14,6 +14,33 @@
 
 #include "UiText.h"
 
+namespace {
+QString localizedTaskStatus(const QString& status, UiLanguage language) {
+  if (language != UiLanguage::Chinese) return status;
+  if (status == QStringLiteral("pending")) return QStringLiteral("待处理");
+  if (status == QStringLiteral("opening")) return QStringLiteral("打开中");
+  if (status == QStringLiteral("opened")) return QStringLiteral("已打开");
+  if (status == QStringLiteral("done")) return QStringLiteral("已完成");
+  if (status == QStringLiteral("failed")) return QStringLiteral("失败");
+  return status;
+}
+
+QString localizedTaskError(const QString& error, UiLanguage language) {
+  if (language != UiLanguage::Chinese) return error;
+  QString text = error;
+  text.replace(QStringLiteral("Only valid WeChat article URLs are accepted"), QStringLiteral("只接受有效的微信文章链接"));
+  text.replace(QStringLiteral("URL already exists in the queue"), QStringLiteral("链接已在队列中"));
+  text.replace(QStringLiteral("Queue file must be a JSON array"), QStringLiteral("队列文件必须是数组格式"));
+  text.replace(QStringLiteral("adb did not start. Install adb first."), QStringLiteral("手机调试工具未启动，请先安装。"));
+  text.replace(QStringLiteral("adb devices timed out."), QStringLiteral("手机设备检测超时。"));
+  text.replace(QStringLiteral("adb devices failed"), QStringLiteral("手机设备检测失败"));
+  text.replace(QStringLiteral("No authorized Android device found. Connect the phone and allow USB debugging."), QStringLiteral("未发现已授权安卓设备。请连接手机并允许 USB 调试。"));
+  text.replace(QStringLiteral("adb start failed"), QStringLiteral("手机调试命令启动失败"));
+  text.replace(QStringLiteral("adb command timed out"), QStringLiteral("手机调试命令超时"));
+  return text;
+}
+}  // namespace
+
 AutoIngestionWidget::AutoIngestionWidget(QWidget* parent)
     : QWidget(parent),
       enableLabel_(new QLabel(this)),
@@ -121,12 +148,12 @@ void AutoIngestionWidget::setQueue(const QVector<AutoIngestionTask>& tasks) {
   queueTable_->setRowCount(tasks.size());
   for (int row = 0; row < tasks.size(); ++row) {
     const AutoIngestionTask& task = tasks.at(row);
-    queueTable_->setItem(row, 0, new QTableWidgetItem(task.status));
+    queueTable_->setItem(row, 0, new QTableWidgetItem(localizedTaskStatus(task.status, language_)));
     queueTable_->setItem(row, 1, new QTableWidgetItem(QString::number(task.attempts)));
     queueTable_->setItem(row, 2, new QTableWidgetItem(task.accountName));
     queueTable_->setItem(row, 3, new QTableWidgetItem(task.category));
     queueTable_->setItem(row, 4, new QTableWidgetItem(task.lastAttempt.isValid() ? task.lastAttempt.toLocalTime().toString(QStringLiteral("yyyy-MM-dd HH:mm:ss")) : QStringLiteral("-")));
-    queueTable_->setItem(row, 5, new QTableWidgetItem(task.lastError.isEmpty() ? task.url : QStringLiteral("%1 | %2").arg(task.url, task.lastError)));
+    queueTable_->setItem(row, 5, new QTableWidgetItem(task.lastError.isEmpty() ? task.url : QStringLiteral("%1 | %2").arg(task.url, localizedTaskError(task.lastError, language_))));
   }
   queueTable_->resizeColumnsToContents();
 }

@@ -181,7 +181,7 @@ void RadarCoreTest::productionSuiteProxyReplayAndScoring() {
   ProductionSuiteController::ScoreProfile profile;
   QVERIFY(controller.scoreRecord(records.first(), profile) > 1000.0);
   QVERIFY(controller.classifyFailure(QStringLiteral("phone unauthorized")) == QStringLiteral("PHONE_UNAUTHORIZED"));
-  QVERIFY(controller.privacyBoundaryText(true).contains(QStringLiteral("Cookie")));
+  QVERIFY(controller.privacyBoundaryText(true).contains(QStringLiteral("登录凭证")));
 }
 
 void RadarCoreTest::autoIngestionQueueAndAdbArgs() {

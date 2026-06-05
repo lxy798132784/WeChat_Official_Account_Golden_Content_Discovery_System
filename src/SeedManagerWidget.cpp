@@ -81,7 +81,7 @@ void SeedManagerWidget::rebuildCategories() {
   categoryCombo_->clear();
   categoryCombo_->addItem(UiText::text("filter.technology", language_), QStringLiteral("Technology"));
   categoryCombo_->addItem(UiText::text("filter.finance", language_), QStringLiteral("Finance"));
-  categoryCombo_->addItem(QStringLiteral("Media"), QStringLiteral("Media"));
+  categoryCombo_->addItem(language_ == UiLanguage::Chinese ? QStringLiteral("媒体") : QStringLiteral("Media"), QStringLiteral("Media"));
   categoryCombo_->addItem(UiText::text("filter.lifestyle", language_), QStringLiteral("Lifestyle"));
   categoryCombo_->addItem(language_ == UiLanguage::Chinese ? QStringLiteral("其他") : QStringLiteral("Other"), QStringLiteral("Other"));
   const int index = categoryCombo_->findData(selected.isEmpty() ? QStringLiteral("Technology") : selected);
