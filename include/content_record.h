@@ -23,3 +23,15 @@ struct ContentRecord {
   int articleCount30d = 0;
   QDateTime timestamp = QDateTime::currentDateTimeUtc();
 };
+
+/**
+ * @brief 公众号种子记录 / Official account seed record
+ */
+struct SeedRecord {
+  int id = 0;
+  QString gzhId;
+  QString name;
+  QString category;
+  int articleCount30d = 0;
+  double accountScore = 0.0;
+};

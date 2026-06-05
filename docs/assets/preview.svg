@@ -1,0 +1,39 @@
+<svg width="1280" height="760" viewBox="0 0 1280 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="760" fill="#0d1117"/>
+  <rect x="28" y="24" width="1224" height="64" rx="18" fill="#161b22" stroke="#30363d"/>
+  <text x="56" y="63" fill="#f0f6fc" font-family="Segoe UI,Arial" font-size="28" font-weight="700">Premium Content Radar / 全网黄金内容雷达</text>
+  <rect x="28" y="112" width="286" height="612" rx="18" fill="#161b22" stroke="#30363d"/>
+  <text x="52" y="150" fill="#58a6ff" font-family="Segoe UI,Arial" font-size="20" font-weight="700">Control Center / 控制中心</text>
+  <rect x="52" y="178" width="238" height="40" rx="10" fill="#252538"/>
+  <text x="70" y="204" fill="#f0f6fc" font-family="Segoe UI,Arial" font-size="15">Filters · Seeds · WeChat · Logs</text>
+  <rect x="52" y="248" width="238" height="32" rx="8" fill="#0d1117" stroke="#30363d"/>
+  <rect x="52" y="304" width="238" height="32" rx="8" fill="#0d1117" stroke="#30363d"/>
+  <rect x="52" y="360" width="238" height="8" rx="4" fill="#30363d"/>
+  <rect x="52" y="360" width="164" height="8" rx="4" fill="#58a6ff"/>
+  <rect x="52" y="420" width="238" height="8" rx="4" fill="#30363d"/>
+  <rect x="52" y="420" width="122" height="8" rx="4" fill="#3fb950"/>
+  <rect x="342" y="112" width="280" height="116" rx="18" fill="#161b22" stroke="#30363d"/>
+  <rect x="650" y="112" width="280" height="116" rx="18" fill="#161b22" stroke="#30363d"/>
+  <rect x="958" y="112" width="294" height="116" rx="18" fill="#161b22" stroke="#30363d"/>
+  <text x="372" y="154" fill="#8b949e" font-family="Segoe UI,Arial" font-size="16">Scanned Accounts / 已扫描账号</text>
+  <text x="372" y="198" fill="#f0f6fc" font-family="Segoe UI,Arial" font-size="38" font-weight="700">128</text>
+  <text x="680" y="154" fill="#8b949e" font-family="Segoe UI,Arial" font-size="16">Golden Articles / 高价值内容</text>
+  <text x="680" y="198" fill="#3fb950" font-family="Segoe UI,Arial" font-size="38" font-weight="700">2,416</text>
+  <text x="988" y="154" fill="#8b949e" font-family="Segoe UI,Arial" font-size="16">Top Score / 最高分</text>
+  <text x="988" y="198" fill="#58a6ff" font-family="Segoe UI,Arial" font-size="38" font-weight="700">96.8</text>
+  <rect x="342" y="256" width="910" height="468" rx="18" fill="#161b22" stroke="#30363d"/>
+  <rect x="342" y="256" width="910" height="48" rx="18" fill="#252538"/>
+  <text x="370" y="287" fill="#f0f6fc" font-family="Segoe UI,Arial" font-size="16" font-weight="700">Title</text>
+  <text x="690" y="287" fill="#f0f6fc" font-family="Segoe UI,Arial" font-size="16" font-weight="700">Read</text>
+  <text x="790" y="287" fill="#f0f6fc" font-family="Segoe UI,Arial" font-size="16" font-weight="700">Like</text>
+  <text x="890" y="287" fill="#f0f6fc" font-family="Segoe UI,Arial" font-size="16" font-weight="700">Comment</text>
+  <text x="1048" y="287" fill="#f0f6fc" font-family="Segoe UI,Arial" font-size="16" font-weight="700">Score</text>
+  <g font-family="Segoe UI,Arial" font-size="15">
+    <rect x="360" y="330" width="872" height="48" rx="10" fill="#12351f"/>
+    <text x="374" y="360" fill="#f0f6fc">AI Agents Are Changing Content Discovery</text><text x="690" y="360" fill="#d0d6e0">120k</text><text x="790" y="360" fill="#d0d6e0">7k</text><text x="910" y="360" fill="#d0d6e0">430</text><text x="1056" y="360" fill="#3fb950">96.8</text>
+    <rect x="360" y="392" width="872" height="48" rx="10" fill="#1e1e2e"/>
+    <text x="374" y="422" fill="#f0f6fc">High-density Comment Signals in WeChat Articles</text><text x="690" y="422" fill="#d0d6e0">76k</text><text x="790" y="422" fill="#d0d6e0">3k</text><text x="910" y="422" fill="#d0d6e0">390</text><text x="1056" y="422" fill="#58a6ff">81.4</text>
+    <rect x="360" y="454" width="872" height="48" rx="10" fill="#0d1117"/>
+    <text x="374" y="484" fill="#8b949e">Local bridge records stream here every second...</text>
+  </g>
+</svg>

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
-project(PremiumContentRadar VERSION 0.1.0 LANGUAGES CXX)
+project(PremiumContentRadar VERSION 1.0.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -16,6 +16,7 @@ add_library(radar_core STATIC
     include/DatabaseController.h src/DatabaseController.cpp
     include/ProxyTrafficBridge.h src/ProxyTrafficBridge.cpp
     include/PluginManager.h src/PluginManager.cpp
+    include/ExportController.h src/ExportController.cpp
 )
 target_include_directories(radar_core PUBLIC include)
 set_target_properties(radar_core PROPERTIES POSITION_INDEPENDENT_CODE ON)
@@ -37,6 +38,9 @@ add_executable(premium-content-radar
     include/DashboardWidget.h src/DashboardWidget.cpp ui/dashboard_widget.ui
     include/ControlPanelWidget.h src/ControlPanelWidget.cpp ui/control_panel_widget.ui
     include/DataViewerWidget.h src/DataViewerWidget.cpp ui/data_viewer_widget.ui
+    include/SeedManagerWidget.h src/SeedManagerWidget.cpp
+    include/RuntimeLogWidget.h src/RuntimeLogWidget.cpp
+    include/WeChatConfigWidget.h src/WeChatConfigWidget.cpp
 )
 target_include_directories(premium-content-radar PRIVATE include ${CMAKE_CURRENT_BINARY_DIR})
 target_link_libraries(premium-content-radar PRIVATE radar_core Qt6::Core Qt6::Widgets Qt6::Sql Qt6::Network)
@@ -52,4 +56,4 @@ set_tests_properties(radar_tests PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscre
 include(GNUInstallDirs)
 install(TARGETS premium-content-radar RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(TARGETS WeChatProviderPlugin LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/premium-content-radar/plugins)
-install(FILES README.md DEVELOPER_GUIDE.md LICENSE DESTINATION ${CMAKE_INSTALL_DOCDIR})
+install(FILES README.md DEVELOPER_GUIDE.md LICENSE CHANGELOG.md SECURITY.md CONTRIBUTING.md CODE_OF_CONDUCT.md DESTINATION ${CMAKE_INSTALL_DOCDIR})

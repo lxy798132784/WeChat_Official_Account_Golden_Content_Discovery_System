@@ -2,6 +2,7 @@
 #include <QtTest/QtTest>
 
 #include "DatabaseController.h"
+#include "ExportController.h"
 #include "PremiumContentFilterProxyModel.h"
 #include "ProxyTrafficBridge.h"
 
@@ -10,6 +11,8 @@ class RadarCoreTest : public QObject {
 
  private slots:
   void databaseStoresArticles();
+  void seedPoolAddListRemove();
+  void exportArticlesCsvAndJson();
   void proxyScoresAndFilters();
   void trafficBridgeParsesGetAppMsgExtPayload();
   void trafficBridgeParsesCommentPayload();
@@ -35,6 +38,41 @@ void RadarCoreTest::databaseStoresArticles() {
   QVERIFY(db.flush());
   QCOMPARE(db.articleCount(), 1);
   QCOMPARE(db.listArticles().first().title, QString("Golden Article"));
+}
+
+void RadarCoreTest::seedPoolAddListRemove() {
+  QTemporaryDir dir;
+  DatabaseController db;
+  QVERIFY(db.open(dir.filePath("radar.db")));
+  QVERIFY(db.addSeed("gh_a", "Account A", "Tech"));
+  QVERIFY(db.addSeed("gh_b", "Account B", "Media"));
+  QCOMPARE(db.listSeeds().size(), 2);
+  QVERIFY(db.removeSeed("gh_a"));
+  QCOMPARE(db.listSeeds().size(), 1);
+  QCOMPARE(db.listSeeds().first().gzhId, QString("gh_b"));
+}
+
+void RadarCoreTest::exportArticlesCsvAndJson() {
+  QTemporaryDir dir;
+  ContentRecord record;
+  record.title = "Export Article";
+  record.url = "https://example.test/export";
+  record.accountName = "Export Lab";
+  record.gzhId = "gh_export";
+  record.category = "Tech";
+  record.readNum = 123;
+  record.likeNum = 12;
+  QVector<ContentRecord> records{record};
+  const QString csvPath = dir.filePath("articles.csv");
+  const QString jsonPath = dir.filePath("articles.json");
+  QVERIFY(ExportController::exportArticlesCsv(records, csvPath));
+  QVERIFY(ExportController::exportArticlesJson(records, jsonPath));
+  QFile csv(csvPath);
+  QFile json(jsonPath);
+  QVERIFY(csv.open(QIODevice::ReadOnly));
+  QVERIFY(json.open(QIODevice::ReadOnly));
+  QVERIFY(QString::fromUtf8(csv.readAll()).contains("Export Article"));
+  QVERIFY(QString::fromUtf8(json.readAll()).contains("read_num"));
 }
 
 void RadarCoreTest::proxyScoresAndFilters() {

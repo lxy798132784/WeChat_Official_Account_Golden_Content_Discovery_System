@@ -1,10 +1,12 @@
 # Premium Content Radar
 
-Premium Content Radar is a Qt 6 / C++20 desktop platform for discovering high-value WeChat Official Account content. It implements a plugin-driven host shell, an in-memory premium scoring model, SQLite storage, and a WeChat provider module with ADB orchestration plus a localhost decrypted-traffic bridge.
+![Preview](docs/assets/preview.svg)
+
+Premium Content Radar is a Qt 6 / C++20 desktop platform for discovering high-value WeChat Official Account content. It implements a plugin-driven host shell, an in-memory premium scoring model, SQLite storage, seed-pool management, export, and a WeChat provider module with ADB orchestration plus a localhost decrypted-traffic bridge.
 
 ## 中文简介
 
-全网黄金内容/高价值爆款雷达是一个 Qt 6 / C++20 桌面平台，用于发现微信公众号高价值内容。项目包含主程序壳、`IContentProvider` 插件接口、微信采集插件、内存评分模型、SQLite 批量写入、深色数据终端 UI、Docker Buildx 和 GitHub Actions。
+全网黄金内容/高价值爆款雷达是一个 Qt 6 / C++20 桌面平台，用于发现微信公众号高价值内容。项目包含主程序壳、`IContentProvider` 插件接口、微信采集插件、内存评分模型、SQLite 批量写入、种子池管理、CSV/JSON 导出、深色数据终端 UI、Docker Buildx、CI 和 Release 流程。
 
 ## Features / 功能
 
@@ -14,8 +16,10 @@ Premium Content Radar is a Qt 6 / C++20 desktop platform for discovering high-va
 - Traffic bridge: accepts only `/mp/getappmsgext` and `/mp/appmsg_comment` JSON payloads on localhost.
 - Premium score: engagement rate, comment density, and 30-day frequency.
 - SQLite schema: `gzh_seeds` and `articles`, with transactional batching.
-- UI modules: main window, dashboard, control panel, data viewer, shortcuts, preview, and star seed action.
-- Cross-platform automation: CMake, Linux/Windows package scripts, Dockerfile, and CI workflow.
+- Seed pool management: add, update, remove, star selected account, and export seeds.
+- Export: article CSV, article JSON, and seed CSV.
+- UI modules: main window, dashboard, filters, seed manager, WeChat config, logs, data viewer, shortcuts, preview, and star seed action.
+- Cross-platform automation: CMake, Linux/Windows package scripts, Dockerfile, CI workflow, and GitHub Release workflow.
 
 ## Build / 构建
 
@@ -76,13 +80,13 @@ Comment payload:
 Linux:
 
 ```bash
-VERSION=0.1.0 ./scripts/package-linux.sh
+VERSION=1.0.0 ./scripts/package-linux.sh
 ```
 
 Windows PowerShell:
 
 ```powershell
-$env:VERSION="0.1.0"
+$env:VERSION="1.0.0"
 .\scripts\package-windows.ps1
 ```
 
@@ -94,6 +98,15 @@ docker buildx build --platform linux/amd64,linux/arm64 -t premium-content-radar:
 
 Runtime image includes Mesa OpenGL, X11 helper tools, and x11vnc-based VNC support.
 
+## Documentation / 文档
+
+- [Install / 安装](docs/INSTALL.md)
+- [Plugin Guide / 插件指南](docs/PLUGIN_GUIDE.md)
+- [Developer Guide / 开发者指南](DEVELOPER_GUIDE.md)
+- [Security / 安全](SECURITY.md)
+- [Contributing / 贡献](CONTRIBUTING.md)
+- [Changelog / 更新日志](CHANGELOG.md)
+
 ## Notes / 说明
 
-Real WeChat data ingestion requires a lawful, user-controlled data source and local environment configuration. The repository does not embed credentials, private traffic data, or third-party account secrets. The bridge only defines the local IPC contract and rejects unrelated endpoints.
+Real WeChat data ingestion requires a lawful, user-controlled data source and local environment configuration. The repository does not embed credentials, private traffic data, cookies, or third-party account secrets. The bridge only defines the local IPC contract and rejects unrelated endpoints.
