@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
-project(PremiumContentRadar VERSION 1.2.0 LANGUAGES CXX)
+project(PremiumContentRadar VERSION 1.3.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -15,6 +15,7 @@ add_library(radar_core STATIC
     include/IContentProvider.h
     include/PremiumContentFilterProxyModel.h src/PremiumContentFilterProxyModel.cpp
     include/KeywordDiscoveryController.h src/KeywordDiscoveryController.cpp
+    include/PhoneDiagnosticsController.h src/PhoneDiagnosticsController.cpp
     include/AutoIngestionController.h src/AutoIngestionController.cpp
     include/AppSettings.h src/AppSettings.cpp
     include/BridgePayloadClient.h src/BridgePayloadClient.cpp
@@ -44,6 +45,7 @@ add_executable(premium-content-radar WIN32
     include/ControlPanelWidget.h src/ControlPanelWidget.cpp ui/control_panel_widget.ui
     include/DataViewerWidget.h src/DataViewerWidget.cpp ui/data_viewer_widget.ui
     include/KeywordDiscoveryWidget.h src/KeywordDiscoveryWidget.cpp
+    include/PhoneDiagnosticsWidget.h src/PhoneDiagnosticsWidget.cpp
     include/AutoIngestionWidget.h src/AutoIngestionWidget.cpp
     include/SeedManagerWidget.h src/SeedManagerWidget.cpp
     include/RuntimeLogWidget.h src/RuntimeLogWidget.cpp

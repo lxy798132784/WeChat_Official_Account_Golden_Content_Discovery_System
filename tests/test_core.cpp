@@ -7,6 +7,7 @@
 #include "DatabaseController.h"
 #include "ExportController.h"
 #include "PremiumContentFilterProxyModel.h"
+#include "PhoneDiagnosticsController.h"
 #include "ProxyTrafficBridge.h"
 
 class RadarCoreTest : public QObject {

@@ -3,6 +3,7 @@
 #include <QApplication>
 #include <QByteArray>
 #include <QCoreApplication>
+#include <QClipboard>
 #include <QDateTime>
 #include <QDesktopServices>
 #include <QDir>
@@ -10,9 +11,11 @@
 #include <QFileDialog>
 #include <QInputDialog>
 #include <QFile>
+#include <QJsonDocument>
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QProcessEnvironment>
+#include <QProcess>
 #include <QShortcut>
 #include <QStatusBar>
 #include <QTabWidget>
@@ -24,6 +27,7 @@
 #include "DashboardWidget.h"
 #include "DataViewerWidget.h"
 #include "KeywordDiscoveryWidget.h"
+#include "PhoneDiagnosticsWidget.h"
 #include "ExportController.h"
 #include "BridgePayloadClient.h"
 #include "ManualWidget.h"
@@ -36,6 +40,7 @@ MainWindow::MainWindow(QWidget* parent)
       dashboard_(new DashboardWidget(this)),
       controls_(new ControlPanelWidget(this)),
       keywordDiscoveryWidget_(new KeywordDiscoveryWidget(this)),
+      phoneDiagnosticsWidget_(new PhoneDiagnosticsWidget(this)),
       autoIngestionWidget_(new AutoIngestionWidget(this)),
       viewer_(new DataViewerWidget(this)),
       seeds_(new SeedManagerWidget(this)),
@@ -56,6 +61,7 @@ MainWindow::MainWindow(QWidget* parent)
   dockTabs_ = new QTabWidget(this);
   dockTabs_->addTab(controls_, QString());
   dockTabs_->addTab(keywordDiscoveryWidget_, QString());
+  dockTabs_->addTab(phoneDiagnosticsWidget_, QString());
   dockTabs_->addTab(autoIngestionWidget_, QString());
   dockTabs_->addTab(seeds_, QString());
   dockTabs_->addTab(wechatConfig_, QString());
@@ -89,6 +95,11 @@ MainWindow::MainWindow(QWidget* parent)
   connect(&keywordDiscovery_, &KeywordDiscoveryController::logMessage, this, &MainWindow::appendLog);
   connect(keywordDiscoveryWidget_, &KeywordDiscoveryWidget::importResultsRequested, this, &MainWindow::importKeywordDiscoveryResults);
   connect(keywordDiscoveryWidget_, &KeywordDiscoveryWidget::enqueueHotResultsRequested, this, &MainWindow::enqueueKeywordDiscoveryResults);
+  connect(phoneDiagnosticsWidget_, &PhoneDiagnosticsWidget::runDiagnosticsRequested, this, &MainWindow::runPhoneDiagnostics);
+  connect(phoneDiagnosticsWidget_, &PhoneDiagnosticsWidget::restartAdbRequested, this, &MainWindow::restartAdbServer);
+  connect(phoneDiagnosticsWidget_, &PhoneDiagnosticsWidget::testOpenLinkRequested, this, &MainWindow::testPhoneOpenLink);
+  connect(phoneDiagnosticsWidget_, &PhoneDiagnosticsWidget::copyReportRequested, this, &MainWindow::copyPhoneDiagnosticsReport);
+  connect(phoneDiagnosticsWidget_, &PhoneDiagnosticsWidget::exportJsonRequested, this, &MainWindow::exportPhoneDiagnosticsJson);
   connect(autoIngestionWidget_, &AutoIngestionWidget::addUrlsRequested, this, &MainWindow::addAutoIngestionUrls);
   connect(autoIngestionWidget_, &AutoIngestionWidget::startRequested, this, &MainWindow::startAutoIngestion);
   connect(autoIngestionWidget_, &AutoIngestionWidget::stopRequested, this, &MainWindow::stopAutoIngestion);
@@ -163,11 +174,12 @@ void MainWindow::applyLanguage() {
   if (dockTabs_ != nullptr) {
     dockTabs_->setTabText(0, UiText::text("tab.filters", language_));
     dockTabs_->setTabText(1, UiText::text("tab.discover", language_));
-    dockTabs_->setTabText(2, UiText::text("tab.auto", language_));
-    dockTabs_->setTabText(3, UiText::text("tab.seeds", language_));
-    dockTabs_->setTabText(4, UiText::text("tab.wechat", language_));
-    dockTabs_->setTabText(5, UiText::text("tab.logs", language_));
-    dockTabs_->setTabText(6, UiText::text("tab.guide", language_));
+    dockTabs_->setTabText(2, UiText::text("tab.phone", language_));
+    dockTabs_->setTabText(3, UiText::text("tab.auto", language_));
+    dockTabs_->setTabText(4, UiText::text("tab.seeds", language_));
+    dockTabs_->setTabText(5, UiText::text("tab.wechat", language_));
+    dockTabs_->setTabText(6, UiText::text("tab.logs", language_));
+    dockTabs_->setTabText(7, UiText::text("tab.guide", language_));
   }
   if (fileMenu_ != nullptr) fileMenu_->setTitle(UiText::text("menu.file", language_));
   if (pluginMenu_ != nullptr) pluginMenu_->setTitle(UiText::text("menu.plugins", language_));
@@ -188,6 +200,7 @@ void MainWindow::applyLanguage() {
   dashboard_->setLanguage(language_);
   controls_->setLanguage(language_);
   keywordDiscoveryWidget_->setLanguage(language_);
+  phoneDiagnosticsWidget_->setLanguage(language_);
   autoIngestionWidget_->setLanguage(language_);
   viewer_->setLanguage(language_);
   seeds_->setLanguage(language_);
@@ -402,6 +415,51 @@ void MainWindow::testLocalBridgePayload() {
   appendLogKey(QStringLiteral("bridge_smoke_sent"), QStringLiteral("127.0.0.1:%1").arg(port));
 }
 
+void MainWindow::runPhoneDiagnostics() {
+  lastPhoneReport_ = phoneDiagnostics_.runDiagnostics(
+      phoneDiagnosticsWidget_->selectedSerial(), wechatConfig_->bridgePort(),
+      phoneDiagnosticsWidget_->proxyPort(), phoneDiagnosticsWidget_->includeOpenLinkTest(),
+      phoneDiagnosticsWidget_->testUrl());
+  phoneDiagnosticsWidget_->setReport(lastPhoneReport_);
+  appendLog(language_ == UiLanguage::Chinese
+                ? QStringLiteral("手机诊断完成：%1").arg(lastPhoneReport_.overallStatus)
+                : QStringLiteral("Phone diagnostics completed: %1").arg(lastPhoneReport_.overallStatus));
+}
+
+void MainWindow::restartAdbServer() {
+  QProcess::execute(QStringLiteral("adb"), {QStringLiteral("kill-server")});
+  QProcess::execute(QStringLiteral("adb"), {QStringLiteral("start-server")});
+  appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("已请求重启 ADB 服务") : QStringLiteral("ADB server restart requested"));
+  runPhoneDiagnostics();
+}
+
+void MainWindow::testPhoneOpenLink() {
+  lastPhoneReport_ = phoneDiagnostics_.runDiagnostics(
+      phoneDiagnosticsWidget_->selectedSerial(), wechatConfig_->bridgePort(),
+      phoneDiagnosticsWidget_->proxyPort(), true, phoneDiagnosticsWidget_->testUrl());
+  phoneDiagnosticsWidget_->setReport(lastPhoneReport_);
+  appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("手机打开链接测试完成") : QStringLiteral("Phone open-link test completed"));
+}
+
+void MainWindow::copyPhoneDiagnosticsReport() {
+  QApplication::clipboard()->setText(PhoneDiagnosticsController::reportToText(lastPhoneReport_));
+  appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("手机诊断报告已复制") : QStringLiteral("Phone diagnostics report copied"));
+}
+
+void MainWindow::exportPhoneDiagnosticsJson() {
+  const QString path = QFileDialog::getSaveFileName(this,
+                                                    language_ == UiLanguage::Chinese ? QStringLiteral("导出手机诊断 JSON") : QStringLiteral("Export phone diagnostics JSON"),
+                                                    QStringLiteral("phone-diagnostics.json"), QStringLiteral("JSON (*.json)"));
+  if (path.isEmpty()) return;
+  QFile file(path);
+  if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+    appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("诊断 JSON 导出失败：%1").arg(file.errorString()) : QStringLiteral("Diagnostics JSON export failed: %1").arg(file.errorString()));
+    return;
+  }
+  file.write(QJsonDocument(PhoneDiagnosticsController::reportToJson(lastPhoneReport_)).toJson(QJsonDocument::Indented));
+  appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("手机诊断 JSON 已导出：%1").arg(path) : QStringLiteral("Phone diagnostics JSON exported: %1").arg(path));
+}
+
 void MainWindow::browseDatabasePath() {
   const QString path = QFileDialog::getSaveFileName(this, "SQLite Database", wechatConfig_->databasePath(), "SQLite (*.db *.sqlite);;All files (*)");
   if (path.isEmpty()) {
@@ -513,9 +571,15 @@ void MainWindow::autoSearchKeywords(const QString& keywords, int maxCandidatesPe
 }
 
 void MainWindow::startKeywordAutoIngestion(const QString& keywords, int maxCandidatesPerKeyword, const KeywordHotCriteria& criteria) {
-  QString adbError;
-  if (!AutoIngestionController::hasConnectedAdbDevice(&adbError)) {
-    appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("关键词自动采集启动失败：%1").arg(adbError) : QStringLiteral("Keyword auto-ingestion start failed: %1").arg(adbError));
+  lastPhoneReport_ = phoneDiagnostics_.runDiagnostics(phoneDiagnosticsWidget_->selectedSerial(), wechatConfig_->bridgePort(),
+                                                     phoneDiagnosticsWidget_->proxyPort(), false, phoneDiagnosticsWidget_->testUrl());
+  QString preflightReason;
+  if (!PhoneDiagnosticsController::isCoreReady(lastPhoneReport_, &preflightReason)) {
+    phoneDiagnosticsWidget_->setReport(lastPhoneReport_);
+    if (dockTabs_ != nullptr) dockTabs_->setCurrentWidget(phoneDiagnosticsWidget_);
+    appendLog(language_ == UiLanguage::Chinese
+                  ? QStringLiteral("关键词自动采集启动失败：手机接入诊断未通过：%1").arg(preflightReason)
+                  : QStringLiteral("Keyword auto-ingestion start failed: phone diagnostics preflight failed: %1").arg(preflightReason));
     return;
   }
   startAutoAfterKeywordSearch_ = true;

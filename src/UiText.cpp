@@ -6,7 +6,7 @@ QString UiText::text(const QString& key, UiLanguage language) {
   static const QHash<QString, QString> en = {
       {"app.title", "Premium Content Radar"},
       {"dock.title", "Control Center"},
-      {"tab.filters", "Filters"}, {"tab.discover", "Keyword Discovery"}, {"tab.auto", "Auto Ingestion"}, {"tab.seeds", "Seeds"}, {"tab.wechat", "WeChat"}, {"tab.logs", "Logs"}, {"tab.guide", "Guide"},
+      {"tab.filters", "Filters"}, {"tab.discover", "Keyword Discovery"}, {"tab.phone", "Phone Diagnostics"}, {"tab.auto", "Auto Ingestion"}, {"tab.seeds", "Seeds"}, {"tab.wechat", "WeChat"}, {"tab.logs", "Logs"}, {"tab.guide", "Guide"},
       {"menu.file", "File"}, {"menu.plugins", "Plugins"}, {"menu.actions", "Actions"}, {"menu.help", "Help"},
       {"action.load_samples", "Load Samples"}, {"action.export_articles_csv", "Export Articles CSV"}, {"action.export_articles_json", "Export Articles JSON"}, {"action.export_seeds_csv", "Export Seeds CSV"},
       {"action.load_plugins", "Load Plugins"}, {"action.preview", "Preview"}, {"action.star_seed", "Star Seed"}, {"action.bridge_smoke", "Send Bridge Smoke Payload"}, {"action.reset", "Reset Controls"},
@@ -43,12 +43,24 @@ QString UiText::text(const QString& key, UiLanguage language) {
       {"tip.wechat.database", "Local SQLite file that stores articles and seeds."}, {"tip.wechat.plugin_dir", "Directory containing provider plugins."}, {"tip.wechat.port", "Localhost TCP port for compact JSON ingestion."}, {"tip.wechat.adb", "Enable only with a dedicated test phone and explicit authorization."}, {"tip.wechat.samples", "Load demo records when the app starts."}, {"tip.wechat.save", "Persist settings to the local user configuration file."}, {"tip.wechat.test", "Verify the bridge with safe sample payloads."}, {"tip.wechat.log", "Sanitized runtime messages and ingestion events."},
       {"dash.accounts", "Scanned Accounts"}, {"dash.detections", "Premium Detections"}, {"dash.top_score", "Top Score"},
       {"manual.title", "Built-in User Manual"},
-      {"manual.body", "1. Start with the WeChat tab. Confirm the database path, plugin directory, and bridge port. Keep ADB disabled unless you use a dedicated test phone.\n\n2. Click Save runtime settings, then Load Plugins. The WeChat provider starts a localhost bridge.\n\n3. Click Send Bridge Smoke Payload. If the article table grows, local ingestion works.\n\n4. Primary route: open Keyword Discovery, enter market keywords, import sanitized hot-result JSON, then add hot results to the auto queue. For URL-based automatic ingestion, open the Auto Ingestion tab. Paste one WeChat article URL per line, enable the ADB safety gate, and click Run Next Now or Start Auto Ingestion. The scheduler only opens URLs on your connected test phone; metrics still enter through the local proxy bridge.\n\n5. Choose an ingestion option. Option A uses a lawful local proxy adapter. Option B imports manually prepared JSON or CSV. Option C uses ADB only to open pages on a test phone, then still imports metrics through A or B.\n\n6. Use Filters to tune category, keyword, score weights, and minimum reads. The score combines engagement, comment density, and publishing frequency.\n\n7. Select an article row. Preview opens the URL and shows the main metrics. Star Seed saves the publisher into the seed pool.\n\n8. Use Seeds to maintain target publishers. Add or update by GZH ID, name, and category. Export seeds when you need a backup.\n\n9. Use File exports to save articles as CSV or JSON. Review exports before production decisions.\n\n10. Security boundary: never store cookies, headers, tokens, certificates, or raw packet captures in the repository. Only compact sanitized JSON should be sent to 127.0.0.1."}
-  };
+      {"manual.body", "1. Start with the WeChat tab. Confirm the database path, plugin directory, and bridge port. Keep ADB disabled unless you use a dedicated test phone.\n\n2. Click Save runtime settings, then Load Plugins. The WeChat provider starts a localhost bridge.\n\n3. Click Send Bridge Smoke Payload. If the article table grows, local ingestion works.\n\n4. Primary route: open Keyword Discovery, enter market keywords, import sanitized hot-result JSON, then add hot results to the auto queue. For URL-based automatic ingestion, open the Auto Ingestion tab. Paste one WeChat article URL per line, enable the ADB safety gate, and click Run Next Now or Start Auto Ingestion. The scheduler only opens URLs on your connected test phone; metrics still enter through the local proxy bridge.\n\n5. Choose an ingestion option. Option A uses a lawful local proxy adapter. Option B imports manually prepared JSON or CSV. Option C uses ADB only to open pages on a test phone, then still imports metrics through A or B.\n\n6. Use Filters to tune category, keyword, score weights, and minimum reads. The score combines engagement, comment density, and publishing frequency.\n\n7. Select an article row. Preview opens the URL and shows the main metrics. Star Seed saves the publisher into the seed pool.\n\n8. Use Seeds to maintain target publishers. Add or update by GZH ID, name, and category. Export seeds when you need a backup.\n\n9. Use File exports to save articles as CSV or JSON. Review exports before production decisions.\n\n10. Security boundary: never store cookies, headers, tokens, certificates, or raw packet captures in the repository. Only compact sanitized JSON should be sent to 127.0.0.1."},
+  
+    {"phone.intro", "Check every layer required for fully automatic keyword ingestion: ADB, USB authorization, phone shell control, article opening, local proxy, and bridge readiness."},
+    {"phone.serial", "Target phone"}, {"phone.proxy_port", "Proxy port (0 = skip)"}, {"phone.test_url", "Test URL"},
+    {"phone.include_open_test", "Include open-link test in full diagnostics"}, {"phone.run", "Run Full Diagnostics"},
+    {"phone.restart_adb", "Restart ADB"}, {"phone.open_link", "Test Open Link"}, {"phone.copy_report", "Copy Report"},
+    {"phone.export_json", "Export JSON"}, {"phone.col.status", "Status"}, {"phone.col.item", "Item"},
+    {"phone.col.details", "Details"}, {"phone.col.fix", "Fix Guidance"}, {"phone.col.raw", "Raw Output"},
+    {"tip.phone.run", "Run P0/P1/P2 phone readiness checks and explain each blocker."},
+    {"tip.phone.restart_adb", "Run adb kill-server and adb start-server, then diagnose again."},
+    {"tip.phone.open_link", "Send an Android VIEW intent to the selected phone using the test URL."},
+    {"tip.phone.copy_report", "Copy a text report for support or troubleshooting."},
+    {"tip.phone.export_json", "Export the full structured diagnostics report as JSON."},
+};
   static const QHash<QString, QString> zh = {
       {"app.title", "全网黄金内容雷达"},
       {"dock.title", "控制中心"},
-      {"tab.filters", "筛选"}, {"tab.discover", "关键词发现"}, {"tab.auto", "自动采集"}, {"tab.seeds", "种子池"}, {"tab.wechat", "微信接入"}, {"tab.logs", "日志"}, {"tab.guide", "说明书"},
+      {"tab.filters", "筛选"}, {"tab.discover", "关键词发现"}, {"tab.phone", "手机诊断"}, {"tab.auto", "自动采集"}, {"tab.seeds", "种子池"}, {"tab.wechat", "微信接入"}, {"tab.logs", "日志"}, {"tab.guide", "说明书"},
       {"menu.file", "文件"}, {"menu.plugins", "插件"}, {"menu.actions", "操作"}, {"menu.help", "帮助"},
       {"action.load_samples", "加载示例数据"}, {"action.export_articles_csv", "导出文章 CSV"}, {"action.export_articles_json", "导出文章 JSON"}, {"action.export_seeds_csv", "导出种子 CSV"},
       {"action.load_plugins", "加载插件"}, {"action.preview", "预览文章"}, {"action.star_seed", "收藏为种子"}, {"action.bridge_smoke", "发送本地桥冒烟载荷"}, {"action.reset", "重置控件"},
@@ -85,8 +97,20 @@ QString UiText::text(const QString& key, UiLanguage language) {
       {"tip.wechat.database", "保存文章和种子的本地 SQLite 文件。"}, {"tip.wechat.plugin_dir", "内容提供者插件所在目录。"}, {"tip.wechat.port", "接收精简 JSON 的 localhost TCP 端口。"}, {"tip.wechat.adb", "只有在使用专用测试手机并明确授权时才启用。"}, {"tip.wechat.samples", "软件启动时加载演示记录。"}, {"tip.wechat.save", "把配置持久化到本地用户配置文件。"}, {"tip.wechat.test", "用安全示例载荷验证本地桥。"}, {"tip.wechat.log", "脱敏运行消息和接入事件。"},
       {"dash.accounts", "已扫描账号"}, {"dash.detections", "高价值发现"}, {"dash.top_score", "最高评分"},
       {"manual.title", "内置使用说明书"},
-      {"manual.body", "1. 先进入微信接入页，确认数据库路径、插件目录和本地桥端口。除非使用专用测试手机，否则保持 ADB 关闭。\n\n2. 点击保存运行配置，然后加载插件。微信 Provider 会启动 localhost 本地桥。\n\n3. 点击发送本地桥冒烟载荷。如果文章表新增记录，说明本地接入链路可用。\n\n4. 主要路线：进入关键词发现页，输入市场关键词，导入脱敏爆款结果 JSON，再把爆款结果加入自动队列。URL 自动采集路线：进入自动采集页。每行粘贴一个微信文章 URL，打开 ADB 安全开关，然后点击立即执行下一条或开始自动采集。调度器只负责在已连接测试手机上打开文章，指标仍通过本地代理桥接入。\n\n5. 选择接入方案。方案 A 使用合法的本地代理适配器；方案 B 导入人工准备的 JSON 或 CSV；方案 C 只用 ADB 在测试手机上打开页面，指标仍通过 A 或 B 导入。\n\n6. 使用筛选页调整行业、关键词、评分权重和最低阅读数。评分综合互动、评论密度和发文频率。\n\n7. 选中文章行后，预览文章会打开链接并显示主要指标；收藏为种子会把该公众号保存到种子池。\n\n8. 在种子池页维护目标公众号。按公众号 ID、名称和分类添加或更新，需要备份时导出种子。\n\n9. 通过文件菜单把文章导出为 CSV 或 JSON。做生产决策前先复核导出结果。\n\n10. 安全边界：不要把 Cookie、Header、Token、证书或原始抓包保存到仓库。软件只应接收发送到 127.0.0.1 的精简脱敏 JSON。"}
-  };
+      {"manual.body", "1. 先进入微信接入页，确认数据库路径、插件目录和本地桥端口。除非使用专用测试手机，否则保持 ADB 关闭。\n\n2. 点击保存运行配置，然后加载插件。微信 Provider 会启动 localhost 本地桥。\n\n3. 点击发送本地桥冒烟载荷。如果文章表新增记录，说明本地接入链路可用。\n\n4. 主要路线：进入关键词发现页，输入市场关键词，导入脱敏爆款结果 JSON，再把爆款结果加入自动队列。URL 自动采集路线：进入自动采集页。每行粘贴一个微信文章 URL，打开 ADB 安全开关，然后点击立即执行下一条或开始自动采集。调度器只负责在已连接测试手机上打开文章，指标仍通过本地代理桥接入。\n\n5. 选择接入方案。方案 A 使用合法的本地代理适配器；方案 B 导入人工准备的 JSON 或 CSV；方案 C 只用 ADB 在测试手机上打开页面，指标仍通过 A 或 B 导入。\n\n6. 使用筛选页调整行业、关键词、评分权重和最低阅读数。评分综合互动、评论密度和发文频率。\n\n7. 选中文章行后，预览文章会打开链接并显示主要指标；收藏为种子会把该公众号保存到种子池。\n\n8. 在种子池页维护目标公众号。按公众号 ID、名称和分类添加或更新，需要备份时导出种子。\n\n9. 通过文件菜单把文章导出为 CSV 或 JSON。做生产决策前先复核导出结果。\n\n10. 安全边界：不要把 Cookie、Header、Token、证书或原始抓包保存到仓库。软件只应接收发送到 127.0.0.1 的精简脱敏 JSON。"},
+  
+    {"phone.intro", "检查关键词全自动采集所需的每一层：ADB、USB 授权、手机 shell 控制、文章链接打开、本地代理、本地桥就绪状态。"},
+    {"phone.serial", "目标手机"}, {"phone.proxy_port", "代理端口（0=跳过）"}, {"phone.test_url", "测试链接"},
+    {"phone.include_open_test", "全量诊断时包含打开链接测试"}, {"phone.run", "一键全量诊断"},
+    {"phone.restart_adb", "重启 ADB"}, {"phone.open_link", "测试打开链接"}, {"phone.copy_report", "复制报告"},
+    {"phone.export_json", "导出 JSON"}, {"phone.col.status", "状态"}, {"phone.col.item", "项目"},
+    {"phone.col.details", "详情"}, {"phone.col.fix", "修复指引"}, {"phone.col.raw", "原始输出"},
+    {"tip.phone.run", "执行 P0/P1/P2 手机就绪检测，并解释每个阻塞点。"},
+    {"tip.phone.restart_adb", "执行 adb kill-server 和 adb start-server，然后重新诊断。"},
+    {"tip.phone.open_link", "向选中手机发送 Android VIEW intent，打开测试链接。"},
+    {"tip.phone.copy_report", "复制文本诊断报告，方便排障或发给技术支持。"},
+    {"tip.phone.export_json", "导出完整结构化 JSON 诊断报告。"},
+};
   const auto& dict = language == UiLanguage::Chinese ? zh : en;
   return dict.value(key, key);
 }

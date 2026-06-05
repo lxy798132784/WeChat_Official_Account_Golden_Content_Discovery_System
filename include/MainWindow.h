@@ -8,6 +8,7 @@
 #include "DatabaseController.h"
 #include "KeywordDiscoveryController.h"
 #include "KeywordDiscoveryWidget.h"
+#include "PhoneDiagnosticsController.h"
 #include "PluginManager.h"
 #include "UiText.h"
 
@@ -20,6 +21,7 @@ class ControlPanelWidget;
 class DashboardWidget;
 class DataViewerWidget;
 class KeywordDiscoveryWidget;
+class PhoneDiagnosticsWidget;
 class RuntimeLogWidget;
 class SeedManagerWidget;
 class ManualWidget;
@@ -52,6 +54,11 @@ class MainWindow final : public QMainWindow {
   void showAboutDialog();
   void saveRuntimeSettings(const AppSettings& settings);
   void testLocalBridgePayload();
+  void runPhoneDiagnostics();
+  void restartAdbServer();
+  void testPhoneOpenLink();
+  void copyPhoneDiagnosticsReport();
+  void exportPhoneDiagnosticsJson();
   void browseDatabasePath();
   void browsePluginDirectory();
   void toggleLanguage();
@@ -89,6 +96,8 @@ class MainWindow final : public QMainWindow {
   PluginManager pluginManager_;
   AutoIngestionController autoIngestion_;
   KeywordDiscoveryController keywordDiscovery_;
+  PhoneDiagnosticsController phoneDiagnostics_;
+  PhoneDiagnosticReport lastPhoneReport_;
   QVector<KeywordDiscoveryResult> keywordResults_;
   bool startAutoAfterKeywordSearch_ = false;
   KeywordHotCriteria pendingKeywordCriteria_;
@@ -115,6 +124,7 @@ class MainWindow final : public QMainWindow {
   DashboardWidget* dashboard_ = nullptr;
   ControlPanelWidget* controls_ = nullptr;
   KeywordDiscoveryWidget* keywordDiscoveryWidget_ = nullptr;
+  PhoneDiagnosticsWidget* phoneDiagnosticsWidget_ = nullptr;
   AutoIngestionWidget* autoIngestionWidget_ = nullptr;
   DataViewerWidget* viewer_ = nullptr;
   SeedManagerWidget* seeds_ = nullptr;
