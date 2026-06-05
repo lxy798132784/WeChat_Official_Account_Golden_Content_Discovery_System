@@ -1,5 +1,6 @@
 #include "ProxyTrafficBridge.h"
 
+#include <QDateTime>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QMutexLocker>
@@ -20,6 +21,54 @@ int metricInt(const QJsonObject& root, const QJsonObject& nested, const QString&
     return nested.value(key).toInt();
   }
   return root.value(key).toInt();
+}
+
+QDateTime parsePublishTimeValue(const QJsonValue& value) {
+  if (value.isDouble()) {
+    const qint64 raw = static_cast<qint64>(value.toDouble());
+    if (raw <= 0) {
+      return QDateTime();
+    }
+    return raw > 100000000000LL ? QDateTime::fromMSecsSinceEpoch(raw, Qt::UTC)
+                                : QDateTime::fromSecsSinceEpoch(raw, Qt::UTC);
+  }
+  const QString text = value.toString().trimmed();
+  if (text.isEmpty()) {
+    return QDateTime();
+  }
+  bool ok = false;
+  const qint64 numeric = text.toLongLong(&ok);
+  if (ok && numeric > 0) {
+    return numeric > 100000000000LL ? QDateTime::fromMSecsSinceEpoch(numeric, Qt::UTC)
+                                    : QDateTime::fromSecsSinceEpoch(numeric, Qt::UTC);
+  }
+  QDateTime parsed = QDateTime::fromString(text, Qt::ISODate);
+  if (!parsed.isValid()) {
+    parsed = QDateTime::fromString(text, QStringLiteral("yyyy-MM-dd HH:mm:ss"));
+  }
+  if (!parsed.isValid()) {
+    parsed = QDateTime::fromString(text, QStringLiteral("yyyy-MM-dd"));
+  }
+  if (parsed.isValid() && parsed.timeSpec() == Qt::LocalTime) {
+    parsed.setTimeSpec(Qt::UTC);
+  }
+  return parsed;
+}
+
+QDateTime publishTimeFromObject(const QJsonObject& root) {
+  const QStringList keys = {QStringLiteral("publish_time"), QStringLiteral("publishTime"),
+                            QStringLiteral("publish_date"), QStringLiteral("publishDate"),
+                            QStringLiteral("create_time"), QStringLiteral("createTime"),
+                            QStringLiteral("datetime"), QStringLiteral("date")};
+  for (const QString& key : keys) {
+    if (root.contains(key)) {
+      const QDateTime parsed = parsePublishTimeValue(root.value(key));
+      if (parsed.isValid()) {
+        return parsed;
+      }
+    }
+  }
+  return QDateTime();
 }
 
 }  // namespace
@@ -70,6 +119,7 @@ std::optional<ContentRecord> ProxyTrafficBridge::parsePayload(const QByteArray& 
   record.accountName = root.value(QStringLiteral("account_name")).toString();
   record.gzhId = root.value(QStringLiteral("gzh_id")).toString();
   record.articleCount30d = root.value(QStringLiteral("article_count_30d")).toInt();
+  record.publishTime = publishTimeFromObject(root);
 
   const QJsonObject appMsgStat = root.value(QStringLiteral("appmsgstat")).toObject();
   const QJsonObject commentInfo = root.value(QStringLiteral("comment_info")).toObject();

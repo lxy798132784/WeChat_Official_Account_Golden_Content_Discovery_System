@@ -7,6 +7,10 @@
 #include <QTextStream>
 
 namespace {
+QString publishTimeString(const ContentRecord& record) {
+  return record.publishTime.isValid() ? record.publishTime.toString(Qt::ISODate) : QString();
+}
+
 QString csvEscape(const QString& value) {
   QString escaped = value;
   escaped.replace('"', "\"\"");
@@ -28,12 +32,13 @@ bool ExportController::exportArticlesCsv(const QVector<ContentRecord>& records, 
     return false;
   }
   QTextStream out(&file);
-  out << "title,account,gzh_id,category,read_num,like_num,old_like_num,comment_num,article_count_30d,timestamp,url\n";
+  out << "title,account,gzh_id,category,publish_time,read_num,like_num,old_like_num,comment_num,article_count_30d,timestamp,url\n";
   for (const auto& record : records) {
     out << csvEscape(record.title) << ',' << csvEscape(record.accountName) << ',' << csvEscape(record.gzhId)
-        << ',' << csvEscape(record.category) << ',' << record.readNum << ',' << record.likeNum << ','
-        << record.oldLikeNum << ',' << record.commentNum << ',' << record.articleCount30d << ','
-        << csvEscape(record.timestamp.toString(Qt::ISODate)) << ',' << csvEscape(record.url) << '\n';
+        << ',' << csvEscape(record.category) << ',' << csvEscape(publishTimeString(record)) << ','
+        << record.readNum << ',' << record.likeNum << ',' << record.oldLikeNum << ',' << record.commentNum
+        << ',' << record.articleCount30d << ',' << csvEscape(record.timestamp.toString(Qt::ISODate)) << ','
+        << csvEscape(record.url) << '\n';
   }
   return true;
 }
@@ -47,6 +52,7 @@ bool ExportController::exportArticlesJson(const QVector<ContentRecord>& records,
     object["account_name"] = record.accountName;
     object["gzh_id"] = record.gzhId;
     object["category"] = record.category;
+    object["publish_time"] = publishTimeString(record);
     object["read_num"] = record.readNum;
     object["like_num"] = record.likeNum;
     object["old_like_num"] = record.oldLikeNum;

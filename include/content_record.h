@@ -21,6 +21,7 @@ struct ContentRecord {
   int oldLikeNum = 0;
   int commentNum = 0;
   int articleCount30d = 0;
+  QDateTime publishTime;
   QDateTime timestamp = QDateTime::currentDateTimeUtc();
 };
 

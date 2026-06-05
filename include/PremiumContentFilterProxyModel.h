@@ -11,7 +11,20 @@
 class PremiumContentFilterProxyModel final : public QSortFilterProxyModel {
   Q_OBJECT
  public:
-  enum SourceColumns { kTitle = 0, kAccount, kCategory, kRead, kLike, kOldLike, kComment, kFrequency, kScore, kUrl, kColumnCount };
+  enum SourceColumns {
+    kTitle = 0,
+    kAccount,
+    kCategory,
+    kPublishDate,
+    kRead,
+    kLike,
+    kOldLike,
+    kComment,
+    kFrequency,
+    kScore,
+    kUrl,
+    kColumnCount
+  };
   explicit PremiumContentFilterProxyModel(QObject* parent = nullptr);
   void setWeights(double engagementWeight, double commentWeight, double frequencyWeight);
   void setMinimums(int minimumReadThreshold, double minimumScore);

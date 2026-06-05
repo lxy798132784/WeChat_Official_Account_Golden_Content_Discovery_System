@@ -35,11 +35,13 @@ void RadarCoreTest::databaseStoresArticles() {
   record.oldLikeNum = 200;
   record.commentNum = 80;
   record.articleCount30d = 12;
+  record.publishTime = QDateTime::fromString("2026-06-05T08:00:00Z", Qt::ISODate);
 
   QVERIFY(db.enqueueArticle(record));
   QVERIFY(db.flush());
   QCOMPARE(db.articleCount(), 1);
   QCOMPARE(db.listArticles().first().title, QString("Golden Article"));
+  QVERIFY(db.listArticles().first().publishTime.isValid());
 }
 
 void RadarCoreTest::seedPoolAddListRemove() {
@@ -64,6 +66,7 @@ void RadarCoreTest::exportArticlesCsvAndJson() {
   record.category = "Tech";
   record.readNum = 123;
   record.likeNum = 12;
+  record.publishTime = QDateTime::fromString("2026-06-05T08:00:00Z", Qt::ISODate);
   QVector<ContentRecord> records{record};
   const QString csvPath = dir.filePath("articles.csv");
   const QString jsonPath = dir.filePath("articles.json");
@@ -73,19 +76,23 @@ void RadarCoreTest::exportArticlesCsvAndJson() {
   QFile json(jsonPath);
   QVERIFY(csv.open(QIODevice::ReadOnly));
   QVERIFY(json.open(QIODevice::ReadOnly));
-  QVERIFY(QString::fromUtf8(csv.readAll()).contains("Export Article"));
-  QVERIFY(QString::fromUtf8(json.readAll()).contains("read_num"));
+  const QString csvText = QString::fromUtf8(csv.readAll());
+  const QString jsonText = QString::fromUtf8(json.readAll());
+  QVERIFY(csvText.contains("Export Article"));
+  QVERIFY(csvText.contains("publish_time"));
+  QVERIFY(jsonText.contains("read_num"));
+  QVERIFY(jsonText.contains("publish_time"));
 }
 
 void RadarCoreTest::proxyScoresAndFilters() {
   QStandardItemModel model;
-  model.setHorizontalHeaderLabels({"Title", "Account", "Category", "Read", "Like",
+  model.setHorizontalHeaderLabels({"Title", "Account", "Category", "PublishTime", "Read", "Like",
                                    "OldLike", "Comment", "Freq30d", "Score", "URL"});
   model.appendRow({new QStandardItem("A"), new QStandardItem("Acct"),
-                   new QStandardItem("Tech"), new QStandardItem("10000"),
-                   new QStandardItem("500"), new QStandardItem("100"),
-                   new QStandardItem("50"), new QStandardItem("10"),
-                   new QStandardItem(""), new QStandardItem("u")});
+                   new QStandardItem("Tech"), new QStandardItem("2026-06-05 08:00"),
+                   new QStandardItem("10000"), new QStandardItem("500"),
+                   new QStandardItem("100"), new QStandardItem("50"),
+                   new QStandardItem("10"), new QStandardItem(""), new QStandardItem("u")});
 
   PremiumContentFilterProxyModel proxy;
   proxy.setSourceModel(&model);
@@ -103,6 +110,7 @@ void RadarCoreTest::trafficBridgeParsesGetAppMsgExtPayload() {
     "account_name": "Metric Lab",
     "gzh_id": "gh_metric",
     "article_count_30d": 16,
+    "publish_time": "2026-06-05T08:30:00Z",
     "appmsgstat": {
       "read_num": 24000,
       "like_num": 1200,
@@ -117,6 +125,7 @@ void RadarCoreTest::trafficBridgeParsesGetAppMsgExtPayload() {
   QCOMPARE(parsed->likeNum, 1200);
   QCOMPARE(parsed->oldLikeNum, 320);
   QCOMPARE(parsed->articleCount30d, 16);
+  QVERIFY(parsed->publishTime.isValid());
 }
 
 void RadarCoreTest::trafficBridgeParsesCommentPayload() {
@@ -147,6 +156,7 @@ void RadarCoreTest::bridgePayloadClientSamplesParse() {
   QVERIFY(metrics.has_value());
   QCOMPARE(metrics->url, QString("https://example.local/bridge-smoke"));
   QCOMPARE(metrics->readNum, 36000);
+  QVERIFY(metrics->publishTime.isValid());
   auto comments = ProxyTrafficBridge::parsePayload(BridgePayloadClient::sampleCommentPayload());
   QVERIFY(comments.has_value());
   QCOMPARE(comments->commentNum, 96);

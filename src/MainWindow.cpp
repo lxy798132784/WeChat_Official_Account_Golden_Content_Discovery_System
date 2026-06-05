@@ -63,7 +63,7 @@ MainWindow::MainWindow(QWidget* parent)
   qputenv("PREMIUM_RADAR_BRIDGE_PORT", QByteArray::number(settings_.bridgePort));
   qputenv("PREMIUM_RADAR_ENABLE_ADB", settings_.adbAutomationEnabled ? "1" : "0");
   if (!reopenDatabase(settings_.databasePath)) {
-    appendLog(QStringLiteral("Database open failed: %1").arg(database_.lastError()));
+    appendLogKey(QStringLiteral("database_open_failed"), database_.lastError());
   }
   connect(controls_, &ControlPanelWidget::filtersChanged, this, &MainWindow::refreshData);
   connect(seeds_, &SeedManagerWidget::addSeedRequested, this, &MainWindow::addSeedFromWidget);
@@ -179,6 +179,38 @@ void MainWindow::appendLog(const QString& message) {
   statusBar()->showMessage(message);
 }
 
+QString MainWindow::trLog(const QString& key, const QString& value) const {
+  const bool zh = language_ == UiLanguage::Chinese;
+  if (key == QStringLiteral("database_open_failed")) return zh ? QStringLiteral("数据库打开失败：%1").arg(value) : QStringLiteral("Database open failed: %1").arg(value);
+  if (key == QStringLiteral("sample_loaded")) return zh ? QStringLiteral("示例记录已加载") : QStringLiteral("Sample records loaded");
+  if (key == QStringLiteral("plugin_start_failed")) return zh ? QStringLiteral("插件启动失败：%1").arg(value) : QStringLiteral("Plugin start failed: %1").arg(value);
+  if (key == QStringLiteral("provider_started")) return zh ? QStringLiteral("Provider 已启动：%1").arg(value) : QStringLiteral("Provider started: %1").arg(value);
+  if (key == QStringLiteral("loaded_providers")) return zh ? QStringLiteral("已加载 Provider 数量：%1").arg(value) : QStringLiteral("Loaded providers: %1").arg(value);
+  if (key == QStringLiteral("ingested_provider_records")) return zh ? QStringLiteral("已接入 Provider 记录：%1").arg(value) : QStringLiteral("Ingested provider records: %1").arg(value);
+  if (key == QStringLiteral("settings_save_failed")) return zh ? QStringLiteral("配置保存失败：%1").arg(value) : QStringLiteral("Settings save failed: %1").arg(value);
+  if (key == QStringLiteral("database_reopen_failed")) return zh ? QStringLiteral("数据库重新打开失败：%1").arg(value) : QStringLiteral("Database reopen failed: %1").arg(value);
+  if (key == QStringLiteral("runtime_settings_saved")) return zh ? QStringLiteral("运行配置已保存：%1").arg(value) : QStringLiteral("Runtime settings saved: %1").arg(value);
+  if (key == QStringLiteral("restart_reload_providers")) return zh ? QStringLiteral("更改本地桥端口或 ADB 设置后，请重启或重新加载 Provider。") : QStringLiteral("Restart or reload providers after changing the bridge port or ADB setting.");
+  if (key == QStringLiteral("bridge_smoke_failed")) return zh ? QStringLiteral("本地桥冒烟载荷发送失败：%1").arg(value) : QStringLiteral("Bridge smoke payload failed: %1").arg(value);
+  if (key == QStringLiteral("bridge_smoke_sent")) return zh ? QStringLiteral("本地桥冒烟载荷已发送：%1").arg(value) : QStringLiteral("Bridge smoke payload sent: %1").arg(value);
+  if (key == QStringLiteral("controls_reset")) return zh ? QStringLiteral("控件已重置") : QStringLiteral("Controls reset");
+  if (key == QStringLiteral("add_seed_failed")) return zh ? QStringLiteral("添加种子失败：%1").arg(value) : QStringLiteral("Add seed failed: %1").arg(value);
+  if (key == QStringLiteral("seed_saved")) return zh ? QStringLiteral("种子已保存：%1").arg(value) : QStringLiteral("Seed saved: %1").arg(value);
+  if (key == QStringLiteral("no_seed_selected")) return zh ? QStringLiteral("未选中种子") : QStringLiteral("No seed selected");
+  if (key == QStringLiteral("seed_removed")) return zh ? QStringLiteral("种子已删除：%1").arg(value) : QStringLiteral("Seed removed: %1").arg(value);
+  if (key == QStringLiteral("export_articles_csv_failed")) return zh ? QStringLiteral("导出文章 CSV 失败：%1").arg(value) : QStringLiteral("Export articles CSV failed: %1").arg(value);
+  if (key == QStringLiteral("articles_csv_exported")) return zh ? QStringLiteral("文章 CSV 已导出：%1").arg(value) : QStringLiteral("Articles CSV exported: %1").arg(value);
+  if (key == QStringLiteral("export_articles_json_failed")) return zh ? QStringLiteral("导出文章 JSON 失败：%1").arg(value) : QStringLiteral("Export articles JSON failed: %1").arg(value);
+  if (key == QStringLiteral("articles_json_exported")) return zh ? QStringLiteral("文章 JSON 已导出：%1").arg(value) : QStringLiteral("Articles JSON exported: %1").arg(value);
+  if (key == QStringLiteral("export_seeds_failed")) return zh ? QStringLiteral("导出种子失败：%1").arg(value) : QStringLiteral("Export seeds failed: %1").arg(value);
+  if (key == QStringLiteral("seeds_csv_exported")) return zh ? QStringLiteral("种子 CSV 已导出：%1").arg(value) : QStringLiteral("Seeds CSV exported: %1").arg(value);
+  return value.isEmpty() ? key : QStringLiteral("%1: %2").arg(key, value);
+}
+
+void MainWindow::appendLogKey(const QString& key, const QString& value) {
+  appendLog(trLog(key, value));
+}
+
 QString MainWindow::pluginDirectory() const {
   return settings_.pluginDirectory.isEmpty() ? AppSettingsController::defaultPluginDirectory()
                                              : settings_.pluginDirectory;
@@ -198,6 +230,7 @@ void MainWindow::loadSampleData() {
   first.oldLikeNum = 1800;
   first.commentNum = 430;
   first.articleCount30d = 18;
+  first.publishTime = QDateTime::currentDateTimeUtc().addDays(-1);
   database_.enqueueArticle(first);
   ContentRecord second;
   second.title = "High-density Comment Signals in WeChat Articles";
@@ -210,11 +243,12 @@ void MainWindow::loadSampleData() {
   second.oldLikeNum = 900;
   second.commentNum = 390;
   second.articleCount30d = 9;
+  second.publishTime = QDateTime::currentDateTimeUtc().addDays(-3);
   database_.enqueueArticle(second);
   database_.flush();
   refreshData();
   refreshSeeds();
-  appendLog("Sample records loaded");
+  appendLogKey(QStringLiteral("sample_loaded"));
 }
 
 void MainWindow::loadPlugins() {
@@ -222,15 +256,15 @@ void MainWindow::loadPlugins() {
   for (IContentProvider* provider : pluginManager_.providers()) {
     QString errorMessage;
     if (!provider->start(&errorMessage)) {
-      appendLog(QStringLiteral("Plugin start failed: %1").arg(errorMessage));
+      appendLogKey(QStringLiteral("plugin_start_failed"), errorMessage);
     } else {
-      appendLog(QStringLiteral("Provider started: %1").arg(provider->displayName()));
+      appendLogKey(QStringLiteral("provider_started"), provider->displayName());
     }
   }
   for (const QString& line : pluginManager_.logLines()) {
     appendLog(line);
   }
-  appendLog(QStringLiteral("Loaded providers: %1").arg(count));
+  appendLogKey(QStringLiteral("loaded_providers"), QString::number(count));
 }
 
 void MainWindow::drainPluginRecords() {
@@ -247,7 +281,7 @@ void MainWindow::drainPluginRecords() {
   if (changed) {
     database_.flush();
     refreshData();
-    appendLog(QStringLiteral("Ingested provider records: %1").arg(count));
+    appendLogKey(QStringLiteral("ingested_provider_records"), QString::number(count));
   }
 }
 
@@ -262,13 +296,15 @@ void MainWindow::previewSelectedArticle() {
   }
   QMessageBox::information(this, language_ == UiLanguage::Chinese ? QStringLiteral("文章详情") : QStringLiteral("Article Detail"),
                            language_ == UiLanguage::Chinese
-                               ? QString("%1\n%2\n账号：%3\n阅读：%4\n点赞：%5\n评论：%6")
-                                     .arg(record.title, record.url, record.accountName)
+                               ? QString("%1\n%2\n账号：%3\n发布时间：%4\n阅读：%5\n点赞：%6\n评论：%7")
+                                     .arg(record.title, record.url, record.accountName,
+                                          record.publishTime.isValid() ? record.publishTime.toLocalTime().toString(QStringLiteral("yyyy-MM-dd HH:mm")) : QStringLiteral("-"))
                                      .arg(record.readNum)
                                      .arg(record.likeNum + record.oldLikeNum)
                                      .arg(record.commentNum)
-                               : QString("%1\n%2\nAccount: %3\nRead: %4\nLike: %5\nComment: %6")
-                                     .arg(record.title, record.url, record.accountName)
+                               : QString("%1\n%2\nAccount: %3\nPublish Time: %4\nRead: %5\nLike: %6\nComment: %7")
+                                     .arg(record.title, record.url, record.accountName,
+                                          record.publishTime.isValid() ? record.publishTime.toLocalTime().toString(QStringLiteral("yyyy-MM-dd HH:mm")) : QStringLiteral("-"))
                                      .arg(record.readNum)
                                      .arg(record.likeNum + record.oldLikeNum)
                                      .arg(record.commentNum));
@@ -294,17 +330,17 @@ void MainWindow::saveRuntimeSettings(const AppSettings& settings) {
   qputenv("PREMIUM_RADAR_ENABLE_ADB", settings_.adbAutomationEnabled ? "1" : "0");
   QString error;
   if (!AppSettingsController::save(settings_, &error)) {
-    appendLog(QStringLiteral("Settings save failed: %1").arg(error));
+    appendLogKey(QStringLiteral("settings_save_failed"), error);
     return;
   }
   if (!reopenDatabase(settings_.databasePath)) {
-    appendLog(QStringLiteral("Database reopen failed: %1").arg(database_.lastError()));
+    appendLogKey(QStringLiteral("database_reopen_failed"), database_.lastError());
     return;
   }
   refreshData();
   refreshSeeds();
-  appendLog(QStringLiteral("Runtime settings saved: %1").arg(AppSettingsController::settingsFilePath()));
-  appendLog("Restart or reload providers after changing the bridge port or ADB setting.");
+  appendLogKey(QStringLiteral("runtime_settings_saved"), AppSettingsController::settingsFilePath());
+  appendLogKey(QStringLiteral("restart_reload_providers"));
 }
 
 void MainWindow::testLocalBridgePayload() {
@@ -317,10 +353,10 @@ void MainWindow::testLocalBridgePayload() {
                                           BridgePayloadClient::sampleCommentPayload(), &error);
   }
   if (!ok) {
-    appendLog(QStringLiteral("Bridge smoke payload failed on 127.0.0.1:%1: %2").arg(port).arg(error));
+    appendLogKey(QStringLiteral("bridge_smoke_failed"), QStringLiteral("127.0.0.1:%1: %2").arg(port).arg(error));
     return;
   }
-  appendLog(QStringLiteral("Bridge smoke payload sent to 127.0.0.1:%1").arg(port));
+  appendLogKey(QStringLiteral("bridge_smoke_sent"), QStringLiteral("127.0.0.1:%1").arg(port));
 }
 
 void MainWindow::browseDatabasePath() {
@@ -347,26 +383,26 @@ void MainWindow::resetControls() {
   controls_->clearSearch();
   controls_->resetDefaults();
   refreshData();
-  appendLog("Controls reset");
+  appendLogKey(QStringLiteral("controls_reset"));
 }
 
 void MainWindow::addSeedFromWidget(const QString& gzhId, const QString& name, const QString& category) {
   if (!database_.addSeed(gzhId, name, category)) {
-    appendLog(QStringLiteral("Add seed failed: %1").arg(database_.lastError()));
+    appendLogKey(QStringLiteral("add_seed_failed"), database_.lastError());
     return;
   }
   refreshSeeds();
-  appendLog(QStringLiteral("Seed saved: %1").arg(name));
+  appendLogKey(QStringLiteral("seed_saved"), name);
 }
 
 void MainWindow::removeSeedFromWidget(const QString& gzhId) {
   if (gzhId.isEmpty()) {
-    appendLog("No seed selected");
+    appendLogKey(QStringLiteral("no_seed_selected"));
     return;
   }
   database_.removeSeed(gzhId);
   refreshSeeds();
-  appendLog(QStringLiteral("Seed removed: %1").arg(gzhId));
+  appendLogKey(QStringLiteral("seed_removed"), gzhId);
 }
 
 void MainWindow::exportArticlesCsv() {
@@ -374,10 +410,10 @@ void MainWindow::exportArticlesCsv() {
   if (path.isEmpty()) return;
   QString error;
   if (!ExportController::exportArticlesCsv(database_.listArticles(), path, &error)) {
-    appendLog(QStringLiteral("Export articles CSV failed: %1").arg(error));
+    appendLogKey(QStringLiteral("export_articles_csv_failed"), error);
     return;
   }
-  appendLog(QStringLiteral("Articles CSV exported: %1").arg(path));
+  appendLogKey(QStringLiteral("articles_csv_exported"), path);
 }
 
 void MainWindow::exportArticlesJson() {
@@ -385,10 +421,10 @@ void MainWindow::exportArticlesJson() {
   if (path.isEmpty()) return;
   QString error;
   if (!ExportController::exportArticlesJson(database_.listArticles(), path, &error)) {
-    appendLog(QStringLiteral("Export articles JSON failed: %1").arg(error));
+    appendLogKey(QStringLiteral("export_articles_json_failed"), error);
     return;
   }
-  appendLog(QStringLiteral("Articles JSON exported: %1").arg(path));
+  appendLogKey(QStringLiteral("articles_json_exported"), path);
 }
 
 void MainWindow::exportSeedsCsv() {
@@ -396,10 +432,10 @@ void MainWindow::exportSeedsCsv() {
   if (path.isEmpty()) return;
   QString error;
   if (!ExportController::exportSeedsCsv(database_.listSeeds(), path, &error)) {
-    appendLog(QStringLiteral("Export seeds failed: %1").arg(error));
+    appendLogKey(QStringLiteral("export_seeds_failed"), error);
     return;
   }
-  appendLog(QStringLiteral("Seeds CSV exported: %1").arg(path));
+  appendLogKey(QStringLiteral("seeds_csv_exported"), path);
 }
 
 void MainWindow::showAboutDialog() {

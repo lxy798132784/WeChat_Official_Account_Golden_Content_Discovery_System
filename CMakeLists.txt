@@ -35,7 +35,7 @@ target_include_directories(WeChatProviderPlugin PRIVATE include)
 target_link_libraries(WeChatProviderPlugin PRIVATE radar_core Qt6::Core Qt6::Widgets Qt6::Sql Qt6::Network)
 set_target_properties(WeChatProviderPlugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/plugins)
 
-add_executable(premium-content-radar
+add_executable(premium-content-radar WIN32
     src/main.cpp
     include/MainWindow.h src/MainWindow.cpp ui/mainwindow.ui
     include/DashboardWidget.h src/DashboardWidget.cpp ui/dashboard_widget.ui

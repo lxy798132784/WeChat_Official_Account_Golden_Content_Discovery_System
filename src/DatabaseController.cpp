@@ -34,11 +34,18 @@ bool DatabaseController::initialize() {
       "CREATE TABLE IF NOT EXISTS articles ("
       "id INTEGER PRIMARY KEY, title TEXT, url TEXT UNIQUE, category TEXT, account_name TEXT, "
       "gzh_id TEXT, read_num INT, like_num INT, old_like_num INT, comment_num INT DEFAULT 0, "
-      "article_count_30d INT DEFAULT 0, timestamp DATETIME)"));
+      "article_count_30d INT DEFAULT 0, publish_time DATETIME, timestamp DATETIME)"));
   if (!articlesOk) {
     setError(query.lastError().text());
+    return false;
   }
-  return articlesOk;
+  const bool publishTimeColumnOk = query.exec(QStringLiteral(
+      "ALTER TABLE articles ADD COLUMN publish_time DATETIME"));
+  if (!publishTimeColumnOk && !query.lastError().text().contains(QStringLiteral("duplicate column name"))) {
+    setError(query.lastError().text());
+    return false;
+  }
+  return true;
 }
 
 bool DatabaseController::addSeed(const QString& gzhId, const QString& name, const QString& category) {
@@ -115,11 +122,12 @@ bool DatabaseController::flush() {
   QSqlQuery query(database_);
   query.prepare(QStringLiteral(
       "INSERT INTO articles(title,url,category,account_name,gzh_id,read_num,like_num,old_like_num,"
-      "comment_num,article_count_30d,timestamp) VALUES(?,?,?,?,?,?,?,?,?,?,?) "
+      "comment_num,article_count_30d,publish_time,timestamp) VALUES(?,?,?,?,?,?,?,?,?,?,?,?) "
       "ON CONFLICT(url) DO UPDATE SET title=excluded.title, category=excluded.category, "
       "account_name=excluded.account_name, gzh_id=excluded.gzh_id, read_num=excluded.read_num, "
       "like_num=excluded.like_num, old_like_num=excluded.old_like_num, comment_num=excluded.comment_num, "
-      "article_count_30d=excluded.article_count_30d, timestamp=excluded.timestamp"));
+      "article_count_30d=excluded.article_count_30d, publish_time=excluded.publish_time, "
+      "timestamp=excluded.timestamp"));
   for (const auto& record : pendingRecords_) {
     query.addBindValue(record.title);
     query.addBindValue(record.url);
@@ -131,6 +139,7 @@ bool DatabaseController::flush() {
     query.addBindValue(record.oldLikeNum);
     query.addBindValue(record.commentNum);
     query.addBindValue(record.articleCount30d);
+    query.addBindValue(record.publishTime.isValid() ? record.publishTime.toString(Qt::ISODate) : QString());
     query.addBindValue(record.timestamp.toString(Qt::ISODate));
     if (!query.exec()) {
       setError(query.lastError().text());
@@ -151,7 +160,7 @@ QVector<ContentRecord> DatabaseController::listArticles() const {
   QSqlQuery query(database_);
   if (!query.exec(QStringLiteral(
           "SELECT id,title,url,category,account_name,gzh_id,read_num,like_num,old_like_num,comment_num,"
-          "article_count_30d,timestamp FROM articles ORDER BY read_num DESC"))) {
+          "article_count_30d,publish_time,timestamp FROM articles ORDER BY publish_time DESC, read_num DESC"))) {
     setError(query.lastError().text());
     return rows;
   }
@@ -168,7 +177,8 @@ QVector<ContentRecord> DatabaseController::listArticles() const {
     record.oldLikeNum = query.value(8).toInt();
     record.commentNum = query.value(9).toInt();
     record.articleCount30d = query.value(10).toInt();
-    record.timestamp = QDateTime::fromString(query.value(11).toString(), Qt::ISODate);
+    record.publishTime = QDateTime::fromString(query.value(11).toString(), Qt::ISODate);
+    record.timestamp = QDateTime::fromString(query.value(12).toString(), Qt::ISODate);
     rows.push_back(record);
   }
   return rows;

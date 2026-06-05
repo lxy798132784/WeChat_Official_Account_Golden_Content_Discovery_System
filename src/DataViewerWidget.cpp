@@ -30,6 +30,7 @@ void DataViewerWidget::applyHeaders() {
   model_->setHorizontalHeaderLabels({UiText::text("data.title", language_),
                                      UiText::text("data.account", language_),
                                      UiText::text("data.category", language_),
+                                     UiText::text("data.publish_time", language_),
                                      UiText::text("data.read", language_),
                                      UiText::text("data.like", language_),
                                      UiText::text("data.old_like", language_),
@@ -43,9 +44,13 @@ void DataViewerWidget::setRecords(const QVector<ContentRecord>& records) {
   records_ = records;
   model_->removeRows(0, model_->rowCount());
   for (const auto& record : records) {
+    const QString publishTime = record.publishTime.isValid()
+                                    ? record.publishTime.toLocalTime().toString(QStringLiteral("yyyy-MM-dd HH:mm"))
+                                    : QString();
     QList<QStandardItem*> row;
     row << new QStandardItem(record.title) << new QStandardItem(record.accountName)
-        << new QStandardItem(record.category) << new QStandardItem(QString::number(record.readNum))
+        << new QStandardItem(record.category) << new QStandardItem(publishTime)
+        << new QStandardItem(QString::number(record.readNum))
         << new QStandardItem(QString::number(record.likeNum))
         << new QStandardItem(QString::number(record.oldLikeNum))
         << new QStandardItem(QString::number(record.commentNum))

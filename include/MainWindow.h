@@ -59,6 +59,8 @@ class MainWindow final : public QMainWindow {
   bool reopenDatabase(const QString& path);
   void applyLanguage();
   UiLanguage currentLanguage() const;
+  QString trLog(const QString& key, const QString& value = QString()) const;
+  void appendLogKey(const QString& key, const QString& value = QString());
 
   AppSettings settings_;
   DatabaseController database_;

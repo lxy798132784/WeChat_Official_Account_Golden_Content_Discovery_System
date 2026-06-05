@@ -28,6 +28,7 @@ QByteArray BridgePayloadClient::sampleMetricsPayload() {
   object.insert(QStringLiteral("account_name"), QStringLiteral("Local Bridge Lab"));
   object.insert(QStringLiteral("gzh_id"), QStringLiteral("gh_bridge_smoke"));
   object.insert(QStringLiteral("category"), QStringLiteral("Operations"));
+  object.insert(QStringLiteral("publish_time"), QStringLiteral("2026-06-05T09:30:00Z"));
   object.insert(QStringLiteral("article_count_30d"), 11);
   object.insert(QStringLiteral("appmsgstat"), stat);
   return QJsonDocument(object).toJson(QJsonDocument::Compact);
