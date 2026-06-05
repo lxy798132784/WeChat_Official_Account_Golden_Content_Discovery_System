@@ -9,6 +9,7 @@
 #include <QDockWidget>
 #include <QFileDialog>
 #include <QInputDialog>
+#include <QFile>
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QProcessEnvironment>
@@ -22,6 +23,7 @@
 #include "AutoIngestionWidget.h"
 #include "DashboardWidget.h"
 #include "DataViewerWidget.h"
+#include "KeywordDiscoveryWidget.h"
 #include "ExportController.h"
 #include "BridgePayloadClient.h"
 #include "ManualWidget.h"
@@ -33,6 +35,7 @@ MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
       dashboard_(new DashboardWidget(this)),
       controls_(new ControlPanelWidget(this)),
+      keywordDiscoveryWidget_(new KeywordDiscoveryWidget(this)),
       autoIngestionWidget_(new AutoIngestionWidget(this)),
       viewer_(new DataViewerWidget(this)),
       seeds_(new SeedManagerWidget(this)),
@@ -52,6 +55,7 @@ MainWindow::MainWindow(QWidget* parent)
 
   dockTabs_ = new QTabWidget(this);
   dockTabs_->addTab(controls_, QString());
+  dockTabs_->addTab(keywordDiscoveryWidget_, QString());
   dockTabs_->addTab(autoIngestionWidget_, QString());
   dockTabs_->addTab(seeds_, QString());
   dockTabs_->addTab(wechatConfig_, QString());
@@ -77,6 +81,14 @@ MainWindow::MainWindow(QWidget* parent)
   connect(wechatConfig_, &WeChatConfigWidget::testBridgeRequested, this, &MainWindow::testLocalBridgePayload);
   connect(wechatConfig_, &WeChatConfigWidget::browseDatabaseRequested, this, &MainWindow::browseDatabasePath);
   connect(wechatConfig_, &WeChatConfigWidget::browsePluginDirectoryRequested, this, &MainWindow::browsePluginDirectory);
+  connect(keywordDiscoveryWidget_, &KeywordDiscoveryWidget::generateSearchUrlsRequested, this, &MainWindow::generateKeywordSearchUrls);
+  connect(keywordDiscoveryWidget_, &KeywordDiscoveryWidget::autoSearchRequested, this, &MainWindow::autoSearchKeywords);
+  connect(keywordDiscoveryWidget_, &KeywordDiscoveryWidget::startKeywordAutoIngestionRequested, this, &MainWindow::startKeywordAutoIngestion);
+  connect(&keywordDiscovery_, &KeywordDiscoveryController::searchStarted, this, &MainWindow::onKeywordSearchStarted);
+  connect(&keywordDiscovery_, &KeywordDiscoveryController::searchFinished, this, &MainWindow::onKeywordSearchFinished);
+  connect(&keywordDiscovery_, &KeywordDiscoveryController::logMessage, this, &MainWindow::appendLog);
+  connect(keywordDiscoveryWidget_, &KeywordDiscoveryWidget::importResultsRequested, this, &MainWindow::importKeywordDiscoveryResults);
+  connect(keywordDiscoveryWidget_, &KeywordDiscoveryWidget::enqueueHotResultsRequested, this, &MainWindow::enqueueKeywordDiscoveryResults);
   connect(autoIngestionWidget_, &AutoIngestionWidget::addUrlsRequested, this, &MainWindow::addAutoIngestionUrls);
   connect(autoIngestionWidget_, &AutoIngestionWidget::startRequested, this, &MainWindow::startAutoIngestion);
   connect(autoIngestionWidget_, &AutoIngestionWidget::stopRequested, this, &MainWindow::stopAutoIngestion);
@@ -101,6 +113,7 @@ MainWindow::MainWindow(QWidget* parent)
   starSeedAction_ = actionMenu_->addAction(QString(), this, &MainWindow::starSelectedSeed);
   bridgeSmokeAction_ = actionMenu_->addAction(QString(), this, &MainWindow::testLocalBridgePayload);
   resetAction_ = actionMenu_->addAction(QString(), this, &MainWindow::resetControls);
+  showControlCenterAction_ = actionMenu_->addAction(QString(), this, &MainWindow::showControlCenter);
   helpMenu_ = menuBar()->addMenu(QString());
   languageAction_ = helpMenu_->addAction(QString(), this, &MainWindow::toggleLanguage);
   aboutAction_ = helpMenu_->addAction(QString(), this, &MainWindow::showAboutDialog);
@@ -108,6 +121,7 @@ MainWindow::MainWindow(QWidget* parent)
   new QShortcut(QKeySequence(Qt::Key_Space), this, SLOT(previewSelectedArticle()));
   new QShortcut(QKeySequence(Qt::CTRL | Qt::Key_S), this, SLOT(starSelectedSeed()));
   new QShortcut(QKeySequence(Qt::Key_Escape), this, SLOT(resetControls()));
+  new QShortcut(QKeySequence(Qt::CTRL | Qt::Key_B), this, SLOT(showControlCenter()));
 
   applyTheme();
   applyLanguage();
@@ -148,11 +162,12 @@ void MainWindow::applyLanguage() {
   if (dock_ != nullptr) dock_->setWindowTitle(UiText::text("dock.title", language_));
   if (dockTabs_ != nullptr) {
     dockTabs_->setTabText(0, UiText::text("tab.filters", language_));
-    dockTabs_->setTabText(1, UiText::text("tab.auto", language_));
-    dockTabs_->setTabText(2, UiText::text("tab.seeds", language_));
-    dockTabs_->setTabText(3, UiText::text("tab.wechat", language_));
-    dockTabs_->setTabText(4, UiText::text("tab.logs", language_));
-    dockTabs_->setTabText(5, UiText::text("tab.guide", language_));
+    dockTabs_->setTabText(1, UiText::text("tab.discover", language_));
+    dockTabs_->setTabText(2, UiText::text("tab.auto", language_));
+    dockTabs_->setTabText(3, UiText::text("tab.seeds", language_));
+    dockTabs_->setTabText(4, UiText::text("tab.wechat", language_));
+    dockTabs_->setTabText(5, UiText::text("tab.logs", language_));
+    dockTabs_->setTabText(6, UiText::text("tab.guide", language_));
   }
   if (fileMenu_ != nullptr) fileMenu_->setTitle(UiText::text("menu.file", language_));
   if (pluginMenu_ != nullptr) pluginMenu_->setTitle(UiText::text("menu.plugins", language_));
@@ -167,10 +182,12 @@ void MainWindow::applyLanguage() {
   if (starSeedAction_ != nullptr) { starSeedAction_->setText(UiText::text("action.star_seed", language_)); starSeedAction_->setToolTip(UiText::text("tip.star_seed", language_)); }
   if (bridgeSmokeAction_ != nullptr) { bridgeSmokeAction_->setText(UiText::text("action.bridge_smoke", language_)); bridgeSmokeAction_->setToolTip(UiText::text("tip.bridge_smoke", language_)); }
   if (resetAction_ != nullptr) { resetAction_->setText(UiText::text("action.reset", language_)); resetAction_->setToolTip(UiText::text("tip.reset", language_)); }
+  if (showControlCenterAction_ != nullptr) { showControlCenterAction_->setText(UiText::text("action.show_control_center", language_)); showControlCenterAction_->setToolTip(UiText::text("tip.show_control_center", language_)); }
   if (languageAction_ != nullptr) { languageAction_->setText(UiText::text("action.language", language_)); languageAction_->setToolTip(UiText::text("tip.language", language_)); }
   if (aboutAction_ != nullptr) aboutAction_->setText(UiText::text("action.about", language_));
   dashboard_->setLanguage(language_);
   controls_->setLanguage(language_);
+  keywordDiscoveryWidget_->setLanguage(language_);
   autoIngestionWidget_->setLanguage(language_);
   viewer_->setLanguage(language_);
   seeds_->setLanguage(language_);
@@ -186,6 +203,16 @@ void MainWindow::toggleLanguage() {
   AppSettingsController::save(settings_, &error);
   applyLanguage();
   appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("已切换到中文界面") : QStringLiteral("Switched to English UI"));
+}
+
+void MainWindow::showControlCenter() {
+  if (dock_ == nullptr) {
+    return;
+  }
+  dock_->show();
+  dock_->raise();
+  dock_->setFloating(false);
+  appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("控制中心已打开") : QStringLiteral("Control Center opened"));
 }
 
 void MainWindow::appendLog(const QString& message) {
@@ -457,6 +484,112 @@ void MainWindow::exportSeedsCsv() {
 void MainWindow::refreshAutoIngestionQueue() {
   autoIngestionWidget_->setQueue(autoIngestion_.tasks());
   autoIngestionWidget_->setRunning(autoIngestion_.isRunning());
+}
+
+void MainWindow::generateKeywordSearchUrls(const QString& keywords) {
+  const QStringList parsed = KeywordDiscoveryController::parseKeywords(keywords);
+  if (parsed.isEmpty()) {
+    appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("请先输入至少一个关键词") : QStringLiteral("Enter at least one keyword first"));
+    return;
+  }
+  QStringList urls;
+  for (const QString& keyword : parsed) {
+    urls.push_back(KeywordDiscoveryController::searchUrlForKeyword(keyword));
+  }
+  const QString message = urls.join(QStringLiteral("\n"));
+  QMessageBox::information(this,
+                           language_ == UiLanguage::Chinese ? QStringLiteral("关键词搜索入口") : QStringLiteral("Keyword search URLs"),
+                           message);
+  appendLog(language_ == UiLanguage::Chinese
+                ? QStringLiteral("已生成 %1 个关键词搜索入口，优先用外部适配器抓取这些搜索结果。原始搜索结果不要入库，只导入精简 JSON。").arg(urls.size())
+                : QStringLiteral("Generated %1 keyword search URL(s). Use an external adapter to collect search results, then import sanitized JSON only.").arg(urls.size()));
+}
+
+void MainWindow::autoSearchKeywords(const QString& keywords, int maxCandidatesPerKeyword) {
+  startAutoAfterKeywordSearch_ = false;
+  pendingKeywordCriteria_ = KeywordHotCriteria{};
+  keywordDiscovery_.setMaxResultsPerKeyword(maxCandidatesPerKeyword);
+  keywordDiscovery_.searchKeywords(keywords);
+}
+
+void MainWindow::startKeywordAutoIngestion(const QString& keywords, int maxCandidatesPerKeyword, const KeywordHotCriteria& criteria) {
+  QString adbError;
+  if (!AutoIngestionController::hasConnectedAdbDevice(&adbError)) {
+    appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("关键词自动采集启动失败：%1").arg(adbError) : QStringLiteral("Keyword auto-ingestion start failed: %1").arg(adbError));
+    return;
+  }
+  startAutoAfterKeywordSearch_ = true;
+  pendingKeywordCriteria_ = criteria;
+  autoIngestion_.setEnabled(true);
+  autoIngestion_.setIntervalSeconds(autoIngestionWidget_->intervalSeconds());
+  autoIngestion_.setMaxAttempts(autoIngestionWidget_->maxAttempts());
+  keywordDiscovery_.setMaxResultsPerKeyword(maxCandidatesPerKeyword);
+  keywordDiscovery_.searchKeywords(keywords);
+}
+
+void MainWindow::onKeywordSearchStarted() {
+  keywordDiscoveryWidget_->setSearching(true);
+  appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("关键词自动搜索开始") : QStringLiteral("Keyword auto-search started"));
+}
+
+void MainWindow::onKeywordSearchFinished(const QVector<KeywordDiscoveryResult>& results) {
+  keywordResults_ = results;
+  keywordDiscoveryWidget_->setSearching(false);
+  keywordDiscoveryWidget_->setResults(keywordResults_);
+  appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("关键词自动搜索完成，候选文章 %1 条").arg(results.size()) : QStringLiteral("Keyword auto-search finished, %1 candidate article(s)").arg(results.size()));
+  if (!startAutoAfterKeywordSearch_) {
+    return;
+  }
+  startAutoAfterKeywordSearch_ = false;
+  const QString queueText = KeywordDiscoveryController::resultsToQueueText(
+      keywordResults_, pendingKeywordCriteria_.minimumReadCount, pendingKeywordCriteria_.minimumLikeCount,
+      pendingKeywordCriteria_.minimumCommentCount, pendingKeywordCriteria_.minimumHotScore);
+  QString error;
+  const int added = autoIngestion_.enqueueUrlsFromText(queueText, &error);
+  refreshAutoIngestionQueue();
+  appendLog(language_ == UiLanguage::Chinese
+                ? QStringLiteral("关键词候选已自动加入采集队列：%1 条%2").arg(added).arg(error.isEmpty() ? QString() : QStringLiteral("；跳过：%1").arg(error))
+                : QStringLiteral("Keyword candidates automatically enqueued: %1%2").arg(added).arg(error.isEmpty() ? QString() : QStringLiteral("; skipped: %1").arg(error)));
+  if (added > 0) {
+    autoIngestion_.start();
+    refreshAutoIngestionQueue();
+  }
+}
+
+void MainWindow::importKeywordDiscoveryResults() {
+  const QString path = QFileDialog::getOpenFileName(this,
+                                                    language_ == UiLanguage::Chinese ? QStringLiteral("导入关键词发现结果") : QStringLiteral("Import keyword discovery results"),
+                                                    QString(), QStringLiteral("JSON (*.json)"));
+  if (path.isEmpty()) return;
+  QFile file(path);
+  if (!file.open(QIODevice::ReadOnly)) {
+    appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("关键词结果读取失败：%1").arg(file.errorString()) : QStringLiteral("Keyword result read failed: %1").arg(file.errorString()));
+    return;
+  }
+  QString error;
+  keywordResults_ = KeywordDiscoveryController::parseResultsJson(file.readAll(), &error);
+  if (keywordResults_.isEmpty()) {
+    appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("关键词结果导入失败：%1").arg(error) : QStringLiteral("Keyword result import failed: %1").arg(error));
+    return;
+  }
+  keywordDiscoveryWidget_->setResults(keywordResults_);
+  appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("已导入关键词发现结果：%1 条").arg(keywordResults_.size()) : QStringLiteral("Imported keyword discovery results: %1").arg(keywordResults_.size()));
+}
+
+void MainWindow::enqueueKeywordDiscoveryResults(const KeywordHotCriteria& criteria) {
+  if (keywordResults_.isEmpty()) {
+    appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("没有可加入队列的关键词发现结果") : QStringLiteral("No keyword discovery results to enqueue"));
+    return;
+  }
+  const QString queueText = KeywordDiscoveryController::resultsToQueueText(
+      keywordResults_, criteria.minimumReadCount, criteria.minimumLikeCount,
+      criteria.minimumCommentCount, criteria.minimumHotScore);
+  QString error;
+  const int added = autoIngestion_.enqueueUrlsFromText(queueText, &error);
+  refreshAutoIngestionQueue();
+  appendLog(language_ == UiLanguage::Chinese
+                ? QStringLiteral("关键词爆款结果已加入自动采集队列：%1 条%2").arg(added).arg(error.isEmpty() ? QString() : QStringLiteral("；跳过：%1").arg(error))
+                : QStringLiteral("Keyword hot results enqueued: %1%2").arg(added).arg(error.isEmpty() ? QString() : QStringLiteral("; skipped: %1").arg(error)));
 }
 
 void MainWindow::addAutoIngestionUrls(const QString& text) {

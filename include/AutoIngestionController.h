@@ -50,6 +50,7 @@ class AutoIngestionController final : public QObject {
 
   static bool isSupportedArticleUrl(const QString& url);
   static QStringList adbOpenUrlArguments(const QString& url);
+  static bool hasConnectedAdbDevice(QString* errorMessage = nullptr);
 
  public slots:
   void start();
