@@ -1,0 +1,13 @@
+name: ci
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  linux:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y cmake g++ ninja-build qt6-base-dev qt6-tools-dev libgl1-mesa-dev libxkbcommon-dev
+      - name: Configure
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+      - name: Build and test
+        run: cmake --build build && ctest --test-dir build --output-on-failure && QT_QPA_PLATFORM=offscreen ./build/premium-content-radar --self-test && python3 scripts/audit_no_forbidden_tokens.py

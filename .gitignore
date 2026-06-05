@@ -1,0 +1,9 @@
+build*/
+dist*/
+*.db
+*.sqlite
+*.log
+*.user
+.DS_Store
+.cache/
+__pycache__/
