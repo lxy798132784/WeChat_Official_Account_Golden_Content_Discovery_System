@@ -31,7 +31,7 @@ jobs:
           git archive --format=tar.gz --prefix=premium-content-radar-$VERSION-source/ HEAD > dist/release/premium-content-radar-$VERSION-source.tar.gz
           git archive --format=zip --prefix=premium-content-radar-$VERSION-source/ HEAD > dist/release/premium-content-radar-$VERSION-source.zip
           zip -r dist/release/premium-content-radar-$VERSION-docs.zip README.md DEVELOPER_GUIDE.md docs LICENSE CONTRIBUTING.md SECURITY.md CODE_OF_CONDUCT.md CHANGELOG.md
-          cp dist/linux-*/* dist/release/
+          find dist/linux-* -maxdepth 1 -type f -exec cp {} dist/release/ \;
           (cd dist/release && sha256sum * > SHA256SUMS)
       - uses: softprops/action-gh-release@v2
         with:
