@@ -1,19 +1,27 @@
-# Contributing / 贡献指南
+# Contributing
 
-Thank you for improving Premium Content Radar. Please keep the project local-first, source-first, and credential-free.
+Thank you for improving Premium Content Radar.
 
-感谢参与改进全网黄金内容雷达。请保持项目本地优先、源码优先、无凭证入库。
+## Before opening a pull request
 
-## Development / 开发
+Run the full local gate:
 
 ```bash
 ./scripts/verify-all.sh
 ```
 
-Before submitting changes:
+## Rules
 
-- Run build, tests, self-test, secret audit, and requirements audit.
-- Do not commit build outputs, runtime databases, logs, credentials, or private traffic captures.
-- Keep user-facing documentation bilingual when it describes durable behavior.
+- Do not commit credentials, cookies, database files, traffic captures, logs, or packaged artifacts.
+- Add tests or a clear manual verification note for behavior changes.
+- Keep English documentation in English-only files.
+- Keep Chinese documentation under `docs/README.zh-CN.md` and `docs/zh-CN/`.
+- Update user, developer, plugin, and production documentation when changing the bridge contract.
 
-提交前请运行完整验证，不要提交构建产物、运行数据库、日志、凭证或私有流量数据。
+## Pull request checklist
+
+1. The branch is based on `main`.
+2. The code builds locally.
+3. Tests pass.
+4. Documentation is updated.
+5. No runtime artifacts or secrets are staged.

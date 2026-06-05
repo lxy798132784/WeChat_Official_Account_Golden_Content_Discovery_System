@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
-project(PremiumContentRadar VERSION 1.0.0 LANGUAGES CXX)
+project(PremiumContentRadar VERSION 1.0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -13,6 +13,8 @@ add_library(radar_core STATIC
     include/content_record.h
     include/IContentProvider.h
     include/PremiumContentFilterProxyModel.h src/PremiumContentFilterProxyModel.cpp
+    include/AppSettings.h src/AppSettings.cpp
+    include/BridgePayloadClient.h src/BridgePayloadClient.cpp
     include/DatabaseController.h src/DatabaseController.cpp
     include/ProxyTrafficBridge.h src/ProxyTrafficBridge.cpp
     include/PluginManager.h src/PluginManager.cpp
@@ -56,4 +58,5 @@ set_tests_properties(radar_tests PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscre
 include(GNUInstallDirs)
 install(TARGETS premium-content-radar RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(TARGETS WeChatProviderPlugin LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/premium-content-radar/plugins)
-install(FILES README.md DEVELOPER_GUIDE.md LICENSE CHANGELOG.md SECURITY.md CONTRIBUTING.md CODE_OF_CONDUCT.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
+install(FILES README.md LICENSE CHANGELOG.md SECURITY.md CONTRIBUTING.md CODE_OF_CONDUCT.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
+install(DIRECTORY docs/ DESTINATION ${CMAKE_INSTALL_DOCDIR}/docs)

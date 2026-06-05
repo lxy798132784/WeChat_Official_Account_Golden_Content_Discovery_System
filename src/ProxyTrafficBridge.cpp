@@ -32,6 +32,23 @@ bool ProxyTrafficBridge::startBridge(quint16 port) {
   return listen(QHostAddress::LocalHost, port);
 }
 
+bool ProxyTrafficBridge::sendPayloadToLocalBridge(quint16 port, const QByteArray& payload,
+                                                  QString* errorMessage) {
+  QTcpSocket socket;
+  socket.connectToHost(QHostAddress::LocalHost, port);
+  if (!socket.waitForConnected(3000)) {
+    if (errorMessage != nullptr) {
+      *errorMessage = socket.errorString();
+    }
+    return false;
+  }
+  socket.write(payload);
+  socket.flush();
+  socket.waitForBytesWritten(3000);
+  socket.disconnectFromHost();
+  return true;
+}
+
 std::optional<ContentRecord> ProxyTrafficBridge::parsePayload(const QByteArray& payload) {
   const QJsonDocument document = QJsonDocument::fromJson(payload);
   if (!document.isObject()) {

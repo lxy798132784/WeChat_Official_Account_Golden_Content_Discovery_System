@@ -1,6 +1,7 @@
 #include "MainWindow.h"
 
 #include <QApplication>
+#include <QByteArray>
 #include <QCoreApplication>
 #include <QDateTime>
 #include <QDesktopServices>
@@ -9,6 +10,7 @@
 #include <QFileDialog>
 #include <QMenuBar>
 #include <QMessageBox>
+#include <QProcessEnvironment>
 #include <QShortcut>
 #include <QStatusBar>
 #include <QTabWidget>
@@ -19,6 +21,7 @@
 #include "DashboardWidget.h"
 #include "DataViewerWidget.h"
 #include "ExportController.h"
+#include "BridgePayloadClient.h"
 #include "RuntimeLogWidget.h"
 #include "SeedManagerWidget.h"
 #include "WeChatConfigWidget.h"
@@ -31,7 +34,7 @@ MainWindow::MainWindow(QWidget* parent)
       seeds_(new SeedManagerWidget(this)),
       logs_(new RuntimeLogWidget(this)),
       wechatConfig_(new WeChatConfigWidget(this)) {
-  setWindowTitle("Premium Content Radar / 全网黄金内容雷达");
+  setWindowTitle("Premium Content Radar");
   resize(1360, 820);
 
   auto* central = new QWidget(this);
@@ -43,42 +46,56 @@ MainWindow::MainWindow(QWidget* parent)
   setCentralWidget(central);
 
   auto* dockTabs = new QTabWidget(this);
-  dockTabs->addTab(controls_, "Filters / 筛选");
-  dockTabs->addTab(seeds_, "Seeds / 种子池");
-  dockTabs->addTab(wechatConfig_, "WeChat / 微信");
-  dockTabs->addTab(logs_, "Logs / 日志");
-  auto* dock = new QDockWidget("Control Center / 控制中心", this);
+  dockTabs->addTab(controls_, "Filters");
+  dockTabs->addTab(seeds_, "Seeds");
+  dockTabs->addTab(wechatConfig_, "WeChat");
+  dockTabs->addTab(logs_, "Logs");
+  auto* dock = new QDockWidget("Control Center", this);
   dock->setWidget(dockTabs);
   addDockWidget(Qt::LeftDockWidgetArea, dock);
 
-  if (!database_.open("wechat_radar.db")) {
+  settings_ = AppSettingsController::load();
+  wechatConfig_->setSettings(settings_);
+  qputenv("PREMIUM_RADAR_BRIDGE_PORT", QByteArray::number(settings_.bridgePort));
+  qputenv("PREMIUM_RADAR_ENABLE_ADB", settings_.adbAutomationEnabled ? "1" : "0");
+  if (!reopenDatabase(settings_.databasePath)) {
     appendLog(QStringLiteral("Database open failed: %1").arg(database_.lastError()));
   }
   connect(controls_, &ControlPanelWidget::filtersChanged, this, &MainWindow::refreshData);
   connect(seeds_, &SeedManagerWidget::addSeedRequested, this, &MainWindow::addSeedFromWidget);
   connect(seeds_, &SeedManagerWidget::removeSeedRequested, this, &MainWindow::removeSeedFromWidget);
   connect(seeds_, &SeedManagerWidget::exportSeedsRequested, this, &MainWindow::exportSeedsCsv);
+  connect(wechatConfig_, &WeChatConfigWidget::settingsSaveRequested, this, &MainWindow::saveRuntimeSettings);
+  connect(wechatConfig_, &WeChatConfigWidget::testBridgeRequested, this, &MainWindow::testLocalBridgePayload);
+  connect(wechatConfig_, &WeChatConfigWidget::browseDatabaseRequested, this, &MainWindow::browseDatabasePath);
+  connect(wechatConfig_, &WeChatConfigWidget::browsePluginDirectoryRequested, this, &MainWindow::browsePluginDirectory);
   connect(&pluginDrainTimer_, &QTimer::timeout, this, &MainWindow::drainPluginRecords);
 
-  auto* fileMenu = menuBar()->addMenu("File / 文件");
-  fileMenu->addAction("Load Samples / 加载示例", this, &MainWindow::loadSampleData);
-  fileMenu->addAction("Export Articles CSV / 导出文章CSV", this, &MainWindow::exportArticlesCsv);
-  fileMenu->addAction("Export Articles JSON / 导出文章JSON", this, &MainWindow::exportArticlesJson);
-  fileMenu->addAction("Export Seeds CSV / 导出种子CSV", this, &MainWindow::exportSeedsCsv);
-  auto* pluginMenu = menuBar()->addMenu("Plugins / 插件");
-  pluginMenu->addAction("Load Plugins / 加载插件", this, &MainWindow::loadPlugins);
-  auto* actionMenu = menuBar()->addMenu("Actions / 操作");
-  actionMenu->addAction("Preview / 预览", this, &MainWindow::previewSelectedArticle);
-  actionMenu->addAction("Star Seed / 标星账号", this, &MainWindow::starSelectedSeed);
-  actionMenu->addAction("Reset Controls / 重置控件", this, &MainWindow::resetControls);
-  menuBar()->addAction("About / 关于", this, &MainWindow::showAboutDialog);
+  auto* fileMenu = menuBar()->addMenu("File");
+  fileMenu->addAction("Load Samples", this, &MainWindow::loadSampleData);
+  fileMenu->addAction("Export Articles CSV", this, &MainWindow::exportArticlesCsv);
+  fileMenu->addAction("Export Articles JSON", this, &MainWindow::exportArticlesJson);
+  fileMenu->addAction("Export Seeds CSV", this, &MainWindow::exportSeedsCsv);
+  auto* pluginMenu = menuBar()->addMenu("Plugins");
+  pluginMenu->addAction("Load Plugins", this, &MainWindow::loadPlugins);
+  auto* actionMenu = menuBar()->addMenu("Actions");
+  actionMenu->addAction("Preview", this, &MainWindow::previewSelectedArticle);
+  actionMenu->addAction("Star Seed", this, &MainWindow::starSelectedSeed);
+  actionMenu->addAction("Send Bridge Smoke Payload", this, &MainWindow::testLocalBridgePayload);
+  actionMenu->addAction("Reset Controls", this, &MainWindow::resetControls);
+  menuBar()->addAction("About", this, &MainWindow::showAboutDialog);
 
   new QShortcut(QKeySequence(Qt::Key_Space), this, SLOT(previewSelectedArticle()));
   new QShortcut(QKeySequence(Qt::CTRL | Qt::Key_S), this, SLOT(starSelectedSeed()));
   new QShortcut(QKeySequence(Qt::Key_Escape), this, SLOT(resetControls()));
 
   applyTheme();
-  loadSampleData();
+  if (settings_.autoLoadSamples) {
+    loadSampleData();
+  } else {
+    refreshData();
+    refreshSeeds();
+  }
   loadPlugins();
   pluginDrainTimer_.start(1000);
 }
@@ -107,7 +124,8 @@ void MainWindow::appendLog(const QString& message) {
 }
 
 QString MainWindow::pluginDirectory() const {
-  return QDir(QCoreApplication::applicationDirPath()).absoluteFilePath("plugins");
+  return settings_.pluginDirectory.isEmpty() ? AppSettingsController::defaultPluginDirectory()
+                                             : settings_.pluginDirectory;
 }
 
 void MainWindow::loadSampleData() {
@@ -140,7 +158,7 @@ void MainWindow::loadSampleData() {
   database_.flush();
   refreshData();
   refreshSeeds();
-  appendLog("Sample records loaded / 示例数据已加载");
+  appendLog("Sample records loaded");
 }
 
 void MainWindow::loadPlugins() {
@@ -150,13 +168,13 @@ void MainWindow::loadPlugins() {
     if (!provider->start(&errorMessage)) {
       appendLog(QStringLiteral("Plugin start failed: %1").arg(errorMessage));
     } else {
-      appendLog(QStringLiteral("Plugin started: %1").arg(provider->displayName()));
+      appendLog(QStringLiteral("Provider started: %1").arg(provider->displayName()));
     }
   }
   for (const QString& line : pluginManager_.logLines()) {
     appendLog(line);
   }
-  appendLog(QStringLiteral("Loaded providers / 已加载供应商: %1").arg(count));
+  appendLog(QStringLiteral("Loaded providers: %1").arg(count));
 }
 
 void MainWindow::drainPluginRecords() {
@@ -173,20 +191,20 @@ void MainWindow::drainPluginRecords() {
   if (changed) {
     database_.flush();
     refreshData();
-    appendLog(QStringLiteral("Ingested plugin records / 插件入库记录: %1").arg(count));
+    appendLog(QStringLiteral("Ingested provider records: %1").arg(count));
   }
 }
 
 void MainWindow::previewSelectedArticle() {
   if (!viewer_->hasSelection()) {
-    appendLog("No article selected / 尚未选择文章");
+    appendLog("No article selected");
     return;
   }
   const ContentRecord record = viewer_->selectedRecord();
   if (!record.url.isEmpty()) {
     QDesktopServices::openUrl(QUrl(record.url));
   }
-  QMessageBox::information(this, "Article Detail / 文章详情",
+  QMessageBox::information(this, "Article Detail",
                            QString("%1\n%2\nAccount: %3\nRead: %4\nLike: %5\nComment: %6")
                                .arg(record.title, record.url, record.accountName)
                                .arg(record.readNum)
@@ -196,18 +214,78 @@ void MainWindow::previewSelectedArticle() {
 
 void MainWindow::starSelectedSeed() {
   if (!viewer_->hasSelection()) {
-    appendLog("No publisher selected / 尚未选择账号");
+    appendLog("No publisher selected");
     return;
   }
   const ContentRecord record = viewer_->selectedRecord();
   addSeedFromWidget(record.gzhId, record.accountName, record.category);
 }
 
+bool MainWindow::reopenDatabase(const QString& path) {
+  database_ = DatabaseController();
+  return database_.open(path);
+}
+
+void MainWindow::saveRuntimeSettings(const AppSettings& settings) {
+  settings_ = settings;
+  qputenv("PREMIUM_RADAR_BRIDGE_PORT", QByteArray::number(settings_.bridgePort));
+  qputenv("PREMIUM_RADAR_ENABLE_ADB", settings_.adbAutomationEnabled ? "1" : "0");
+  QString error;
+  if (!AppSettingsController::save(settings_, &error)) {
+    appendLog(QStringLiteral("Settings save failed: %1").arg(error));
+    return;
+  }
+  if (!reopenDatabase(settings_.databasePath)) {
+    appendLog(QStringLiteral("Database reopen failed: %1").arg(database_.lastError()));
+    return;
+  }
+  refreshData();
+  refreshSeeds();
+  appendLog(QStringLiteral("Runtime settings saved: %1").arg(AppSettingsController::settingsFilePath()));
+  appendLog("Restart or reload providers after changing the bridge port or ADB setting.");
+}
+
+void MainWindow::testLocalBridgePayload() {
+  QString error;
+  const quint16 port = wechatConfig_->bridgePort();
+  bool ok = BridgePayloadClient::sendPayload(QStringLiteral("127.0.0.1"), port,
+                                             BridgePayloadClient::sampleMetricsPayload(), &error);
+  if (ok) {
+    ok = BridgePayloadClient::sendPayload(QStringLiteral("127.0.0.1"), port,
+                                          BridgePayloadClient::sampleCommentPayload(), &error);
+  }
+  if (!ok) {
+    appendLog(QStringLiteral("Bridge smoke payload failed on 127.0.0.1:%1: %2").arg(port).arg(error));
+    return;
+  }
+  appendLog(QStringLiteral("Bridge smoke payload sent to 127.0.0.1:%1").arg(port));
+}
+
+void MainWindow::browseDatabasePath() {
+  const QString path = QFileDialog::getSaveFileName(this, "SQLite Database", wechatConfig_->databasePath(), "SQLite (*.db *.sqlite);;All files (*)");
+  if (path.isEmpty()) {
+    return;
+  }
+  AppSettings settings = wechatConfig_->settings();
+  settings.databasePath = path;
+  wechatConfig_->setSettings(settings);
+}
+
+void MainWindow::browsePluginDirectory() {
+  const QString path = QFileDialog::getExistingDirectory(this, "Plugin Directory", wechatConfig_->pluginDirectory());
+  if (path.isEmpty()) {
+    return;
+  }
+  AppSettings settings = wechatConfig_->settings();
+  settings.pluginDirectory = path;
+  wechatConfig_->setSettings(settings);
+}
+
 void MainWindow::resetControls() {
   controls_->clearSearch();
   controls_->resetDefaults();
   refreshData();
-  appendLog("Controls reset / 控件已重置");
+  appendLog("Controls reset");
 }
 
 void MainWindow::addSeedFromWidget(const QString& gzhId, const QString& name, const QString& category) {
@@ -216,17 +294,17 @@ void MainWindow::addSeedFromWidget(const QString& gzhId, const QString& name, co
     return;
   }
   refreshSeeds();
-  appendLog(QStringLiteral("Seed saved / 种子已保存: %1").arg(name));
+  appendLog(QStringLiteral("Seed saved: %1").arg(name));
 }
 
 void MainWindow::removeSeedFromWidget(const QString& gzhId) {
   if (gzhId.isEmpty()) {
-    appendLog("No seed selected / 尚未选择种子");
+    appendLog("No seed selected");
     return;
   }
   database_.removeSeed(gzhId);
   refreshSeeds();
-  appendLog(QStringLiteral("Seed removed / 种子已删除: %1").arg(gzhId));
+  appendLog(QStringLiteral("Seed removed: %1").arg(gzhId));
 }
 
 void MainWindow::exportArticlesCsv() {
@@ -237,7 +315,7 @@ void MainWindow::exportArticlesCsv() {
     appendLog(QStringLiteral("Export articles CSV failed: %1").arg(error));
     return;
   }
-  appendLog(QStringLiteral("Articles CSV exported / 文章CSV已导出: %1").arg(path));
+  appendLog(QStringLiteral("Articles CSV exported: %1").arg(path));
 }
 
 void MainWindow::exportArticlesJson() {
@@ -248,7 +326,7 @@ void MainWindow::exportArticlesJson() {
     appendLog(QStringLiteral("Export articles JSON failed: %1").arg(error));
     return;
   }
-  appendLog(QStringLiteral("Articles JSON exported / 文章JSON已导出: %1").arg(path));
+  appendLog(QStringLiteral("Articles JSON exported: %1").arg(path));
 }
 
 void MainWindow::exportSeedsCsv() {
@@ -259,14 +337,13 @@ void MainWindow::exportSeedsCsv() {
     appendLog(QStringLiteral("Export seeds failed: %1").arg(error));
     return;
   }
-  appendLog(QStringLiteral("Seeds CSV exported / 种子CSV已导出: %1").arg(path));
+  appendLog(QStringLiteral("Seeds CSV exported: %1").arg(path));
 }
 
 void MainWindow::showAboutDialog() {
   QMessageBox::about(this, "Premium Content Radar",
-                     "Premium Content Radar / 全网黄金内容雷达\n\n"
-                     "Local-first WeChat Official Account golden content discovery system.\n"
-                     "本地优先的微信公众号黄金内容发现系统。");
+                     "Premium Content Radar\n\n"
+                     "Local-first WeChat Official Account content discovery system.");
 }
 
 void MainWindow::refreshSeeds() {

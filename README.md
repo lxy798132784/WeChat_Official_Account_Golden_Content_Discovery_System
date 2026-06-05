@@ -2,111 +2,70 @@
 
 ![Preview](docs/assets/preview.svg)
 
-Premium Content Radar is a Qt 6 / C++20 desktop platform for discovering high-value WeChat Official Account content. It implements a plugin-driven host shell, an in-memory premium scoring model, SQLite storage, seed-pool management, export, and a WeChat provider module with ADB orchestration plus a localhost decrypted-traffic bridge.
+Premium Content Radar is a local-first Qt 6 desktop application for discovering, storing, scoring, and exporting high-value WeChat Official Account content. It is designed for lawful user-controlled ingestion pipelines: the app never ships credentials, cookies, private traffic data, or remote collection services.
 
-## 中文简介
+## What it does
 
-全网黄金内容/高价值爆款雷达是一个 Qt 6 / C++20 桌面平台，用于发现微信公众号高价值内容。项目包含主程序壳、`IContentProvider` 插件接口、微信采集插件、内存评分模型、SQLite 批量写入、种子池管理、CSV/JSON 导出、深色数据终端 UI、Docker Buildx、CI 和 Release 流程。
+- Loads content providers from a runtime plugin directory.
+- Accepts local JSON metrics through a localhost-only bridge.
+- Stores publisher seeds and article metrics in SQLite.
+- Scores articles with engagement, comment density, and publishing frequency.
+- Provides a dark desktop dashboard with filters, preview, seed management, logs, and exports.
+- Produces CSV and JSON exports for downstream analysis.
+- Includes CI, packaging scripts, Docker build support, release workflow, and documentation gates.
 
-## Features / 功能
+## Current production boundary
 
-- Plugin runtime: `PluginManager` scans the `plugins/` directory with `QPluginLoader`.
-- Provider contract: `IContentProvider` with Qt metadata and lifecycle methods.
-- WeChat provider module: ADB automation loop, resilient local bridge, and config widget.
-- Traffic bridge: accepts only `/mp/getappmsgext` and `/mp/appmsg_comment` JSON payloads on localhost.
-- Premium score: engagement rate, comment density, and 30-day frequency.
-- SQLite schema: `gzh_seeds` and `articles`, with transactional batching.
-- Seed pool management: add, update, remove, star selected account, and export seeds.
-- Export: article CSV, article JSON, and seed CSV.
-- UI modules: main window, dashboard, filters, seed manager, WeChat config, logs, data viewer, shortcuts, preview, and star seed action.
-- Cross-platform automation: CMake, Linux/Windows package scripts, Dockerfile, CI workflow, and GitHub Release workflow.
+The desktop app is production-ready as a local analysis and ingestion host. Real WeChat data requires a user-owned lawful data source that sends the documented JSON payloads to the localhost bridge. The repository provides the bridge contract and local smoke tooling; it does not bypass platform controls or embed account secrets.
 
-## Build / 构建
-
-```bash
-./scripts/verify-all.sh
-```
-
-Manual form:
+## Quick start
 
 ```bash
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j2
 ctest --test-dir build --output-on-failure
-QT_QPA_PLATFORM=offscreen ./build/premium-content-radar --self-test
-```
-
-## Run / 运行
-
-```bash
+QT_QPA_PLATFORM=offscreen ./build/premium-content-radar --bridge-smoke
 ./build/premium-content-radar
 ```
 
-The application auto-loads plugins from:
-
-```text
-./build/plugins
-```
-
-## Local Bridge Payload / 本地桥载荷
-
-The bridge is intentionally local-first. A user-controlled local agent may send JSON to `127.0.0.1:9000`; unknown endpoints are ignored.
-
-```json
-{
-  "endpoint": "/mp/getappmsgext",
-  "title": "Example Article",
-  "url": "https://example.local/article",
-  "appmsgstat": {
-    "read_num": 24000,
-    "like_num": 1200,
-    "old_like_num": 320
-  }
-}
-```
-
-Comment payload:
-
-```json
-{
-  "path": "/mp/appmsg_comment?action=getcomment",
-  "url": "https://example.local/article",
-  "comment_count": 88
-}
-```
-
-## Package / 打包
-
-Linux:
+## Release package
 
 ```bash
-VERSION=1.0.0 ./scripts/package-linux.sh
+VERSION=1.0.1 ./scripts/package-linux.sh
 ```
 
-Windows PowerShell:
+The Linux package contains the binary, plugin, documentation, preview assets, and checksums.
 
-```powershell
-$env:VERSION="1.0.0"
-.\scripts\package-windows.ps1
-```
+## Documentation
 
-## Docker / 容器
+English documentation:
+
+- [User Guide](docs/en/USER_GUIDE.md)
+- [Installation Guide](docs/en/INSTALL.md)
+- [Developer Guide](docs/en/DEVELOPER_GUIDE.md)
+- [Plugin Guide](docs/en/PLUGIN_GUIDE.md)
+- [Production Runbook](docs/en/PRODUCTION_RUNBOOK.md)
+
+Chinese documentation is separated under `docs/README.zh-CN.md` and `docs/zh-CN/`.
+
+## Quality gates
 
 ```bash
-docker buildx build --platform linux/amd64,linux/arm64 -t premium-content-radar:latest .
+./scripts/verify-all.sh
 ```
 
-Runtime image includes Mesa OpenGL, X11 helper tools, and x11vnc-based VNC support.
+This runs build, tests, self-test, localhost bridge smoke test, screenshot generation, secret scan, requirement audit, and documentation language split audit.
 
-## Documentation / 文档
+## Security and compliance
 
-- [Install / 安装](docs/INSTALL.md)
-- [Plugin Guide / 插件指南](docs/PLUGIN_GUIDE.md)
-- [Developer Guide / 开发者指南](DEVELOPER_GUIDE.md)
-- [Security / 安全](SECURITY.md)
-- [Contributing / 贡献](CONTRIBUTING.md)
-- [Changelog / 更新日志](CHANGELOG.md)
+- The bridge listens on `127.0.0.1` only.
+- Unknown endpoints are rejected.
+- No credentials are committed.
+- ADB automation is disabled by default.
+- Runtime settings are stored in the user's local config directory.
 
-## Notes / 说明
+See [Security](SECURITY.md) for reporting guidance.
 
-Real WeChat data ingestion requires a lawful, user-controlled data source and local environment configuration. The repository does not embed credentials, private traffic data, cookies, or third-party account secrets. The bridge only defines the local IPC contract and rejects unrelated endpoints.
+## License
+
+MIT License. See [LICENSE](LICENSE).

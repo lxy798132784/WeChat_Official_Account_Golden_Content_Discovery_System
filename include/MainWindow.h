@@ -5,6 +5,7 @@
 
 #include "DatabaseController.h"
 #include "PluginManager.h"
+#include "AppSettings.h"
 
 class ControlPanelWidget;
 class DashboardWidget;
@@ -38,13 +39,19 @@ class MainWindow final : public QMainWindow {
   void exportArticlesJson();
   void exportSeedsCsv();
   void showAboutDialog();
+  void saveRuntimeSettings(const AppSettings& settings);
+  void testLocalBridgePayload();
+  void browseDatabasePath();
+  void browsePluginDirectory();
 
  private:
   void applyTheme();
   void appendLog(const QString& message);
   void refreshSeeds();
   QString pluginDirectory() const;
+  bool reopenDatabase(const QString& path);
 
+  AppSettings settings_;
   DatabaseController database_;
   PluginManager pluginManager_;
   QTimer pluginDrainTimer_;

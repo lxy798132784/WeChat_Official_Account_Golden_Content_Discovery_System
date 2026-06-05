@@ -1,19 +1,24 @@
-# Security Policy / 安全策略
+# Security Policy
 
-## Supported Versions / 支持版本
+## Data boundary
 
-The latest `main` branch and published releases receive security fixes.
+Premium Content Radar is a local desktop analysis host. The repository does not include account passwords, cookies, private captures, or remote collection services.
 
-最新 `main` 分支和已发布版本接收安全修复。
+## Local bridge
 
-## Reporting / 报告方式
+The bridge is designed for `127.0.0.1` only. Do not expose the bridge port to a LAN or the public internet. Unknown endpoints are ignored by design.
 
-Please open a private security advisory or contact the repository owner. Do not publish exploit details before a fix is available.
+## Credential handling
 
-请通过 GitHub 私有安全公告或联系仓库所有者报告。修复前不要公开漏洞利用细节。
+Keep credentials in user-controlled secure storage, environment variables, or local configuration outside the repository. Never commit tokens, cookies, private traffic payloads, or production databases.
 
-## Data Boundary / 数据边界
+## Reporting a vulnerability
 
-This application is local-first. The bridge only accepts local user-controlled JSON payloads and rejects unknown endpoints. Never commit real account credentials, decrypted private traffic, cookies, or tokens.
+When reporting a security issue, include:
 
-本应用本地优先。本地桥只接收用户控制的本地 JSON 载荷，并拒绝未知端点。禁止提交真实账号凭证、解密私有流量、Cookie 或 Token。
+- A description of the issue.
+- Reproduction steps using synthetic data.
+- The affected commit or release.
+- Expected and actual behavior.
+
+Do not attach real credentials, cookies, private article data, or traffic captures.

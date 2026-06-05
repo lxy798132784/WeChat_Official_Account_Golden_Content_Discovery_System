@@ -8,7 +8,7 @@ on:
       version:
         description: 'Release version without v prefix'
         required: true
-        default: '1.0.0'
+        default: '1.0.1'
 permissions:
   contents: write
 jobs:
@@ -30,7 +30,7 @@ jobs:
           mkdir -p dist/release
           git archive --format=tar.gz --prefix=premium-content-radar-$VERSION-source/ HEAD > dist/release/premium-content-radar-$VERSION-source.tar.gz
           git archive --format=zip --prefix=premium-content-radar-$VERSION-source/ HEAD > dist/release/premium-content-radar-$VERSION-source.zip
-          zip -r dist/release/premium-content-radar-$VERSION-docs.zip README.md DEVELOPER_GUIDE.md docs LICENSE CONTRIBUTING.md SECURITY.md CODE_OF_CONDUCT.md CHANGELOG.md
+          zip -r dist/release/premium-content-radar-$VERSION-docs.zip README.md docs LICENSE CONTRIBUTING.md SECURITY.md CODE_OF_CONDUCT.md CHANGELOG.md
           find dist/linux-* -maxdepth 1 -type f -exec cp {} dist/release/ \;
           (cd dist/release && sha256sum * > SHA256SUMS)
       - uses: softprops/action-gh-release@v2

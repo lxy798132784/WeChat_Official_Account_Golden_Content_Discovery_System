@@ -30,6 +30,8 @@ class ProxyTrafficBridge final : public QTcpServer {
    * @return 是否启动成功 / Whether the listener started successfully
    */
   bool startBridge(quint16 port = 9000);
+  static bool sendPayloadToLocalBridge(quint16 port, const QByteArray& payload,
+                                       QString* errorMessage = nullptr);
 
   /**
    * @brief 解析单个 JSON 载荷

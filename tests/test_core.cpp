@@ -1,6 +1,7 @@
 #include <QStandardItemModel>
 #include <QtTest/QtTest>
 
+#include "BridgePayloadClient.h"
 #include "DatabaseController.h"
 #include "ExportController.h"
 #include "PremiumContentFilterProxyModel.h"
@@ -17,6 +18,7 @@ class RadarCoreTest : public QObject {
   void trafficBridgeParsesGetAppMsgExtPayload();
   void trafficBridgeParsesCommentPayload();
   void trafficBridgeIgnoresUnknownEndpoint();
+  void bridgePayloadClientSamplesParse();
 };
 
 void RadarCoreTest::databaseStoresArticles() {
@@ -138,6 +140,16 @@ void RadarCoreTest::trafficBridgeIgnoresUnknownEndpoint() {
   })";
 
   QVERIFY(!ProxyTrafficBridge::parsePayload(payload).has_value());
+}
+
+void RadarCoreTest::bridgePayloadClientSamplesParse() {
+  auto metrics = ProxyTrafficBridge::parsePayload(BridgePayloadClient::sampleMetricsPayload());
+  QVERIFY(metrics.has_value());
+  QCOMPARE(metrics->url, QString("https://example.local/bridge-smoke"));
+  QCOMPARE(metrics->readNum, 36000);
+  auto comments = ProxyTrafficBridge::parsePayload(BridgePayloadClient::sampleCommentPayload());
+  QVERIFY(comments.has_value());
+  QCOMPARE(comments->commentNum, 96);
 }
 
 QTEST_MAIN(RadarCoreTest)
