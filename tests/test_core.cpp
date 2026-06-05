@@ -8,6 +8,7 @@
 #include "ExportController.h"
 #include "PremiumContentFilterProxyModel.h"
 #include "PhoneDiagnosticsController.h"
+#include "ProductionSuiteController.h"
 #include "ProxyTrafficBridge.h"
 
 class RadarCoreTest : public QObject {
@@ -22,6 +23,7 @@ class RadarCoreTest : public QObject {
   void trafficBridgeParsesCommentPayload();
   void trafficBridgeIgnoresUnknownEndpoint();
   void bridgePayloadClientSamplesParse();
+  void productionSuiteProxyReplayAndScoring();
   void autoIngestionQueueAndAdbArgs();
 };
 
@@ -166,6 +168,21 @@ void RadarCoreTest::bridgePayloadClientSamplesParse() {
   QCOMPARE(comments->commentNum, 96);
 }
 
+
+void RadarCoreTest::productionSuiteProxyReplayAndScoring() {
+  ProductionSuiteController controller;
+  const auto steps = controller.buildProxyWizard(8080, 9000, true, true, false);
+  QCOMPARE(steps.size(), 5);
+  QVERIFY(controller.proxyWizardReport(steps, true).contains(QStringLiteral("代理适配器")));
+  QString error;
+  const QByteArray sample = R"({"title":"Replay","account_name":"Lab","read_num":1000,"like_num":20,"comment_num":5,"url":"https://mp.weixin.qq.com/s/replay"})";
+  const auto records = controller.parseReplaySamples(QString::fromUtf8(sample), &error);
+  QCOMPARE(records.size(), 1);
+  ProductionSuiteController::ScoreProfile profile;
+  QVERIFY(controller.scoreRecord(records.first(), profile) > 1000.0);
+  QVERIFY(controller.classifyFailure(QStringLiteral("phone unauthorized")) == QStringLiteral("PHONE_UNAUTHORIZED"));
+  QVERIFY(controller.privacyBoundaryText(true).contains(QStringLiteral("Cookie")));
+}
 
 void RadarCoreTest::autoIngestionQueueAndAdbArgs() {
   AutoIngestionController controller;

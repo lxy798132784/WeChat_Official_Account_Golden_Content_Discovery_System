@@ -6,7 +6,7 @@ QString UiText::text(const QString& key, UiLanguage language) {
   static const QHash<QString, QString> en = {
       {"app.title", "Premium Content Radar"},
       {"dock.title", "Control Center"},
-      {"tab.filters", "Filters"}, {"tab.discover", "Keyword Discovery"}, {"tab.phone", "Phone Diagnostics"}, {"tab.auto", "Auto Ingestion"}, {"tab.seeds", "Seeds"}, {"tab.wechat", "WeChat"}, {"tab.logs", "Logs"}, {"tab.guide", "Guide"},
+      {"tab.filters", "Filters"}, {"tab.discover", "Keyword Discovery"}, {"tab.phone", "Phone Diagnostics"}, {"tab.production", "Production Suite"}, {"tab.auto", "Auto Ingestion"}, {"tab.seeds", "Seeds"}, {"tab.wechat", "WeChat"}, {"tab.logs", "Logs"}, {"tab.guide", "Guide"},
       {"menu.file", "File"}, {"menu.plugins", "Plugins"}, {"menu.actions", "Actions"}, {"menu.help", "Help"},
       {"action.load_samples", "Load Samples"}, {"action.export_articles_csv", "Export Articles CSV"}, {"action.export_articles_json", "Export Articles JSON"}, {"action.export_seeds_csv", "Export Seeds CSV"},
       {"action.load_plugins", "Load Plugins"}, {"action.preview", "Preview"}, {"action.star_seed", "Star Seed"}, {"action.bridge_smoke", "Send Bridge Smoke Payload"}, {"action.reset", "Reset Controls"},
@@ -45,6 +45,17 @@ QString UiText::text(const QString& key, UiLanguage language) {
       {"manual.title", "Built-in User Manual"},
       {"manual.body", "1. Start with the WeChat tab. Confirm the database path, plugin directory, and bridge port. Keep ADB disabled unless you use a dedicated test phone.\n\n2. Click Save runtime settings, then Load Plugins. The WeChat provider starts a localhost bridge.\n\n3. Click Send Bridge Smoke Payload. If the article table grows, local ingestion works.\n\n4. Primary route: open Keyword Discovery, enter market keywords, import sanitized hot-result JSON, then add hot results to the auto queue. For URL-based automatic ingestion, open the Auto Ingestion tab. Paste one WeChat article URL per line, enable the ADB safety gate, and click Run Next Now or Start Auto Ingestion. The scheduler only opens URLs on your connected test phone; metrics still enter through the local proxy bridge.\n\n5. Choose an ingestion option. Option A uses a lawful local proxy adapter. Option B imports manually prepared JSON or CSV. Option C uses ADB only to open pages on a test phone, then still imports metrics through A or B.\n\n6. Use Filters to tune category, keyword, score weights, and minimum reads. The score combines engagement, comment density, and publishing frequency.\n\n7. Select an article row. Preview opens the URL and shows the main metrics. Star Seed saves the publisher into the seed pool.\n\n8. Use Seeds to maintain target publishers. Add or update by GZH ID, name, and category. Export seeds when you need a backup.\n\n9. Use File exports to save articles as CSV or JSON. Review exports before production decisions.\n\n10. Security boundary: never store cookies, headers, tokens, certificates, or raw packet captures in the repository. Only compact sanitized JSON should be sent to 127.0.0.1."},
   
+
+    {"suite.tab.proxy", "Proxy Wizard"}, {"suite.tab.replay", "Replay Center"}, {"suite.tab.health", "Health Monitor"}, {"suite.tab.scoring", "Scoring Studio"}, {"suite.tab.workspace", "Workspace & Reports"}, {"suite.tab.privacy", "Privacy Center"},
+    {"suite.proxy_intro", "P0: Configure and verify the lawful local proxy adapter path. The goal is to prove that the phone can reach the computer, the bridge is ready, and WeChat metric/comment interfaces are observed before production ingestion."},
+    {"suite.proxy_port", "Proxy port"}, {"suite.bridge_port", "Bridge port"}, {"suite.phone_reachable", "Phone can reach this computer"}, {"suite.metric_hit", "Metric interface observed"}, {"suite.comment_hit", "Comment interface observed"}, {"suite.run_proxy", "Run Proxy Wizard"},
+    {"suite.replay_intro", "P1: Replay sanitized JSON/JSONL samples so ingestion, scoring, reports, and UI can be tested without repeatedly depending on a live phone session."},
+    {"suite.replay_placeholder", "Paste sanitized JSON, JSON array, or JSONL. Example: {\"title\":\"Case\",\"account_name\":\"Demo\",\"read_num\":10000,\"comment_num\":80,\"url\":\"https://mp.weixin.qq.com/s/demo\"}"}, {"suite.replay_run", "Replay Samples"},
+    {"suite.health_intro", "P1: Monitor phone, proxy, bridge, database, and task queue health. Green means ready, yellow means risk, red means blocked."}, {"suite.health_refresh", "Refresh Health"},
+    {"suite.scoring_intro", "P2: Configure the hot-content scoring model and preview how records, accounts, and keywords are ranked."}, {"suite.score_read", "Read weight"}, {"suite.score_like", "Like weight"}, {"suite.score_comment", "Comment weight"}, {"suite.score_old_like", "Old-like weight"}, {"suite.score_original", "Originality weight"}, {"suite.score_preview", "Preview Scores"},
+    {"suite.workspace_intro", "P3: Manage a business workspace, generate decision reports, and export a sanitized support snapshot."}, {"suite.workspace_placeholder", "Workspace name, for example AI tools / local life / cross-border ecommerce"}, {"suite.report_generate", "Generate Report"}, {"suite.snapshot_export", "Export Diagnostic Snapshot"},
+    {"suite.privacy_intro", "P3: Explain what the software does and does not collect. This page is used before production deployment or team handoff."},
+    {"suite.col.status", "Status"}, {"suite.col.item", "Item"}, {"suite.col.detail", "Detail"}, {"suite.col.fix", "Fix Guidance"},
     {"phone.intro", "Check every layer required for fully automatic keyword ingestion: ADB, USB authorization, phone shell control, article opening, local proxy, and bridge readiness."},
     {"phone.serial", "Target phone"}, {"phone.proxy_port", "Proxy port (0 = skip)"}, {"phone.test_url", "Test URL"},
     {"phone.include_open_test", "Include open-link test in full diagnostics"}, {"phone.run", "Run Full Diagnostics"},
@@ -60,7 +71,7 @@ QString UiText::text(const QString& key, UiLanguage language) {
   static const QHash<QString, QString> zh = {
       {"app.title", "全网黄金内容雷达"},
       {"dock.title", "控制中心"},
-      {"tab.filters", "筛选"}, {"tab.discover", "关键词发现"}, {"tab.phone", "手机诊断"}, {"tab.auto", "自动采集"}, {"tab.seeds", "种子池"}, {"tab.wechat", "微信接入"}, {"tab.logs", "日志"}, {"tab.guide", "说明书"},
+      {"tab.filters", "筛选"}, {"tab.discover", "关键词发现"}, {"tab.phone", "手机诊断"}, {"tab.production", "生产中心"}, {"tab.auto", "自动采集"}, {"tab.seeds", "种子池"}, {"tab.wechat", "微信接入"}, {"tab.logs", "日志"}, {"tab.guide", "说明书"},
       {"menu.file", "文件"}, {"menu.plugins", "插件"}, {"menu.actions", "操作"}, {"menu.help", "帮助"},
       {"action.load_samples", "加载示例数据"}, {"action.export_articles_csv", "导出文章 CSV"}, {"action.export_articles_json", "导出文章 JSON"}, {"action.export_seeds_csv", "导出种子 CSV"},
       {"action.load_plugins", "加载插件"}, {"action.preview", "预览文章"}, {"action.star_seed", "收藏为种子"}, {"action.bridge_smoke", "发送本地桥冒烟载荷"}, {"action.reset", "重置控件"},
@@ -99,6 +110,17 @@ QString UiText::text(const QString& key, UiLanguage language) {
       {"manual.title", "内置使用说明书"},
       {"manual.body", "1. 先进入微信接入页，确认数据库路径、插件目录和本地桥端口。除非使用专用测试手机，否则保持 ADB 关闭。\n\n2. 点击保存运行配置，然后加载插件。微信 Provider 会启动 localhost 本地桥。\n\n3. 点击发送本地桥冒烟载荷。如果文章表新增记录，说明本地接入链路可用。\n\n4. 主要路线：进入关键词发现页，输入市场关键词，导入脱敏爆款结果 JSON，再把爆款结果加入自动队列。URL 自动采集路线：进入自动采集页。每行粘贴一个微信文章 URL，打开 ADB 安全开关，然后点击立即执行下一条或开始自动采集。调度器只负责在已连接测试手机上打开文章，指标仍通过本地代理桥接入。\n\n5. 选择接入方案。方案 A 使用合法的本地代理适配器；方案 B 导入人工准备的 JSON 或 CSV；方案 C 只用 ADB 在测试手机上打开页面，指标仍通过 A 或 B 导入。\n\n6. 使用筛选页调整行业、关键词、评分权重和最低阅读数。评分综合互动、评论密度和发文频率。\n\n7. 选中文章行后，预览文章会打开链接并显示主要指标；收藏为种子会把该公众号保存到种子池。\n\n8. 在种子池页维护目标公众号。按公众号 ID、名称和分类添加或更新，需要备份时导出种子。\n\n9. 通过文件菜单把文章导出为 CSV 或 JSON。做生产决策前先复核导出结果。\n\n10. 安全边界：不要把 Cookie、Header、Token、证书或原始抓包保存到仓库。软件只应接收发送到 127.0.0.1 的精简脱敏 JSON。"},
   
+
+    {"suite.tab.proxy", "代理向导"}, {"suite.tab.replay", "回放中心"}, {"suite.tab.health", "健康监控"}, {"suite.tab.scoring", "评分工作台"}, {"suite.tab.workspace", "工作区和报告"}, {"suite.tab.privacy", "隐私中心"},
+    {"suite.proxy_intro", "P0：配置并验证合法本地代理适配器链路。目标是在生产采集前证明手机能访问电脑、本地桥已就绪，并且已经观察到微信指标和评论接口。"},
+    {"suite.proxy_port", "代理端口"}, {"suite.bridge_port", "本地桥端口"}, {"suite.phone_reachable", "手机可以访问这台电脑"}, {"suite.metric_hit", "已观察到指标接口"}, {"suite.comment_hit", "已观察到评论接口"}, {"suite.run_proxy", "运行代理向导"},
+    {"suite.replay_intro", "P1：回放脱敏 JSON/JSONL 样本，不必每次依赖真实手机会话，就能测试接入、评分、报告和界面。"},
+    {"suite.replay_placeholder", "粘贴脱敏 JSON、JSON 数组或 JSONL。例如：{\"title\":\"案例\",\"account_name\":\"演示账号\",\"read_num\":10000,\"comment_num\":80,\"url\":\"https://mp.weixin.qq.com/s/demo\"}"}, {"suite.replay_run", "回放样本"},
+    {"suite.health_intro", "P1：监控手机、代理、本地桥、数据库和任务队列健康状态。绿色代表就绪，黄色代表风险，红色代表阻塞。"}, {"suite.health_refresh", "刷新健康状态"},
+    {"suite.scoring_intro", "P2：配置爆款内容评分模型，并预览文章、账号、关键词排序变化。"}, {"suite.score_read", "阅读权重"}, {"suite.score_like", "点赞权重"}, {"suite.score_comment", "评论权重"}, {"suite.score_old_like", "在看权重"}, {"suite.score_original", "原创权重"}, {"suite.score_preview", "预览评分"},
+    {"suite.workspace_intro", "P3：管理业务工作区，生成决策报告，并导出不含隐私凭证的诊断快照。"}, {"suite.workspace_placeholder", "工作区名称，例如 AI工具 / 本地生活 / 跨境电商"}, {"suite.report_generate", "生成报告"}, {"suite.snapshot_export", "导出诊断快照"},
+    {"suite.privacy_intro", "P3：说明软件会采集什么、不会采集什么。生产部署或团队交接前先看这里。"},
+    {"suite.col.status", "状态"}, {"suite.col.item", "项目"}, {"suite.col.detail", "详情"}, {"suite.col.fix", "修复指引"},
     {"phone.intro", "检查关键词全自动采集所需的每一层：ADB、USB 授权、手机 shell 控制、文章链接打开、本地代理、本地桥就绪状态。"},
     {"phone.serial", "目标手机"}, {"phone.proxy_port", "代理端口（0=跳过）"}, {"phone.test_url", "测试链接"},
     {"phone.include_open_test", "全量诊断时包含打开链接测试"}, {"phone.run", "一键全量诊断"},

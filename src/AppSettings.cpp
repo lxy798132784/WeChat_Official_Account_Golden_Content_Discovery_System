@@ -37,7 +37,7 @@ AppSettings AppSettingsController::load() {
   AppSettings settings;
   settings.databasePath = defaultDatabasePath();
   settings.pluginDirectory = defaultPluginDirectory();
-  settings.language = QStringLiteral("en");
+  settings.language = QStringLiteral("zh");
   settings.bridgePort = kDefaultBridgePort;
   settings.adbAutomationEnabled = false;
   settings.autoLoadSamples = false;

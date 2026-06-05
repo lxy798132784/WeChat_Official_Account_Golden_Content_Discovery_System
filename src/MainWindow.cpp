@@ -28,6 +28,7 @@
 #include "DataViewerWidget.h"
 #include "KeywordDiscoveryWidget.h"
 #include "PhoneDiagnosticsWidget.h"
+#include "ProductionSuiteWidget.h"
 #include "ExportController.h"
 #include "BridgePayloadClient.h"
 #include "ManualWidget.h"
@@ -41,6 +42,7 @@ MainWindow::MainWindow(QWidget* parent)
       controls_(new ControlPanelWidget(this)),
       keywordDiscoveryWidget_(new KeywordDiscoveryWidget(this)),
       phoneDiagnosticsWidget_(new PhoneDiagnosticsWidget(this)),
+      productionSuiteWidget_(new ProductionSuiteWidget(this)),
       autoIngestionWidget_(new AutoIngestionWidget(this)),
       viewer_(new DataViewerWidget(this)),
       seeds_(new SeedManagerWidget(this)),
@@ -62,6 +64,7 @@ MainWindow::MainWindow(QWidget* parent)
   dockTabs_->addTab(controls_, QString());
   dockTabs_->addTab(keywordDiscoveryWidget_, QString());
   dockTabs_->addTab(phoneDiagnosticsWidget_, QString());
+  dockTabs_->addTab(productionSuiteWidget_, QString());
   dockTabs_->addTab(autoIngestionWidget_, QString());
   dockTabs_->addTab(seeds_, QString());
   dockTabs_->addTab(wechatConfig_, QString());
@@ -100,6 +103,7 @@ MainWindow::MainWindow(QWidget* parent)
   connect(phoneDiagnosticsWidget_, &PhoneDiagnosticsWidget::testOpenLinkRequested, this, &MainWindow::testPhoneOpenLink);
   connect(phoneDiagnosticsWidget_, &PhoneDiagnosticsWidget::copyReportRequested, this, &MainWindow::copyPhoneDiagnosticsReport);
   connect(phoneDiagnosticsWidget_, &PhoneDiagnosticsWidget::exportJsonRequested, this, &MainWindow::exportPhoneDiagnosticsJson);
+  connect(productionSuiteWidget_, &ProductionSuiteWidget::logMessage, this, &MainWindow::appendLog);
   connect(autoIngestionWidget_, &AutoIngestionWidget::addUrlsRequested, this, &MainWindow::addAutoIngestionUrls);
   connect(autoIngestionWidget_, &AutoIngestionWidget::startRequested, this, &MainWindow::startAutoIngestion);
   connect(autoIngestionWidget_, &AutoIngestionWidget::stopRequested, this, &MainWindow::stopAutoIngestion);
@@ -175,11 +179,12 @@ void MainWindow::applyLanguage() {
     dockTabs_->setTabText(0, UiText::text("tab.filters", language_));
     dockTabs_->setTabText(1, UiText::text("tab.discover", language_));
     dockTabs_->setTabText(2, UiText::text("tab.phone", language_));
-    dockTabs_->setTabText(3, UiText::text("tab.auto", language_));
-    dockTabs_->setTabText(4, UiText::text("tab.seeds", language_));
-    dockTabs_->setTabText(5, UiText::text("tab.wechat", language_));
-    dockTabs_->setTabText(6, UiText::text("tab.logs", language_));
-    dockTabs_->setTabText(7, UiText::text("tab.guide", language_));
+    dockTabs_->setTabText(3, UiText::text("tab.production", language_));
+    dockTabs_->setTabText(4, UiText::text("tab.auto", language_));
+    dockTabs_->setTabText(5, UiText::text("tab.seeds", language_));
+    dockTabs_->setTabText(6, UiText::text("tab.wechat", language_));
+    dockTabs_->setTabText(7, UiText::text("tab.logs", language_));
+    dockTabs_->setTabText(8, UiText::text("tab.guide", language_));
   }
   if (fileMenu_ != nullptr) fileMenu_->setTitle(UiText::text("menu.file", language_));
   if (pluginMenu_ != nullptr) pluginMenu_->setTitle(UiText::text("menu.plugins", language_));
@@ -201,6 +206,7 @@ void MainWindow::applyLanguage() {
   controls_->setLanguage(language_);
   keywordDiscoveryWidget_->setLanguage(language_);
   phoneDiagnosticsWidget_->setLanguage(language_);
+  productionSuiteWidget_->setLanguage(language_);
   autoIngestionWidget_->setLanguage(language_);
   viewer_->setLanguage(language_);
   seeds_->setLanguage(language_);
@@ -240,9 +246,9 @@ QString MainWindow::trLog(const QString& key, const QString& value) const {
   if (key == QStringLiteral("database_open_failed")) return zh ? QStringLiteral("数据库打开失败：%1").arg(value) : QStringLiteral("Database open failed: %1").arg(value);
   if (key == QStringLiteral("sample_loaded")) return zh ? QStringLiteral("示例记录已加载") : QStringLiteral("Sample records loaded");
   if (key == QStringLiteral("plugin_start_failed")) return zh ? QStringLiteral("插件启动失败：%1").arg(value) : QStringLiteral("Plugin start failed: %1").arg(value);
-  if (key == QStringLiteral("provider_started")) return zh ? QStringLiteral("Provider 已启动：%1").arg(value) : QStringLiteral("Provider started: %1").arg(value);
-  if (key == QStringLiteral("loaded_providers")) return zh ? QStringLiteral("已加载 Provider 数量：%1").arg(value) : QStringLiteral("Loaded providers: %1").arg(value);
-  if (key == QStringLiteral("ingested_provider_records")) return zh ? QStringLiteral("已接入 Provider 记录：%1").arg(value) : QStringLiteral("Ingested provider records: %1").arg(value);
+  if (key == QStringLiteral("provider_started")) return zh ? QStringLiteral("内容提供者已启动：%1").arg(value) : QStringLiteral("Provider started: %1").arg(value);
+  if (key == QStringLiteral("loaded_providers")) return zh ? QStringLiteral("已加载内容提供者数量：%1").arg(value) : QStringLiteral("Loaded providers: %1").arg(value);
+  if (key == QStringLiteral("ingested_provider_records")) return zh ? QStringLiteral("已接入内容提供者记录：%1").arg(value) : QStringLiteral("Ingested provider records: %1").arg(value);
   if (key == QStringLiteral("settings_save_failed")) return zh ? QStringLiteral("配置保存失败：%1").arg(value) : QStringLiteral("Settings save failed: %1").arg(value);
   if (key == QStringLiteral("database_reopen_failed")) return zh ? QStringLiteral("数据库重新打开失败：%1").arg(value) : QStringLiteral("Database reopen failed: %1").arg(value);
   if (key == QStringLiteral("runtime_settings_saved")) return zh ? QStringLiteral("运行配置已保存：%1").arg(value) : QStringLiteral("Runtime settings saved: %1").arg(value);
@@ -734,6 +740,9 @@ void MainWindow::refreshData() {
   viewer_->proxy()->setMinimums(controls_->minimumRead(), 1.0);
   const auto rows = database_.listArticles();
   viewer_->setRecords(rows);
+  productionSuiteWidget_->setRecords(rows);
+  productionSuiteWidget_->setQueueStats(autoIngestion_.pendingCount(), 0);
+  productionSuiteWidget_->setReadiness(lastPhoneReport_.overallStatus == QStringLiteral("ready") || lastPhoneReport_.overallStatus == QStringLiteral("warning"), true, database_.lastError().isEmpty());
   refreshSeeds();
 
   double topScore = 0.0;

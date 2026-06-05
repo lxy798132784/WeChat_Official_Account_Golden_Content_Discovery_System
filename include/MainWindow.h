@@ -22,6 +22,7 @@ class DashboardWidget;
 class DataViewerWidget;
 class KeywordDiscoveryWidget;
 class PhoneDiagnosticsWidget;
+class ProductionSuiteWidget;
 class RuntimeLogWidget;
 class SeedManagerWidget;
 class ManualWidget;
@@ -125,6 +126,7 @@ class MainWindow final : public QMainWindow {
   ControlPanelWidget* controls_ = nullptr;
   KeywordDiscoveryWidget* keywordDiscoveryWidget_ = nullptr;
   PhoneDiagnosticsWidget* phoneDiagnosticsWidget_ = nullptr;
+  ProductionSuiteWidget* productionSuiteWidget_ = nullptr;
   AutoIngestionWidget* autoIngestionWidget_ = nullptr;
   DataViewerWidget* viewer_ = nullptr;
   SeedManagerWidget* seeds_ = nullptr;
