@@ -5,6 +5,7 @@
 #include <QWidget>
 
 #include "PremiumContentFilterProxyModel.h"
+#include "UiText.h"
 #include "content_record.h"
 
 /**
@@ -21,11 +22,15 @@ class DataViewerWidget final : public QWidget {
   PremiumContentFilterProxyModel* proxy();
   ContentRecord selectedRecord() const;
   bool hasSelection() const;
+  void setLanguage(UiLanguage language);
 
  signals:
   void selectionChanged();
 
  private:
+  void applyHeaders();
+
+  UiLanguage language_ = UiLanguage::English;
   QStandardItemModel* model_ = nullptr;
   PremiumContentFilterProxyModel* proxy_ = nullptr;
   QTableView* table_ = nullptr;

@@ -106,3 +106,28 @@ Exports are local files selected by the user.
 - Space: preview selected article.
 - Ctrl+S: save selected publisher as a seed.
 - Esc: reset filters.
+
+
+## Language switch and tooltips
+
+The app provides a runtime language switch in the Help menu. Use the Help menu language action to switch to Chinese, and use the corresponding Chinese Help menu action to switch back to English. The selected language is saved in the local runtime settings file and is restored the next time the app starts.
+
+The user interface keeps languages separated. English mode shows English labels, menus, table headers, placeholders, tooltips, and the built-in guide. Chinese mode shows Chinese labels, menus, table headers, placeholders, tooltips, and the built-in guide. Controls should not show mixed Chinese and English strings in normal use.
+
+Most operational controls include tooltips. Hover over filters, seed inputs, WeChat runtime settings, export actions, preview actions, and the bridge smoke action to see what the control does, how to use it, and the safety boundary.
+
+## Built-in user manual
+
+The left control center includes a `Guide` tab. This tab contains the in-app user manual for day-to-day operation:
+
+1. Configure the WeChat runtime settings.
+2. Save settings and load plugins.
+3. Run the local bridge smoke test.
+4. Choose ingestion Option A, B, or C.
+5. Tune filters and scoring weights.
+6. Preview selected articles and save publishers as seeds.
+7. Maintain the seed pool.
+8. Export articles or seeds.
+9. Follow the local privacy and credential boundary.
+
+The About dialog also shows the manual in the currently selected language.

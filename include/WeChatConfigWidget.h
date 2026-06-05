@@ -3,8 +3,10 @@
 #include <QWidget>
 
 #include "AppSettings.h"
+#include "UiText.h"
 
 class QCheckBox;
+class QLabel;
 class QLineEdit;
 class QPushButton;
 class QSpinBox;
@@ -23,6 +25,7 @@ class WeChatConfigWidget final : public QWidget {
   AppSettings settings() const;
   void setSettings(const AppSettings& settings);
   void appendLog(const QString& message);
+  void setLanguage(UiLanguage language);
 
  signals:
   void settingsSaveRequested(const AppSettings& settings);
@@ -31,11 +34,18 @@ class WeChatConfigWidget final : public QWidget {
   void browsePluginDirectoryRequested();
 
  private:
+  UiLanguage language_ = UiLanguage::English;
+  QLabel* databaseLabel_ = nullptr;
+  QLabel* pluginLabel_ = nullptr;
+  QLabel* portLabel_ = nullptr;
+  QLabel* logLabel_ = nullptr;
   QLineEdit* databasePathEdit_ = nullptr;
   QLineEdit* pluginDirectoryEdit_ = nullptr;
   QSpinBox* portSpinBox_ = nullptr;
   QCheckBox* adbCheckBox_ = nullptr;
   QCheckBox* sampleCheckBox_ = nullptr;
+  QPushButton* databaseBrowseButton_ = nullptr;
+  QPushButton* pluginBrowseButton_ = nullptr;
   QPushButton* saveButton_ = nullptr;
   QPushButton* testBridgeButton_ = nullptr;
   QTextEdit* logView_ = nullptr;

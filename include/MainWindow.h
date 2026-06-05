@@ -3,15 +3,21 @@
 #include <QMainWindow>
 #include <QTimer>
 
+#include "AppSettings.h"
 #include "DatabaseController.h"
 #include "PluginManager.h"
-#include "AppSettings.h"
+#include "UiText.h"
 
+class QAction;
+class QDockWidget;
+class QMenu;
+class QTabWidget;
 class ControlPanelWidget;
 class DashboardWidget;
 class DataViewerWidget;
 class RuntimeLogWidget;
 class SeedManagerWidget;
+class ManualWidget;
 class WeChatConfigWidget;
 
 /**
@@ -43,6 +49,7 @@ class MainWindow final : public QMainWindow {
   void testLocalBridgePayload();
   void browseDatabasePath();
   void browsePluginDirectory();
+  void toggleLanguage();
 
  private:
   void applyTheme();
@@ -50,15 +57,36 @@ class MainWindow final : public QMainWindow {
   void refreshSeeds();
   QString pluginDirectory() const;
   bool reopenDatabase(const QString& path);
+  void applyLanguage();
+  UiLanguage currentLanguage() const;
 
   AppSettings settings_;
   DatabaseController database_;
   PluginManager pluginManager_;
   QTimer pluginDrainTimer_;
+  UiLanguage language_ = UiLanguage::English;
+  QTabWidget* dockTabs_ = nullptr;
+  QDockWidget* dock_ = nullptr;
+  QMenu* fileMenu_ = nullptr;
+  QMenu* pluginMenu_ = nullptr;
+  QMenu* actionMenu_ = nullptr;
+  QMenu* helpMenu_ = nullptr;
+  QAction* loadSamplesAction_ = nullptr;
+  QAction* exportArticlesCsvAction_ = nullptr;
+  QAction* exportArticlesJsonAction_ = nullptr;
+  QAction* exportSeedsCsvAction_ = nullptr;
+  QAction* loadPluginsAction_ = nullptr;
+  QAction* previewAction_ = nullptr;
+  QAction* starSeedAction_ = nullptr;
+  QAction* bridgeSmokeAction_ = nullptr;
+  QAction* resetAction_ = nullptr;
+  QAction* languageAction_ = nullptr;
+  QAction* aboutAction_ = nullptr;
   DashboardWidget* dashboard_ = nullptr;
   ControlPanelWidget* controls_ = nullptr;
   DataViewerWidget* viewer_ = nullptr;
   SeedManagerWidget* seeds_ = nullptr;
   RuntimeLogWidget* logs_ = nullptr;
+  ManualWidget* manual_ = nullptr;
   WeChatConfigWidget* wechatConfig_ = nullptr;
 };

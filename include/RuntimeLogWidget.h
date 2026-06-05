@@ -2,6 +2,9 @@
 
 #include <QWidget>
 
+#include "UiText.h"
+
+class QPushButton;
 class QTextEdit;
 
 /**
@@ -14,7 +17,10 @@ class RuntimeLogWidget final : public QWidget {
   void appendLog(const QString& message);
   QString plainText() const;
   void clear();
+  void setLanguage(UiLanguage language);
 
  private:
+  UiLanguage language_ = UiLanguage::English;
+  QPushButton* clearButton_ = nullptr;
   QTextEdit* logView_ = nullptr;
 };

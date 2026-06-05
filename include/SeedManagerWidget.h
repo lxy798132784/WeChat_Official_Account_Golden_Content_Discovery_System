@@ -3,10 +3,13 @@
 #include <QStandardItemModel>
 #include <QWidget>
 
+#include "UiText.h"
 #include "content_record.h"
 
+class QLabel;
 class QLineEdit;
 class QComboBox;
+class QPushButton;
 class QTableView;
 
 /**
@@ -18,6 +21,7 @@ class SeedManagerWidget final : public QWidget {
   explicit SeedManagerWidget(QWidget* parent = nullptr);
   void setSeeds(const QVector<SeedRecord>& seeds);
   QString selectedGzhId() const;
+  void setLanguage(UiLanguage language);
 
  signals:
   void addSeedRequested(const QString& gzhId, const QString& name, const QString& category);
@@ -29,9 +33,19 @@ class SeedManagerWidget final : public QWidget {
   void emitRemoveSeed();
 
  private:
+  void applyHeaders();
+  void rebuildCategories();
+
+  UiLanguage language_ = UiLanguage::English;
+  QLabel* gzhIdLabel_ = nullptr;
+  QLabel* nameLabel_ = nullptr;
+  QLabel* categoryLabel_ = nullptr;
   QLineEdit* gzhIdEdit_ = nullptr;
   QLineEdit* nameEdit_ = nullptr;
   QComboBox* categoryCombo_ = nullptr;
+  QPushButton* addButton_ = nullptr;
+  QPushButton* removeButton_ = nullptr;
+  QPushButton* exportButton_ = nullptr;
   QTableView* table_ = nullptr;
   QStandardItemModel* model_ = nullptr;
 };

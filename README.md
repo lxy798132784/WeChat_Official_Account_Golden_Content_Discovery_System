@@ -46,6 +46,7 @@ English documentation:
 - [Plugin Guide](docs/en/PLUGIN_GUIDE.md)
 - [Production Runbook](docs/en/PRODUCTION_RUNBOOK.md)
 - [Local Proxy Adapter Guide](docs/en/LOCAL_PROXY_ADAPTER.md)
+- [WeChat Ingestion Options A/B/C](docs/en/WECHAT_INGESTION_OPTIONS_ABC.md)
 
 Chinese documentation is separated under `docs/README.zh-CN.md` and `docs/zh-CN/`.
 

@@ -37,6 +37,7 @@ AppSettings AppSettingsController::load() {
   AppSettings settings;
   settings.databasePath = defaultDatabasePath();
   settings.pluginDirectory = defaultPluginDirectory();
+  settings.language = QStringLiteral("en");
   settings.bridgePort = kDefaultBridgePort;
   settings.adbAutomationEnabled = false;
   settings.autoLoadSamples = false;
@@ -52,6 +53,10 @@ AppSettings AppSettingsController::load() {
   const QJsonObject object = document.object();
   settings.databasePath = object.value(QStringLiteral("database_path")).toString(settings.databasePath);
   settings.pluginDirectory = object.value(QStringLiteral("plugin_directory")).toString(settings.pluginDirectory);
+  const QString language = object.value(QStringLiteral("language")).toString(settings.language);
+  if (language == QStringLiteral("zh") || language == QStringLiteral("en")) {
+    settings.language = language;
+  }
   const int port = object.value(QStringLiteral("bridge_port")).toInt(settings.bridgePort);
   if (port >= 1024 && port <= 65535) {
     settings.bridgePort = static_cast<quint16>(port);
@@ -65,6 +70,7 @@ bool AppSettingsController::save(const AppSettings& settings, QString* errorMess
   QJsonObject object;
   object.insert(QStringLiteral("database_path"), settings.databasePath);
   object.insert(QStringLiteral("plugin_directory"), settings.pluginDirectory);
+  object.insert(QStringLiteral("language"), settings.language);
   object.insert(QStringLiteral("bridge_port"), static_cast<int>(settings.bridgePort));
   object.insert(QStringLiteral("adb_automation_enabled"), settings.adbAutomationEnabled);
   object.insert(QStringLiteral("auto_load_samples"), settings.autoLoadSamples);

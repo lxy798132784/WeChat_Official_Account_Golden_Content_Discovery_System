@@ -11,6 +11,7 @@ find_package(Qt6 6.2 REQUIRED COMPONENTS Core Widgets Sql Network Test)
 
 add_library(radar_core STATIC
     include/content_record.h
+    include/UiText.h src/UiText.cpp
     include/IContentProvider.h
     include/PremiumContentFilterProxyModel.h src/PremiumContentFilterProxyModel.cpp
     include/AppSettings.h src/AppSettings.cpp
@@ -42,6 +43,7 @@ add_executable(premium-content-radar
     include/DataViewerWidget.h src/DataViewerWidget.cpp ui/data_viewer_widget.ui
     include/SeedManagerWidget.h src/SeedManagerWidget.cpp
     include/RuntimeLogWidget.h src/RuntimeLogWidget.cpp
+    include/ManualWidget.h src/ManualWidget.cpp
     include/WeChatConfigWidget.h src/WeChatConfigWidget.cpp
 )
 target_include_directories(premium-content-radar PRIVATE include ${CMAKE_CURRENT_BINARY_DIR})

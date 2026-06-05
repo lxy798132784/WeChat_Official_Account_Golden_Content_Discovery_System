@@ -2,7 +2,10 @@
 
 #include <QWidget>
 
+#include "UiText.h"
+
 class QComboBox;
+class QLabel;
 class QLineEdit;
 class QSlider;
 
@@ -22,11 +25,22 @@ class ControlPanelWidget final : public QWidget {
   int minimumRead() const;
   void resetDefaults();
   void clearSearch();
+  void setLanguage(UiLanguage language);
 
  signals:
   void filtersChanged();
 
  private:
+  QString currentCategoryCode() const;
+  void rebuildCategories();
+
+  UiLanguage language_ = UiLanguage::English;
+  QLabel* categoryLabel_ = nullptr;
+  QLabel* keywordLabel_ = nullptr;
+  QLabel* engagementLabel_ = nullptr;
+  QLabel* commentLabel_ = nullptr;
+  QLabel* frequencyLabel_ = nullptr;
+  QLabel* minReadLabel_ = nullptr;
   QComboBox* category_ = nullptr;
   QLineEdit* keyword_ = nullptr;
   QSlider* engagement_ = nullptr;
