@@ -45,7 +45,10 @@ class ProductionSuiteWidget final : public QWidget {
   void runProxyWizard();
   void replaySamples();
   void refreshHealth();
+  void refreshQuality();
+  void refreshTrends();
   void updateScorePreview();
+  void refreshAnalysis();
   void generateReport();
   void exportSnapshot();
 
@@ -53,9 +56,13 @@ class ProductionSuiteWidget final : public QWidget {
   void buildProxyTab();
   void buildReplayTab();
   void buildHealthTab();
+  void buildQualityTab();
+  void buildTrendTab();
   void buildScoringTab();
+  void buildAnalysisTab();
   void buildWorkspaceTab();
   void buildPrivacyTab();
+  void buildDeliveryTab();
   void fillTable(QTableWidget* table, const QStringList& headers, const QList<QStringList>& rows);
   ProductionSuiteController::ScoreProfile scoreProfile() const;
 
@@ -92,6 +99,14 @@ class ProductionSuiteWidget final : public QWidget {
   QPushButton* refreshHealthButton_ = nullptr;
   QTableWidget* healthTable_ = nullptr;
 
+  QLabel* qualityIntro_ = nullptr;
+  QPushButton* refreshQualityButton_ = nullptr;
+  QTableWidget* qualityTable_ = nullptr;
+
+  QLabel* trendIntro_ = nullptr;
+  QPushButton* refreshTrendButton_ = nullptr;
+  QTableWidget* trendTable_ = nullptr;
+
   QLabel* scoringIntro_ = nullptr;
   QLabel* readWeightLabel_ = nullptr;
   QLabel* likeWeightLabel_ = nullptr;
@@ -106,6 +121,10 @@ class ProductionSuiteWidget final : public QWidget {
   QPushButton* scorePreviewButton_ = nullptr;
   QPlainTextEdit* scorePreview_ = nullptr;
 
+  QLabel* analysisIntro_ = nullptr;
+  QPushButton* refreshAnalysisButton_ = nullptr;
+  QTableWidget* analysisTable_ = nullptr;
+
   QLabel* workspaceIntro_ = nullptr;
   QLineEdit* workspaceName_ = nullptr;
   QPushButton* reportButton_ = nullptr;
@@ -114,4 +133,7 @@ class ProductionSuiteWidget final : public QWidget {
 
   QLabel* privacyIntro_ = nullptr;
   QPlainTextEdit* privacyText_ = nullptr;
+
+  QLabel* deliveryIntro_ = nullptr;
+  QPlainTextEdit* deliveryText_ = nullptr;
 };

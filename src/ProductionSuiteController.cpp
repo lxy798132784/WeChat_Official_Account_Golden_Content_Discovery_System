@@ -156,6 +156,106 @@ QString ProductionSuiteController::classifyFailure(const QString& rawError) cons
   return QStringLiteral("UNKNOWN_FAILURE");
 }
 
+
+QVector<ProductionSuiteController::QualityItem> ProductionSuiteController::dataQualityItems(const QVector<ContentRecord>& records) const {
+  QHash<QString, int> byUrl;
+  int missingTitle = 0;
+  int missingAccount = 0;
+  int missingUrl = 0;
+  int abnormalMetric = 0;
+  int stalePublishTime = 0;
+  for (const ContentRecord& record : records) {
+    const QString url = record.url.trimmed();
+    if (!url.isEmpty()) byUrl[url]++;
+    if (record.title.trimmed().isEmpty()) ++missingTitle;
+    if (record.accountName.trimmed().isEmpty()) ++missingAccount;
+    if (url.isEmpty()) ++missingUrl;
+    if ((record.readNum <= 0 && (record.likeNum > 0 || record.commentNum > 0)) ||
+        record.likeNum > record.readNum || record.commentNum > record.readNum) {
+      ++abnormalMetric;
+    }
+    if (!record.publishTime.isValid()) ++stalePublishTime;
+  }
+  int duplicateUrls = 0;
+  for (auto it = byUrl.cbegin(); it != byUrl.cend(); ++it) {
+    if (it.value() > 1) duplicateUrls += it.value() - 1;
+  }
+  auto statusFor = [](int count, const QString& warn = QStringLiteral("warning")) {
+    return count == 0 ? QStringLiteral("healthy") : warn;
+  };
+  return {{QStringLiteral("duplicate_urls"), statusFor(duplicateUrls), QStringLiteral("%1 duplicate URL row(s)").arg(duplicateUrls), duplicateUrls},
+          {QStringLiteral("missing_titles"), statusFor(missingTitle), QStringLiteral("%1 record(s) without title").arg(missingTitle), missingTitle},
+          {QStringLiteral("missing_accounts"), statusFor(missingAccount), QStringLiteral("%1 record(s) without account").arg(missingAccount), missingAccount},
+          {QStringLiteral("missing_urls"), statusFor(missingUrl, QStringLiteral("blocked")), QStringLiteral("%1 record(s) without URL").arg(missingUrl), missingUrl},
+          {QStringLiteral("abnormal_metrics"), statusFor(abnormalMetric), QStringLiteral("%1 record(s) with suspicious metric ratios").arg(abnormalMetric), abnormalMetric},
+          {QStringLiteral("invalid_publish_time"), statusFor(stalePublishTime), QStringLiteral("%1 record(s) without valid publish time").arg(stalePublishTime), stalePublishTime}};
+}
+
+QVector<ProductionSuiteController::TrendPoint> ProductionSuiteController::trendPoints(const QVector<ContentRecord>& records, bool chinese) const {
+  QHash<QString, QVector<ContentRecord>> byUrl;
+  for (const ContentRecord& record : records) {
+    if (!record.url.trimmed().isEmpty()) byUrl[record.url.trimmed()].push_back(record);
+  }
+  QVector<TrendPoint> out;
+  for (auto it = byUrl.begin(); it != byUrl.end(); ++it) {
+    auto rows = it.value();
+    std::sort(rows.begin(), rows.end(), [](const ContentRecord& a, const ContentRecord& b) { return a.timestamp < b.timestamp; });
+    if (rows.size() < 2) continue;
+    const ContentRecord& first = rows.first();
+    const ContentRecord& latest = rows.last();
+    TrendPoint point;
+    point.title = latest.title.isEmpty() ? first.title : latest.title;
+    point.account = latest.accountName.isEmpty() ? first.accountName : latest.accountName;
+    point.firstReads = first.readNum;
+    point.latestReads = latest.readNum;
+    point.growth = latest.readNum - first.readNum;
+    point.growthRate = first.readNum > 0 ? static_cast<double>(point.growth) / first.readNum : 0.0;
+    if (point.growthRate >= 1.0 || point.growth >= 10000) {
+      point.recommendation = chinese ? QStringLiteral("高速增长，优先拆解") : QStringLiteral("Fast growth; review first");
+    } else if (point.growth > 0) {
+      point.recommendation = chinese ? QStringLiteral("稳定增长，继续观察") : QStringLiteral("Steady growth; keep watching");
+    } else {
+      point.recommendation = chinese ? QStringLiteral("暂无增长，降低优先级") : QStringLiteral("No growth; lower priority");
+    }
+    out.push_back(point);
+  }
+  std::sort(out.begin(), out.end(), [](const TrendPoint& a, const TrendPoint& b) { return a.growth > b.growth; });
+  return out;
+}
+
+QVector<ProductionSuiteController::AnalysisItem> ProductionSuiteController::analyzeContentSignals(const QVector<ContentRecord>& records, bool chinese) const {
+  QVector<AnalysisItem> out;
+  const QStringList tensionWords = {QStringLiteral("爆"), QStringLiteral("突然"), QStringLiteral("真相"), QStringLiteral("避坑"), QStringLiteral("增长"), QStringLiteral("赚钱"), QStringLiteral("必看"), QStringLiteral("秘密"), QStringLiteral("指南"), QStringLiteral("清单")};
+  for (const ContentRecord& record : records) {
+    AnalysisItem item;
+    item.title = record.title;
+    item.titleLength = record.title.size();
+    for (const QString& word : tensionWords) {
+      if (record.title.contains(word, Qt::CaseInsensitive)) item.tensionScore += 10;
+    }
+    item.engagementDensity = record.readNum > 0 ? static_cast<double>(record.likeNum + record.commentNum + record.oldLikeNum) / record.readNum : 0.0;
+    QStringList reasons;
+    if (item.titleLength >= 12 && item.titleLength <= 32) reasons << (chinese ? QStringLiteral("标题长度适中") : QStringLiteral("balanced title length"));
+    if (item.tensionScore > 0) reasons << (chinese ? QStringLiteral("包含冲突/收益/清单类触发词") : QStringLiteral("contains tension/value trigger words"));
+    if (item.engagementDensity >= 0.03) reasons << (chinese ? QStringLiteral("互动密度高") : QStringLiteral("high engagement density"));
+    if (reasons.isEmpty()) reasons << (chinese ? QStringLiteral("规则信号较弱，建议人工复核") : QStringLiteral("weak rule signals; review manually"));
+    item.reason = reasons.join(chinese ? QStringLiteral("，") : QStringLiteral(", "));
+    out.push_back(item);
+  }
+  std::sort(out.begin(), out.end(), [](const AnalysisItem& a, const AnalysisItem& b) {
+    if (a.tensionScore != b.tensionScore) return a.tensionScore > b.tensionScore;
+    return a.engagementDensity > b.engagementDensity;
+  });
+  return out;
+}
+
+QString ProductionSuiteController::releaseReadinessText(bool chinese) const {
+  if (chinese) {
+    return QStringLiteral("交付检查清单：\n1. 下载对应系统安装包并核对校验和文件。\n2. 首次启动先进入微信接入页，确认数据库、插件目录和本地桥端口。\n3. 运行本地桥测试载荷，再运行手机诊断和代理向导。\n4. 只导入脱敏数据文件或表格文件，不保存登录凭证、请求头、访问令牌、证书或原始抓包。\n5. 生产前生成诊断快照和内容发现报告，留档用于复盘。\n6. 微软系统用户优先使用对应压缩包；桌面系统按处理器架构选择对应压缩包。");
+  }
+  return QStringLiteral("Delivery checklist:\n1. Download the package for the target OS and verify SHA256SUMS.\n2. On first launch, open WeChat Integration and confirm the database, plugin directory, and local bridge port.\n3. Run the bridge smoke payload, then phone diagnostics and the proxy wizard.\n4. Import sanitized JSON/CSV only; never store cookies, headers, tokens, certificates, or raw captures.\n5. Generate a diagnostic snapshot and content discovery report before production decisions.\n6. Windows users should use windows-x64.zip; Linux desktop users should choose amd64 or arm64 tar.gz.");
+}
+
 double ProductionSuiteController::scoreRecord(const ContentRecord& record, const ScoreProfile& profile) const {
   const double originality = 0.0;
   return record.readNum * profile.readWeight + record.likeNum * profile.likeWeight +

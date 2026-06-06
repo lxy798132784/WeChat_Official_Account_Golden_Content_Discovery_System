@@ -38,6 +38,31 @@ class ProductionSuiteController final : public QObject {
     QString detail;
   };
 
+  struct QualityItem {
+    QString name;
+    QString status;  // healthy / warning / blocked
+    QString detail;
+    int count = 0;
+  };
+
+  struct TrendPoint {
+    QString title;
+    QString account;
+    int firstReads = 0;
+    int latestReads = 0;
+    int growth = 0;
+    double growthRate = 0.0;
+    QString recommendation;
+  };
+
+  struct AnalysisItem {
+    QString title;
+    QString reason;
+    int titleLength = 0;
+    int tensionScore = 0;
+    double engagementDensity = 0.0;
+  };
+
   struct ScoreProfile {
     double readWeight = 1.0;
     double likeWeight = 20.0;
@@ -65,6 +90,18 @@ class ProductionSuiteController final : public QObject {
 
   /** Classify a raw failure message into a stable user-facing error code. */
   QString classifyFailure(const QString& rawError) const;
+
+  /** Inspect duplicates, missing fields, abnormal metrics, and conflicting sources. */
+  QVector<QualityItem> dataQualityItems(const QVector<ContentRecord>& records) const;
+
+  /** Generate simple growth/trend rows from repeated snapshots of the same URL. */
+  QVector<TrendPoint> trendPoints(const QVector<ContentRecord>& records, bool chinese) const;
+
+  /** Explain content/title signals with deterministic local rules before any AI integration. */
+  QVector<AnalysisItem> analyzeContentSignals(const QVector<ContentRecord>& records, bool chinese) const;
+
+  /** Produce an operator release/checklist handoff for packaged deployments. */
+  QString releaseReadinessText(bool chinese) const;
 
   /** Apply a configurable scoring profile to one content record. */
   double scoreRecord(const ContentRecord& record, const ScoreProfile& profile) const;

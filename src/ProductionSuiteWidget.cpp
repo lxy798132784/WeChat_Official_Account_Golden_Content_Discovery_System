@@ -51,6 +51,12 @@ QString localizedHealthName(const QString& id, UiLanguage language) {
 
 QString localizedSuiteText(QString text, UiLanguage language) {
   if (language != UiLanguage::Chinese) return text;
+  if (text == QStringLiteral("duplicate_urls")) return QStringLiteral("重复链接");
+  if (text == QStringLiteral("missing_titles")) return QStringLiteral("缺失标题");
+  if (text == QStringLiteral("missing_accounts")) return QStringLiteral("缺失账号");
+  if (text == QStringLiteral("missing_urls")) return QStringLiteral("缺失链接");
+  if (text == QStringLiteral("abnormal_metrics")) return QStringLiteral("异常指标");
+  if (text == QStringLiteral("invalid_publish_time")) return QStringLiteral("无效发布时间");
   static const QRegularExpression queueRe(QStringLiteral("^(\\d+) pending / (\\d+) failed$"));
   const QRegularExpressionMatch queueMatch = queueRe.match(text);
   if (queueMatch.hasMatch()) {
@@ -78,6 +84,12 @@ QString localizedSuiteText(QString text, UiLanguage language) {
   text.replace(QStringLiteral("Local bridge is not reachable"), QStringLiteral("本地桥不可访问"));
   text.replace(QStringLiteral("Database is writable"), QStringLiteral("数据库可写"));
   text.replace(QStringLiteral("Database is not writable"), QStringLiteral("数据库不可写"));
+  text.replace(QStringLiteral("duplicate URL row(s)"), QStringLiteral("条重复链接记录"));
+  text.replace(QStringLiteral("record(s) without title"), QStringLiteral("条缺失标题记录"));
+  text.replace(QStringLiteral("record(s) without account"), QStringLiteral("条缺失账号记录"));
+  text.replace(QStringLiteral("record(s) without URL"), QStringLiteral("条缺失链接记录"));
+  text.replace(QStringLiteral("record(s) with suspicious metric ratios"), QStringLiteral("条指标比例异常记录"));
+  text.replace(QStringLiteral("record(s) without valid publish time"), QStringLiteral("条缺失有效发布时间记录"));
   text.replace(QStringLiteral("pending"), QStringLiteral("待处理"));
   text.replace(QStringLiteral("failed"), QStringLiteral("失败"));
   return text;
@@ -91,9 +103,13 @@ ProductionSuiteWidget::ProductionSuiteWidget(QWidget* parent)
   buildProxyTab();
   buildReplayTab();
   buildHealthTab();
+  buildQualityTab();
+  buildTrendTab();
   buildScoringTab();
+  buildAnalysisTab();
   buildWorkspaceTab();
   buildPrivacyTab();
+  buildDeliveryTab();
   setLanguage(language_);
 }
 
@@ -170,6 +186,38 @@ void ProductionSuiteWidget::buildHealthTab() {
   tabs_->addTab(page, QString());
 }
 
+void ProductionSuiteWidget::buildQualityTab() {
+  auto* page = new QWidget(this);
+  auto* layout = new QVBoxLayout(page);
+  qualityIntro_ = new QLabel(page);
+  qualityIntro_->setWordWrap(true);
+  refreshQualityButton_ = new QPushButton(page);
+  qualityTable_ = new QTableWidget(page);
+  qualityTable_->setColumnCount(4);
+  qualityTable_->horizontalHeader()->setStretchLastSection(true);
+  layout->addWidget(qualityIntro_);
+  layout->addWidget(refreshQualityButton_);
+  layout->addWidget(qualityTable_);
+  connect(refreshQualityButton_, &QPushButton::clicked, this, &ProductionSuiteWidget::refreshQuality);
+  tabs_->addTab(page, QString());
+}
+
+void ProductionSuiteWidget::buildTrendTab() {
+  auto* page = new QWidget(this);
+  auto* layout = new QVBoxLayout(page);
+  trendIntro_ = new QLabel(page);
+  trendIntro_->setWordWrap(true);
+  refreshTrendButton_ = new QPushButton(page);
+  trendTable_ = new QTableWidget(page);
+  trendTable_->setColumnCount(6);
+  trendTable_->horizontalHeader()->setStretchLastSection(true);
+  layout->addWidget(trendIntro_);
+  layout->addWidget(refreshTrendButton_);
+  layout->addWidget(trendTable_);
+  connect(refreshTrendButton_, &QPushButton::clicked, this, &ProductionSuiteWidget::refreshTrends);
+  tabs_->addTab(page, QString());
+}
+
 void ProductionSuiteWidget::buildScoringTab() {
   auto* page = new QWidget(this);
   auto* layout = new QVBoxLayout(page);
@@ -211,6 +259,22 @@ void ProductionSuiteWidget::buildScoringTab() {
   tabs_->addTab(page, QString());
 }
 
+void ProductionSuiteWidget::buildAnalysisTab() {
+  auto* page = new QWidget(this);
+  auto* layout = new QVBoxLayout(page);
+  analysisIntro_ = new QLabel(page);
+  analysisIntro_->setWordWrap(true);
+  refreshAnalysisButton_ = new QPushButton(page);
+  analysisTable_ = new QTableWidget(page);
+  analysisTable_->setColumnCount(5);
+  analysisTable_->horizontalHeader()->setStretchLastSection(true);
+  layout->addWidget(analysisIntro_);
+  layout->addWidget(refreshAnalysisButton_);
+  layout->addWidget(analysisTable_);
+  connect(refreshAnalysisButton_, &QPushButton::clicked, this, &ProductionSuiteWidget::refreshAnalysis);
+  tabs_->addTab(page, QString());
+}
+
 void ProductionSuiteWidget::buildWorkspaceTab() {
   auto* page = new QWidget(this);
   auto* layout = new QVBoxLayout(page);
@@ -243,14 +307,30 @@ void ProductionSuiteWidget::buildPrivacyTab() {
   tabs_->addTab(page, QString());
 }
 
+void ProductionSuiteWidget::buildDeliveryTab() {
+  auto* page = new QWidget(this);
+  auto* layout = new QVBoxLayout(page);
+  deliveryIntro_ = new QLabel(page);
+  deliveryIntro_->setWordWrap(true);
+  deliveryText_ = new QPlainTextEdit(page);
+  deliveryText_->setReadOnly(true);
+  layout->addWidget(deliveryIntro_);
+  layout->addWidget(deliveryText_);
+  tabs_->addTab(page, QString());
+}
+
 void ProductionSuiteWidget::setLanguage(UiLanguage language) {
   language_ = language;
   tabs_->setTabText(0, UiText::text(QStringLiteral("suite.tab.proxy"), language_));
   tabs_->setTabText(1, UiText::text(QStringLiteral("suite.tab.replay"), language_));
   tabs_->setTabText(2, UiText::text(QStringLiteral("suite.tab.health"), language_));
-  tabs_->setTabText(3, UiText::text(QStringLiteral("suite.tab.scoring"), language_));
-  tabs_->setTabText(4, UiText::text(QStringLiteral("suite.tab.workspace"), language_));
-  tabs_->setTabText(5, UiText::text(QStringLiteral("suite.tab.privacy"), language_));
+  tabs_->setTabText(3, UiText::text(QStringLiteral("suite.tab.quality"), language_));
+  tabs_->setTabText(4, UiText::text(QStringLiteral("suite.tab.trends"), language_));
+  tabs_->setTabText(5, UiText::text(QStringLiteral("suite.tab.scoring"), language_));
+  tabs_->setTabText(6, UiText::text(QStringLiteral("suite.tab.analysis"), language_));
+  tabs_->setTabText(7, UiText::text(QStringLiteral("suite.tab.workspace"), language_));
+  tabs_->setTabText(8, UiText::text(QStringLiteral("suite.tab.privacy"), language_));
+  tabs_->setTabText(9, UiText::text(QStringLiteral("suite.tab.delivery"), language_));
   proxyIntro_->setText(UiText::text(QStringLiteral("suite.proxy_intro"), language_));
   proxyPortLabel_->setText(UiText::text(QStringLiteral("suite.proxy_port"), language_));
   bridgePortLabel_->setText(UiText::text(QStringLiteral("suite.bridge_port"), language_));
@@ -263,6 +343,10 @@ void ProductionSuiteWidget::setLanguage(UiLanguage language) {
   replayButton_->setText(UiText::text(QStringLiteral("suite.replay_run"), language_));
   healthIntro_->setText(UiText::text(QStringLiteral("suite.health_intro"), language_));
   refreshHealthButton_->setText(UiText::text(QStringLiteral("suite.health_refresh"), language_));
+  qualityIntro_->setText(UiText::text(QStringLiteral("suite.quality_intro"), language_));
+  refreshQualityButton_->setText(UiText::text(QStringLiteral("suite.quality_refresh"), language_));
+  trendIntro_->setText(UiText::text(QStringLiteral("suite.trend_intro"), language_));
+  refreshTrendButton_->setText(UiText::text(QStringLiteral("suite.trend_refresh"), language_));
   scoringIntro_->setText(UiText::text(QStringLiteral("suite.scoring_intro"), language_));
   readWeightLabel_->setText(UiText::text(QStringLiteral("suite.score_read"), language_));
   likeWeightLabel_->setText(UiText::text(QStringLiteral("suite.score_like"), language_));
@@ -270,15 +354,22 @@ void ProductionSuiteWidget::setLanguage(UiLanguage language) {
   oldLikeWeightLabel_->setText(UiText::text(QStringLiteral("suite.score_old_like"), language_));
   originalWeightLabel_->setText(UiText::text(QStringLiteral("suite.score_original"), language_));
   scorePreviewButton_->setText(UiText::text(QStringLiteral("suite.score_preview"), language_));
+  analysisIntro_->setText(UiText::text(QStringLiteral("suite.analysis_intro"), language_));
+  refreshAnalysisButton_->setText(UiText::text(QStringLiteral("suite.analysis_refresh"), language_));
   workspaceIntro_->setText(UiText::text(QStringLiteral("suite.workspace_intro"), language_));
   workspaceName_->setPlaceholderText(UiText::text(QStringLiteral("suite.workspace_placeholder"), language_));
   reportButton_->setText(UiText::text(QStringLiteral("suite.report_generate"), language_));
   snapshotButton_->setText(UiText::text(QStringLiteral("suite.snapshot_export"), language_));
   privacyIntro_->setText(UiText::text(QStringLiteral("suite.privacy_intro"), language_));
   privacyText_->setPlainText(controller_.privacyBoundaryText(language_ == UiLanguage::Chinese));
+  deliveryIntro_->setText(UiText::text(QStringLiteral("suite.delivery_intro"), language_));
+  deliveryText_->setPlainText(controller_.releaseReadinessText(language_ == UiLanguage::Chinese));
   proxyTable_->setHorizontalHeaderLabels({UiText::text(QStringLiteral("suite.col.status"), language_), UiText::text(QStringLiteral("suite.col.item"), language_), UiText::text(QStringLiteral("suite.col.detail"), language_), UiText::text(QStringLiteral("suite.col.fix"), language_)});
   replayTable_->setHorizontalHeaderLabels({UiText::text(QStringLiteral("data.title"), language_), UiText::text(QStringLiteral("data.account"), language_), UiText::text(QStringLiteral("data.read"), language_), UiText::text(QStringLiteral("data.comment"), language_), UiText::text(QStringLiteral("data.url"), language_)});
   healthTable_->setHorizontalHeaderLabels({UiText::text(QStringLiteral("suite.col.status"), language_), UiText::text(QStringLiteral("suite.col.item"), language_), UiText::text(QStringLiteral("suite.col.detail"), language_)});
+  qualityTable_->setHorizontalHeaderLabels({UiText::text(QStringLiteral("suite.col.status"), language_), UiText::text(QStringLiteral("suite.col.item"), language_), UiText::text(QStringLiteral("suite.col.count"), language_), UiText::text(QStringLiteral("suite.col.detail"), language_)});
+  trendTable_->setHorizontalHeaderLabels({UiText::text(QStringLiteral("data.title"), language_), UiText::text(QStringLiteral("data.account"), language_), UiText::text(QStringLiteral("suite.col.first_reads"), language_), UiText::text(QStringLiteral("suite.col.latest_reads"), language_), UiText::text(QStringLiteral("suite.col.growth"), language_), UiText::text(QStringLiteral("suite.col.recommendation"), language_)});
+  analysisTable_->setHorizontalHeaderLabels({UiText::text(QStringLiteral("data.title"), language_), UiText::text(QStringLiteral("suite.col.title_length"), language_), UiText::text(QStringLiteral("suite.col.tension"), language_), UiText::text(QStringLiteral("suite.col.density"), language_), UiText::text(QStringLiteral("suite.col.reason"), language_)});
 }
 
 void ProductionSuiteWidget::setRecords(const QVector<ContentRecord>& records) { records_ = records; }
@@ -321,6 +412,24 @@ void ProductionSuiteWidget::refreshHealth() {
   fillTable(healthTable_, {UiText::text(QStringLiteral("suite.col.status"), language_), UiText::text(QStringLiteral("suite.col.item"), language_), UiText::text(QStringLiteral("suite.col.detail"), language_)}, rows);
 }
 
+void ProductionSuiteWidget::refreshQuality() {
+  const auto items = controller_.dataQualityItems(records_);
+  QList<QStringList> rows;
+  for (const auto& item : items) {
+    rows.push_back({localizedSuiteStatus(item.status, language_), localizedSuiteText(item.name, language_), QString::number(item.count), localizedSuiteText(item.detail, language_)});
+  }
+  fillTable(qualityTable_, {UiText::text(QStringLiteral("suite.col.status"), language_), UiText::text(QStringLiteral("suite.col.item"), language_), UiText::text(QStringLiteral("suite.col.count"), language_), UiText::text(QStringLiteral("suite.col.detail"), language_)}, rows);
+}
+
+void ProductionSuiteWidget::refreshTrends() {
+  const auto points = controller_.trendPoints(records_, language_ == UiLanguage::Chinese);
+  QList<QStringList> rows;
+  for (const auto& point : points) {
+    rows.push_back({point.title, point.account, QString::number(point.firstReads), QString::number(point.latestReads), QString::number(point.growth), point.recommendation});
+  }
+  fillTable(trendTable_, {UiText::text(QStringLiteral("data.title"), language_), UiText::text(QStringLiteral("data.account"), language_), UiText::text(QStringLiteral("suite.col.first_reads"), language_), UiText::text(QStringLiteral("suite.col.latest_reads"), language_), UiText::text(QStringLiteral("suite.col.growth"), language_), UiText::text(QStringLiteral("suite.col.recommendation"), language_)}, rows);
+}
+
 ProductionSuiteController::ScoreProfile ProductionSuiteWidget::scoreProfile() const {
   ProductionSuiteController::ScoreProfile profile;
   profile.readWeight = readWeight_->value();
@@ -343,6 +452,15 @@ void ProductionSuiteWidget::updateScorePreview() {
   stream << '\n' << controller_.accountInsights(records_, language_ == UiLanguage::Chinese).join('\n') << '\n';
   stream << controller_.keywordInsights(records_, language_ == UiLanguage::Chinese).join('\n');
   scorePreview_->setPlainText(text);
+}
+
+void ProductionSuiteWidget::refreshAnalysis() {
+  const auto items = controller_.analyzeContentSignals(records_, language_ == UiLanguage::Chinese);
+  QList<QStringList> rows;
+  for (const auto& item : items) {
+    rows.push_back({item.title, QString::number(item.titleLength), QString::number(item.tensionScore), QString::number(item.engagementDensity, 'f', 4), item.reason});
+  }
+  fillTable(analysisTable_, {UiText::text(QStringLiteral("data.title"), language_), UiText::text(QStringLiteral("suite.col.title_length"), language_), UiText::text(QStringLiteral("suite.col.tension"), language_), UiText::text(QStringLiteral("suite.col.density"), language_), UiText::text(QStringLiteral("suite.col.reason"), language_)}, rows);
 }
 
 void ProductionSuiteWidget::generateReport() {

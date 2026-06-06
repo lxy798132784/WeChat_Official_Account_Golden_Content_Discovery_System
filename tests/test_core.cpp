@@ -24,6 +24,7 @@ class RadarCoreTest : public QObject {
   void trafficBridgeIgnoresUnknownEndpoint();
   void bridgePayloadClientSamplesParse();
   void productionSuiteProxyReplayAndScoring();
+  void productionSuiteQualityTrendAnalysisDelivery();
   void autoIngestionQueueAndAdbArgs();
 };
 
@@ -182,6 +183,42 @@ void RadarCoreTest::productionSuiteProxyReplayAndScoring() {
   QVERIFY(controller.scoreRecord(records.first(), profile) > 1000.0);
   QVERIFY(controller.classifyFailure(QStringLiteral("phone unauthorized")) == QStringLiteral("PHONE_UNAUTHORIZED"));
   QVERIFY(controller.privacyBoundaryText(true).contains(QStringLiteral("登录凭证")));
+}
+
+
+void RadarCoreTest::productionSuiteQualityTrendAnalysisDelivery() {
+  ProductionSuiteController controller;
+  ContentRecord first;
+  first.title = QStringLiteral("AI工具增长清单");
+  first.accountName = QStringLiteral("Growth Lab");
+  first.url = QStringLiteral("https://mp.weixin.qq.com/s/growth");
+  first.readNum = 1000;
+  first.likeNum = 80;
+  first.commentNum = 40;
+  first.timestamp = QDateTime::fromString("2026-06-05T08:00:00Z", Qt::ISODate);
+  first.publishTime = first.timestamp;
+  ContentRecord latest = first;
+  latest.readNum = 16000;
+  latest.likeNum = 900;
+  latest.commentNum = 220;
+  latest.timestamp = QDateTime::fromString("2026-06-05T12:00:00Z", Qt::ISODate);
+  ContentRecord bad;
+  bad.likeNum = 10;
+  QVector<ContentRecord> records{first, latest, bad};
+
+  const auto quality = controller.dataQualityItems(records);
+  QVERIFY(!quality.isEmpty());
+  QVERIFY(std::any_of(quality.cbegin(), quality.cend(), [](const auto& item) {
+    return item.name == QStringLiteral("missing_urls") && item.count == 1;
+  }));
+  const auto trends = controller.trendPoints(records, true);
+  QCOMPARE(trends.size(), 1);
+  QVERIFY(trends.first().growth > 10000);
+  QVERIFY(trends.first().recommendation.contains(QStringLiteral("优先")));
+  const auto analysis = controller.analyzeContentSignals(records, true);
+  QVERIFY(!analysis.isEmpty());
+  QVERIFY(analysis.first().reason.contains(QStringLiteral("触发词")) || analysis.first().reason.contains(QStringLiteral("互动密度")));
+  QVERIFY(controller.releaseReadinessText(true).contains(QStringLiteral("校验和")));
 }
 
 void RadarCoreTest::autoIngestionQueueAndAdbArgs() {
