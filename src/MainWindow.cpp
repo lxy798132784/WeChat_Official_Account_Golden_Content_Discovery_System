@@ -245,10 +245,11 @@ void MainWindow::showControlCenter() {
 }
 
 void MainWindow::appendLog(const QString& message) {
-  const QString line = QStringLiteral("[%1] %2").arg(QDateTime::currentDateTime().toString(Qt::ISODate), message);
+  const QString displayMessage = localizedRuntimeMessage(message);
+  const QString line = QStringLiteral("[%1] %2").arg(QDateTime::currentDateTime().toString(Qt::ISODate), displayMessage);
   logs_->appendLog(line);
   wechatConfig_->appendLog(line);
-  statusBar()->showMessage(message);
+  statusBar()->showMessage(displayMessage);
 }
 
 QString MainWindow::trLog(const QString& key, const QString& value) const {
@@ -277,6 +278,37 @@ QString MainWindow::trLog(const QString& key, const QString& value) const {
   if (key == QStringLiteral("export_seeds_failed")) return zh ? QStringLiteral("导出种子失败：%1").arg(value) : QStringLiteral("Export seeds failed: %1").arg(value);
   if (key == QStringLiteral("seeds_csv_exported")) return zh ? QStringLiteral("种子表格已导出：%1").arg(value) : QStringLiteral("Seeds CSV exported: %1").arg(value);
   return value.isEmpty() ? key : QStringLiteral("%1: %2").arg(key, value);
+}
+
+QString MainWindow::localizedRuntimeMessage(const QString& message) const {
+  if (language_ != UiLanguage::Chinese) return message;
+  QString text = message;
+  text.replace(QStringLiteral("Plugin directory not found:"), QStringLiteral("插件目录不存在："));
+  text.replace(QStringLiteral("Skipped"), QStringLiteral("已跳过"));
+  text.replace(QStringLiteral("interface mismatch"), QStringLiteral("接口不匹配"));
+  text.replace(QStringLiteral("Loaded"), QStringLiteral("已加载"));
+  text.replace(QStringLiteral("Bridge listen failed on"), QStringLiteral("本地桥监听失败："));
+  text.replace(QStringLiteral("Replay input must be JSON, JSON array, or JSONL with sanitized article records."), QStringLiteral("回放输入必须是脱敏文章记录的数据对象、数组或逐行数据。"));
+  text.replace(QStringLiteral("JSON must contain an array or an articles/items/results/data array"), QStringLiteral("数据文件必须是数组，或包含 articles/items/results/data 数组"));
+  text.replace(QStringLiteral("No target phone serial selected."), QStringLiteral("未选择目标手机序列号。"));
+  text.replace(QStringLiteral("Missing diagnostic item:"), QStringLiteral("缺少诊断项："));
+  return text;
+}
+
+QString MainWindow::localizedPhonePreflightReason(const QString& reason) const {
+  if (language_ != UiLanguage::Chinese) return reason;
+  QString text = localizedRuntimeMessage(reason);
+  text.replace(QStringLiteral("ADB is installed and executable."), QStringLiteral("手机调试工具已安装并且可以执行。"));
+  text.replace(QStringLiteral("ADB is missing or cannot run."), QStringLiteral("手机调试工具缺失或无法运行。"));
+  text.replace(QStringLiteral("ADB server is running."), QStringLiteral("手机调试服务正在运行。"));
+  text.replace(QStringLiteral("ADB server failed to start."), QStringLiteral("手机调试服务启动失败。"));
+  text.replace(QStringLiteral("No Android device is visible to ADB."), QStringLiteral("当前看不到任何安卓设备。"));
+  text.replace(QStringLiteral("At least one phone is authorized."), QStringLiteral("至少有一台手机已经完成授权。"));
+  text.replace(QStringLiteral("A phone is connected but has not authorized USB debugging."), QStringLiteral("手机已连接，但还没有授权 USB 调试。"));
+  text.replace(QStringLiteral("A phone is offline from ADB's point of view."), QStringLiteral("从调试连接视角看，手机当前处于离线状态。"));
+  text.replace(QStringLiteral("ADB shell works."), QStringLiteral("手机命令控制可用。"));
+  text.replace(QStringLiteral("ADB shell command failed."), QStringLiteral("手机命令执行失败。"));
+  return text;
 }
 
 void MainWindow::appendLogKey(const QString& key, const QString& value) {
@@ -458,7 +490,7 @@ void MainWindow::testPhoneOpenLink() {
 }
 
 void MainWindow::copyPhoneDiagnosticsReport() {
-  QApplication::clipboard()->setText(PhoneDiagnosticsController::reportToText(lastPhoneReport_));
+  QApplication::clipboard()->setText(PhoneDiagnosticsController::reportToText(lastPhoneReport_, language_ == UiLanguage::Chinese));
   appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("手机诊断报告已复制") : QStringLiteral("Phone diagnostics report copied"));
 }
 
@@ -594,7 +626,7 @@ void MainWindow::startKeywordAutoIngestion(const QString& keywords, int maxCandi
     phoneDiagnosticsWidget_->setReport(lastPhoneReport_);
     if (dockTabs_ != nullptr) dockTabs_->setCurrentWidget(phoneDiagnosticsWidget_);
     appendLog(language_ == UiLanguage::Chinese
-                  ? QStringLiteral("关键词自动采集启动失败：手机接入诊断未通过：%1").arg(preflightReason)
+                  ? QStringLiteral("关键词自动采集启动失败：手机接入诊断未通过：%1").arg(localizedPhonePreflightReason(preflightReason))
                   : QStringLiteral("Keyword auto-ingestion start failed: phone diagnostics preflight failed: %1").arg(preflightReason));
     return;
   }

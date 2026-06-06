@@ -93,6 +93,11 @@ class ProductionSuiteWidget final : public QWidget {
   QTableWidget* healthTable_ = nullptr;
 
   QLabel* scoringIntro_ = nullptr;
+  QLabel* readWeightLabel_ = nullptr;
+  QLabel* likeWeightLabel_ = nullptr;
+  QLabel* commentWeightLabel_ = nullptr;
+  QLabel* oldLikeWeightLabel_ = nullptr;
+  QLabel* originalWeightLabel_ = nullptr;
   QDoubleSpinBox* readWeight_ = nullptr;
   QDoubleSpinBox* likeWeight_ = nullptr;
   QDoubleSpinBox* commentWeight_ = nullptr;

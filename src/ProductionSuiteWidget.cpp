@@ -9,6 +9,7 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QPlainTextEdit>
+#include <QRegularExpression>
 #include <QPushButton>
 #include <QSpinBox>
 #include <QTabWidget>
@@ -50,6 +51,11 @@ QString localizedHealthName(const QString& id, UiLanguage language) {
 
 QString localizedSuiteText(QString text, UiLanguage language) {
   if (language != UiLanguage::Chinese) return text;
+  static const QRegularExpression queueRe(QStringLiteral("^(\\d+) pending / (\\d+) failed$"));
+  const QRegularExpressionMatch queueMatch = queueRe.match(text);
+  if (queueMatch.hasMatch()) {
+    return QStringLiteral("%1 条待处理 / %2 条失败").arg(queueMatch.captured(1), queueMatch.captured(2));
+  }
   text.replace(QStringLiteral("Proxy port is not configured"), QStringLiteral("未配置代理端口"));
   text.replace(QStringLiteral("Set the local proxy listening port. Use 0 only when you intentionally skip proxy checks."), QStringLiteral("设置本地代理监听端口。只有明确跳过代理检测时才使用 0。"));
   text.replace(QStringLiteral("Local bridge port:"), QStringLiteral("本地桥端口："));
@@ -187,11 +193,16 @@ void ProductionSuiteWidget::buildScoringTab() {
   scorePreview_ = new QPlainTextEdit(page);
   scorePreview_->setReadOnly(true);
   auto* form = new QFormLayout();
-  form->addRow(UiText::text(QStringLiteral("suite.score_read"), language_), readWeight_);
-  form->addRow(UiText::text(QStringLiteral("suite.score_like"), language_), likeWeight_);
-  form->addRow(UiText::text(QStringLiteral("suite.score_comment"), language_), commentWeight_);
-  form->addRow(UiText::text(QStringLiteral("suite.score_old_like"), language_), oldLikeWeight_);
-  form->addRow(UiText::text(QStringLiteral("suite.score_original"), language_), originalWeight_);
+  readWeightLabel_ = new QLabel(page);
+  likeWeightLabel_ = new QLabel(page);
+  commentWeightLabel_ = new QLabel(page);
+  oldLikeWeightLabel_ = new QLabel(page);
+  originalWeightLabel_ = new QLabel(page);
+  form->addRow(readWeightLabel_, readWeight_);
+  form->addRow(likeWeightLabel_, likeWeight_);
+  form->addRow(commentWeightLabel_, commentWeight_);
+  form->addRow(oldLikeWeightLabel_, oldLikeWeight_);
+  form->addRow(originalWeightLabel_, originalWeight_);
   layout->addWidget(scoringIntro_);
   layout->addLayout(form);
   layout->addWidget(scorePreviewButton_);
@@ -253,6 +264,11 @@ void ProductionSuiteWidget::setLanguage(UiLanguage language) {
   healthIntro_->setText(UiText::text(QStringLiteral("suite.health_intro"), language_));
   refreshHealthButton_->setText(UiText::text(QStringLiteral("suite.health_refresh"), language_));
   scoringIntro_->setText(UiText::text(QStringLiteral("suite.scoring_intro"), language_));
+  readWeightLabel_->setText(UiText::text(QStringLiteral("suite.score_read"), language_));
+  likeWeightLabel_->setText(UiText::text(QStringLiteral("suite.score_like"), language_));
+  commentWeightLabel_->setText(UiText::text(QStringLiteral("suite.score_comment"), language_));
+  oldLikeWeightLabel_->setText(UiText::text(QStringLiteral("suite.score_old_like"), language_));
+  originalWeightLabel_->setText(UiText::text(QStringLiteral("suite.score_original"), language_));
   scorePreviewButton_->setText(UiText::text(QStringLiteral("suite.score_preview"), language_));
   workspaceIntro_->setText(UiText::text(QStringLiteral("suite.workspace_intro"), language_));
   workspaceName_->setPlaceholderText(UiText::text(QStringLiteral("suite.workspace_placeholder"), language_));

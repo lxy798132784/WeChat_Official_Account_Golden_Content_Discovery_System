@@ -76,7 +76,7 @@ class PhoneDiagnosticsController final : public QObject {
   static QVector<PhoneDeviceInfo> parseAdbDevices(const QString& output);
   static QString deviceSummary(const PhoneDeviceInfo& device);
   static QJsonObject reportToJson(const PhoneDiagnosticReport& report);
-  static QString reportToText(const PhoneDiagnosticReport& report);
+  static QString reportToText(const PhoneDiagnosticReport& report, bool chinese = false);
   static bool isCoreReady(const PhoneDiagnosticReport& report, QString* reason = nullptr);
 
   PhoneDiagnosticReport runDiagnostics(const QString& preferredSerial = QString(),

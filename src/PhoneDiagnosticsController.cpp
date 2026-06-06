@@ -338,19 +338,100 @@ QJsonObject PhoneDiagnosticsController::reportToJson(const PhoneDiagnosticReport
   return root;
 }
 
-QString PhoneDiagnosticsController::reportToText(const PhoneDiagnosticReport& report) {
+QString PhoneDiagnosticsController::reportToText(const PhoneDiagnosticReport& report, bool chinese) {
   QStringList lines;
-  lines << QStringLiteral("Phone Diagnostics Report")
-        << QStringLiteral("Overall: %1").arg(report.overallStatus)
-        << QStringLiteral("Platform: %1").arg(report.platform)
-        << QStringLiteral("Target serial: %1").arg(report.targetSerial.isEmpty() ? QStringLiteral("<none>") : report.targetSerial)
+  if (!chinese) {
+    lines << QStringLiteral("Phone Diagnostics Report")
+          << QStringLiteral("Overall: %1").arg(report.overallStatus)
+          << QStringLiteral("Platform: %1").arg(report.platform)
+          << QStringLiteral("Target serial: %1").arg(report.targetSerial.isEmpty() ? QStringLiteral("<none>") : report.targetSerial)
+          << QStringLiteral("");
+    for (const PhoneDiagnosticItem& item : report.items) {
+      lines << QStringLiteral("[%1] %2").arg(statusLabel(item.status), item.label)
+            << QStringLiteral("  Details: %1").arg(item.details)
+            << QStringLiteral("  Fix: %1").arg(item.fixHint);
+      if (!item.rawOutput.trimmed().isEmpty()) {
+        lines << QStringLiteral("  Raw: %1").arg(item.rawOutput.trimmed().left(600));
+      }
+    }
+    return lines.join(QStringLiteral("\n"));
+  }
+
+  auto statusZh = [](const QString& status) {
+    if (status == QStringLiteral("pass")) return QStringLiteral("通过");
+    if (status == QStringLiteral("warn")) return QStringLiteral("提醒");
+    if (status == QStringLiteral("fail")) return QStringLiteral("失败");
+    return QStringLiteral("未知");
+  };
+  auto itemLabelZh = [](const QString& id, const QString& fallback) {
+    if (id == QStringLiteral("adb_tool")) return QStringLiteral("手机调试工具");
+    if (id == QStringLiteral("adb_server")) return QStringLiteral("手机调试服务");
+    if (id == QStringLiteral("device_detected")) return QStringLiteral("手机检测");
+    if (id == QStringLiteral("usb_authorization")) return QStringLiteral("USB 调试授权");
+    if (id == QStringLiteral("target_device")) return QStringLiteral("目标设备选择");
+    if (id == QStringLiteral("shell_control")) return QStringLiteral("手机命令控制");
+    if (id == QStringLiteral("open_link")) return QStringLiteral("打开文章链接");
+    if (id == QStringLiteral("local_bridge")) return QStringLiteral("本地桥端口");
+    if (id == QStringLiteral("proxy_port")) return QStringLiteral("本地代理端口");
+    if (id == QStringLiteral("platform_guidance")) return QStringLiteral("驱动和系统指引");
+    return fallback;
+  };
+
+  const QString overall = report.overallStatus == QStringLiteral("ready") ? QStringLiteral("就绪")
+                          : report.overallStatus == QStringLiteral("warning") ? QStringLiteral("有提醒")
+                          : report.overallStatus == QStringLiteral("blocked") ? QStringLiteral("阻塞")
+                          : QStringLiteral("未知");
+  auto textZh = [](QString text) {
+    text.replace(QStringLiteral("ADB tool"), QStringLiteral("手机调试工具"));
+    text.replace(QStringLiteral("ADB is installed and executable."), QStringLiteral("手机调试工具已安装并且可以执行。"));
+    text.replace(QStringLiteral("ADB is missing or cannot run."), QStringLiteral("手机调试工具缺失或无法运行。"));
+    text.replace(QStringLiteral("ADB server is running."), QStringLiteral("手机调试服务正在运行。"));
+    text.replace(QStringLiteral("ADB server failed to start."), QStringLiteral("手机调试服务启动失败。"));
+    text.replace(QStringLiteral("No Android device is visible to ADB."), QStringLiteral("当前看不到任何安卓设备。"));
+    text.replace(QStringLiteral("Detected device(s):"), QStringLiteral("已检测到设备："));
+    text.replace(QStringLiteral("A phone is connected but has not authorized USB debugging."), QStringLiteral("手机已连接，但还没有授权 USB 调试。"));
+    text.replace(QStringLiteral("A phone is offline from ADB's point of view."), QStringLiteral("从调试连接视角看，手机当前处于离线状态。"));
+    text.replace(QStringLiteral("At least one phone is authorized."), QStringLiteral("至少有一台手机已经完成授权。"));
+    text.replace(QStringLiteral("ADB shell works."), QStringLiteral("手机命令控制可用。"));
+    text.replace(QStringLiteral("ADB shell command failed."), QStringLiteral("手机命令执行失败。"));
+    text.replace(QStringLiteral("The phone accepted an article URL open command."), QStringLiteral("手机已接受文章链接打开命令。"));
+    text.replace(QStringLiteral("The phone did not accept the URL open command."), QStringLiteral("手机没有接受文章链接打开命令。"));
+    text.replace(QStringLiteral("Open-link test was skipped to avoid changing the phone screen."), QStringLiteral("为了避免改变手机当前界面，本次跳过打开链接测试。"));
+    text.replace(QStringLiteral("Local bridge port"), QStringLiteral("本地桥端口"));
+    text.replace(QStringLiteral("Local proxy port"), QStringLiteral("本地代理端口"));
+    text.replace(QStringLiteral("is reachable."), QStringLiteral("可以访问。"));
+    text.replace(QStringLiteral("is not reachable right now."), QStringLiteral("当前不可访问。"));
+    text.replace(QStringLiteral("is not reachable on this computer."), QStringLiteral("在这台电脑上不可访问。"));
+    text.replace(QStringLiteral("Proxy port was not configured."), QStringLiteral("未配置代理端口。"));
+    text.replace(QStringLiteral("No action needed."), QStringLiteral("无需处理。"));
+    text.replace(QStringLiteral("Install Android Platform Tools"), QStringLiteral("安装安卓平台工具"));
+    text.replace(QStringLiteral("restart ADB server"), QStringLiteral("重启手机调试服务"));
+    text.replace(QStringLiteral("re-authorize USB debugging"), QStringLiteral("重新授权 USB 调试"));
+    text.replace(QStringLiteral("Select one target device in the diagnostics UI to avoid ADB 'more than one device' failures."), QStringLiteral("在诊断界面选择一个目标设备，避免手机调试工具出现多设备冲突。"));
+    text.replace(QStringLiteral("Start the app bridge or run the built-in bridge smoke test from WeChat Integration."), QStringLiteral("启动应用内本地桥，或在“微信接入”页运行本地桥冒烟测试。"));
+    text.replace(QStringLiteral("Start Reqable/mitmproxy/Fiddler/Charles/whistle/Proxyman and confirm its listening port."), QStringLiteral("启动 Reqable、mitmproxy、Fiddler、Charles、whistle 或 Proxyman，并确认监听端口。"));
+    text.replace(QStringLiteral("Model="), QStringLiteral("型号="));
+    text.replace(QStringLiteral("Android="), QStringLiteral("安卓="));
+    text.replace(QStringLiteral("model="), QStringLiteral("型号="));
+    text.replace(QStringLiteral("product="), QStringLiteral("产品="));
+    text.replace(QStringLiteral("transport="), QStringLiteral("传输="));
+    text.replace(QStringLiteral("unauthorized"), QStringLiteral("未授权"));
+    text.replace(QStringLiteral("offline"), QStringLiteral("离线"));
+    text.replace(QStringLiteral("device"), QStringLiteral("已授权"));
+    return text;
+  };
+
+  lines << QStringLiteral("手机诊断报告")
+        << QStringLiteral("总体状态：%1").arg(overall)
+        << QStringLiteral("平台：%1").arg(report.platform)
+        << QStringLiteral("目标设备：%1").arg(report.targetSerial.isEmpty() ? QStringLiteral("未选择") : report.targetSerial)
         << QStringLiteral("");
   for (const PhoneDiagnosticItem& item : report.items) {
-    lines << QStringLiteral("[%1] %2").arg(statusLabel(item.status), item.label)
-          << QStringLiteral("  Details: %1").arg(item.details)
-          << QStringLiteral("  Fix: %1").arg(item.fixHint);
+    lines << QStringLiteral("[%1] %2").arg(statusZh(item.status), itemLabelZh(item.id, item.label))
+          << QStringLiteral("  详情：%1").arg(textZh(item.details))
+          << QStringLiteral("  修复：%1").arg(textZh(item.fixHint));
     if (!item.rawOutput.trimmed().isEmpty()) {
-      lines << QStringLiteral("  Raw: %1").arg(item.rawOutput.trimmed().left(600));
+      lines << QStringLiteral("  原始输出：%1").arg(item.rawOutput.trimmed().left(600));
     }
   }
   return lines.join(QStringLiteral("\n"));

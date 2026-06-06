@@ -76,15 +76,22 @@ QString localizedPlatformHint(UiLanguage language) {
 QString localizedDetails(const PhoneDiagnosticItem& item, UiLanguage language) {
   if (language != UiLanguage::Chinese) return item.details;
   if (item.id == QStringLiteral("adb_tool")) {
-    return item.status == QStringLiteral("pass") ? QStringLiteral("安卓调试工具已安装并且可以执行。") : QStringLiteral("安卓调试工具缺失或无法运行。");
+    return item.status == QStringLiteral("pass") ? QStringLiteral("手机调试工具已安装并且可以执行。") : QStringLiteral("手机调试工具缺失或无法运行。");
   }
   if (item.id == QStringLiteral("adb_server")) {
-    return item.status == QStringLiteral("pass") ? QStringLiteral("安卓调试服务正在运行。") : QStringLiteral("安卓调试服务启动失败。");
+    return item.status == QStringLiteral("pass") ? QStringLiteral("手机调试服务正在运行。") : QStringLiteral("手机调试服务启动失败。");
   }
   if (item.id == QStringLiteral("device_detected")) {
     if (item.status == QStringLiteral("fail")) return QStringLiteral("当前看不到任何安卓设备。");
     QString details = item.details;
-    return QStringLiteral("已检测到设备：%1").arg(details.mid(QStringLiteral("Detected device(s): ").size()).replace(QStringLiteral("device"), QStringLiteral("已授权")));
+    details.remove(QStringLiteral("Detected device(s): "));
+    details.replace(QStringLiteral("unauthorized"), QStringLiteral("未授权"));
+    details.replace(QStringLiteral("offline"), QStringLiteral("离线"));
+    details.replace(QStringLiteral("device"), QStringLiteral("已授权"));
+    details.replace(QStringLiteral("model="), QStringLiteral("型号="));
+    details.replace(QStringLiteral("product="), QStringLiteral("产品="));
+    details.replace(QStringLiteral("transport="), QStringLiteral("传输="));
+    return QStringLiteral("已检测到设备：%1").arg(details);
   }
   if (item.id == QStringLiteral("usb_authorization")) {
     if (item.details.contains(QStringLiteral("not authorized"))) return QStringLiteral("手机已连接，但还没有授权 USB 调试。");
@@ -95,7 +102,8 @@ QString localizedDetails(const PhoneDiagnosticItem& item, UiLanguage language) {
   if (item.id == QStringLiteral("shell_control")) {
     if (item.status == QStringLiteral("pass")) {
       QString details = item.details;
-      return details.replace(QStringLiteral("ADB shell works."), QStringLiteral("手机命令控制可用。"));
+      return details.replace(QStringLiteral("ADB shell works."), QStringLiteral("手机命令控制可用。"))
+                    .replace(QStringLiteral("Model="), QStringLiteral("型号="));
     }
     return QStringLiteral("手机命令执行失败。");
   }
@@ -115,24 +123,23 @@ QString localizedDetails(const PhoneDiagnosticItem& item, UiLanguage language) {
                                                   : details.replace(QStringLiteral("Local proxy port"), QStringLiteral("本地代理端口")).replace(QStringLiteral("is not reachable on this computer."), QStringLiteral("在这台电脑上不可访问。"));
   }
   if (item.id == QStringLiteral("platform_guidance")) {
-    QString details = item.details;
-    return details.replace(QStringLiteral("Platform:"), QStringLiteral("平台："));
+    return QStringLiteral("平台：%1").arg(item.details.mid(QStringLiteral("Platform: ").size()));
   }
-  return item.details;
+  return item.details.isEmpty() ? QStringLiteral("无详情。") : item.details;
 }
 
 QString localizedFixHint(const PhoneDiagnosticItem& item, UiLanguage language) {
   if (language != UiLanguage::Chinese) return item.fixHint;
   if (item.fixHint == QStringLiteral("No action needed.")) return QStringLiteral("无需处理。");
   if (item.id == QStringLiteral("adb_tool") || item.id == QStringLiteral("platform_guidance")) return localizedPlatformHint(language);
-  if (item.id == QStringLiteral("adb_server")) return QStringLiteral("尝试重启安卓调试服务，重新插拔手机，然后重新诊断。");
+  if (item.id == QStringLiteral("adb_server")) return QStringLiteral("尝试重启手机调试服务，重新插拔手机，然后重新诊断。");
   if (item.id == QStringLiteral("device_detected")) return localizedPlatformHint(language);
   if (item.id == QStringLiteral("usb_authorization")) {
-    if (item.details.contains(QStringLiteral("offline"))) return QStringLiteral("重新插拔 USB，重启安卓调试服务；如果仍离线，重启手机。");
+    if (item.details.contains(QStringLiteral("offline"))) return QStringLiteral("重新插拔 USB，重启手机调试服务；如果仍离线，重启手机。");
     return QStringLiteral("解锁手机，启用开发者选项 -> USB 调试，重新插拔 USB，然后在授权弹窗中点击允许。");
   }
   if (item.id == QStringLiteral("target_device")) return QStringLiteral("在诊断界面选择一个目标设备，避免调试工具出现多设备冲突。");
-  if (item.id == QStringLiteral("shell_control")) return QStringLiteral("如果命令控制失败，请重新授权 USB 调试或重启安卓调试服务。");
+  if (item.id == QStringLiteral("shell_control")) return QStringLiteral("如果命令控制失败，请重新授权 USB 调试或重启手机调试服务。");
   if (item.id == QStringLiteral("open_link")) {
     if (item.details.contains(QStringLiteral("skipped"))) return QStringLiteral("需要验证完整打开链路时，再点击“测试打开链接”。");
     return QStringLiteral("确认手机已解锁，并且浏览器或微信可以处理该文章链接。");
@@ -140,9 +147,9 @@ QString localizedFixHint(const PhoneDiagnosticItem& item, UiLanguage language) {
   if (item.id == QStringLiteral("local_bridge")) return QStringLiteral("启动应用内本地桥，或在“微信接入”页运行本地桥冒烟测试。");
   if (item.id == QStringLiteral("proxy_port")) {
     if (item.details.contains(QStringLiteral("not configured"))) return QStringLiteral("如果需要检测代理进程是否运行，请填写本地代理适配器端口。");
-    return QStringLiteral("启动 Reqable、mitmproxy、Fiddler、Charles、whistle 或 Proxyman，并确认监听端口。 ");
+    return QStringLiteral("启动 Reqable、mitmproxy、Fiddler、Charles、whistle 或 Proxyman，并确认监听端口。");
   }
-  return item.fixHint;
+  return item.fixHint.isEmpty() ? QStringLiteral("无需处理。") : item.fixHint;
 }
 }  // namespace
 

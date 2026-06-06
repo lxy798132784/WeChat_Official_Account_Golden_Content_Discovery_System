@@ -89,6 +89,8 @@ class MainWindow final : public QMainWindow {
   void applyLanguage();
   UiLanguage currentLanguage() const;
   QString trLog(const QString& key, const QString& value = QString()) const;
+  QString localizedRuntimeMessage(const QString& message) const;
+  QString localizedPhonePreflightReason(const QString& reason) const;
   void appendLogKey(const QString& key, const QString& value = QString());
   void refreshAutoIngestionQueue();
 
