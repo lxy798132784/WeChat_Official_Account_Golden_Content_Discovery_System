@@ -35,6 +35,7 @@
 #include "ManualWidget.h"
 #include "RuntimeLogWidget.h"
 #include "SeedManagerWidget.h"
+#include "WeChatSearchAutomationController.h"
 #include "WeChatConfigWidget.h"
 
 namespace {
@@ -103,7 +104,8 @@ MainWindow::MainWindow(QWidget* parent)
   connect(wechatConfig_, &WeChatConfigWidget::testBridgeRequested, this, &MainWindow::testLocalBridgePayload);
   connect(wechatConfig_, &WeChatConfigWidget::browseDatabaseRequested, this, &MainWindow::browseDatabasePath);
   connect(wechatConfig_, &WeChatConfigWidget::browsePluginDirectoryRequested, this, &MainWindow::browsePluginDirectory);
-  connect(quickStartWidget_, &QuickStartWidget::startOneClickRequested, this, &MainWindow::startQuickOneClick);
+  connect(quickStartWidget_, &QuickStartWidget::startOneClickRequested, this,
+          static_cast<void (MainWindow::*)(const QString&, int, int, const KeywordHotCriteria&)>(&MainWindow::startQuickOneClick));
   connect(quickStartWidget_, &QuickStartWidget::stopRequested, this, &MainWindow::stopQuickOneClick);
   connect(quickStartWidget_, &QuickStartWidget::openArticlesRequested, this, &MainWindow::openQuickArticles);
   connect(quickStartWidget_, &QuickStartWidget::openReportsRequested, this, &MainWindow::openQuickReports);
@@ -642,6 +644,15 @@ void MainWindow::refreshQuickStartStatus() {
 }
 
 void MainWindow::startQuickOneClick(const QString& keywords, int maxCandidatesPerKeyword, int intervalSeconds, const KeywordHotCriteria& criteria) {
+  startQuickOneClick(keywords, maxCandidatesPerKeyword, intervalSeconds, criteria,
+                     quickStartWidget_->supplementalText(), quickStartWidget_->useSupplementalCandidates(),
+                     quickStartWidget_->useAdvancedPhoneSearch(), quickStartWidget_->searchTapX(),
+                     quickStartWidget_->searchTapY(), quickStartWidget_->resultTapX(), quickStartWidget_->resultTapY());
+}
+
+void MainWindow::startQuickOneClick(const QString& keywords, int maxCandidatesPerKeyword, int intervalSeconds, const KeywordHotCriteria& criteria,
+                                    const QString& supplementalText, bool useSupplemental, bool useAdvancedPhoneSearch,
+                                    int searchTapX, int searchTapY, int resultTapX, int resultTapY) {
   const QStringList parsed = KeywordDiscoveryController::parseKeywords(keywords);
   if (parsed.isEmpty()) {
     quickStartWidget_->setSearchStatus(QStringLiteral("fail"), UiText::text(QStringLiteral("quick.no_keywords"), language_));
@@ -652,6 +663,25 @@ void MainWindow::startQuickOneClick(const QString& keywords, int maxCandidatesPe
   quickStartActive_ = true;
   quickLastEnqueued_ = 0;
   keywordResults_.clear();
+  supplementalKeywordResults_.clear();
+  quickStartWidget_->setSuggestions({});
+  if (useSupplemental && !supplementalText.trimmed().isEmpty()) {
+    QString importError;
+    supplementalKeywordResults_ = KeywordDiscoveryController::parseResultsJson(supplementalText.toUtf8(), &importError);
+    if (supplementalKeywordResults_.isEmpty()) {
+      const int addedFromLinks = autoIngestion_.enqueueUrlsFromText(supplementalText, &importError);
+      quickLastEnqueued_ += addedFromLinks;
+      if (addedFromLinks > 0) {
+        quickStartWidget_->setSuggestions({language_ == UiLanguage::Chinese
+                                               ? QStringLiteral("已从补充链接直接加入队列 %1 条。").arg(addedFromLinks)
+                                               : QStringLiteral("%1 supplemental link(s) were added directly to the queue.").arg(addedFromLinks)});
+      } else {
+        quickStartWidget_->setSuggestions({language_ == UiLanguage::Chinese
+                                               ? QStringLiteral("补充来源未解析到候选文章，请检查 脱敏数据或微信文章链接。")
+                                               : QStringLiteral("No supplemental candidate was parsed. Check sanitized data or WeChat article URLs.")});
+      }
+    }
+  }
   quickStartWidget_->setRunning(true);
   quickStartWidget_->setPhoneStatus(QStringLiteral("running"), UiText::text(QStringLiteral("quick.phone_checking"), language_));
   quickStartWidget_->setSearchStatus(QStringLiteral("pending"));
@@ -680,6 +710,25 @@ void MainWindow::startQuickOneClick(const QString& keywords, int maxCandidatesPe
   quickStartWidget_->setPhoneStatus(QStringLiteral("pass"), lastPhoneReport_.targetSerial.isEmpty()
                                                         ? UiText::text(QStringLiteral("quick.phone_ready"), language_)
                                                         : lastPhoneReport_.targetSerial);
+  if (useAdvancedPhoneSearch) {
+    WeChatSearchAutomationController::Options advancedOptions;
+    advancedOptions.enabled = true;
+    advancedOptions.searchTapX = searchTapX;
+    advancedOptions.searchTapY = searchTapY;
+    advancedOptions.resultTapX = resultTapX;
+    advancedOptions.resultTapY = resultTapY;
+    const auto plan = WeChatSearchAutomationController::dryRunPlan(parsed, advancedOptions);
+    if (!plan.success) {
+      quickStartWidget_->setSuggestions({language_ == UiLanguage::Chinese
+                                             ? QStringLiteral("高级微信内搜索未启动：需要先填写搜索框坐标。主路线会继续执行。")
+                                             : QStringLiteral("Advanced in-WeChat search was not started: search coordinates are required. The primary route continues.")});
+    } else {
+      const auto advancedResult = WeChatSearchAutomationController::run(parsed, advancedOptions);
+      quickStartWidget_->setSuggestions({language_ == UiLanguage::Chinese
+                                             ? QStringLiteral("高级微信内搜索阶段：%1，结果：%2。主路线会继续兜底。").arg(advancedResult.stage, advancedResult.message)
+                                             : QStringLiteral("Advanced in-WeChat search stage: %1, result: %2. The primary route still continues as fallback.").arg(advancedResult.stage, advancedResult.message)});
+    }
+  }
   startAutoAfterKeywordSearch_ = true;
   pendingKeywordCriteria_ = criteria;
   autoIngestion_.setEnabled(true);
@@ -761,6 +810,21 @@ void MainWindow::onKeywordSearchStarted() {
 
 void MainWindow::onKeywordSearchFinished(const QVector<KeywordDiscoveryResult>& results) {
   keywordResults_ = results;
+  if (!supplementalKeywordResults_.isEmpty()) {
+    QSet<QString> seen;
+    for (const KeywordDiscoveryResult& result : keywordResults_) {
+      seen.insert(result.url);
+    }
+    for (const KeywordDiscoveryResult& result : supplementalKeywordResults_) {
+      if (!result.url.isEmpty() && !seen.contains(result.url)) {
+        keywordResults_.push_back(result);
+        seen.insert(result.url);
+      }
+    }
+    std::sort(keywordResults_.begin(), keywordResults_.end(), [](const KeywordDiscoveryResult& left, const KeywordDiscoveryResult& right) {
+      return left.hotScore > right.hotScore;
+    });
+  }
   keywordDiscoveryWidget_->setSearching(false);
   keywordDiscoveryWidget_->setResults(keywordResults_);
   appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("关键词自动搜索完成，候选文章 %1 条").arg(results.size()) : QStringLiteral("Keyword auto-search finished, %1 candidate article(s)").arg(results.size()));
@@ -782,6 +846,15 @@ void MainWindow::onKeywordSearchFinished(const QVector<KeywordDiscoveryResult>& 
   appendLog(language_ == UiLanguage::Chinese
                 ? QStringLiteral("关键词候选已自动加入采集队列：%1 条%2").arg(added).arg(error.isEmpty() ? QString() : QStringLiteral("；跳过：%1").arg(error))
                 : QStringLiteral("Keyword candidates automatically enqueued: %1%2").arg(added).arg(error.isEmpty() ? QString() : QStringLiteral("; skipped: %1").arg(error)));
+  if (added <= 0 && quickLastEnqueued_ > 0) {
+    quickStartWidget_->setQueueStatus(QStringLiteral("running"),
+                                      language_ == UiLanguage::Chinese
+                                          ? QStringLiteral("补充链接已入队 %1 条，正在逐篇打开手机微信文章").arg(quickLastEnqueued_)
+                                          : QStringLiteral("%1 supplemental link(s) enqueued; opening articles on the phone").arg(quickLastEnqueued_));
+    autoIngestion_.start();
+    refreshAutoIngestionQueue();
+    return;
+  }
   if (added > 0) {
     quickStartWidget_->setQueueStatus(QStringLiteral("running"),
                                       language_ == UiLanguage::Chinese
@@ -792,6 +865,9 @@ void MainWindow::onKeywordSearchFinished(const QVector<KeywordDiscoveryResult>& 
   } else {
     quickStartWidget_->setRunning(false);
     quickStartWidget_->setQueueStatus(QStringLiteral("warn"), UiText::text(QStringLiteral("quick.no_queue"), language_));
+    quickStartWidget_->setSuggestions({UiText::text(QStringLiteral("quick.suggestion_lower_filters"), language_),
+                                       UiText::text(QStringLiteral("quick.suggestion_add_links"), language_),
+                                       UiText::text(QStringLiteral("quick.suggestion_check_search"), language_)});
     quickStartActive_ = false;
   }
 }

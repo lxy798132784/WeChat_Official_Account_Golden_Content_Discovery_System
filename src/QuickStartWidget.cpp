@@ -1,5 +1,6 @@
 #include "QuickStartWidget.h"
 
+#include <QCheckBox>
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -28,6 +29,43 @@ QuickStartWidget::QuickStartWidget(QWidget* parent) : QWidget(parent) {
   keywordsEdit_ = new QTextEdit(this);
   keywordsEdit_->setMinimumHeight(90);
   layout->addWidget(keywordsEdit_);
+
+  sourceLabel_ = new QLabel(this);
+  sourceLabel_->setWordWrap(true);
+  layout->addWidget(sourceLabel_);
+  supplementalEdit_ = new QTextEdit(this);
+  supplementalEdit_->setMinimumHeight(80);
+  layout->addWidget(supplementalEdit_);
+  useSupplementalCheckBox_ = new QCheckBox(this);
+  layout->addWidget(useSupplementalCheckBox_);
+
+  advancedPhoneSearchCheckBox_ = new QCheckBox(this);
+  layout->addWidget(advancedPhoneSearchCheckBox_);
+  advancedLabel_ = new QLabel(this);
+  advancedLabel_->setWordWrap(true);
+  layout->addWidget(advancedLabel_);
+  auto* advancedGrid = new QGridLayout();
+  searchTapXSpinBox_ = new QSpinBox(this);
+  searchTapYSpinBox_ = new QSpinBox(this);
+  resultTapXSpinBox_ = new QSpinBox(this);
+  resultTapYSpinBox_ = new QSpinBox(this);
+  for (QSpinBox* spin : {searchTapXSpinBox_, searchTapYSpinBox_, resultTapXSpinBox_, resultTapYSpinBox_}) {
+    spin->setRange(0, 10000);
+    spin->setSingleStep(10);
+  }
+  searchTapXLabel_ = new QLabel(this);
+  searchTapYLabel_ = new QLabel(this);
+  resultTapXLabel_ = new QLabel(this);
+  resultTapYLabel_ = new QLabel(this);
+  advancedGrid->addWidget(searchTapXLabel_, 0, 0);
+  advancedGrid->addWidget(searchTapXSpinBox_, 0, 1);
+  advancedGrid->addWidget(searchTapYLabel_, 0, 2);
+  advancedGrid->addWidget(searchTapYSpinBox_, 0, 3);
+  advancedGrid->addWidget(resultTapXLabel_, 1, 0);
+  advancedGrid->addWidget(resultTapXSpinBox_, 1, 1);
+  advancedGrid->addWidget(resultTapYLabel_, 1, 2);
+  advancedGrid->addWidget(resultTapYSpinBox_, 1, 3);
+  layout->addLayout(advancedGrid);
 
   optionsLabel_ = new QLabel(this);
   layout->addWidget(optionsLabel_);
@@ -93,7 +131,9 @@ QuickStartWidget::QuickStartWidget(QWidget* parent) : QWidget(parent) {
   queueStatusLabel_ = new QLabel(this);
   metricStatusLabel_ = new QLabel(this);
   summaryLabel_ = new QLabel(this);
-  for (QLabel* label : {phoneStatusLabel_, searchStatusLabel_, queueStatusLabel_, metricStatusLabel_, summaryLabel_}) {
+  suggestionLabel_ = new QLabel(this);
+  suggestionLabel_->setWordWrap(true);
+  for (QLabel* label : {phoneStatusLabel_, searchStatusLabel_, queueStatusLabel_, metricStatusLabel_, summaryLabel_, suggestionLabel_}) {
     label->setWordWrap(true);
     layout->addWidget(label);
   }
@@ -118,6 +158,13 @@ QuickStartWidget::QuickStartWidget(QWidget* parent) : QWidget(parent) {
 QString QuickStartWidget::keywordsText() const { return keywordsEdit_->toPlainText(); }
 int QuickStartWidget::maxCandidatesPerKeyword() const { return maxCandidatesSpinBox_->value(); }
 int QuickStartWidget::intervalSeconds() const { return intervalSpinBox_->value(); }
+QString QuickStartWidget::supplementalText() const { return supplementalEdit_->toPlainText(); }
+bool QuickStartWidget::useSupplementalCandidates() const { return useSupplementalCheckBox_->isChecked(); }
+bool QuickStartWidget::useAdvancedPhoneSearch() const { return advancedPhoneSearchCheckBox_->isChecked(); }
+int QuickStartWidget::searchTapX() const { return searchTapXSpinBox_->value(); }
+int QuickStartWidget::searchTapY() const { return searchTapYSpinBox_->value(); }
+int QuickStartWidget::resultTapX() const { return resultTapXSpinBox_->value(); }
+int QuickStartWidget::resultTapY() const { return resultTapYSpinBox_->value(); }
 
 KeywordHotCriteria QuickStartWidget::hotCriteria() const {
   KeywordHotCriteria criteria;
@@ -156,6 +203,10 @@ void QuickStartWidget::setMetricStatus(const QString& status, const QString& det
   metricStatusLabel_->setText(stepText(QStringLiteral("quick.step.metrics"), status, detail));
 }
 
+void QuickStartWidget::setSuggestions(const QStringList& suggestions) {
+  suggestionLabel_->setText(suggestions.isEmpty() ? QString() : suggestions.join(QStringLiteral("\n")));
+}
+
 void QuickStartWidget::setSummary(int candidates, int enqueued, int opened, int failed, int articles) {
   lastCandidates_ = candidates;
   lastEnqueued_ = enqueued;
@@ -177,6 +228,15 @@ void QuickStartWidget::setLanguage(UiLanguage language) {
   keywordsLabel_->setText(UiText::text(QStringLiteral("quick.keywords"), language_));
   keywordsEdit_->setPlaceholderText(UiText::text(QStringLiteral("quick.keywords_placeholder"), language_));
   keywordsEdit_->setToolTip(UiText::text(QStringLiteral("tip.quick.keywords"), language_));
+  sourceLabel_->setText(UiText::text(QStringLiteral("quick.supplemental_intro"), language_));
+  supplementalEdit_->setPlaceholderText(UiText::text(QStringLiteral("quick.supplemental_placeholder"), language_));
+  useSupplementalCheckBox_->setText(UiText::text(QStringLiteral("quick.use_supplemental"), language_));
+  advancedPhoneSearchCheckBox_->setText(UiText::text(QStringLiteral("quick.advanced_phone_search"), language_));
+  advancedLabel_->setText(UiText::text(QStringLiteral("quick.advanced_phone_search_tip"), language_));
+  searchTapXLabel_->setText(UiText::text(QStringLiteral("quick.search_tap_x"), language_));
+  searchTapYLabel_->setText(UiText::text(QStringLiteral("quick.search_tap_y"), language_));
+  resultTapXLabel_->setText(UiText::text(QStringLiteral("quick.result_tap_x"), language_));
+  resultTapYLabel_->setText(UiText::text(QStringLiteral("quick.result_tap_y"), language_));
   optionsLabel_->setText(UiText::text(QStringLiteral("quick.options"), language_));
   maxCandidatesLabel_->setText(UiText::text(QStringLiteral("quick.max_candidates"), language_));
   intervalLabel_->setText(UiText::text(QStringLiteral("quick.interval"), language_));

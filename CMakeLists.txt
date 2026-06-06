@@ -17,6 +17,7 @@ add_library(radar_core STATIC
     include/KeywordDiscoveryController.h src/KeywordDiscoveryController.cpp
     include/PhoneDiagnosticsController.h src/PhoneDiagnosticsController.cpp
     include/ProductionSuiteController.h src/ProductionSuiteController.cpp
+    include/WeChatSearchAutomationController.h src/WeChatSearchAutomationController.cpp
     include/AutoIngestionController.h src/AutoIngestionController.cpp
     include/AppSettings.h src/AppSettings.cpp
     include/BridgePayloadClient.h src/BridgePayloadClient.cpp

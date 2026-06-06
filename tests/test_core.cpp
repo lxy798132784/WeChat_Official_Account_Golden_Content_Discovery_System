@@ -11,6 +11,7 @@
 #include "ProductionSuiteController.h"
 #include "ProxyTrafficBridge.h"
 #include "UiText.h"
+#include "WeChatSearchAutomationController.h"
 
 class RadarCoreTest : public QObject {
   Q_OBJECT
@@ -27,6 +28,7 @@ class RadarCoreTest : public QObject {
   void productionSuiteProxyReplayAndScoring();
   void productionSuiteQualityTrendAnalysisDelivery();
   void quickStartUiTextKeys();
+  void weChatSearchAutomationPlan();
   void autoIngestionQueueAndAdbArgs();
 };
 
@@ -250,7 +252,9 @@ void RadarCoreTest::quickStartUiTextKeys() {
       QStringLiteral("tab.quick"), QStringLiteral("quick.title"), QStringLiteral("quick.intro"),
       QStringLiteral("quick.start"), QStringLiteral("quick.step.phone"), QStringLiteral("quick.step.search"),
       QStringLiteral("quick.step.queue"), QStringLiteral("quick.step.metrics"), QStringLiteral("quick.summary"),
-      QStringLiteral("quick.metrics_waiting"), QStringLiteral("quick.no_keywords"), QStringLiteral("tip.quick.start")};
+      QStringLiteral("quick.metrics_waiting"), QStringLiteral("quick.no_keywords"), QStringLiteral("tip.quick.start"),
+      QStringLiteral("quick.supplemental_intro"), QStringLiteral("quick.use_supplemental"),
+      QStringLiteral("quick.advanced_phone_search"), QStringLiteral("quick.suggestion_add_links")};
   for (const QString& key : keys) {
     const QString en = UiText::text(key, UiLanguage::English);
     const QString zh = UiText::text(key, UiLanguage::Chinese);
@@ -258,6 +262,25 @@ void RadarCoreTest::quickStartUiTextKeys() {
     QVERIFY2(zh != key, qPrintable(QStringLiteral("missing Chinese key %1").arg(key)));
     QVERIFY2(!en.isEmpty() && !zh.isEmpty(), qPrintable(QStringLiteral("empty quick key %1").arg(key)));
   }
+}
+
+void RadarCoreTest::weChatSearchAutomationPlan() {
+  QCOMPARE(WeChatSearchAutomationController::escapeInputText(QStringLiteral("AI tools")), QStringLiteral("AI%stools"));
+  QVERIFY(WeChatSearchAutomationController::hasChineseInputRisk(QStringLiteral("人工智能工具")));
+  WeChatSearchAutomationController::Options disabled;
+  auto disabledPlan = WeChatSearchAutomationController::dryRunPlan({QStringLiteral("AI")}, disabled);
+  QVERIFY(!disabledPlan.success);
+  QCOMPARE(disabledPlan.message, QStringLiteral("advanced_wechat_search_disabled"));
+  WeChatSearchAutomationController::Options options;
+  options.enabled = true;
+  options.searchTapX = 120;
+  options.searchTapY = 80;
+  options.resultTapX = 300;
+  options.resultTapY = 600;
+  auto plan = WeChatSearchAutomationController::dryRunPlan({QStringLiteral("AI tools")}, options);
+  QVERIFY(plan.success);
+  QVERIFY(plan.commands.join(QStringLiteral("\n")).contains(QStringLiteral("com.tencent.mm")));
+  QVERIFY(plan.commands.join(QStringLiteral("\n")).contains(QStringLiteral("input text AI%stools")));
 }
 
 void RadarCoreTest::autoIngestionQueueAndAdbArgs() {

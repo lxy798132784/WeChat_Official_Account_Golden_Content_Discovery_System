@@ -66,6 +66,9 @@ class MainWindow final : public QMainWindow {
   void toggleLanguage();
   void showControlCenter();
   void startQuickOneClick(const QString& keywords, int maxCandidatesPerKeyword, int intervalSeconds, const KeywordHotCriteria& criteria);
+  void startQuickOneClick(const QString& keywords, int maxCandidatesPerKeyword, int intervalSeconds, const KeywordHotCriteria& criteria,
+                          const QString& supplementalText, bool useSupplemental, bool useAdvancedPhoneSearch,
+                          int searchTapX, int searchTapY, int resultTapX, int resultTapY);
   void stopQuickOneClick();
   void openQuickArticles();
   void openQuickReports();
@@ -108,6 +111,7 @@ class MainWindow final : public QMainWindow {
   PhoneDiagnosticsController phoneDiagnostics_;
   PhoneDiagnosticReport lastPhoneReport_;
   QVector<KeywordDiscoveryResult> keywordResults_;
+  QVector<KeywordDiscoveryResult> supplementalKeywordResults_;
   bool startAutoAfterKeywordSearch_ = false;
   bool quickStartActive_ = false;
   int quickLastEnqueued_ = 0;

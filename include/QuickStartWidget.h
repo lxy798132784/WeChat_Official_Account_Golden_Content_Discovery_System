@@ -2,9 +2,12 @@
 
 #include <QWidget>
 
+#include <QVector>
+
 #include "KeywordDiscoveryWidget.h"
 #include "UiText.h"
 
+class QCheckBox;
 class QLabel;
 class QPushButton;
 class QSpinBox;
@@ -26,6 +29,13 @@ class QuickStartWidget final : public QWidget {
   QString keywordsText() const;
   int maxCandidatesPerKeyword() const;
   int intervalSeconds() const;
+  QString supplementalText() const;
+  bool useSupplementalCandidates() const;
+  bool useAdvancedPhoneSearch() const;
+  int searchTapX() const;
+  int searchTapY() const;
+  int resultTapX() const;
+  int resultTapY() const;
   KeywordHotCriteria hotCriteria() const;
 
   void setRunning(bool running);
@@ -34,6 +44,7 @@ class QuickStartWidget final : public QWidget {
   void setQueueStatus(const QString& status, const QString& detail = QString());
   void setMetricStatus(const QString& status, const QString& detail = QString());
   void setSummary(int candidates, int enqueued, int opened, int failed, int articles);
+  void setSuggestions(const QStringList& suggestions);
 
  signals:
   void startOneClickRequested(const QString& keywords, int maxCandidatesPerKeyword,
@@ -51,6 +62,19 @@ class QuickStartWidget final : public QWidget {
   QLabel* keywordsLabel_ = nullptr;
   QTextEdit* keywordsEdit_ = nullptr;
   QLabel* optionsLabel_ = nullptr;
+  QLabel* sourceLabel_ = nullptr;
+  QTextEdit* supplementalEdit_ = nullptr;
+  QCheckBox* useSupplementalCheckBox_ = nullptr;
+  QCheckBox* advancedPhoneSearchCheckBox_ = nullptr;
+  QLabel* advancedLabel_ = nullptr;
+  QLabel* searchTapXLabel_ = nullptr;
+  QLabel* searchTapYLabel_ = nullptr;
+  QLabel* resultTapXLabel_ = nullptr;
+  QLabel* resultTapYLabel_ = nullptr;
+  QSpinBox* searchTapXSpinBox_ = nullptr;
+  QSpinBox* searchTapYSpinBox_ = nullptr;
+  QSpinBox* resultTapXSpinBox_ = nullptr;
+  QSpinBox* resultTapYSpinBox_ = nullptr;
   QLabel* maxCandidatesLabel_ = nullptr;
   QLabel* intervalLabel_ = nullptr;
   QLabel* minimumReadLabel_ = nullptr;
@@ -72,6 +96,7 @@ class QuickStartWidget final : public QWidget {
   QLabel* queueStatusLabel_ = nullptr;
   QLabel* metricStatusLabel_ = nullptr;
   QLabel* summaryLabel_ = nullptr;
+  QLabel* suggestionLabel_ = nullptr;
   int lastCandidates_ = 0;
   int lastEnqueued_ = 0;
   int lastOpened_ = 0;
