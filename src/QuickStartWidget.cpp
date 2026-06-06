@@ -65,7 +65,8 @@ QuickStartWidget::QuickStartWidget(QWidget* parent) : QWidget(parent) {
   advancedGrid->addWidget(resultTapXSpinBox_, 1, 1);
   advancedGrid->addWidget(resultTapYLabel_, 1, 2);
   advancedGrid->addWidget(resultTapYSpinBox_, 1, 3);
-  layout->addLayout(advancedGrid);
+  advancedGridLayout_ = advancedGrid;
+  layout->addLayout(advancedGridLayout_);
 
   optionsLabel_ = new QLabel(this);
   layout->addWidget(optionsLabel_);
@@ -145,6 +146,7 @@ QuickStartWidget::QuickStartWidget(QWidget* parent) : QWidget(parent) {
   connect(stopButton_, &QPushButton::clicked, this, &QuickStartWidget::stopRequested);
   connect(openArticlesButton_, &QPushButton::clicked, this, &QuickStartWidget::openArticlesRequested);
   connect(openReportsButton_, &QPushButton::clicked, this, &QuickStartWidget::openReportsRequested);
+  connect(advancedPhoneSearchCheckBox_, &QCheckBox::toggled, this, &QuickStartWidget::updateAdvancedPhoneSearchVisibility);
 
   setLanguage(language_);
   setRunning(false);
@@ -152,6 +154,7 @@ QuickStartWidget::QuickStartWidget(QWidget* parent) : QWidget(parent) {
   setSearchStatus(QStringLiteral("pending"));
   setQueueStatus(QStringLiteral("pending"));
   setMetricStatus(QStringLiteral("pending"));
+  updateAdvancedPhoneSearchVisibility();
   setSummary(0, 0, 0, 0, 0);
 }
 
@@ -205,6 +208,19 @@ void QuickStartWidget::setMetricStatus(const QString& status, const QString& det
 
 void QuickStartWidget::setSuggestions(const QStringList& suggestions) {
   suggestionLabel_->setText(suggestions.isEmpty() ? QString() : suggestions.join(QStringLiteral("\n")));
+}
+
+void QuickStartWidget::updateAdvancedPhoneSearchVisibility() {
+  const bool visible = advancedPhoneSearchCheckBox_->isChecked();
+  advancedLabel_->setVisible(visible);
+  searchTapXLabel_->setVisible(visible);
+  searchTapYLabel_->setVisible(visible);
+  resultTapXLabel_->setVisible(visible);
+  resultTapYLabel_->setVisible(visible);
+  searchTapXSpinBox_->setVisible(visible);
+  searchTapYSpinBox_->setVisible(visible);
+  resultTapXSpinBox_->setVisible(visible);
+  resultTapYSpinBox_->setVisible(visible);
 }
 
 void QuickStartWidget::setSummary(int candidates, int enqueued, int opened, int failed, int articles) {

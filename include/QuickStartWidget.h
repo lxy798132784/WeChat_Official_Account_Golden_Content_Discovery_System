@@ -8,6 +8,7 @@
 #include "UiText.h"
 
 class QCheckBox;
+class QGridLayout;
 class QLabel;
 class QPushButton;
 class QSpinBox;
@@ -45,6 +46,7 @@ class QuickStartWidget final : public QWidget {
   void setMetricStatus(const QString& status, const QString& detail = QString());
   void setSummary(int candidates, int enqueued, int opened, int failed, int articles);
   void setSuggestions(const QStringList& suggestions);
+  void updateAdvancedPhoneSearchVisibility();
 
  signals:
   void startOneClickRequested(const QString& keywords, int maxCandidatesPerKeyword,
@@ -67,6 +69,7 @@ class QuickStartWidget final : public QWidget {
   QCheckBox* useSupplementalCheckBox_ = nullptr;
   QCheckBox* advancedPhoneSearchCheckBox_ = nullptr;
   QLabel* advancedLabel_ = nullptr;
+  QGridLayout* advancedGridLayout_ = nullptr;
   QLabel* searchTapXLabel_ = nullptr;
   QLabel* searchTapYLabel_ = nullptr;
   QLabel* resultTapXLabel_ = nullptr;
