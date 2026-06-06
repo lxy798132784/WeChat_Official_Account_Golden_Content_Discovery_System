@@ -29,6 +29,7 @@
 #include "KeywordDiscoveryWidget.h"
 #include "PhoneDiagnosticsWidget.h"
 #include "ProductionSuiteWidget.h"
+#include "QuickStartWidget.h"
 #include "ExportController.h"
 #include "BridgePayloadClient.h"
 #include "ManualWidget.h"
@@ -49,6 +50,7 @@ QString localizedOverallStatusForLog(const QString& status, UiLanguage language)
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
       dashboard_(new DashboardWidget(this)),
+      quickStartWidget_(new QuickStartWidget(this)),
       controls_(new ControlPanelWidget(this)),
       keywordDiscoveryWidget_(new KeywordDiscoveryWidget(this)),
       phoneDiagnosticsWidget_(new PhoneDiagnosticsWidget(this)),
@@ -71,6 +73,7 @@ MainWindow::MainWindow(QWidget* parent)
   setCentralWidget(central);
 
   dockTabs_ = new QTabWidget(this);
+  dockTabs_->addTab(quickStartWidget_, QString());
   dockTabs_->addTab(controls_, QString());
   dockTabs_->addTab(keywordDiscoveryWidget_, QString());
   dockTabs_->addTab(phoneDiagnosticsWidget_, QString());
@@ -100,6 +103,10 @@ MainWindow::MainWindow(QWidget* parent)
   connect(wechatConfig_, &WeChatConfigWidget::testBridgeRequested, this, &MainWindow::testLocalBridgePayload);
   connect(wechatConfig_, &WeChatConfigWidget::browseDatabaseRequested, this, &MainWindow::browseDatabasePath);
   connect(wechatConfig_, &WeChatConfigWidget::browsePluginDirectoryRequested, this, &MainWindow::browsePluginDirectory);
+  connect(quickStartWidget_, &QuickStartWidget::startOneClickRequested, this, &MainWindow::startQuickOneClick);
+  connect(quickStartWidget_, &QuickStartWidget::stopRequested, this, &MainWindow::stopQuickOneClick);
+  connect(quickStartWidget_, &QuickStartWidget::openArticlesRequested, this, &MainWindow::openQuickArticles);
+  connect(quickStartWidget_, &QuickStartWidget::openReportsRequested, this, &MainWindow::openQuickReports);
   connect(keywordDiscoveryWidget_, &KeywordDiscoveryWidget::generateSearchUrlsRequested, this, &MainWindow::generateKeywordSearchUrls);
   connect(keywordDiscoveryWidget_, &KeywordDiscoveryWidget::autoSearchRequested, this, &MainWindow::autoSearchKeywords);
   connect(keywordDiscoveryWidget_, &KeywordDiscoveryWidget::startKeywordAutoIngestionRequested, this, &MainWindow::startKeywordAutoIngestion);
@@ -156,6 +163,7 @@ MainWindow::MainWindow(QWidget* parent)
     refreshData();
     refreshSeeds();
   }
+  refreshQuickStartStatus();
   loadPlugins();
   pluginDrainTimer_.start(1000);
 }
@@ -186,15 +194,16 @@ void MainWindow::applyLanguage() {
   setWindowTitle(UiText::text("app.title", language_));
   if (dock_ != nullptr) dock_->setWindowTitle(UiText::text("dock.title", language_));
   if (dockTabs_ != nullptr) {
-    dockTabs_->setTabText(0, UiText::text("tab.filters", language_));
-    dockTabs_->setTabText(1, UiText::text("tab.discover", language_));
-    dockTabs_->setTabText(2, UiText::text("tab.phone", language_));
-    dockTabs_->setTabText(3, UiText::text("tab.production", language_));
-    dockTabs_->setTabText(4, UiText::text("tab.auto", language_));
-    dockTabs_->setTabText(5, UiText::text("tab.seeds", language_));
-    dockTabs_->setTabText(6, UiText::text("tab.wechat", language_));
-    dockTabs_->setTabText(7, UiText::text("tab.logs", language_));
-    dockTabs_->setTabText(8, UiText::text("tab.guide", language_));
+    dockTabs_->setTabText(0, UiText::text("tab.quick", language_));
+    dockTabs_->setTabText(1, UiText::text("tab.filters", language_));
+    dockTabs_->setTabText(2, UiText::text("tab.discover", language_));
+    dockTabs_->setTabText(3, UiText::text("tab.phone", language_));
+    dockTabs_->setTabText(4, UiText::text("tab.production", language_));
+    dockTabs_->setTabText(5, UiText::text("tab.auto", language_));
+    dockTabs_->setTabText(6, UiText::text("tab.seeds", language_));
+    dockTabs_->setTabText(7, UiText::text("tab.wechat", language_));
+    dockTabs_->setTabText(8, UiText::text("tab.logs", language_));
+    dockTabs_->setTabText(9, UiText::text("tab.guide", language_));
   }
   if (fileMenu_ != nullptr) fileMenu_->setTitle(UiText::text("menu.file", language_));
   if (pluginMenu_ != nullptr) pluginMenu_->setTitle(UiText::text("menu.plugins", language_));
@@ -213,6 +222,7 @@ void MainWindow::applyLanguage() {
   if (languageAction_ != nullptr) { languageAction_->setText(UiText::text("action.language", language_)); languageAction_->setToolTip(UiText::text("tip.language", language_)); }
   if (aboutAction_ != nullptr) aboutAction_->setText(UiText::text("action.about", language_));
   dashboard_->setLanguage(language_);
+  quickStartWidget_->setLanguage(language_);
   controls_->setLanguage(language_);
   keywordDiscoveryWidget_->setLanguage(language_);
   phoneDiagnosticsWidget_->setLanguage(language_);
@@ -400,6 +410,7 @@ void MainWindow::drainPluginRecords() {
   if (changed) {
     database_.flush();
     refreshData();
+    refreshQuickStartStatus();
     appendLogKey(QStringLiteral("ingested_provider_records"), QString::number(count));
   }
 }
@@ -605,6 +616,95 @@ void MainWindow::exportSeedsCsv() {
 void MainWindow::refreshAutoIngestionQueue() {
   autoIngestionWidget_->setQueue(autoIngestion_.tasks());
   autoIngestionWidget_->setRunning(autoIngestion_.isRunning());
+  refreshQuickStartStatus();
+}
+
+void MainWindow::refreshQuickStartStatus() {
+  int opened = 0;
+  int failed = 0;
+  for (const AutoIngestionTask& task : autoIngestion_.tasks()) {
+    if (task.status == QStringLiteral("opened") || task.status == QStringLiteral("done")) ++opened;
+    if (task.status == QStringLiteral("failed")) ++failed;
+  }
+  const int articleCount = database_.listArticles().size();
+  if (quickLastEnqueued_ <= 0 && !autoIngestion_.tasks().isEmpty()) {
+    quickLastEnqueued_ = autoIngestion_.tasks().size();
+  }
+  quickStartWidget_->setSummary(keywordResults_.size(), quickLastEnqueued_, opened, failed, articleCount);
+  quickStartWidget_->setQueueStatus(autoIngestion_.isRunning() ? QStringLiteral("running") : (quickLastEnqueued_ > 0 ? QStringLiteral("pass") : QStringLiteral("pending")),
+                                    language_ == UiLanguage::Chinese
+                                        ? QStringLiteral("入队 %1 条，已打开 %2 条，失败 %3 条").arg(quickLastEnqueued_).arg(opened).arg(failed)
+                                        : QStringLiteral("%1 enqueued, %2 opened, %3 failed").arg(quickLastEnqueued_).arg(opened).arg(failed));
+  quickStartWidget_->setMetricStatus(articleCount > 0 ? QStringLiteral("pass") : QStringLiteral("warn"),
+                                     articleCount > 0
+                                         ? (language_ == UiLanguage::Chinese ? QStringLiteral("文章库已有 %1 条记录").arg(articleCount) : QStringLiteral("Article library has %1 record(s)").arg(articleCount))
+                                         : UiText::text(QStringLiteral("quick.metrics_waiting"), language_));
+}
+
+void MainWindow::startQuickOneClick(const QString& keywords, int maxCandidatesPerKeyword, int intervalSeconds, const KeywordHotCriteria& criteria) {
+  const QStringList parsed = KeywordDiscoveryController::parseKeywords(keywords);
+  if (parsed.isEmpty()) {
+    quickStartWidget_->setSearchStatus(QStringLiteral("fail"), UiText::text(QStringLiteral("quick.no_keywords"), language_));
+    appendLog(UiText::text(QStringLiteral("quick.no_keywords"), language_));
+    return;
+  }
+
+  quickStartActive_ = true;
+  quickLastEnqueued_ = 0;
+  keywordResults_.clear();
+  quickStartWidget_->setRunning(true);
+  quickStartWidget_->setPhoneStatus(QStringLiteral("running"), UiText::text(QStringLiteral("quick.phone_checking"), language_));
+  quickStartWidget_->setSearchStatus(QStringLiteral("pending"));
+  quickStartWidget_->setQueueStatus(QStringLiteral("pending"));
+  quickStartWidget_->setMetricStatus(QStringLiteral("warn"), UiText::text(QStringLiteral("quick.metrics_waiting"), language_));
+  refreshQuickStartStatus();
+
+  loadPlugins();
+  settings_.adbAutomationEnabled = true;
+  qputenv("PREMIUM_RADAR_ENABLE_ADB", "1");
+  lastPhoneReport_ = phoneDiagnostics_.runDiagnostics(phoneDiagnosticsWidget_->selectedSerial(), wechatConfig_->bridgePort(),
+                                                       phoneDiagnosticsWidget_->proxyPort(), false, phoneDiagnosticsWidget_->testUrl());
+  phoneDiagnosticsWidget_->setReport(lastPhoneReport_);
+  QString preflightReason;
+  if (!PhoneDiagnosticsController::isCoreReady(lastPhoneReport_, &preflightReason)) {
+    quickStartActive_ = false;
+    quickStartWidget_->setRunning(false);
+    quickStartWidget_->setPhoneStatus(QStringLiteral("fail"), localizedPhonePreflightReason(preflightReason));
+    if (dockTabs_ != nullptr) dockTabs_->setCurrentWidget(quickStartWidget_);
+    appendLog(language_ == UiLanguage::Chinese
+                  ? QStringLiteral("一键操作已停止：手机预检未通过：%1").arg(localizedPhonePreflightReason(preflightReason))
+                  : QStringLiteral("One-click flow stopped: phone preflight failed: %1").arg(preflightReason));
+    return;
+  }
+
+  quickStartWidget_->setPhoneStatus(QStringLiteral("pass"), lastPhoneReport_.targetSerial.isEmpty()
+                                                        ? UiText::text(QStringLiteral("quick.phone_ready"), language_)
+                                                        : lastPhoneReport_.targetSerial);
+  startAutoAfterKeywordSearch_ = true;
+  pendingKeywordCriteria_ = criteria;
+  autoIngestion_.setEnabled(true);
+  autoIngestion_.setIntervalSeconds(intervalSeconds);
+  autoIngestion_.setMaxAttempts(autoIngestionWidget_->maxAttempts());
+  quickStartWidget_->setSearchStatus(QStringLiteral("running"), UiText::text(QStringLiteral("quick.search_running"), language_).arg(parsed.size()));
+  keywordDiscovery_.setMaxResultsPerKeyword(maxCandidatesPerKeyword);
+  keywordDiscovery_.searchKeywords(keywords);
+}
+
+void MainWindow::stopQuickOneClick() {
+  quickStartActive_ = false;
+  startAutoAfterKeywordSearch_ = false;
+  autoIngestion_.stop();
+  quickStartWidget_->setRunning(false);
+  refreshAutoIngestionQueue();
+  appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("一键操作已停止") : QStringLiteral("One-click flow stopped"));
+}
+
+void MainWindow::openQuickArticles() {
+  if (dockTabs_ != nullptr) dockTabs_->setCurrentWidget(viewer_);
+}
+
+void MainWindow::openQuickReports() {
+  if (dockTabs_ != nullptr) dockTabs_->setCurrentWidget(productionSuiteWidget_);
 }
 
 void MainWindow::generateKeywordSearchUrls(const QString& keywords) {
@@ -664,6 +764,10 @@ void MainWindow::onKeywordSearchFinished(const QVector<KeywordDiscoveryResult>& 
   keywordDiscoveryWidget_->setSearching(false);
   keywordDiscoveryWidget_->setResults(keywordResults_);
   appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("关键词自动搜索完成，候选文章 %1 条").arg(results.size()) : QStringLiteral("Keyword auto-search finished, %1 candidate article(s)").arg(results.size()));
+  quickStartWidget_->setSearchStatus(QStringLiteral("pass"),
+                                     language_ == UiLanguage::Chinese
+                                         ? QStringLiteral("发现候选文章 %1 条").arg(results.size())
+                                         : QStringLiteral("%1 candidate article(s) found").arg(results.size()));
   if (!startAutoAfterKeywordSearch_) {
     return;
   }
@@ -673,13 +777,22 @@ void MainWindow::onKeywordSearchFinished(const QVector<KeywordDiscoveryResult>& 
       pendingKeywordCriteria_.minimumCommentCount, pendingKeywordCriteria_.minimumHotScore);
   QString error;
   const int added = autoIngestion_.enqueueUrlsFromText(queueText, &error);
+  quickLastEnqueued_ = added;
   refreshAutoIngestionQueue();
   appendLog(language_ == UiLanguage::Chinese
                 ? QStringLiteral("关键词候选已自动加入采集队列：%1 条%2").arg(added).arg(error.isEmpty() ? QString() : QStringLiteral("；跳过：%1").arg(error))
                 : QStringLiteral("Keyword candidates automatically enqueued: %1%2").arg(added).arg(error.isEmpty() ? QString() : QStringLiteral("; skipped: %1").arg(error)));
   if (added > 0) {
+    quickStartWidget_->setQueueStatus(QStringLiteral("running"),
+                                      language_ == UiLanguage::Chinese
+                                          ? QStringLiteral("已入队 %1 条，正在逐篇打开手机微信文章").arg(added)
+                                          : QStringLiteral("%1 enqueued; opening articles on the phone").arg(added));
     autoIngestion_.start();
     refreshAutoIngestionQueue();
+  } else {
+    quickStartWidget_->setRunning(false);
+    quickStartWidget_->setQueueStatus(QStringLiteral("warn"), UiText::text(QStringLiteral("quick.no_queue"), language_));
+    quickStartActive_ = false;
   }
 }
 

@@ -42,6 +42,7 @@ set_target_properties(WeChatProviderPlugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY $
 add_executable(premium-content-radar WIN32
     src/main.cpp
     include/MainWindow.h src/MainWindow.cpp ui/mainwindow.ui
+    include/QuickStartWidget.h src/QuickStartWidget.cpp
     include/DashboardWidget.h src/DashboardWidget.cpp ui/dashboard_widget.ui
     include/ControlPanelWidget.h src/ControlPanelWidget.cpp ui/control_panel_widget.ui
     include/DataViewerWidget.h src/DataViewerWidget.cpp ui/data_viewer_widget.ui

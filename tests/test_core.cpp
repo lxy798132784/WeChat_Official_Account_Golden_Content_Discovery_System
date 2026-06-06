@@ -10,6 +10,7 @@
 #include "PhoneDiagnosticsController.h"
 #include "ProductionSuiteController.h"
 #include "ProxyTrafficBridge.h"
+#include "UiText.h"
 
 class RadarCoreTest : public QObject {
   Q_OBJECT
@@ -25,6 +26,7 @@ class RadarCoreTest : public QObject {
   void bridgePayloadClientSamplesParse();
   void productionSuiteProxyReplayAndScoring();
   void productionSuiteQualityTrendAnalysisDelivery();
+  void quickStartUiTextKeys();
   void autoIngestionQueueAndAdbArgs();
 };
 
@@ -241,6 +243,21 @@ void RadarCoreTest::productionSuiteQualityTrendAnalysisDelivery() {
   scored.category = QStringLiteral("原创");
   scored.publishTime = QDateTime::currentDateTimeUtc();
   QVERIFY(controller.scoreRecord(scored, freshnessProfile) >= 10.0);
+}
+
+void RadarCoreTest::quickStartUiTextKeys() {
+  const QStringList keys = {
+      QStringLiteral("tab.quick"), QStringLiteral("quick.title"), QStringLiteral("quick.intro"),
+      QStringLiteral("quick.start"), QStringLiteral("quick.step.phone"), QStringLiteral("quick.step.search"),
+      QStringLiteral("quick.step.queue"), QStringLiteral("quick.step.metrics"), QStringLiteral("quick.summary"),
+      QStringLiteral("quick.metrics_waiting"), QStringLiteral("quick.no_keywords"), QStringLiteral("tip.quick.start")};
+  for (const QString& key : keys) {
+    const QString en = UiText::text(key, UiLanguage::English);
+    const QString zh = UiText::text(key, UiLanguage::Chinese);
+    QVERIFY2(en != key, qPrintable(QStringLiteral("missing English key %1").arg(key)));
+    QVERIFY2(zh != key, qPrintable(QStringLiteral("missing Chinese key %1").arg(key)));
+    QVERIFY2(!en.isEmpty() && !zh.isEmpty(), qPrintable(QStringLiteral("empty quick key %1").arg(key)));
+  }
 }
 
 void RadarCoreTest::autoIngestionQueueAndAdbArgs() {

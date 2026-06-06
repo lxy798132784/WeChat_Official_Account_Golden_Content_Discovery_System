@@ -10,6 +10,7 @@
 #include "KeywordDiscoveryWidget.h"
 #include "PhoneDiagnosticsController.h"
 #include "PluginManager.h"
+#include "QuickStartWidget.h"
 #include "UiText.h"
 
 class QAction;
@@ -64,6 +65,10 @@ class MainWindow final : public QMainWindow {
   void browsePluginDirectory();
   void toggleLanguage();
   void showControlCenter();
+  void startQuickOneClick(const QString& keywords, int maxCandidatesPerKeyword, int intervalSeconds, const KeywordHotCriteria& criteria);
+  void stopQuickOneClick();
+  void openQuickArticles();
+  void openQuickReports();
   void generateKeywordSearchUrls(const QString& keywords);
   void autoSearchKeywords(const QString& keywords, int maxCandidatesPerKeyword);
   void startKeywordAutoIngestion(const QString& keywords, int maxCandidatesPerKeyword, const KeywordHotCriteria& criteria);
@@ -93,6 +98,7 @@ class MainWindow final : public QMainWindow {
   QString localizedPhonePreflightReason(const QString& reason) const;
   void appendLogKey(const QString& key, const QString& value = QString());
   void refreshAutoIngestionQueue();
+  void refreshQuickStartStatus();
 
   AppSettings settings_;
   DatabaseController database_;
@@ -103,6 +109,8 @@ class MainWindow final : public QMainWindow {
   PhoneDiagnosticReport lastPhoneReport_;
   QVector<KeywordDiscoveryResult> keywordResults_;
   bool startAutoAfterKeywordSearch_ = false;
+  bool quickStartActive_ = false;
+  int quickLastEnqueued_ = 0;
   KeywordHotCriteria pendingKeywordCriteria_;
   QTimer pluginDrainTimer_;
   UiLanguage language_ = UiLanguage::English;
@@ -124,6 +132,7 @@ class MainWindow final : public QMainWindow {
   QAction* languageAction_ = nullptr;
   QAction* showControlCenterAction_ = nullptr;
   QAction* aboutAction_ = nullptr;
+  QuickStartWidget* quickStartWidget_ = nullptr;
   DashboardWidget* dashboard_ = nullptr;
   ControlPanelWidget* controls_ = nullptr;
   KeywordDiscoveryWidget* keywordDiscoveryWidget_ = nullptr;
