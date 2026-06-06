@@ -18,6 +18,8 @@ class WeChatSearchAutomationController final {
  public:
   struct Options {
     bool enabled = false;
+    bool autoLocateSearch = true;
+    bool tapNetworkResults = true;
     int searchTapX = 0;
     int searchTapY = 0;
     int resultTapX = 0;
@@ -42,6 +44,7 @@ class WeChatSearchAutomationController final {
   static QString escapeInputText(const QString& text);
   static bool hasChineseInputRisk(const QString& text);
   static Result dryRunPlan(const QStringList& keywords, const Options& options);
+  static bool findNodeCenterByText(const QString& uiXml, const QStringList& textHints, int* x, int* y);
   static Result run(const QStringList& keywords, const Options& options);
 
  private:

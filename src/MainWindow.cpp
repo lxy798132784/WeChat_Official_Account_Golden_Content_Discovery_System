@@ -710,25 +710,25 @@ void MainWindow::startQuickOneClick(const QString& keywords, int maxCandidatesPe
   quickStartWidget_->setPhoneStatus(QStringLiteral("pass"), lastPhoneReport_.targetSerial.isEmpty()
                                                         ? UiText::text(QStringLiteral("quick.phone_ready"), language_)
                                                         : lastPhoneReport_.targetSerial);
-  if (useAdvancedPhoneSearch) {
-    WeChatSearchAutomationController::Options advancedOptions;
-    advancedOptions.enabled = true;
-    advancedOptions.searchTapX = searchTapX;
-    advancedOptions.searchTapY = searchTapY;
-    advancedOptions.resultTapX = resultTapX;
-    advancedOptions.resultTapY = resultTapY;
-    const auto plan = WeChatSearchAutomationController::dryRunPlan(parsed, advancedOptions);
-    if (!plan.success) {
-      quickStartWidget_->setSuggestions({language_ == UiLanguage::Chinese
-                                             ? QStringLiteral("高级微信内搜索未启动：需要先填写搜索框坐标。主路线会继续执行。")
-                                             : QStringLiteral("Advanced in-WeChat search was not started: search coordinates are required. The primary route continues.")});
-    } else {
-      const auto advancedResult = WeChatSearchAutomationController::run(parsed, advancedOptions);
-      quickStartWidget_->setSuggestions({language_ == UiLanguage::Chinese
-                                             ? QStringLiteral("高级微信内搜索阶段：%1，结果：%2。主路线会继续兜底。").arg(advancedResult.stage, advancedResult.message)
-                                             : QStringLiteral("Advanced in-WeChat search stage: %1, result: %2. The primary route still continues as fallback.").arg(advancedResult.stage, advancedResult.message)});
-    }
-  }
+  // The phone-side WeChat route is now the preferred opening route because browser
+  // redirects do not provide reliable metrics. Keep the external keyword source as
+  // candidate fallback only.
+  WeChatSearchAutomationController::Options phoneSearchOptions;
+  phoneSearchOptions.enabled = true;
+  phoneSearchOptions.autoLocateSearch = !useAdvancedPhoneSearch || searchTapX <= 0 || searchTapY <= 0;
+  phoneSearchOptions.tapNetworkResults = true;
+  phoneSearchOptions.searchTapX = searchTapX;
+  phoneSearchOptions.searchTapY = searchTapY;
+  phoneSearchOptions.resultTapX = resultTapX;
+  phoneSearchOptions.resultTapY = resultTapY;
+  const auto phoneSearchResult = WeChatSearchAutomationController::run(parsed, phoneSearchOptions);
+  quickStartWidget_->setSuggestions({language_ == UiLanguage::Chinese
+                                         ? QStringLiteral("手机微信内搜索阶段：%1，结果：%2。外部候选只作为兜底参考；阅读/点赞/评论需等待桥接回传。").arg(phoneSearchResult.stage, phoneSearchResult.message)
+                                         : QStringLiteral("Phone-side WeChat search stage: %1, result: %2. External candidates are fallback only; read/like/comment metrics require bridge callbacks.").arg(phoneSearchResult.stage, phoneSearchResult.message)});
+  quickStartWidget_->setMetricStatus(QStringLiteral("warn"),
+                                     language_ == UiLanguage::Chinese
+                                         ? QStringLiteral("已尝试在手机微信内搜索；正在等待合法桥接回传阅读、点赞、评论指标。")
+                                         : QStringLiteral("Phone-side WeChat search attempted; waiting for lawful bridge callbacks with read, like and comment metrics."));
   startAutoAfterKeywordSearch_ = true;
   pendingKeywordCriteria_ = criteria;
   autoIngestion_.setEnabled(true);

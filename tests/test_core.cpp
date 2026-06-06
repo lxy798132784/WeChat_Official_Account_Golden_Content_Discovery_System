@@ -286,6 +286,7 @@ void RadarCoreTest::weChatSearchAutomationPlan() {
   QCOMPARE(disabledPlan.message, QStringLiteral("advanced_wechat_search_disabled"));
   WeChatSearchAutomationController::Options options;
   options.enabled = true;
+  options.autoLocateSearch = false;
   options.searchTapX = 120;
   options.searchTapY = 80;
   options.resultTapX = 300;
@@ -294,6 +295,13 @@ void RadarCoreTest::weChatSearchAutomationPlan() {
   QVERIFY(plan.success);
   QVERIFY(plan.commands.join(QStringLiteral("\n")).contains(QStringLiteral("com.tencent.mm")));
   QVERIFY(plan.commands.join(QStringLiteral("\n")).contains(QStringLiteral("input text AI%stools")));
+  int x = 0;
+  int y = 0;
+  QVERIFY(WeChatSearchAutomationController::findNodeCenterByText(
+      QStringLiteral(R"(<hierarchy><node text="搜索" content-desc="" bounds="[800,100][1000,220]" /></hierarchy>)"),
+      {QStringLiteral("搜索")}, &x, &y));
+  QCOMPARE(x, 900);
+  QCOMPARE(y, 160);
 }
 
 void RadarCoreTest::autoIngestionQueueAndAdbArgs() {
