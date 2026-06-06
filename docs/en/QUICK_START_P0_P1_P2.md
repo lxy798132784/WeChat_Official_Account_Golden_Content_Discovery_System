@@ -6,10 +6,10 @@ The default and recommended path remains:
 
 1. Enter market keywords.
 2. Connect an authorized Android phone.
-3. Click **One-click Discover & Open**.
-4. The app checks ADB/USB authorization, searches external WeChat article candidate pages, filters and deduplicates candidates, enqueues WeChat article URLs, and opens them on the phone through Android intents.
+3. Click one-click discovery and opening.
+4. The app checks phone diagnostics, searches external WeChat article candidate pages, filters and de-duplicates candidates, enqueues supported WeChat article URLs or Sogou WeChat redirect candidates, and opens them on the phone.
 
-This route is the most stable because it does not depend on WeChat button positions, phone resolution, input method, or WeChat UI changes.
+Sogou WeChat result pages can provide candidate titles, accounts, publish-time snippets, and redirect URLs. They do **not** provide reliable read, like, comment, or old-like metrics. Those metrics still require a lawful local adapter/bridge callback, sanitized replay data, or another authorized data source after the article is opened.
 
 ## P1 supplemental sources
 

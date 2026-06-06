@@ -7,6 +7,7 @@
 #include <QRegularExpression>
 #include <QTextStream>
 #include <QUrl>
+#include <QUrlQuery>
 
 namespace {
 constexpr int kMinIntervalSeconds = 5;
@@ -98,6 +99,11 @@ bool AutoIngestionController::isSupportedArticleUrl(const QString& urlText) {
   }
   if (host.endsWith(QStringLiteral("weixin.qq.com"))) {
     return true;
+  }
+  if ((host == QStringLiteral("weixin.sogou.com") || host.endsWith(QStringLiteral(".sogou.com"))) &&
+      url.path() == QStringLiteral("/link")) {
+    QUrlQuery query(url);
+    return !query.queryItemValue(QStringLiteral("url")).isEmpty() && query.queryItemValue(QStringLiteral("type")) == QStringLiteral("2");
   }
   return urlText.contains(QStringLiteral("__biz=")) || urlText.contains(QStringLiteral("mid="));
 }

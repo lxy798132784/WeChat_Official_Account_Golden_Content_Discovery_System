@@ -28,6 +28,7 @@ class RadarCoreTest : public QObject {
   void productionSuiteProxyReplayAndScoring();
   void productionSuiteQualityTrendAnalysisDelivery();
   void quickStartUiTextKeys();
+  void sogouRedirectCandidatesAreSupported();
   void weChatSearchAutomationPlan();
   void autoIngestionQueueAndAdbArgs();
 };
@@ -262,6 +263,18 @@ void RadarCoreTest::quickStartUiTextKeys() {
     QVERIFY2(zh != key, qPrintable(QStringLiteral("missing Chinese key %1").arg(key)));
     QVERIFY2(!en.isEmpty() && !zh.isEmpty(), qPrintable(QStringLiteral("empty quick key %1").arg(key)));
   }
+}
+
+void RadarCoreTest::sogouRedirectCandidatesAreSupported() {
+  const QByteArray html = R"(<ul class="news-list"><li id="sogou_vr_11002601_box_0"><div class="txt-box"><h3><a target="_blank" href="/link?url=encrypted-candidate&amp;type=2&amp;query=AI%E5%B7%A5%E5%85%B7&amp;token=abc">2026免费<em>AI工具</em>推荐</a></h3><span class="all-time-y2">测试账号</span></div></li></ul>)";
+  const auto results = KeywordDiscoveryController::parseSearchHtml(QStringLiteral("AI工具"), html);
+  QCOMPARE(results.size(), 1);
+  QVERIFY(results.first().url.startsWith(QStringLiteral("https://weixin.sogou.com/link?")));
+  QVERIFY(AutoIngestionController::isSupportedArticleUrl(results.first().url));
+  AutoIngestionController controller;
+  QString error;
+  QVERIFY(controller.enqueueUrl(results.first().url, QStringLiteral("测试账号"), QString(), &error));
+  QCOMPARE(controller.pendingCount(), 1);
 }
 
 void RadarCoreTest::weChatSearchAutomationPlan() {

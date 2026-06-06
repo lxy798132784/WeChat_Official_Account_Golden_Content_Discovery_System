@@ -62,8 +62,18 @@ QString decodeHtml(QString text) {
 QString normalizeSearchUrl(QString urlText) {
   urlText.replace(QStringLiteral("&amp;"), QStringLiteral("&"));
   QUrl url(urlText);
-  if (!url.isValid()) {
+  if (url.isRelative() && urlText.startsWith(QStringLiteral("/link?"))) {
+    url = QUrl(QStringLiteral("https://weixin.sogou.com") + urlText);
+  }
+  if (!url.isValid() || url.scheme().isEmpty()) {
     return QString();
+  }
+  // Sogou search results often expose an encrypted /link?url=... redirect instead of
+  // a direct mp.weixin.qq.com URL. Keep that redirect as a first-class candidate;
+  // resolving it from the desktop frequently triggers antispider, while opening it
+  // on the authorized phone is still a valid fallback route.
+  if (url.host().contains(QStringLiteral("sogou.com")) && url.path() == QStringLiteral("/link")) {
+    return url.toString(QUrl::FullyEncoded);
   }
   if (url.host().contains(QStringLiteral("sogou.com"))) {
     QUrlQuery query(url);
@@ -192,7 +202,7 @@ QVector<KeywordDiscoveryResult> KeywordDiscoveryController::parseSearchHtml(cons
       continue;
     }
     QString url = normalizeSearchUrl(linkMatch.captured(1));
-    if (url.isEmpty() || !url.contains(QStringLiteral("mp.weixin.qq.com")) || seen.contains(url)) {
+    if (url.isEmpty() || seen.contains(url)) {
       continue;
     }
     seen.insert(url);
