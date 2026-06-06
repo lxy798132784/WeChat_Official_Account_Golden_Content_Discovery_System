@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.4.10 - 2026-06-06
+
+- Closed the WeChat search-to-article automation loop by detecting article entries in search results and tapping the best scored candidate.
+- Added article page recognition so the automation can distinguish search result pages from opened article pages before waiting for metrics.
+- Added phone screen unlock detection to the P0 preflight gate, preventing one-click automation from starting while the device is still on the lock screen.
+- Added regression tests for article-entry detection, article-page detection, and the screen-unlocked readiness gate.
+- Verified the localhost metrics bridge path with an offscreen smoke test: bridge payload ingestion persisted article metrics into SQLite.
+
 ## v1.0.1 - 2026-06-05
 
 - Added persistent runtime settings for database path, plugin directory, bridge port, ADB toggle, and sample-data startup behavior.
