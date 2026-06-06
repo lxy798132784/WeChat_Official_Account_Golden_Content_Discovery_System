@@ -318,6 +318,8 @@ QString MainWindow::localizedRuntimeMessage(const QString& message) const {
   text.replace(QStringLiteral("Replay input must be JSON, JSON array, or JSONL with sanitized article records."), QStringLiteral("回放输入必须是脱敏文章记录的数据对象、数组或逐行数据。"));
   text.replace(QStringLiteral("JSON must contain an array or an articles/items/results/data array"), QStringLiteral("数据文件必须是数组，或包含 articles/items/results/data 数组"));
   text.replace(QStringLiteral("No target phone serial selected."), QStringLiteral("未选择目标手机序列号。"));
+  text.replace(QStringLiteral("Phone screen is locked. Unlock the phone before one-click WeChat automation."), QStringLiteral("手机屏幕仍锁定。请先解锁并保持亮屏，再执行一键微信自动化。"));
+  text.replace(QStringLiteral("Raw:"), QStringLiteral("原始信息："));
   text.replace(QStringLiteral("Missing diagnostic item:"), QStringLiteral("缺少诊断项："));
   return text;
 }
@@ -335,6 +337,8 @@ QString MainWindow::localizedPhonePreflightReason(const QString& reason) const {
   text.replace(QStringLiteral("A phone is offline from ADB's point of view."), QStringLiteral("从调试连接视角看，手机当前处于离线状态。"));
   text.replace(QStringLiteral("ADB shell works."), QStringLiteral("手机命令控制可用。"));
   text.replace(QStringLiteral("ADB shell command failed."), QStringLiteral("手机命令执行失败。"));
+  text.replace(QStringLiteral("The phone screen is unlocked and foreground UI automation can run."), QStringLiteral("手机屏幕已解锁，前台界面自动化可以运行。"));
+  text.replace(QStringLiteral("The phone is on the lock screen, so WeChat search automation cannot tap the app UI."), QStringLiteral("手机仍停留在锁屏界面，微信搜索自动化无法点击应用界面。"));
   return text;
 }
 

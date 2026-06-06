@@ -302,6 +302,25 @@ void RadarCoreTest::weChatSearchAutomationPlan() {
       {QStringLiteral("搜索")}, &x, &y));
   QCOMPARE(x, 900);
   QCOMPARE(y, 160);
+  QVERIFY(WeChatSearchAutomationController::findArticleEntryCenter(
+      QStringLiteral(R"(<hierarchy><node text="聊天记录" class="android.widget.TextView" bounds="[40,300][500,380]" /><node text="AI工具爆款文章 公众号 阅读10万+" class="android.widget.TextView" clickable="true" bounds="[40,520][1030,700]" /></hierarchy>)"),
+      &x, &y));
+  QVERIFY(y > 520);
+  QVERIFY(WeChatSearchAutomationController::uiDumpLooksLikeArticlePage(
+      QStringLiteral(R"(<hierarchy><node text="公众号" bounds="[1,1][2,2]" /><node text="阅读 100000" bounds="[1,1][2,2]" /><node text="赞" bounds="[1,1][2,2]" /></hierarchy>)")));
+    PhoneDiagnosticReport report;
+    report.items.push_back({QStringLiteral("adb_tool"), {}, QStringLiteral("pass"), {}, {}, {}});
+    report.items.push_back({QStringLiteral("adb_server"), {}, QStringLiteral("pass"), {}, {}, {}});
+    report.items.push_back({QStringLiteral("device_detected"), {}, QStringLiteral("pass"), {}, {}, {}});
+    report.items.push_back({QStringLiteral("usb_authorization"), {}, QStringLiteral("pass"), {}, {}, {}});
+    report.items.push_back({QStringLiteral("shell_control"), {}, QStringLiteral("pass"), {}, {}, {}});
+    QString reason;
+    QVERIFY(!PhoneDiagnosticsController::isCoreReady(report, &reason));
+    QVERIFY(reason.contains(QStringLiteral("screen_unlocked")) || reason.contains(QStringLiteral("Missing diagnostic item")));
+    report.items.push_back({QStringLiteral("screen_unlocked"), {}, QStringLiteral("pass"), {}, {}, {}});
+    report.targetSerial = QStringLiteral("offline-test-serial");
+    QVERIFY(!PhoneDiagnosticsController::isCoreReady(report, &reason));
+    QVERIFY(reason.contains(QStringLiteral("locked"), Qt::CaseInsensitive) || reason.contains(QStringLiteral("screen"), Qt::CaseInsensitive));
 }
 
 void RadarCoreTest::autoIngestionQueueAndAdbArgs() {

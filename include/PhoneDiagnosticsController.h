@@ -78,6 +78,7 @@ class PhoneDiagnosticsController final : public QObject {
   static QJsonObject reportToJson(const PhoneDiagnosticReport& report);
   static QString reportToText(const PhoneDiagnosticReport& report, bool chinese = false);
   static bool isCoreReady(const PhoneDiagnosticReport& report, QString* reason = nullptr);
+  static bool isScreenUnlocked(const QString& serial = QString(), QString* rawOutput = nullptr);
 
   PhoneDiagnosticReport runDiagnostics(const QString& preferredSerial = QString(),
                                        quint16 bridgePort = 9000,

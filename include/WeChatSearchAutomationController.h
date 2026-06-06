@@ -45,6 +45,8 @@ class WeChatSearchAutomationController final {
   static bool hasChineseInputRisk(const QString& text);
   static Result dryRunPlan(const QStringList& keywords, const Options& options);
   static bool findNodeCenterByText(const QString& uiXml, const QStringList& textHints, int* x, int* y);
+  static bool findArticleEntryCenter(const QString& uiXml, int* x, int* y);
+  static bool uiDumpLooksLikeArticlePage(const QString& uiXml);
   static Result run(const QStringList& keywords, const Options& options);
 
  private:

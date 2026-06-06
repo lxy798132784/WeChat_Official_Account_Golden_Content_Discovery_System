@@ -229,6 +229,13 @@ PhoneDiagnosticReport PhoneDiagnosticsController::runDiagnostics(const QString& 
                                             : QStringLiteral("ADB shell command failed."),
                                     QStringLiteral("If shell fails, re-authorize USB debugging or restart ADB server."), echo + err));
 
+    QString lockRaw;
+    const bool unlocked = isScreenUnlocked(report.targetSerial, &lockRaw);
+    report.items.push_back(makeItem(QStringLiteral("screen_unlocked"), QStringLiteral("Screen unlocked"), unlocked ? QStringLiteral("pass") : QStringLiteral("fail"),
+                                    unlocked ? QStringLiteral("The phone screen is unlocked and foreground UI automation can run.")
+                                             : QStringLiteral("The phone is on the lock screen, so WeChat search automation cannot tap the app UI."),
+                                    QStringLiteral("Unlock the phone and keep it awake before clicking one-click start."), lockRaw));
+
     if (includeLinkOpenTest) {
       const QString openOutput = runProcess(adbExecutable(), baseArgs + QStringList{QStringLiteral("shell"), QStringLiteral("am"), QStringLiteral("start"),
                                                                                    QStringLiteral("-a"), QStringLiteral("android.intent.action.VIEW"),
@@ -281,7 +288,7 @@ PhoneDiagnosticReport PhoneDiagnosticsController::runDiagnostics(const QString& 
 
 bool PhoneDiagnosticsController::isCoreReady(const PhoneDiagnosticReport& report, QString* reason) {
   const QStringList required = {QStringLiteral("adb_tool"), QStringLiteral("adb_server"), QStringLiteral("device_detected"),
-                                QStringLiteral("usb_authorization"), QStringLiteral("shell_control")};
+                                QStringLiteral("usb_authorization"), QStringLiteral("shell_control"), QStringLiteral("screen_unlocked")};
   for (const QString& id : required) {
     bool found = false;
     for (const PhoneDiagnosticItem& item : report.items) {
@@ -300,6 +307,31 @@ bool PhoneDiagnosticsController::isCoreReady(const PhoneDiagnosticReport& report
   }
   if (report.targetSerial.isEmpty()) {
     if (reason != nullptr) *reason = QStringLiteral("No target phone serial selected.");
+    return false;
+  }
+  QString lockRaw;
+  if (!isScreenUnlocked(report.targetSerial, &lockRaw)) {
+    if (reason != nullptr) *reason = QStringLiteral("Phone screen is locked. Unlock the phone before one-click WeChat automation. Raw: %1").arg(lockRaw.left(240));
+    return false;
+  }
+  return true;
+}
+
+bool PhoneDiagnosticsController::isScreenUnlocked(const QString& serial, QString* rawOutput) {
+  int code = 0;
+  QString err;
+  const QString output = runProcess(adbExecutable(), serialArgs(serial) + QStringList{QStringLiteral("shell"), QStringLiteral("dumpsys"), QStringLiteral("window")},
+                                    8000, &code, &err);
+  const QString combined = output + err;
+  if (rawOutput != nullptr) *rawOutput = combined;
+  if (code != 0) {
+    return false;
+  }
+  if (combined.contains(QStringLiteral("mDreamingLockscreen=true")) ||
+      combined.contains(QStringLiteral("mShowingLockscreen=true"))) {
+    return false;
+  }
+  if (combined.contains(QStringLiteral("NotificationShade")) && combined.contains(QStringLiteral("keyguard"), Qt::CaseInsensitive)) {
     return false;
   }
   return true;
@@ -370,6 +402,7 @@ QString PhoneDiagnosticsController::reportToText(const PhoneDiagnosticReport& re
     if (id == QStringLiteral("usb_authorization")) return QStringLiteral("USB 调试授权");
     if (id == QStringLiteral("target_device")) return QStringLiteral("目标设备选择");
     if (id == QStringLiteral("shell_control")) return QStringLiteral("手机命令控制");
+    if (id == QStringLiteral("screen_unlocked")) return QStringLiteral("手机屏幕解锁");
     if (id == QStringLiteral("open_link")) return QStringLiteral("打开文章链接");
     if (id == QStringLiteral("local_bridge")) return QStringLiteral("本地桥端口");
     if (id == QStringLiteral("proxy_port")) return QStringLiteral("本地代理端口");
