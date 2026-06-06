@@ -3,10 +3,10 @@ name: Feature request
 about: Suggest an improvement
 ---
 
-## Problem / 问题
+## Problem
 
-## Proposal / 方案
+## Proposal
 
-## Alternatives / 替代方案
+## Alternatives
 
-## Additional context / 补充信息
+## Additional context

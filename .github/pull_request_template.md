@@ -1,8 +1,8 @@
-## Summary / 摘要
+## Summary
 
-## Verification / 验证
+## Verification
 
 - [ ] `./scripts/verify-all.sh`
 - [ ] No secrets, runtime DBs, build outputs, or logs committed
 
-## Notes / 说明
+## Notes

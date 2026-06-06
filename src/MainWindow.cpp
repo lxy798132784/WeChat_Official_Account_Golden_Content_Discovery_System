@@ -281,7 +281,22 @@ QString MainWindow::trLog(const QString& key, const QString& value) const {
 }
 
 QString MainWindow::localizedRuntimeMessage(const QString& message) const {
-  if (language_ != UiLanguage::Chinese) return message;
+  if (language_ != UiLanguage::Chinese) {
+    QString text = message;
+    text.replace(QStringLiteral("自动采集需要先明确打开手机调试自动化开关"), QStringLiteral("Enable the ADB automation gate before starting auto ingestion"));
+    text.replace(QStringLiteral("自动采集调度已启动"), QStringLiteral("Auto-ingestion scheduler started"));
+    text.replace(QStringLiteral("自动采集调度已停止"), QStringLiteral("Auto-ingestion scheduler stopped"));
+    text.replace(QStringLiteral("自动采集队列没有可执行任务"), QStringLiteral("Auto-ingestion queue has no runnable task"));
+    text.replace(QStringLiteral("已通过手机调试打开文章："), QStringLiteral("Opened article through ADB: "));
+    text.replace(QStringLiteral("手机调试打开失败："), QStringLiteral("ADB open failed: "));
+    text.replace(QStringLiteral("关键词搜索正在运行"), QStringLiteral("Keyword search is already running"));
+    text.replace(QStringLiteral("未提供关键词"), QStringLiteral("No keyword provided"));
+    text.replace(QRegularExpression(QStringLiteral("^关键词搜索已启动：(\\d+) 个关键词$")), QStringLiteral("Keyword search started: \\1 keyword(s)"));
+    text.replace(QRegularExpression(QStringLiteral("^关键词 \\[(.*)\\] 搜索失败：(.*)$")), QStringLiteral("Keyword [\\1] search failed:\\2"));
+    text.replace(QRegularExpression(QStringLiteral("^关键词 \\[(.*)\\] 发现 (\\d+) 条候选文章$")), QStringLiteral("Keyword [\\1] found \\2 candidate article(s)"));
+    text.replace(QRegularExpression(QStringLiteral("^关键词搜索完成：(\\d+) 条候选文章$")), QStringLiteral("Keyword search completed: \\1 candidate article(s)"));
+    return text;
+  }
   QString text = message;
   text.replace(QStringLiteral("Plugin directory not found:"), QStringLiteral("插件目录不存在："));
   text.replace(QStringLiteral("Skipped"), QStringLiteral("已跳过"));

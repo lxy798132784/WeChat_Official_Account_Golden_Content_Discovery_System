@@ -42,7 +42,8 @@ ContentRecord recordFromJson(const QJsonObject& object) {
   record.oldLikeNum = jsonInt(object, {QStringLiteral("old_like_num"), QStringLiteral("old_like")});
   record.commentNum = jsonInt(object, {QStringLiteral("comment_num"), QStringLiteral("comment"), QStringLiteral("comments")});
   record.publishTime = QDateTime::fromString(jsonString(object, {QStringLiteral("publish_time"), QStringLiteral("datetime")}), Qt::ISODate);
-  if (!record.publishTime.isValid()) record.publishTime = QDateTime::currentDateTimeUtc();
+  record.timestamp = QDateTime::fromString(jsonString(object, {QStringLiteral("timestamp"), QStringLiteral("captured_at")}), Qt::ISODate);
+  if (!record.timestamp.isValid()) record.timestamp = QDateTime::currentDateTimeUtc();
   return record;
 }
 }  // namespace
@@ -170,8 +171,8 @@ QVector<ProductionSuiteController::QualityItem> ProductionSuiteController::dataQ
     if (record.title.trimmed().isEmpty()) ++missingTitle;
     if (record.accountName.trimmed().isEmpty()) ++missingAccount;
     if (url.isEmpty()) ++missingUrl;
-    if ((record.readNum <= 0 && (record.likeNum > 0 || record.commentNum > 0)) ||
-        record.likeNum > record.readNum || record.commentNum > record.readNum) {
+    if ((record.readNum <= 0 && (record.likeNum > 0 || record.commentNum > 0 || record.oldLikeNum > 0)) ||
+        record.likeNum > record.readNum || record.oldLikeNum > record.readNum || record.commentNum > record.readNum) {
       ++abnormalMetric;
     }
     if (!record.publishTime.isValid()) ++stalePublishTime;
@@ -257,10 +258,16 @@ QString ProductionSuiteController::releaseReadinessText(bool chinese) const {
 }
 
 double ProductionSuiteController::scoreRecord(const ContentRecord& record, const ScoreProfile& profile) const {
-  const double originality = 0.0;
+  const double freshness = record.publishTime.isValid()
+                               ? std::max(0.0, 30.0 - record.publishTime.daysTo(QDateTime::currentDateTimeUtc()))
+                               : 0.0;
+  const double originalitySignal = record.category.contains(QStringLiteral("原创"), Qt::CaseInsensitive) ||
+                                   record.category.contains(QStringLiteral("Original"), Qt::CaseInsensitive)
+                                       ? 1.0
+                                       : 0.0;
   return record.readNum * profile.readWeight + record.likeNum * profile.likeWeight +
          record.commentNum * profile.commentWeight + record.oldLikeNum * profile.oldLikeWeight +
-         originality * profile.originalityWeight;
+         freshness * profile.freshnessWeight + originalitySignal * profile.originalityWeight;
 }
 
 QStringList ProductionSuiteController::accountInsights(const QVector<ContentRecord>& records, bool chinese) const {

@@ -176,9 +176,11 @@ void RadarCoreTest::productionSuiteProxyReplayAndScoring() {
   QCOMPARE(steps.size(), 5);
   QVERIFY(controller.proxyWizardReport(steps, true).contains(QStringLiteral("代理适配器")));
   QString error;
-  const QByteArray sample = R"({"title":"Replay","account_name":"Lab","read_num":1000,"like_num":20,"comment_num":5,"url":"https://mp.weixin.qq.com/s/replay"})";
+  const QByteArray sample = R"({"title":"Replay","account_name":"Lab","read_num":1000,"like_num":20,"comment_num":5,"url":"https://mp.weixin.qq.com/s/replay","timestamp":"2026-06-05T10:00:00Z"})";
   const auto records = controller.parseReplaySamples(QString::fromUtf8(sample), &error);
   QCOMPARE(records.size(), 1);
+  QVERIFY(records.first().timestamp.isValid());
+  QVERIFY(!records.first().publishTime.isValid());
   ProductionSuiteController::ScoreProfile profile;
   QVERIFY(controller.scoreRecord(records.first(), profile) > 1000.0);
   QVERIFY(controller.classifyFailure(QStringLiteral("phone unauthorized")) == QStringLiteral("PHONE_UNAUTHORIZED"));
@@ -204,12 +206,21 @@ void RadarCoreTest::productionSuiteQualityTrendAnalysisDelivery() {
   latest.timestamp = QDateTime::fromString("2026-06-05T12:00:00Z", Qt::ISODate);
   ContentRecord bad;
   bad.likeNum = 10;
-  QVector<ContentRecord> records{first, latest, bad};
+  ContentRecord oldLikeBad;
+  oldLikeBad.url = QStringLiteral("https://mp.weixin.qq.com/s/old-like-bad");
+  oldLikeBad.oldLikeNum = 5;
+  QVector<ContentRecord> records{first, latest, bad, oldLikeBad};
 
   const auto quality = controller.dataQualityItems(records);
   QVERIFY(!quality.isEmpty());
   QVERIFY(std::any_of(quality.cbegin(), quality.cend(), [](const auto& item) {
     return item.name == QStringLiteral("missing_urls") && item.count == 1;
+  }));
+  QVERIFY(std::any_of(quality.cbegin(), quality.cend(), [](const auto& item) {
+    return item.name == QStringLiteral("abnormal_metrics") && item.count >= 2;
+  }));
+  QVERIFY(std::any_of(quality.cbegin(), quality.cend(), [](const auto& item) {
+    return item.name == QStringLiteral("invalid_publish_time") && item.count >= 2;
   }));
   const auto trends = controller.trendPoints(records, true);
   QCOMPARE(trends.size(), 1);
@@ -219,6 +230,17 @@ void RadarCoreTest::productionSuiteQualityTrendAnalysisDelivery() {
   QVERIFY(!analysis.isEmpty());
   QVERIFY(analysis.first().reason.contains(QStringLiteral("触发词")) || analysis.first().reason.contains(QStringLiteral("互动密度")));
   QVERIFY(controller.releaseReadinessText(true).contains(QStringLiteral("校验和")));
+  ProductionSuiteController::ScoreProfile freshnessProfile;
+  freshnessProfile.readWeight = 0.0;
+  freshnessProfile.likeWeight = 0.0;
+  freshnessProfile.commentWeight = 0.0;
+  freshnessProfile.oldLikeWeight = 0.0;
+  freshnessProfile.freshnessWeight = 1.0;
+  freshnessProfile.originalityWeight = 10.0;
+  ContentRecord scored;
+  scored.category = QStringLiteral("原创");
+  scored.publishTime = QDateTime::currentDateTimeUtc();
+  QVERIFY(controller.scoreRecord(scored, freshnessProfile) >= 10.0);
 }
 
 void RadarCoreTest::autoIngestionQueueAndAdbArgs() {

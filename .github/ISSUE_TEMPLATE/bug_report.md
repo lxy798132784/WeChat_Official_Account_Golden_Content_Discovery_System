@@ -3,14 +3,14 @@ name: Bug report
 about: Report a reproducible bug
 ---
 
-## Summary / 摘要
+## Summary
 
-## Steps to reproduce / 复现步骤
+## Steps to reproduce
 
-## Expected behavior / 期望行为
+## Expected behavior
 
-## Actual behavior / 实际行为
+## Actual behavior
 
-## Environment / 环境
+## Environment
 
-## Logs / 日志
+## Logs
