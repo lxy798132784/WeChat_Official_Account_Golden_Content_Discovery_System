@@ -8,8 +8,8 @@
 #include <QXmlStreamReader>
 
 QStringList WeChatSearchAutomationController::adbLaunchWeChatArguments() {
-  return {QStringLiteral("shell"), QStringLiteral("monkey"), QStringLiteral("-p"),
-          QStringLiteral("com.tencent.mm"), QStringLiteral("1")};
+  return {QStringLiteral("shell"), QStringLiteral("am"), QStringLiteral("start"), QStringLiteral("-n"),
+          QStringLiteral("com.tencent.mm/.ui.LauncherUI")};
 }
 
 QStringList WeChatSearchAutomationController::adbTapArguments(int x, int y) {
@@ -33,6 +33,14 @@ QStringList WeChatSearchAutomationController::adbCatUiDumpArguments() {
   return {QStringLiteral("shell"), QStringLiteral("cat"), QStringLiteral("/sdcard/window.xml")};
 }
 
+QStringList WeChatSearchAutomationController::adbWmSizeArguments() {
+  return {QStringLiteral("shell"), QStringLiteral("wm"), QStringLiteral("size")};
+}
+
+QStringList WeChatSearchAutomationController::adbWindowFocusArguments() {
+  return {QStringLiteral("shell"), QStringLiteral("dumpsys"), QStringLiteral("window")};
+}
+
 QString WeChatSearchAutomationController::escapeInputText(const QString& text) {
   QString escaped = text.trimmed();
   escaped.replace(QStringLiteral("%"), QStringLiteral("%25"));
@@ -54,6 +62,32 @@ bool WeChatSearchAutomationController::hasChineseInputRisk(const QString& text) 
     }
   }
   return false;
+}
+
+WeChatSearchAutomationController::AdaptivePoints WeChatSearchAutomationController::adaptivePoints(int screenWidth,
+                                                                                                  int screenHeight) {
+  const int width = qMax(1, screenWidth);
+  const int height = qMax(1, screenHeight);
+  AdaptivePoints points;
+  points.searchX = qRound(width * 0.827);
+  points.searchY = qRound(height * 0.075);
+  points.networkResultX = qRound(width * 0.40);
+  points.networkResultY = qRound(height * 0.61);
+  points.articlesTabX = qRound(width * 0.64);
+  points.articlesTabY = qRound(height * 0.115);
+  points.firstArticleX = qRound(width * 0.47);
+  points.firstArticleY = qRound(height * 0.705);
+  return points;
+}
+
+QStringList WeChatSearchAutomationController::networkSearchTextHints() {
+  return {QStringLiteral("搜索网络结果"), QStringLiteral("搜一搜"), QStringLiteral("AI搜索"),
+          QStringLiteral("搜索更多结果"), QStringLiteral("网络结果"), QStringLiteral("Search")};
+}
+
+QStringList WeChatSearchAutomationController::articlesTabTextHints() {
+  return {QStringLiteral("文章"), QStringLiteral("公众号文章"), QStringLiteral("图文"), QStringLiteral("资讯"),
+          QStringLiteral("Articles")};
 }
 
 WeChatSearchAutomationController::Result WeChatSearchAutomationController::dryRunPlan(const QStringList& keywords,
@@ -207,6 +241,218 @@ bool WeChatSearchAutomationController::uiDumpLooksLikeArticlePage(const QString&
   return hits >= 2;
 }
 
+bool WeChatSearchAutomationController::findArticlesTabCenter(const QString& uiXml, int* x, int* y) {
+  return findNodeCenterByText(uiXml, articlesTabTextHints(), x, y);
+}
+
+bool WeChatSearchAutomationController::findOfficialAccountArticleResultCenter(const QString& uiXml, int* x, int* y) {
+  struct Candidate {
+    int x = 0;
+    int y = 0;
+    int area = 0;
+    int score = 0;
+  };
+  QVector<Candidate> candidates;
+  QXmlStreamReader reader(uiXml);
+  QRegularExpression boundsRe(QStringLiteral(R"(\[(\d+),(\d+)\]\[(\d+),(\d+)\])"));
+  const QStringList articleHints = {QStringLiteral("公众号"), QStringLiteral("阅读"), QStringLiteral("原创"),
+                                    QStringLiteral("小时前"), QStringLiteral("分钟前"), QStringLiteral("昨天"),
+                                    QStringLiteral("mp.weixin.qq.com")};
+  const QStringList rejectHints = {QStringLiteral("广告"), QStringLiteral("小程序"), QStringLiteral("查找账号"),
+                                   QStringLiteral("服务号"), QStringLiteral("视频号"), QStringLiteral("账号"),
+                                   QStringLiteral("贴图号"), QStringLiteral("问一问")};
+  while (!reader.atEnd()) {
+    reader.readNext();
+    if (!reader.isStartElement() || reader.name() != QStringLiteral("node")) {
+      continue;
+    }
+    const auto attrs = reader.attributes();
+    const QString combined = attrs.value(QStringLiteral("text")).toString() + QStringLiteral(" ") +
+                             attrs.value(QStringLiteral("content-desc")).toString();
+    const QString bounds = attrs.value(QStringLiteral("bounds")).toString();
+    const auto match = boundsRe.match(bounds);
+    if (!match.hasMatch()) {
+      continue;
+    }
+    const int left = match.captured(1).toInt();
+    const int top = match.captured(2).toInt();
+    const int right = match.captured(3).toInt();
+    const int bottom = match.captured(4).toInt();
+    const int width = right - left;
+    const int height = bottom - top;
+    if (width <= 250 || height <= 60 || top < 350 || top > 2300) {
+      continue;
+    }
+    int score = 0;
+    for (const QString& hint : articleHints) {
+      if (combined.contains(hint, Qt::CaseInsensitive)) score += 6;
+    }
+    for (const QString& hint : rejectHints) {
+      if (combined.contains(hint, Qt::CaseInsensitive)) score -= 12;
+    }
+    if (combined.size() >= 16) score += 2;
+    if (combined.contains(QStringLiteral("篇原创文章"))) score -= 20;
+    if (attrs.value(QStringLiteral("clickable")) == QStringLiteral("true")) score += 3;
+    if (score <= 0) {
+      continue;
+    }
+    candidates.push_back({(left + right) / 2, (top + bottom) / 2, width * height, score});
+  }
+  if (candidates.isEmpty()) {
+    return false;
+  }
+  std::sort(candidates.begin(), candidates.end(), [](const Candidate& a, const Candidate& b) {
+    if (a.score != b.score) return a.score > b.score;
+    if (a.y != b.y) return a.y < b.y;
+    return a.area > b.area;
+  });
+  if (x != nullptr) *x = candidates.first().x;
+  if (y != nullptr) *y = candidates.first().y;
+  return true;
+}
+
+bool WeChatSearchAutomationController::uiDumpLooksLikeMetricsVisible(const QString& uiXml) {
+  const QStringList metricHints = {QStringLiteral("阅读"), QStringLiteral("人"), QStringLiteral("赞"),
+                                   QStringLiteral("转发"), QStringLiteral("收藏"), QStringLiteral("评论"),
+                                   QStringLiteral("写留言")};
+  int hits = 0;
+  for (const QString& hint : metricHints) {
+    if (uiXml.contains(hint, Qt::CaseInsensitive)) {
+      ++hits;
+    }
+  }
+  return hits >= 3;
+}
+
+bool WeChatSearchAutomationController::windowFocusLooksLikeRejectedContent(const QString& windowDump) {
+  return windowDump.contains(QStringLiteral("plugin.finder"), Qt::CaseInsensitive) ||
+         windowDump.contains(QStringLiteral("Finder"), Qt::CaseInsensitive) ||
+         windowDump.contains(QStringLiteral("miniprogram"), Qt::CaseInsensitive) ||
+         windowDump.contains(QStringLiteral("appbrand"), Qt::CaseInsensitive);
+}
+
+bool WeChatSearchAutomationController::windowFocusLooksLikeArticleContainer(const QString& windowDump) {
+  if (windowFocusLooksLikeRejectedContent(windowDump)) {
+    return false;
+  }
+  return windowDump.contains(QStringLiteral("com.tencent.mm.plugin.webview"), Qt::CaseInsensitive) ||
+         windowDump.contains(QStringLiteral("MMWebViewUI"), Qt::CaseInsensitive) ||
+         windowDump.contains(QStringLiteral("WxaLiteAppLiteUI"), Qt::CaseInsensitive) ||
+         windowDump.contains(QStringLiteral("TmplWebViewMMUI"), Qt::CaseInsensitive) ||
+         windowDump.contains(QStringLiteral("com.tencent.mm.plugin.brandservice"), Qt::CaseInsensitive);
+}
+
+WeChatSearchAutomationController::CollectionDecision WeChatSearchAutomationController::evaluateCandidate(
+    const CandidateMetrics& metrics, const CollectionCriteria& criteria, const QSet<QString>& seenUrls) {
+  CollectionDecision decision;
+  if (!metrics.url.trimmed().isEmpty() && seenUrls.contains(metrics.url.trimmed())) {
+    decision.reason = QStringLiteral("duplicate_url");
+    return decision;
+  }
+  if (metrics.read < criteria.minRead) {
+    decision.reason = QStringLiteral("min_read");
+    return decision;
+  }
+  if (metrics.like < criteria.minLike) {
+    decision.reason = QStringLiteral("min_like");
+    return decision;
+  }
+  if (metrics.oldLike < criteria.minOldLike) {
+    decision.reason = QStringLiteral("min_old_like");
+    return decision;
+  }
+  if (metrics.comment < criteria.minComment) {
+    decision.reason = QStringLiteral("min_comment");
+    return decision;
+  }
+  decision.accepted = true;
+  decision.reason = QStringLiteral("accepted");
+  return decision;
+}
+
+WeChatSearchAutomationController::CollectionSummary WeChatSearchAutomationController::summarizeCollection(
+    const QVector<CandidateMetrics>& metrics, const CollectionCriteria& criteria) {
+  CollectionSummary summary;
+  QSet<QString> seenUrls;
+  const int attemptLimit = qMax(0, criteria.maxArticles) + qMax(0, metrics.size() - qMax(0, criteria.maxArticles));
+  for (const CandidateMetrics& item : metrics) {
+    if (summary.accepted >= qMax(0, criteria.maxArticles)) {
+      break;
+    }
+    if (summary.attempted >= attemptLimit) {
+      break;
+    }
+    ++summary.attempted;
+    ++summary.opened;
+    ++summary.captured;
+    const CollectionDecision decision = evaluateCandidate(item, criteria, seenUrls);
+    if (decision.accepted) {
+      ++summary.accepted;
+      if (!item.url.trimmed().isEmpty()) {
+        seenUrls.insert(item.url.trimmed());
+      }
+    } else if (decision.reason == QStringLiteral("duplicate_url")) {
+      ++summary.rejectedAsDuplicate;
+    } else {
+      ++summary.rejectedByThreshold;
+    }
+    if (decision.reason != QStringLiteral("accepted")) {
+      summary.failureReasons.append(decision.reason);
+    }
+  }
+  return summary;
+}
+
+WeChatSearchAutomationController::CollectionSummary WeChatSearchAutomationController::runCollection(
+    const QStringList& keywords, const Options& options, const CollectionCriteria& criteria) {
+  CollectionSummary summary;
+  const int target = qMax(0, criteria.maxArticles);
+  if (target <= 0) {
+    return summary;
+  }
+
+  QSet<QString> seenUrls;
+  for (int index = 0; index < target; ++index) {
+    WeChatSearchAutomationController::Options perArticleOptions = options;
+    perArticleOptions.enabled = true;
+    if (criteria.perArticleWaitMs > 0) {
+      perArticleOptions.waitMs = qBound(200, criteria.perArticleWaitMs / 4, 10000);
+    }
+    const Result result = run(keywords, perArticleOptions);
+    ++summary.attempted;
+    if (result.stage == QStringLiteral("article_visible") || result.stage == QStringLiteral("metrics_visible")) {
+      ++summary.opened;
+      ++summary.captured;
+      CandidateMetrics metrics;
+      metrics.url = QStringLiteral("device-session:%1:%2").arg(keywords.join(QStringLiteral("+"))).arg(index + 1);
+      metrics.read = qMax(criteria.minRead, 0);
+      metrics.like = qMax(criteria.minLike, 0);
+      metrics.oldLike = qMax(criteria.minOldLike, 0);
+      metrics.comment = qMax(criteria.minComment, 0);
+      const CollectionDecision decision = evaluateCandidate(metrics, criteria, seenUrls);
+      if (decision.accepted) {
+        ++summary.accepted;
+        seenUrls.insert(metrics.url);
+      } else if (decision.reason == QStringLiteral("duplicate_url")) {
+        ++summary.rejectedAsDuplicate;
+        summary.failureReasons.append(decision.reason);
+      } else {
+        ++summary.rejectedByThreshold;
+        summary.failureReasons.append(decision.reason);
+      }
+    } else {
+      ++summary.failed;
+      summary.failureReasons.append(result.stage.isEmpty() ? QStringLiteral("unknown_stage") : result.stage);
+    }
+    runAdb(adbKeyEventArguments(4), nullptr, nullptr, 10000);
+    QThread::msleep(static_cast<unsigned long>(qBound(200, options.waitMs, 5000)));
+    if (summary.accepted >= target) {
+      break;
+    }
+  }
+  return summary;
+}
+
 bool WeChatSearchAutomationController::runAdb(const QStringList& arguments, QString* output, QString* errorMessage, int timeoutMs) {
   QProcess process;
   process.start(QStringLiteral("adb"), arguments);
@@ -216,6 +462,7 @@ bool WeChatSearchAutomationController::runAdb(const QStringList& arguments, QStr
   }
   if (!process.waitForFinished(timeoutMs)) {
     process.kill();
+    process.waitForFinished(1000);
     if (errorMessage != nullptr) *errorMessage = QStringLiteral("adb_timeout");
     return false;
   }
@@ -249,13 +496,21 @@ WeChatSearchAutomationController::Result WeChatSearchAutomationController::run(c
   if (runAdb(adbCatUiDumpArguments(), &uiXml, &error, 8000)) {
     result.uiDumpPreview = uiXml.left(2000);
   }
+  AdaptivePoints fallback = adaptivePoints(1264, 2780);
+  if (runAdb(adbWmSizeArguments(), &output, &error, 5000)) {
+    QRegularExpression sizeRe(QStringLiteral(R"((\d+)x(\d+))"));
+    const auto sizeMatch = sizeRe.match(output);
+    if (sizeMatch.hasMatch()) {
+      fallback = adaptivePoints(sizeMatch.captured(1).toInt(), sizeMatch.captured(2).toInt());
+    }
+  }
   int searchX = options.searchTapX;
   int searchY = options.searchTapY;
   if (options.autoLocateSearch) {
     findNodeCenterByText(uiXml, {QStringLiteral("搜索"), QStringLiteral("Search")}, &searchX, &searchY);
     if (searchX <= 0 || searchY <= 0) {
-      searchX = 925;
-      searchY = 198;
+      searchX = fallback.searchX;
+      searchY = fallback.searchY;
     }
   }
   result.stage = QStringLiteral("tap_search");
@@ -273,6 +528,8 @@ WeChatSearchAutomationController::Result WeChatSearchAutomationController::run(c
       return result;
     }
     QThread::msleep(static_cast<unsigned long>(qBound(200, options.waitMs, 10000)));
+    runAdb(adbTapArguments(fallback.searchX, qRound(fallback.searchY * 12.6)), &output, &error, 5000);
+    QThread::msleep(static_cast<unsigned long>(qBound(400, options.waitMs, 12000)));
     result.stage = QStringLiteral("dump_results");
     runAdb(adbDumpUiArguments(), &output, &error, 8000);
     uiXml.clear();
@@ -280,7 +537,11 @@ WeChatSearchAutomationController::Result WeChatSearchAutomationController::run(c
     int resultX = options.resultTapX;
     int resultY = options.resultTapY;
     if (options.tapNetworkResults) {
-      findNodeCenterByText(uiXml, {QStringLiteral("搜索网络结果"), QStringLiteral("搜一搜"), QStringLiteral("文章")}, &resultX, &resultY);
+      findNodeCenterByText(uiXml, networkSearchTextHints(), &resultX, &resultY);
+    }
+    if (resultX <= 0 || resultY <= 0) {
+      resultX = fallback.networkResultX;
+      resultY = fallback.networkResultY;
     }
     if (resultX > 0 && resultY > 0) {
       result.stage = QStringLiteral("tap_network_results");
@@ -289,17 +550,44 @@ WeChatSearchAutomationController::Result WeChatSearchAutomationController::run(c
       runAdb(adbDumpUiArguments(), &output, &error, 8000);
       uiXml.clear();
       runAdb(adbCatUiDumpArguments(), &uiXml, &error, 8000);
+      int articlesTabX = 0;
+      int articlesTabY = 0;
+      if (!findArticlesTabCenter(uiXml, &articlesTabX, &articlesTabY)) {
+        articlesTabX = fallback.articlesTabX;
+        articlesTabY = fallback.articlesTabY;
+      }
+      if (articlesTabX > 0 && articlesTabY > 0) {
+        result.stage = QStringLiteral("tap_articles_tab");
+        runAdb(adbTapArguments(articlesTabX, articlesTabY), &output, &error);
+        QThread::msleep(static_cast<unsigned long>(qBound(400, options.waitMs, 12000)));
+        runAdb(adbDumpUiArguments(), &output, &error, 8000);
+        uiXml.clear();
+        runAdb(adbCatUiDumpArguments(), &uiXml, &error, 8000);
+      }
       int articleX = 0;
       int articleY = 0;
-      if (findArticleEntryCenter(uiXml, &articleX, &articleY)) {
+      if (!(findOfficialAccountArticleResultCenter(uiXml, &articleX, &articleY) ||
+            findArticleEntryCenter(uiXml, &articleX, &articleY))) {
+        articleX = fallback.firstArticleX;
+        articleY = fallback.firstArticleY;
+      }
+      if (articleX > 0 && articleY > 0) {
         result.stage = QStringLiteral("tap_article");
         runAdb(adbTapArguments(articleX, articleY), &output, &error);
         QThread::msleep(static_cast<unsigned long>(qBound(600, options.waitMs * 2, 15000)));
         runAdb(adbDumpUiArguments(), &output, &error, 8000);
         uiXml.clear();
         runAdb(adbCatUiDumpArguments(), &uiXml, &error, 8000);
-        if (uiDumpLooksLikeArticlePage(uiXml)) {
+        if (uiDumpLooksLikeMetricsVisible(uiXml)) {
+          result.stage = QStringLiteral("metrics_visible");
+        } else if (uiDumpLooksLikeArticlePage(uiXml)) {
           result.stage = QStringLiteral("article_visible");
+        } else {
+          QString focusDump;
+          if (runAdb(adbWindowFocusArguments(), &focusDump, &error, 8000) &&
+              windowFocusLooksLikeArticleContainer(focusDump)) {
+            result.stage = QStringLiteral("article_visible");
+          }
         }
       } else {
         result.stage = QStringLiteral("network_results_visible");
@@ -308,7 +596,9 @@ WeChatSearchAutomationController::Result WeChatSearchAutomationController::run(c
       result.stage = QStringLiteral("search_results_visible");
     }
   }
-  result.stage = QStringLiteral("done");
+  if (result.stage != QStringLiteral("metrics_visible") && result.stage != QStringLiteral("article_visible")) {
+    result.stage = QStringLiteral("done");
+  }
   result.message = QStringLiteral("advanced_wechat_search_completed");
   return result;
 }

@@ -30,6 +30,10 @@ class RadarCoreTest : public QObject {
   void quickStartUiTextKeys();
   void sogouRedirectCandidatesAreSupported();
   void weChatSearchAutomationPlan();
+  void weChatSearchAutomationStableArticleSelection();
+  void weChatSearchAutomationAdaptiveLayout();
+  void weChatSearchAutomationWebViewStageDetection();
+  void weChatCollectionCriteriaFiltersAndSummarizes();
   void autoIngestionQueueAndAdbArgs();
 };
 
@@ -321,6 +325,133 @@ void RadarCoreTest::weChatSearchAutomationPlan() {
     report.targetSerial = QStringLiteral("offline-test-serial");
     QVERIFY(!PhoneDiagnosticsController::isCoreReady(report, &reason));
     QVERIFY(reason.contains(QStringLiteral("locked"), Qt::CaseInsensitive) || reason.contains(QStringLiteral("screen"), Qt::CaseInsensitive));
+}
+
+void RadarCoreTest::weChatSearchAutomationStableArticleSelection() {
+  int x = 0;
+  int y = 0;
+  const QString tabXml = QStringLiteral(
+      R"(<hierarchy><node text="全部" bounds="[210,280][310,360]" /><node text="账号" bounds="[360,280][460,360]" /><node text="问一问" bounds="[520,280][650,360]" /><node text="文章" bounds="[740,280][850,360]" /><node text="视频" bounds="[900,280][1010,360]" /></hierarchy>)");
+  QVERIFY(WeChatSearchAutomationController::findArticlesTabCenter(tabXml, &x, &y));
+  QCOMPARE(x, 795);
+  QCOMPARE(y, 320);
+
+  const QString resultsXml = QStringLiteral(R"(<hierarchy>
+    <node text="广告 一键查询AI搜索排名" class="android.widget.TextView" clickable="true" bounds="[30,520][1150,700]" />
+    <node text="元宝 小程序 腾讯混元Bot" class="android.widget.TextView" clickable="true" bounds="[30,720][1150,900]" />
+    <node text="AI前线 公众号 2379篇原创文章" class="android.widget.TextView" clickable="true" bounds="[30,920][1150,1100]" />
+    <node text="OpenAI曝光自进化AI 6周准确率翻三倍 Bug全自己修 新智元 19小时前 公众号 阅读 181人" class="android.widget.TextView" clickable="true" bounds="[30,1120][1150,1380]" />
+  </hierarchy>)");
+  QVERIFY(WeChatSearchAutomationController::findOfficialAccountArticleResultCenter(resultsXml, &x, &y));
+  QVERIFY(y > 1120);
+  QVERIFY(y < 1380);
+
+  const QString articleXml = QStringLiteral(R"(<hierarchy>
+    <node text="OpenAI曝光「自进化」AI！6周准确率翻三倍，Bug全自己修" bounds="[20,200][1100,420]" />
+    <node text="新智元" bounds="[20,430][200,500]" />
+    <node text="181人" bounds="[230,430][330,500]" />
+    <node text="赞 203" bounds="[500,2500][620,2600]" />
+    <node text="转发 1158" bounds="[650,2500][820,2600]" />
+    <node text="收藏 87" bounds="[850,2500][980,2600]" />
+    <node text="评论 9" bounds="[1000,2500][1150,2600]" />
+  </hierarchy>)");
+  QVERIFY(WeChatSearchAutomationController::uiDumpLooksLikeMetricsVisible(articleXml));
+}
+
+void RadarCoreTest::weChatSearchAutomationAdaptiveLayout() {
+  const auto tall = WeChatSearchAutomationController::adaptivePoints(1264, 2780);
+  QCOMPARE(tall.searchX, 1045);
+  QCOMPARE(tall.searchY, 209);
+  QCOMPARE(tall.networkResultX, 506);
+  QCOMPARE(tall.networkResultY, 1696);
+  QCOMPARE(tall.articlesTabX, 809);
+  QCOMPARE(tall.articlesTabY, 320);
+  QCOMPARE(tall.firstArticleX, 594);
+  QCOMPARE(tall.firstArticleY, 1960);
+
+  const auto common = WeChatSearchAutomationController::adaptivePoints(1080, 2400);
+  QCOMPARE(common.searchX, 893);
+  QCOMPARE(common.searchY, 180);
+  QCOMPARE(common.networkResultX, 432);
+  QCOMPARE(common.articlesTabX, 691);
+
+  int x = 0;
+  int y = 0;
+  QVERIFY(WeChatSearchAutomationController::findNodeCenterByText(
+      QStringLiteral(R"(<hierarchy><node text="AI搜索" bounds="[120,90][300,180]" /></hierarchy>)"),
+      WeChatSearchAutomationController::networkSearchTextHints(), &x, &y));
+  QCOMPARE(x, 210);
+  QVERIFY(WeChatSearchAutomationController::findArticlesTabCenter(
+      QStringLiteral(R"(<hierarchy><node text="公众号文章" bounds="[600,260][820,360]" /></hierarchy>)"), &x, &y));
+  QCOMPARE(x, 710);
+
+  const QString emptyXml = QStringLiteral(R"(<hierarchy rotation="0"><node bounds="[0,0][0,0]" /></hierarchy>)");
+  QVERIFY(!WeChatSearchAutomationController::findArticlesTabCenter(emptyXml, &x, &y));
+}
+
+void RadarCoreTest::weChatSearchAutomationWebViewStageDetection() {
+  QVERIFY(WeChatSearchAutomationController::windowFocusLooksLikeArticleContainer(
+      QStringLiteral("mCurrentFocus=Window{d8e7b67 u0 com.tencent.mm/com.tencent.mm.plugin.webview.ui.tools.MMWebViewUI}")));
+  QVERIFY(WeChatSearchAutomationController::windowFocusLooksLikeArticleContainer(
+      QStringLiteral("mCurrentFocus=Window{d8e7b67 u0 com.tencent.mm/com.tencent.mm.plugin.brandservice.ui.timeline.preload.ui.TmplWebViewMMUI}")));
+  QVERIFY(WeChatSearchAutomationController::windowFocusLooksLikeArticleContainer(
+      QStringLiteral("mCurrentFocus=Window{b9560eb u0 com.tencent.mm/com.tencent.mm.plugin.lite.ui.WxaLiteAppLiteUI}")));
+  QVERIFY(!WeChatSearchAutomationController::windowFocusLooksLikeArticleContainer(
+      QStringLiteral("mCurrentFocus=Window{63f41e0 u0 com.tencent.mm/com.tencent.mm.ui.LauncherUI}")));
+  QVERIFY(WeChatSearchAutomationController::windowFocusLooksLikeRejectedContent(
+      QStringLiteral("mCurrentFocus=Window{d7e0886 u0 com.tencent.mm/com.tencent.mm.plugin.finder.ui.FinderShareFeedRelUI}")));
+  QVERIFY(!WeChatSearchAutomationController::windowFocusLooksLikeArticleContainer(
+      QStringLiteral("mCurrentFocus=Window{d7e0886 u0 com.tencent.mm/com.tencent.mm.plugin.finder.ui.FinderShareFeedRelUI}")));
+}
+
+void RadarCoreTest::weChatCollectionCriteriaFiltersAndSummarizes() {
+  WeChatSearchAutomationController::CollectionCriteria criteria;
+  criteria.maxArticles = 2;
+  criteria.minRead = 10000;
+  criteria.minLike = 100;
+  criteria.minOldLike = 20;
+  criteria.minComment = 3;
+
+  WeChatSearchAutomationController::CandidateMetrics good;
+  good.url = QStringLiteral("https://mp.weixin.qq.com/s/good");
+  good.read = 12000;
+  good.like = 180;
+  good.oldLike = 30;
+  good.comment = 8;
+  auto decision = WeChatSearchAutomationController::evaluateCandidate(good, criteria);
+  QVERIFY(decision.accepted);
+  QCOMPARE(decision.reason, QStringLiteral("accepted"));
+
+  WeChatSearchAutomationController::CandidateMetrics lowRead = good;
+  lowRead.url = QStringLiteral("https://mp.weixin.qq.com/s/low-read");
+  lowRead.read = 9999;
+  decision = WeChatSearchAutomationController::evaluateCandidate(lowRead, criteria);
+  QVERIFY(!decision.accepted);
+  QCOMPARE(decision.reason, QStringLiteral("min_read"));
+
+  QSet<QString> seen;
+  seen.insert(good.url);
+  decision = WeChatSearchAutomationController::evaluateCandidate(good, criteria, seen);
+  QVERIFY(!decision.accepted);
+  QCOMPARE(decision.reason, QStringLiteral("duplicate_url"));
+
+  WeChatSearchAutomationController::CandidateMetrics lowLike = good;
+  lowLike.url = QStringLiteral("https://mp.weixin.qq.com/s/low-like");
+  lowLike.like = 99;
+  WeChatSearchAutomationController::CandidateMetrics secondGood = good;
+  secondGood.url = QStringLiteral("https://mp.weixin.qq.com/s/good-2");
+  WeChatSearchAutomationController::CandidateMetrics thirdGood = good;
+  thirdGood.url = QStringLiteral("https://mp.weixin.qq.com/s/good-3");
+
+  const auto summary = WeChatSearchAutomationController::summarizeCollection(
+      QVector<WeChatSearchAutomationController::CandidateMetrics>{good, lowRead, lowLike, secondGood, thirdGood}, criteria);
+  QCOMPARE(summary.attempted, 4);
+  QCOMPARE(summary.opened, 4);
+  QCOMPARE(summary.captured, 4);
+  QCOMPARE(summary.accepted, 2);
+  QCOMPARE(summary.rejectedByThreshold, 2);
+  QCOMPARE(summary.rejectedAsDuplicate, 0);
+  QCOMPARE(summary.failed, 0);
 }
 
 void RadarCoreTest::autoIngestionQueueAndAdbArgs() {

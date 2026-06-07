@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.4.11 - 2026-06-06
+
+- Added stable WeChat Articles-tab detection for phone-side search automation.
+- Added official-account article result selection that rejects ads, mini programs, account-only rows, and other non-article results.
+- Added article metrics visibility detection for read/like/share/favorite/comment evidence after opening a WeChat article.
+- Routed the phone-side automation through Articles tab selection before tapping an article, with fallback to the previous generic article-entry detector.
+- Added adaptive ADB fallback coordinates based on the current phone resolution, including the verified ChatGPT result-card tap ratio.
+- Added user-controllable multi-article collection criteria: max articles, minimum read/like/old-like/comment counts, per-article wait, and retry budget.
+- Added collection summaries that separate attempted/opened/captured/accepted, threshold rejections, duplicate rejections, and true failures.
+- Added CLI smoke gates for keyword search (`--wechat-search-smoke`) and controlled batch collection (`--wechat-collect-smoke`).
+- Added regression coverage for Articles-tab detection, non-ad official-account article selection, metrics-visible article pages, adaptive layout, WebView/Finder rejection, and collection filtering.
+
 ## v1.4.10 - 2026-06-06
 
 - Closed the WeChat search-to-article automation loop by detecting article entries in search results and tapping the best scored candidate.
