@@ -15,6 +15,7 @@ add_library(radar_core STATIC
     include/IContentProvider.h
     include/PremiumContentFilterProxyModel.h src/PremiumContentFilterProxyModel.cpp
     include/KeywordDiscoveryController.h src/KeywordDiscoveryController.cpp
+    include/AdbTool.h src/AdbTool.cpp
     include/PhoneDiagnosticsController.h src/PhoneDiagnosticsController.cpp
     include/ProductionSuiteController.h src/ProductionSuiteController.cpp
     include/WeChatSearchAutomationController.h src/WeChatSearchAutomationController.cpp

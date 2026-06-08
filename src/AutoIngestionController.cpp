@@ -1,5 +1,7 @@
 #include "AutoIngestionController.h"
 
+#include "AdbTool.h"
+
 #include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -222,7 +224,7 @@ QStringList AutoIngestionController::adbOpenUrlArguments(const QString& url) {
 
 bool AutoIngestionController::hasConnectedAdbDevice(QString* errorMessage) {
   QProcess process;
-  process.start(QStringLiteral("adb"), {QStringLiteral("devices")});
+  process.start(AdbTool::executable(), {QStringLiteral("devices")});
   if (!process.waitForStarted(3000)) {
     if (errorMessage != nullptr) {
       *errorMessage = QStringLiteral("手机调试工具未启动，请先安装。");
@@ -329,7 +331,7 @@ void AutoIngestionController::openTask(int index) {
 
 bool AutoIngestionController::openUrlWithAdb(const QString& url, QString* errorMessage) const {
   QProcess process;
-  process.start(QStringLiteral("adb"), adbOpenUrlArguments(url));
+  process.start(AdbTool::executable(), adbOpenUrlArguments(url));
   if (!process.waitForStarted(3000)) {
     if (errorMessage != nullptr) {
       *errorMessage = QStringLiteral("adb did not start. Install adb and connect a test phone.");

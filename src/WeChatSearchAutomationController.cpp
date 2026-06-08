@@ -1,5 +1,7 @@
 #include "WeChatSearchAutomationController.h"
 
+#include "AdbTool.h"
+
 #include <QProcess>
 #include <QRegularExpression>
 #include <QThread>
@@ -18,6 +20,21 @@ QStringList WeChatSearchAutomationController::adbTapArguments(int x, int y) {
 
 QStringList WeChatSearchAutomationController::adbInputTextArguments(const QString& text) {
   return {QStringLiteral("shell"), QStringLiteral("input"), QStringLiteral("text"), escapeInputText(text)};
+}
+
+QStringList WeChatSearchAutomationController::adbBroadcastAdbKeyboardTextArguments(const QString& text) {
+  return {QStringLiteral("shell"), QStringLiteral("am"), QStringLiteral("broadcast"),
+          QStringLiteral("-a"), QStringLiteral("ADB_INPUT_TEXT"), QStringLiteral("--es"),
+          QStringLiteral("msg"), text};
+}
+
+QStringList WeChatSearchAutomationController::adbCurrentImeArguments() {
+  return {QStringLiteral("shell"), QStringLiteral("settings"), QStringLiteral("get"), QStringLiteral("secure"),
+          QStringLiteral("default_input_method")};
+}
+
+QStringList WeChatSearchAutomationController::adbSetImeArguments(const QString& imeId) {
+  return {QStringLiteral("shell"), QStringLiteral("ime"), QStringLiteral("set"), imeId};
 }
 
 QStringList WeChatSearchAutomationController::adbKeyEventArguments(int keyCode) {
@@ -62,6 +79,10 @@ bool WeChatSearchAutomationController::hasChineseInputRisk(const QString& text) 
     }
   }
   return false;
+}
+
+QString WeChatSearchAutomationController::adbKeyboardImeId() {
+  return QStringLiteral("com.android.adbkeyboard/.AdbIME");
 }
 
 WeChatSearchAutomationController::AdaptivePoints WeChatSearchAutomationController::adaptivePoints(int screenWidth,
@@ -324,6 +345,18 @@ bool WeChatSearchAutomationController::uiDumpLooksLikeMetricsVisible(const QStri
   return hits >= 3;
 }
 
+bool WeChatSearchAutomationController::uiDumpHasUsableNodes(const QString& uiXml) {
+  const QString trimmed = uiXml.trimmed();
+  if (trimmed.isEmpty()) {
+    return false;
+  }
+  const QRegularExpression usableText(QStringLiteral(R"((text|content-desc)=\"[^\"]+\")"));
+  if (usableText.match(trimmed).hasMatch()) {
+    return true;
+  }
+  return trimmed.count(QStringLiteral("<node")) > 1;
+}
+
 bool WeChatSearchAutomationController::windowFocusLooksLikeRejectedContent(const QString& windowDump) {
   return windowDump.contains(QStringLiteral("plugin.finder"), Qt::CaseInsensitive) ||
          windowDump.contains(QStringLiteral("Finder"), Qt::CaseInsensitive) ||
@@ -455,7 +488,7 @@ WeChatSearchAutomationController::CollectionSummary WeChatSearchAutomationContro
 
 bool WeChatSearchAutomationController::runAdb(const QStringList& arguments, QString* output, QString* errorMessage, int timeoutMs) {
   QProcess process;
-  process.start(QStringLiteral("adb"), arguments);
+  process.start(AdbTool::executable(), arguments);
   if (!process.waitForStarted(3000)) {
     if (errorMessage != nullptr) *errorMessage = QStringLiteral("adb_start_failed");
     return false;
@@ -506,7 +539,8 @@ WeChatSearchAutomationController::Result WeChatSearchAutomationController::run(c
   }
   int searchX = options.searchTapX;
   int searchY = options.searchTapY;
-  if (options.autoLocateSearch) {
+  const bool initialUiUsable = uiDumpHasUsableNodes(uiXml);
+  if (options.autoLocateSearch && initialUiUsable) {
     findNodeCenterByText(uiXml, {QStringLiteral("搜索"), QStringLiteral("Search")}, &searchX, &searchY);
     if (searchX <= 0 || searchY <= 0) {
       searchX = fallback.searchX;
@@ -522,10 +556,29 @@ WeChatSearchAutomationController::Result WeChatSearchAutomationController::run(c
   QThread::msleep(static_cast<unsigned long>(qBound(200, options.waitMs, 10000)));
   for (const QString& keyword : keywords) {
     result.stage = QStringLiteral("input_keyword");
-    if (!runAdb(adbInputTextArguments(keyword), &output, &error)) {
+    const bool needsAdbKeyboard = hasChineseInputRisk(keyword);
+    QString previousIme;
+    if (needsAdbKeyboard) {
+      if (runAdb(adbCurrentImeArguments(), &previousIme, &error, 5000)) {
+        previousIme = previousIme.trimmed();
+      }
+      if (!runAdb(adbSetImeArguments(adbKeyboardImeId()), &output, &error, 5000)) {
+        result.success = false;
+        result.message = QStringLiteral("chinese_input_requires_adbkeyboard: %1").arg(error);
+        return result;
+      }
+      if (!runAdb(adbBroadcastAdbKeyboardTextArguments(keyword), &output, &error, 5000)) {
+        result.success = false;
+        result.message = QStringLiteral("adbkeyboard_input_failed: %1").arg(error);
+        return result;
+      }
+    } else if (!runAdb(adbInputTextArguments(keyword), &output, &error)) {
       result.success = false;
       result.message = error;
       return result;
+    }
+    if (needsAdbKeyboard && !previousIme.isEmpty() && previousIme != adbKeyboardImeId()) {
+      runAdb(adbSetImeArguments(previousIme), &output, &error, 5000);
     }
     QThread::msleep(static_cast<unsigned long>(qBound(200, options.waitMs, 10000)));
     runAdb(adbTapArguments(fallback.searchX, qRound(fallback.searchY * 12.6)), &output, &error, 5000);
@@ -536,7 +589,7 @@ WeChatSearchAutomationController::Result WeChatSearchAutomationController::run(c
     runAdb(adbCatUiDumpArguments(), &uiXml, &error, 8000);
     int resultX = options.resultTapX;
     int resultY = options.resultTapY;
-    if (options.tapNetworkResults) {
+    if (options.tapNetworkResults && uiDumpHasUsableNodes(uiXml)) {
       findNodeCenterByText(uiXml, networkSearchTextHints(), &resultX, &resultY);
     }
     if (resultX <= 0 || resultY <= 0) {
@@ -552,7 +605,7 @@ WeChatSearchAutomationController::Result WeChatSearchAutomationController::run(c
       runAdb(adbCatUiDumpArguments(), &uiXml, &error, 8000);
       int articlesTabX = 0;
       int articlesTabY = 0;
-      if (!findArticlesTabCenter(uiXml, &articlesTabX, &articlesTabY)) {
+      if (!uiDumpHasUsableNodes(uiXml) || !findArticlesTabCenter(uiXml, &articlesTabX, &articlesTabY)) {
         articlesTabX = fallback.articlesTabX;
         articlesTabY = fallback.articlesTabY;
       }
@@ -566,7 +619,8 @@ WeChatSearchAutomationController::Result WeChatSearchAutomationController::run(c
       }
       int articleX = 0;
       int articleY = 0;
-      if (!(findOfficialAccountArticleResultCenter(uiXml, &articleX, &articleY) ||
+      if (!uiDumpHasUsableNodes(uiXml) ||
+          !(findOfficialAccountArticleResultCenter(uiXml, &articleX, &articleY) ||
             findArticleEntryCenter(uiXml, &articleX, &articleY))) {
         articleX = fallback.firstArticleX;
         articleY = fallback.firstArticleY;

@@ -1,5 +1,7 @@
 #include "PhoneDiagnosticsController.h"
 
+#include "AdbTool.h"
+
 #include <QCoreApplication>
 #include <QDateTime>
 #include <QJsonDocument>
@@ -80,7 +82,7 @@ PhoneDiagnosticItem PhoneDiagnosticsController::makeItem(const QString& id, cons
 }
 
 QString PhoneDiagnosticsController::adbExecutable() {
-  return QStringLiteral("adb");
+  return AdbTool::executable();
 }
 
 QStringList PhoneDiagnosticsController::serialArgs(const QString& serial) {

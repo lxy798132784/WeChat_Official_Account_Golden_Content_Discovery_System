@@ -88,6 +88,9 @@ class WeChatSearchAutomationController final {
   static QStringList adbLaunchWeChatArguments();
   static QStringList adbTapArguments(int x, int y);
   static QStringList adbInputTextArguments(const QString& text);
+  static QStringList adbBroadcastAdbKeyboardTextArguments(const QString& text);
+  static QStringList adbCurrentImeArguments();
+  static QStringList adbSetImeArguments(const QString& imeId);
   static QStringList adbKeyEventArguments(int keyCode);
   static QStringList adbDumpUiArguments();
   static QStringList adbCatUiDumpArguments();
@@ -95,6 +98,7 @@ class WeChatSearchAutomationController final {
   static QStringList adbWindowFocusArguments();
   static QString escapeInputText(const QString& text);
   static bool hasChineseInputRisk(const QString& text);
+  static QString adbKeyboardImeId();
   static AdaptivePoints adaptivePoints(int screenWidth, int screenHeight);
   static QStringList networkSearchTextHints();
   static QStringList articlesTabTextHints();
@@ -105,6 +109,7 @@ class WeChatSearchAutomationController final {
   static bool findOfficialAccountArticleResultCenter(const QString& uiXml, int* x, int* y);
   static bool uiDumpLooksLikeArticlePage(const QString& uiXml);
   static bool uiDumpLooksLikeMetricsVisible(const QString& uiXml);
+  static bool uiDumpHasUsableNodes(const QString& uiXml);
   static bool windowFocusLooksLikeArticleContainer(const QString& windowDump);
   static bool windowFocusLooksLikeRejectedContent(const QString& windowDump);
   static CollectionDecision evaluateCandidate(const CandidateMetrics& metrics, const CollectionCriteria& criteria,

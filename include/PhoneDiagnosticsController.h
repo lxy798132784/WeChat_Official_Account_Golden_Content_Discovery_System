@@ -94,7 +94,9 @@ class PhoneDiagnosticsController final : public QObject {
                                       const QString& details, const QString& fixHint,
                                       const QString& rawOutput = QString());
   static QString selectedSerial(const QVector<PhoneDeviceInfo>& devices, const QString& preferredSerial);
+ public:
   static QString adbExecutable();
+ private:
   static QStringList serialArgs(const QString& serial);
   static QString runProcess(const QString& program, const QStringList& args, int timeoutMs,
                             int* exitCode = nullptr, QString* stdErr = nullptr);

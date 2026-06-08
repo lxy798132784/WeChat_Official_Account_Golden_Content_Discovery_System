@@ -33,10 +33,12 @@ class RadarCoreTest : public QObject {
   void weChatSearchAutomationStableArticleSelection();
   void weChatSearchAutomationAdaptiveLayout();
   void weChatSearchAutomationWebViewStageDetection();
+  void weChatSearchAutomationEmptyUiDumpFallsBack();
   void weChatCollectionCriteriaFiltersAndSummarizes();
   void keywordTargetCollectionPlanIsUserConfigurable();
   void keywordTargetCollectionAdvancedFilters();
   void autoIngestionQueueAndAdbArgs();
+  void adbExecutableCanUseEnvironmentOverride();
 };
 
 void RadarCoreTest::databaseStoresArticles() {
@@ -301,6 +303,8 @@ void RadarCoreTest::weChatSearchAutomationPlan() {
   QVERIFY(plan.success);
   QVERIFY(plan.commands.join(QStringLiteral("\n")).contains(QStringLiteral("com.tencent.mm")));
   QVERIFY(plan.commands.join(QStringLiteral("\n")).contains(QStringLiteral("input text AI%stools")));
+  QCOMPARE(WeChatSearchAutomationController::adbKeyboardImeId(), QStringLiteral("com.android.adbkeyboard/.AdbIME"));
+  QVERIFY(WeChatSearchAutomationController::adbBroadcastAdbKeyboardTextArguments(QStringLiteral("情感")).contains(QStringLiteral("ADB_INPUT_TEXT")));
   int x = 0;
   int y = 0;
   QVERIFY(WeChatSearchAutomationController::findNodeCenterByText(
@@ -404,6 +408,15 @@ void RadarCoreTest::weChatSearchAutomationWebViewStageDetection() {
       QStringLiteral("mCurrentFocus=Window{d7e0886 u0 com.tencent.mm/com.tencent.mm.plugin.finder.ui.FinderShareFeedRelUI}")));
   QVERIFY(!WeChatSearchAutomationController::windowFocusLooksLikeArticleContainer(
       QStringLiteral("mCurrentFocus=Window{d7e0886 u0 com.tencent.mm/com.tencent.mm.plugin.finder.ui.FinderShareFeedRelUI}")));
+}
+
+void RadarCoreTest::weChatSearchAutomationEmptyUiDumpFallsBack() {
+  const QString emptyXml = QStringLiteral(R"(<hierarchy rotation="0"><node bounds="[0,0][0,0]" /></hierarchy>)");
+  QVERIFY(!WeChatSearchAutomationController::uiDumpHasUsableNodes(emptyXml));
+  QVERIFY(WeChatSearchAutomationController::uiDumpHasUsableNodes(
+      QStringLiteral(R"(<hierarchy><node text="搜索" bounds="[1,1][2,2]" /></hierarchy>)")));
+  QVERIFY(WeChatSearchAutomationController::uiDumpHasUsableNodes(
+      QStringLiteral(R"(<hierarchy><node bounds="[1,1][2,2]" /><node bounds="[2,2][3,3]" /></hierarchy>)")));
 }
 
 void RadarCoreTest::weChatCollectionCriteriaFiltersAndSummarizes() {
@@ -559,6 +572,19 @@ void RadarCoreTest::autoIngestionQueueAndAdbArgs() {
   AutoIngestionController loaded;
   QVERIFY(loaded.loadQueue(path, &error));
   QCOMPARE(loaded.tasks().size(), 1);
+}
+
+void RadarCoreTest::adbExecutableCanUseEnvironmentOverride() {
+  QTemporaryDir dir;
+  const QString fakeAdb = dir.filePath("adb");
+  QFile file(fakeAdb);
+  QVERIFY(file.open(QIODevice::WriteOnly));
+  file.write("#!/bin/sh\nexit 0\n");
+  file.close();
+  QVERIFY(QFile::setPermissions(fakeAdb, QFile::ExeOwner | QFile::ReadOwner | QFile::WriteOwner));
+  qputenv("ADB_PATH", fakeAdb.toUtf8());
+  QCOMPARE(PhoneDiagnosticsController::adbExecutable(), fakeAdb);
+  qunsetenv("ADB_PATH");
 }
 
 QTEST_MAIN(RadarCoreTest)
