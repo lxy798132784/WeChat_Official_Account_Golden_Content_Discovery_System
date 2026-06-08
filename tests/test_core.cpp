@@ -35,6 +35,7 @@ class RadarCoreTest : public QObject {
   void weChatSearchAutomationWebViewStageDetection();
   void weChatCollectionCriteriaFiltersAndSummarizes();
   void keywordTargetCollectionPlanIsUserConfigurable();
+  void keywordTargetCollectionAdvancedFilters();
   void autoIngestionQueueAndAdbArgs();
 };
 
@@ -492,6 +493,54 @@ void RadarCoreTest::keywordTargetCollectionPlanIsUserConfigurable() {
   const auto filtered = KeywordDiscoveryController::filterTargetCollectionResults(candidates, plan);
   QCOMPARE(filtered.size(), 1);
   QCOMPARE(filtered.first().url, QStringLiteral("https://mp.weixin.qq.com/s/good"));
+}
+
+void RadarCoreTest::keywordTargetCollectionAdvancedFilters() {
+  auto plan = KeywordDiscoveryController::buildTargetCollectionPlan(
+      QStringLiteral("情感"), QDate(2026, 5, 8), QDate(2026, 6, 8), 30000, 50000, 20, 7, 200);
+  plan.minLike = 800;
+  plan.maxLike = 3000;
+  plan.minComment = 30;
+  plan.maxComment = 300;
+  plan.minHotScore = 52000;
+  plan.maxHotScore = 120000;
+  plan.titleInclude = QStringLiteral("复合");
+  plan.titleExclude = QStringLiteral("广告");
+  plan.accountInclude = QStringLiteral("情感");
+  plan.accountExclude = QStringLiteral("搬运");
+
+  KeywordDiscoveryResult good;
+  good.keyword = QStringLiteral("情感");
+  good.title = QStringLiteral("分手后如何复合");
+  good.accountName = QStringLiteral("情感实验室");
+  good.url = QStringLiteral("https://mp.weixin.qq.com/s/good-advanced");
+  good.publishDate = QDate(2026, 5, 20);
+  good.readNum = 36000;
+  good.likeNum = 1200;
+  good.commentNum = 88;
+  good.hotScore = 62000.0;
+
+  QVector<KeywordDiscoveryResult> candidates{good};
+  KeywordDiscoveryResult lowLike = good;
+  lowLike.url = QStringLiteral("https://mp.weixin.qq.com/s/low-like");
+  lowLike.likeNum = 799;
+  candidates.push_back(lowLike);
+  KeywordDiscoveryResult highComment = good;
+  highComment.url = QStringLiteral("https://mp.weixin.qq.com/s/high-comment");
+  highComment.commentNum = 301;
+  candidates.push_back(highComment);
+  KeywordDiscoveryResult missingTitle = good;
+  missingTitle.url = QStringLiteral("https://mp.weixin.qq.com/s/missing-title");
+  missingTitle.title = QStringLiteral("分手后的成长");
+  candidates.push_back(missingTitle);
+  KeywordDiscoveryResult excludedAccount = good;
+  excludedAccount.url = QStringLiteral("https://mp.weixin.qq.com/s/excluded-account");
+  excludedAccount.accountName = QStringLiteral("情感搬运站");
+  candidates.push_back(excludedAccount);
+
+  const auto filtered = KeywordDiscoveryController::filterTargetCollectionResults(candidates, plan);
+  QCOMPARE(filtered.size(), 1);
+  QCOMPARE(filtered.first().url, QStringLiteral("https://mp.weixin.qq.com/s/good-advanced"));
 }
 
 void RadarCoreTest::autoIngestionQueueAndAdbArgs() {

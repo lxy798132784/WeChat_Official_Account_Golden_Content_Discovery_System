@@ -158,6 +158,27 @@ bool KeywordDiscoveryController::matchesTargetCollectionPlan(const KeywordDiscov
   if (result.readNum < plan.minRead || result.readNum > plan.maxRead) {
     return false;
   }
+  if (result.likeNum < plan.minLike || result.likeNum > plan.maxLike) {
+    return false;
+  }
+  if (result.commentNum < plan.minComment || result.commentNum > plan.maxComment) {
+    return false;
+  }
+  if (result.hotScore < plan.minHotScore || result.hotScore > plan.maxHotScore) {
+    return false;
+  }
+  const auto contains = [](const QString& text, const QString& needle) {
+    return needle.trimmed().isEmpty() || text.contains(needle.trimmed(), Qt::CaseInsensitive);
+  };
+  const auto excludes = [](const QString& text, const QString& needle) {
+    return needle.trimmed().isEmpty() || !text.contains(needle.trimmed(), Qt::CaseInsensitive);
+  };
+  if (!contains(result.title, plan.titleInclude) || !excludes(result.title, plan.titleExclude)) {
+    return false;
+  }
+  if (!contains(result.accountName, plan.accountInclude) || !excludes(result.accountName, plan.accountExclude)) {
+    return false;
+  }
   if (result.publishDate.isValid() &&
       (result.publishDate < plan.startDate || result.publishDate > plan.endDate)) {
     return false;

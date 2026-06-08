@@ -28,6 +28,16 @@ struct KeywordTargetCollectionPlan {
   QDate endDate;
   int minRead = 0;
   int maxRead = 100000000;
+  int minLike = 0;
+  int maxLike = 100000000;
+  int minComment = 0;
+  int maxComment = 100000000;
+  double minHotScore = 0.0;
+  double maxHotScore = 100000000.0;
+  QString titleInclude;
+  QString titleExclude;
+  QString accountInclude;
+  QString accountExclude;
   int targetCount = 20;
   int maxCandidatesPerKeyword = 10;
   int maxScanCount = 200;

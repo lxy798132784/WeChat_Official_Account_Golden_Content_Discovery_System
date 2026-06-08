@@ -41,9 +41,20 @@
 namespace {
 KeywordTargetCollectionPlan planFromCriteria(const QString& keywords, int maxCandidatesPerKeyword,
                                              const KeywordHotCriteria& criteria) {
-  return KeywordDiscoveryController::buildTargetCollectionPlan(
+  KeywordTargetCollectionPlan plan = KeywordDiscoveryController::buildTargetCollectionPlan(
       keywords, criteria.startDate, criteria.endDate, criteria.minimumReadCount, criteria.maximumReadCount,
       criteria.targetCount, maxCandidatesPerKeyword, criteria.maxScanCount);
+  plan.minLike = criteria.minimumLikeCount;
+  plan.maxLike = criteria.maximumLikeCount;
+  plan.minComment = criteria.minimumCommentCount;
+  plan.maxComment = criteria.maximumCommentCount;
+  plan.minHotScore = criteria.minimumHotScore;
+  plan.maxHotScore = criteria.maximumHotScore;
+  plan.titleInclude = criteria.titleInclude;
+  plan.titleExclude = criteria.titleExclude;
+  plan.accountInclude = criteria.accountInclude;
+  plan.accountExclude = criteria.accountExclude;
+  return plan;
 }
 
 QString queueTextFromTargetResults(const QVector<KeywordDiscoveryResult>& results,
@@ -923,10 +934,8 @@ void MainWindow::enqueueKeywordDiscoveryResults(const KeywordHotCriteria& criter
     appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("没有可加入队列的关键词发现结果") : QStringLiteral("No keyword discovery results to enqueue"));
     return;
   }
-  const KeywordTargetCollectionPlan plan = KeywordDiscoveryController::buildTargetCollectionPlan(
-      keywordDiscoveryWidget_->keywordsText(), criteria.startDate, criteria.endDate, criteria.minimumReadCount,
-      criteria.maximumReadCount, criteria.targetCount, keywordDiscoveryWidget_->maxCandidatesPerKeyword(),
-      criteria.maxScanCount);
+  const KeywordTargetCollectionPlan plan = planFromCriteria(keywordDiscoveryWidget_->keywordsText(),
+                                                            keywordDiscoveryWidget_->maxCandidatesPerKeyword(), criteria);
   const QString queueText = queueTextFromTargetResults(keywordResults_, plan);
   QString error;
   const int added = autoIngestion_.enqueueUrlsFromText(queueText, &error);

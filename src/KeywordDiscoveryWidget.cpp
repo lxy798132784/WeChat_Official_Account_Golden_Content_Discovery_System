@@ -5,6 +5,7 @@
 #include <QHeaderView>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QLineEdit>
 #include <QPushButton>
 #include <QSpinBox>
 #include <QTableWidget>
@@ -64,16 +65,39 @@ KeywordDiscoveryWidget::KeywordDiscoveryWidget(QWidget* parent) : QWidget(parent
   minimumLikeSpinBox_->setRange(0, 100000000);
   minimumLikeSpinBox_->setSingleStep(100);
   minimumLikeSpinBox_->setValue(0);
+  maximumLikeLabel_ = new QLabel(this);
+  maximumLikeSpinBox_ = new QSpinBox(this);
+  maximumLikeSpinBox_->setRange(0, 100000000);
+  maximumLikeSpinBox_->setSingleStep(100);
+  maximumLikeSpinBox_->setValue(100000000);
   minimumCommentLabel_ = new QLabel(this);
   minimumCommentSpinBox_ = new QSpinBox(this);
   minimumCommentSpinBox_->setRange(0, 100000000);
   minimumCommentSpinBox_->setSingleStep(10);
   minimumCommentSpinBox_->setValue(0);
+  maximumCommentLabel_ = new QLabel(this);
+  maximumCommentSpinBox_ = new QSpinBox(this);
+  maximumCommentSpinBox_->setRange(0, 100000000);
+  maximumCommentSpinBox_->setSingleStep(10);
+  maximumCommentSpinBox_->setValue(100000000);
   minimumHotScoreLabel_ = new QLabel(this);
   minimumHotScoreSpinBox_ = new QSpinBox(this);
   minimumHotScoreSpinBox_->setRange(0, 100000000);
   minimumHotScoreSpinBox_->setSingleStep(1000);
   minimumHotScoreSpinBox_->setValue(0);
+  maximumHotScoreLabel_ = new QLabel(this);
+  maximumHotScoreSpinBox_ = new QSpinBox(this);
+  maximumHotScoreSpinBox_->setRange(0, 100000000);
+  maximumHotScoreSpinBox_->setSingleStep(1000);
+  maximumHotScoreSpinBox_->setValue(100000000);
+  titleIncludeLabel_ = new QLabel(this);
+  titleIncludeEdit_ = new QLineEdit(this);
+  titleExcludeLabel_ = new QLabel(this);
+  titleExcludeEdit_ = new QLineEdit(this);
+  accountIncludeLabel_ = new QLabel(this);
+  accountIncludeEdit_ = new QLineEdit(this);
+  accountExcludeLabel_ = new QLabel(this);
+  accountExcludeEdit_ = new QLineEdit(this);
   maxCandidatesLabel_ = new QLabel(this);
   maxCandidatesSpinBox_ = new QSpinBox(this);
   maxCandidatesSpinBox_->setRange(1, 50);
@@ -92,12 +116,26 @@ KeywordDiscoveryWidget::KeywordDiscoveryWidget(QWidget* parent) : QWidget(parent
   criteriaGrid->addWidget(maxScanCountSpinBox_, 2, 3);
   criteriaGrid->addWidget(minimumLikeLabel_, 3, 0);
   criteriaGrid->addWidget(minimumLikeSpinBox_, 3, 1);
-  criteriaGrid->addWidget(minimumCommentLabel_, 3, 2);
-  criteriaGrid->addWidget(minimumCommentSpinBox_, 3, 3);
-  criteriaGrid->addWidget(minimumHotScoreLabel_, 4, 0);
-  criteriaGrid->addWidget(minimumHotScoreSpinBox_, 4, 1);
-  criteriaGrid->addWidget(maxCandidatesLabel_, 4, 2);
-  criteriaGrid->addWidget(maxCandidatesSpinBox_, 4, 3);
+  criteriaGrid->addWidget(maximumLikeLabel_, 3, 2);
+  criteriaGrid->addWidget(maximumLikeSpinBox_, 3, 3);
+  criteriaGrid->addWidget(minimumCommentLabel_, 4, 0);
+  criteriaGrid->addWidget(minimumCommentSpinBox_, 4, 1);
+  criteriaGrid->addWidget(maximumCommentLabel_, 4, 2);
+  criteriaGrid->addWidget(maximumCommentSpinBox_, 4, 3);
+  criteriaGrid->addWidget(minimumHotScoreLabel_, 5, 0);
+  criteriaGrid->addWidget(minimumHotScoreSpinBox_, 5, 1);
+  criteriaGrid->addWidget(maximumHotScoreLabel_, 5, 2);
+  criteriaGrid->addWidget(maximumHotScoreSpinBox_, 5, 3);
+  criteriaGrid->addWidget(titleIncludeLabel_, 6, 0);
+  criteriaGrid->addWidget(titleIncludeEdit_, 6, 1);
+  criteriaGrid->addWidget(titleExcludeLabel_, 6, 2);
+  criteriaGrid->addWidget(titleExcludeEdit_, 6, 3);
+  criteriaGrid->addWidget(accountIncludeLabel_, 7, 0);
+  criteriaGrid->addWidget(accountIncludeEdit_, 7, 1);
+  criteriaGrid->addWidget(accountExcludeLabel_, 7, 2);
+  criteriaGrid->addWidget(accountExcludeEdit_, 7, 3);
+  criteriaGrid->addWidget(maxCandidatesLabel_, 8, 0);
+  criteriaGrid->addWidget(maxCandidatesSpinBox_, 8, 1);
   layout->addLayout(criteriaGrid);
 
   auto* controls = new QHBoxLayout();
@@ -150,12 +188,40 @@ int KeywordDiscoveryWidget::minimumLikeCount() const {
   return minimumLikeSpinBox_->value();
 }
 
+int KeywordDiscoveryWidget::maximumLikeCount() const {
+  return maximumLikeSpinBox_->value();
+}
+
 int KeywordDiscoveryWidget::minimumCommentCount() const {
   return minimumCommentSpinBox_->value();
 }
 
+int KeywordDiscoveryWidget::maximumCommentCount() const {
+  return maximumCommentSpinBox_->value();
+}
+
 int KeywordDiscoveryWidget::minimumHotScore() const {
   return minimumHotScoreSpinBox_->value();
+}
+
+int KeywordDiscoveryWidget::maximumHotScore() const {
+  return maximumHotScoreSpinBox_->value();
+}
+
+QString KeywordDiscoveryWidget::titleInclude() const {
+  return titleIncludeEdit_->text();
+}
+
+QString KeywordDiscoveryWidget::titleExclude() const {
+  return titleExcludeEdit_->text();
+}
+
+QString KeywordDiscoveryWidget::accountInclude() const {
+  return accountIncludeEdit_->text();
+}
+
+QString KeywordDiscoveryWidget::accountExclude() const {
+  return accountExcludeEdit_->text();
 }
 
 int KeywordDiscoveryWidget::targetCount() const {
@@ -179,8 +245,15 @@ KeywordHotCriteria KeywordDiscoveryWidget::hotCriteria() const {
   criteria.minimumReadCount = minimumReadCount();
   criteria.maximumReadCount = maximumReadCount();
   criteria.minimumLikeCount = minimumLikeCount();
+  criteria.maximumLikeCount = maximumLikeCount();
   criteria.minimumCommentCount = minimumCommentCount();
+  criteria.maximumCommentCount = maximumCommentCount();
   criteria.minimumHotScore = minimumHotScore();
+  criteria.maximumHotScore = maximumHotScore();
+  criteria.titleInclude = titleInclude();
+  criteria.titleExclude = titleExclude();
+  criteria.accountInclude = accountInclude();
+  criteria.accountExclude = accountExclude();
   criteria.targetCount = targetCount();
   criteria.maxScanCount = maxScanCount();
   criteria.startDate = startDate();
@@ -211,8 +284,15 @@ void KeywordDiscoveryWidget::setLanguage(UiLanguage language) {
   targetCountLabel_->setText(UiText::text(QStringLiteral("discover.target_count"), language_));
   maxScanCountLabel_->setText(UiText::text(QStringLiteral("discover.max_scan_count"), language_));
   minimumLikeLabel_->setText(UiText::text(QStringLiteral("discover.min_like"), language_));
+  maximumLikeLabel_->setText(UiText::text(QStringLiteral("discover.max_like"), language_));
   minimumCommentLabel_->setText(UiText::text(QStringLiteral("discover.min_comment"), language_));
+  maximumCommentLabel_->setText(UiText::text(QStringLiteral("discover.max_comment"), language_));
   minimumHotScoreLabel_->setText(UiText::text(QStringLiteral("discover.min_hot_score"), language_));
+  maximumHotScoreLabel_->setText(UiText::text(QStringLiteral("discover.max_hot_score"), language_));
+  titleIncludeLabel_->setText(UiText::text(QStringLiteral("discover.title_include"), language_));
+  titleExcludeLabel_->setText(UiText::text(QStringLiteral("discover.title_exclude"), language_));
+  accountIncludeLabel_->setText(UiText::text(QStringLiteral("discover.account_include"), language_));
+  accountExcludeLabel_->setText(UiText::text(QStringLiteral("discover.account_exclude"), language_));
   maxCandidatesLabel_->setText(UiText::text(QStringLiteral("discover.max_candidates"), language_));
   resultsLabel_->setText(UiText::text(QStringLiteral("discover.results"), language_));
   startKeywordAutoButton_->setText(UiText::text(QStringLiteral("discover.start_keyword_auto"), language_));
@@ -221,6 +301,10 @@ void KeywordDiscoveryWidget::setLanguage(UiLanguage language) {
   importResultsButton_->setText(UiText::text(QStringLiteral("discover.import_results"), language_));
   enqueueHotResultsButton_->setText(UiText::text(QStringLiteral("discover.enqueue_hot"), language_));
   keywordsEdit_->setPlaceholderText(UiText::text(QStringLiteral("discover.keywords_placeholder"), language_));
+  titleIncludeEdit_->setPlaceholderText(UiText::text(QStringLiteral("discover.title_include_placeholder"), language_));
+  titleExcludeEdit_->setPlaceholderText(UiText::text(QStringLiteral("discover.title_exclude_placeholder"), language_));
+  accountIncludeEdit_->setPlaceholderText(UiText::text(QStringLiteral("discover.account_include_placeholder"), language_));
+  accountExcludeEdit_->setPlaceholderText(UiText::text(QStringLiteral("discover.account_exclude_placeholder"), language_));
   keywordsEdit_->setToolTip(UiText::text(QStringLiteral("tip.discover.keywords"), language_));
   startKeywordAutoButton_->setToolTip(UiText::text(QStringLiteral("tip.discover.start_keyword_auto"), language_));
   autoSearchButton_->setToolTip(UiText::text(QStringLiteral("tip.discover.auto_search"), language_));

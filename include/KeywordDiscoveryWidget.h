@@ -7,6 +7,7 @@
 #include "UiText.h"
 
 class QLabel;
+class QLineEdit;
 class QPushButton;
 class QDateEdit;
 class QSpinBox;
@@ -17,8 +18,15 @@ struct KeywordHotCriteria {
   int minimumReadCount = 0;
   int maximumReadCount = 100000000;
   int minimumLikeCount = 0;
+  int maximumLikeCount = 100000000;
   int minimumCommentCount = 0;
+  int maximumCommentCount = 100000000;
   int minimumHotScore = 0;
+  int maximumHotScore = 100000000;
+  QString titleInclude;
+  QString titleExclude;
+  QString accountInclude;
+  QString accountExclude;
   int targetCount = 20;
   int maxScanCount = 200;
   QDate startDate;
@@ -37,8 +45,15 @@ class KeywordDiscoveryWidget final : public QWidget {
   int minimumReadCount() const;
   int maximumReadCount() const;
   int minimumLikeCount() const;
+  int maximumLikeCount() const;
   int minimumCommentCount() const;
+  int maximumCommentCount() const;
   int minimumHotScore() const;
+  int maximumHotScore() const;
+  QString titleInclude() const;
+  QString titleExclude() const;
+  QString accountInclude() const;
+  QString accountExclude() const;
   int targetCount() const;
   int maxScanCount() const;
   QDate startDate() const;
@@ -64,8 +79,15 @@ class KeywordDiscoveryWidget final : public QWidget {
   QLabel* targetCountLabel_ = nullptr;
   QLabel* maxScanCountLabel_ = nullptr;
   QLabel* minimumLikeLabel_ = nullptr;
+  QLabel* maximumLikeLabel_ = nullptr;
   QLabel* minimumCommentLabel_ = nullptr;
+  QLabel* maximumCommentLabel_ = nullptr;
   QLabel* minimumHotScoreLabel_ = nullptr;
+  QLabel* maximumHotScoreLabel_ = nullptr;
+  QLabel* titleIncludeLabel_ = nullptr;
+  QLabel* titleExcludeLabel_ = nullptr;
+  QLabel* accountIncludeLabel_ = nullptr;
+  QLabel* accountExcludeLabel_ = nullptr;
   QLabel* maxCandidatesLabel_ = nullptr;
   QLabel* resultsLabel_ = nullptr;
   QTextEdit* keywordsEdit_ = nullptr;
@@ -76,8 +98,15 @@ class KeywordDiscoveryWidget final : public QWidget {
   QSpinBox* targetCountSpinBox_ = nullptr;
   QSpinBox* maxScanCountSpinBox_ = nullptr;
   QSpinBox* minimumLikeSpinBox_ = nullptr;
+  QSpinBox* maximumLikeSpinBox_ = nullptr;
   QSpinBox* minimumCommentSpinBox_ = nullptr;
+  QSpinBox* maximumCommentSpinBox_ = nullptr;
   QSpinBox* minimumHotScoreSpinBox_ = nullptr;
+  QSpinBox* maximumHotScoreSpinBox_ = nullptr;
+  QLineEdit* titleIncludeEdit_ = nullptr;
+  QLineEdit* titleExcludeEdit_ = nullptr;
+  QLineEdit* accountIncludeEdit_ = nullptr;
+  QLineEdit* accountExcludeEdit_ = nullptr;
   QSpinBox* maxCandidatesSpinBox_ = nullptr;
   QPushButton* generateSearchUrlsButton_ = nullptr;
   QPushButton* autoSearchButton_ = nullptr;
