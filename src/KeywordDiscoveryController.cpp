@@ -1,6 +1,7 @@
 #include "KeywordDiscoveryController.h"
 
 #include <QJsonArray>
+#include <QDateTime>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QNetworkRequest>
@@ -109,7 +110,7 @@ void KeywordDiscoveryController::setMaxResultsPerKeyword(int count) {
 
 QStringList KeywordDiscoveryController::parseKeywords(const QString& text) {
   QStringList output;
-  const QStringList parts = text.split(QRegularExpression(QStringLiteral("[\\r\\n,，;；]+")), Qt::SkipEmptyParts);
+  const QStringList parts = text.split(QRegularExpression(QStringLiteral("[\\r\\n,，;；|｜]+")), Qt::SkipEmptyParts);
   for (const QString& part : parts) {
     const QString keyword = part.trimmed();
     if (!keyword.isEmpty() && !output.contains(keyword)) {
@@ -119,11 +120,68 @@ QStringList KeywordDiscoveryController::parseKeywords(const QString& text) {
   return output;
 }
 
+KeywordTargetCollectionPlan KeywordDiscoveryController::buildTargetCollectionPlan(
+    const QString& keywordsText, const QDate& startDate, const QDate& endDate, int minRead, int maxRead,
+    int targetCount, int maxCandidatesPerKeyword, int maxScanCount) {
+  KeywordTargetCollectionPlan plan;
+  plan.keywords = parseKeywords(keywordsText);
+  plan.startDate = startDate <= endDate ? startDate : endDate;
+  plan.endDate = startDate <= endDate ? endDate : startDate;
+  plan.minRead = qMax(0, qMin(minRead, maxRead));
+  plan.maxRead = qMax(plan.minRead, qMax(minRead, maxRead));
+  plan.targetCount = qBound(1, targetCount, 500);
+  plan.maxCandidatesPerKeyword = qBound(1, maxCandidatesPerKeyword, 200);
+  plan.maxScanCount = qBound(plan.targetCount, maxScanCount, 10000);
+  return plan;
+}
+
+KeywordTargetCollectionPlan KeywordDiscoveryController::buildRecentMonthEmotionCollectionPlan(
+    const QDate& today, const QString& keywordsText, int minRead, int maxRead, int targetCount,
+    int maxCandidatesPerKeyword, int maxScanCount) {
+  QString effectiveKeywords = keywordsText.trimmed();
+  if (effectiveKeywords.isEmpty()) {
+    effectiveKeywords = QStringLiteral("情感,婚姻,恋爱,分手,复合,夫妻,婆媳,前任,失恋,两性,亲密关系,原生家庭,爱情,婚恋,离婚");
+  }
+  return buildTargetCollectionPlan(effectiveKeywords, today.addMonths(-1), today, minRead, maxRead, targetCount,
+                                   maxCandidatesPerKeyword, maxScanCount);
+}
+
 bool KeywordDiscoveryController::matchesHotCriteria(const KeywordDiscoveryResult& result, int minimumReadCount,
                                                     int minimumLikeCount, int minimumCommentCount,
                                                     int minimumHotScore) {
   return result.readNum >= minimumReadCount && result.likeNum >= minimumLikeCount &&
          result.commentNum >= minimumCommentCount && result.hotScore >= minimumHotScore;
+}
+
+bool KeywordDiscoveryController::matchesTargetCollectionPlan(const KeywordDiscoveryResult& result,
+                                                             const KeywordTargetCollectionPlan& plan) {
+  if (result.readNum < plan.minRead || result.readNum > plan.maxRead) {
+    return false;
+  }
+  if (result.publishDate.isValid() &&
+      (result.publishDate < plan.startDate || result.publishDate > plan.endDate)) {
+    return false;
+  }
+  return true;
+}
+
+QVector<KeywordDiscoveryResult> KeywordDiscoveryController::filterTargetCollectionResults(
+    const QVector<KeywordDiscoveryResult>& results, const KeywordTargetCollectionPlan& plan) {
+  QVector<KeywordDiscoveryResult> accepted;
+  QSet<QString> seenUrls;
+  int scanned = 0;
+  for (const KeywordDiscoveryResult& result : results) {
+    if (scanned >= plan.maxScanCount || accepted.size() >= plan.targetCount) {
+      break;
+    }
+    ++scanned;
+    if (result.url.isEmpty() || seenUrls.contains(result.url) || !matchesTargetCollectionPlan(result, plan)) {
+      continue;
+    }
+    seenUrls.insert(result.url);
+    accepted.push_back(result);
+  }
+  return accepted;
 }
 
 QString KeywordDiscoveryController::searchUrlForKeyword(const QString& keyword) {
@@ -167,6 +225,15 @@ QVector<KeywordDiscoveryResult> KeywordDiscoveryController::parseResultsJson(con
     result.accountName = valueString(object, {QStringLiteral("account_name"), QStringLiteral("account"), QStringLiteral("publisher"), QStringLiteral("source")});
     result.category = valueString(object, {QStringLiteral("category"), QStringLiteral("industry"), QStringLiteral("tag")});
     result.url = valueString(object, {QStringLiteral("url"), QStringLiteral("article_url"), QStringLiteral("link")});
+    const QString publishText = valueString(object, {QStringLiteral("publish_date"), QStringLiteral("publish_time"),
+                                                    QStringLiteral("pub_time"), QStringLiteral("timestamp")});
+    result.publishDate = QDate::fromString(publishText.left(10), Qt::ISODate);
+    if (!result.publishDate.isValid()) {
+      const QDateTime publishDateTime = QDateTime::fromString(publishText, Qt::ISODate);
+      if (publishDateTime.isValid()) {
+        result.publishDate = publishDateTime.date();
+      }
+    }
     result.readNum = valueInt(object, {QStringLiteral("read_num"), QStringLiteral("read"), QStringLiteral("reads"), QStringLiteral("read_count")});
     result.likeNum = valueInt(object, {QStringLiteral("like_num"), QStringLiteral("like"), QStringLiteral("likes"), QStringLiteral("like_count")});
     result.commentNum = valueInt(object, {QStringLiteral("comment_num"), QStringLiteral("comments"), QStringLiteral("comment_count")});

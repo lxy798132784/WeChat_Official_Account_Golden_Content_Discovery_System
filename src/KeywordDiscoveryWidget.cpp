@@ -1,5 +1,6 @@
 #include "KeywordDiscoveryWidget.h"
 
+#include <QDateEdit>
 #include <QGridLayout>
 #include <QHeaderView>
 #include <QHBoxLayout>
@@ -35,7 +36,29 @@ KeywordDiscoveryWidget::KeywordDiscoveryWidget(QWidget* parent) : QWidget(parent
   minimumReadSpinBox_ = new QSpinBox(this);
   minimumReadSpinBox_->setRange(0, 100000000);
   minimumReadSpinBox_->setSingleStep(1000);
-  minimumReadSpinBox_->setValue(10000);
+  minimumReadSpinBox_->setValue(30000);
+  maximumReadLabel_ = new QLabel(this);
+  maximumReadSpinBox_ = new QSpinBox(this);
+  maximumReadSpinBox_->setRange(0, 100000000);
+  maximumReadSpinBox_->setSingleStep(1000);
+  maximumReadSpinBox_->setValue(50000);
+  startDateLabel_ = new QLabel(this);
+  startDateEdit_ = new QDateEdit(QDate::currentDate().addMonths(-1), this);
+  startDateEdit_->setCalendarPopup(true);
+  startDateEdit_->setDisplayFormat(QStringLiteral("yyyy-MM-dd"));
+  endDateLabel_ = new QLabel(this);
+  endDateEdit_ = new QDateEdit(QDate::currentDate(), this);
+  endDateEdit_->setCalendarPopup(true);
+  endDateEdit_->setDisplayFormat(QStringLiteral("yyyy-MM-dd"));
+  targetCountLabel_ = new QLabel(this);
+  targetCountSpinBox_ = new QSpinBox(this);
+  targetCountSpinBox_->setRange(1, 500);
+  targetCountSpinBox_->setValue(20);
+  maxScanCountLabel_ = new QLabel(this);
+  maxScanCountSpinBox_ = new QSpinBox(this);
+  maxScanCountSpinBox_->setRange(1, 10000);
+  maxScanCountSpinBox_->setSingleStep(50);
+  maxScanCountSpinBox_->setValue(200);
   minimumLikeLabel_ = new QLabel(this);
   minimumLikeSpinBox_ = new QSpinBox(this);
   minimumLikeSpinBox_->setRange(0, 100000000);
@@ -57,14 +80,24 @@ KeywordDiscoveryWidget::KeywordDiscoveryWidget(QWidget* parent) : QWidget(parent
   maxCandidatesSpinBox_->setValue(10);
   criteriaGrid->addWidget(minimumReadLabel_, 0, 0);
   criteriaGrid->addWidget(minimumReadSpinBox_, 0, 1);
-  criteriaGrid->addWidget(minimumLikeLabel_, 0, 2);
-  criteriaGrid->addWidget(minimumLikeSpinBox_, 0, 3);
-  criteriaGrid->addWidget(minimumCommentLabel_, 1, 0);
-  criteriaGrid->addWidget(minimumCommentSpinBox_, 1, 1);
-  criteriaGrid->addWidget(minimumHotScoreLabel_, 1, 2);
-  criteriaGrid->addWidget(minimumHotScoreSpinBox_, 1, 3);
-  criteriaGrid->addWidget(maxCandidatesLabel_, 2, 0);
-  criteriaGrid->addWidget(maxCandidatesSpinBox_, 2, 1);
+  criteriaGrid->addWidget(maximumReadLabel_, 0, 2);
+  criteriaGrid->addWidget(maximumReadSpinBox_, 0, 3);
+  criteriaGrid->addWidget(startDateLabel_, 1, 0);
+  criteriaGrid->addWidget(startDateEdit_, 1, 1);
+  criteriaGrid->addWidget(endDateLabel_, 1, 2);
+  criteriaGrid->addWidget(endDateEdit_, 1, 3);
+  criteriaGrid->addWidget(targetCountLabel_, 2, 0);
+  criteriaGrid->addWidget(targetCountSpinBox_, 2, 1);
+  criteriaGrid->addWidget(maxScanCountLabel_, 2, 2);
+  criteriaGrid->addWidget(maxScanCountSpinBox_, 2, 3);
+  criteriaGrid->addWidget(minimumLikeLabel_, 3, 0);
+  criteriaGrid->addWidget(minimumLikeSpinBox_, 3, 1);
+  criteriaGrid->addWidget(minimumCommentLabel_, 3, 2);
+  criteriaGrid->addWidget(minimumCommentSpinBox_, 3, 3);
+  criteriaGrid->addWidget(minimumHotScoreLabel_, 4, 0);
+  criteriaGrid->addWidget(minimumHotScoreSpinBox_, 4, 1);
+  criteriaGrid->addWidget(maxCandidatesLabel_, 4, 2);
+  criteriaGrid->addWidget(maxCandidatesSpinBox_, 4, 3);
   layout->addLayout(criteriaGrid);
 
   auto* controls = new QHBoxLayout();
@@ -109,6 +142,10 @@ int KeywordDiscoveryWidget::minimumReadCount() const {
   return minimumReadSpinBox_->value();
 }
 
+int KeywordDiscoveryWidget::maximumReadCount() const {
+  return maximumReadSpinBox_->value();
+}
+
 int KeywordDiscoveryWidget::minimumLikeCount() const {
   return minimumLikeSpinBox_->value();
 }
@@ -121,12 +158,33 @@ int KeywordDiscoveryWidget::minimumHotScore() const {
   return minimumHotScoreSpinBox_->value();
 }
 
+int KeywordDiscoveryWidget::targetCount() const {
+  return targetCountSpinBox_->value();
+}
+
+int KeywordDiscoveryWidget::maxScanCount() const {
+  return maxScanCountSpinBox_->value();
+}
+
+QDate KeywordDiscoveryWidget::startDate() const {
+  return startDateEdit_->date();
+}
+
+QDate KeywordDiscoveryWidget::endDate() const {
+  return endDateEdit_->date();
+}
+
 KeywordHotCriteria KeywordDiscoveryWidget::hotCriteria() const {
   KeywordHotCriteria criteria;
   criteria.minimumReadCount = minimumReadCount();
+  criteria.maximumReadCount = maximumReadCount();
   criteria.minimumLikeCount = minimumLikeCount();
   criteria.minimumCommentCount = minimumCommentCount();
   criteria.minimumHotScore = minimumHotScore();
+  criteria.targetCount = targetCount();
+  criteria.maxScanCount = maxScanCount();
+  criteria.startDate = startDate();
+  criteria.endDate = endDate();
   return criteria;
 }
 
@@ -147,6 +205,11 @@ void KeywordDiscoveryWidget::setLanguage(UiLanguage language) {
   introLabel_->setText(UiText::text(QStringLiteral("discover.intro"), language_));
   keywordsLabel_->setText(UiText::text(QStringLiteral("discover.keywords"), language_));
   minimumReadLabel_->setText(UiText::text(QStringLiteral("discover.min_read"), language_));
+  maximumReadLabel_->setText(UiText::text(QStringLiteral("discover.max_read"), language_));
+  startDateLabel_->setText(UiText::text(QStringLiteral("discover.start_date"), language_));
+  endDateLabel_->setText(UiText::text(QStringLiteral("discover.end_date"), language_));
+  targetCountLabel_->setText(UiText::text(QStringLiteral("discover.target_count"), language_));
+  maxScanCountLabel_->setText(UiText::text(QStringLiteral("discover.max_scan_count"), language_));
   minimumLikeLabel_->setText(UiText::text(QStringLiteral("discover.min_like"), language_));
   minimumCommentLabel_->setText(UiText::text(QStringLiteral("discover.min_comment"), language_));
   minimumHotScoreLabel_->setText(UiText::text(QStringLiteral("discover.min_hot_score"), language_));

@@ -39,6 +39,24 @@
 #include "WeChatConfigWidget.h"
 
 namespace {
+KeywordTargetCollectionPlan planFromCriteria(const QString& keywords, int maxCandidatesPerKeyword,
+                                             const KeywordHotCriteria& criteria) {
+  return KeywordDiscoveryController::buildTargetCollectionPlan(
+      keywords, criteria.startDate, criteria.endDate, criteria.minimumReadCount, criteria.maximumReadCount,
+      criteria.targetCount, maxCandidatesPerKeyword, criteria.maxScanCount);
+}
+
+QString queueTextFromTargetResults(const QVector<KeywordDiscoveryResult>& results,
+                                   const KeywordTargetCollectionPlan& plan) {
+  QStringList urls;
+  for (const KeywordDiscoveryResult& result : KeywordDiscoveryController::filterTargetCollectionResults(results, plan)) {
+    if (!result.url.isEmpty() && !urls.contains(result.url)) {
+      urls.push_back(result.url);
+    }
+  }
+  return urls.join(QStringLiteral("\n"));
+}
+
 QString localizedOverallStatusForLog(const QString& status, UiLanguage language) {
   if (language != UiLanguage::Chinese) return status;
   if (status == QStringLiteral("ready")) return QStringLiteral("就绪");
@@ -735,6 +753,8 @@ void MainWindow::startQuickOneClick(const QString& keywords, int maxCandidatesPe
                                          : QStringLiteral("Phone-side WeChat search attempted; waiting for lawful bridge callbacks with read, like and comment metrics."));
   startAutoAfterKeywordSearch_ = true;
   pendingKeywordCriteria_ = criteria;
+  pendingKeywordText_ = keywords;
+  pendingMaxCandidatesPerKeyword_ = maxCandidatesPerKeyword;
   autoIngestion_.setEnabled(true);
   autoIngestion_.setIntervalSeconds(intervalSeconds);
   autoIngestion_.setMaxAttempts(autoIngestionWidget_->maxAttempts());
@@ -800,6 +820,8 @@ void MainWindow::startKeywordAutoIngestion(const QString& keywords, int maxCandi
   }
   startAutoAfterKeywordSearch_ = true;
   pendingKeywordCriteria_ = criteria;
+  pendingKeywordText_ = keywords;
+  pendingMaxCandidatesPerKeyword_ = maxCandidatesPerKeyword;
   autoIngestion_.setEnabled(true);
   autoIngestion_.setIntervalSeconds(autoIngestionWidget_->intervalSeconds());
   autoIngestion_.setMaxAttempts(autoIngestionWidget_->maxAttempts());
@@ -840,9 +862,9 @@ void MainWindow::onKeywordSearchFinished(const QVector<KeywordDiscoveryResult>& 
     return;
   }
   startAutoAfterKeywordSearch_ = false;
-  const QString queueText = KeywordDiscoveryController::resultsToQueueText(
-      keywordResults_, pendingKeywordCriteria_.minimumReadCount, pendingKeywordCriteria_.minimumLikeCount,
-      pendingKeywordCriteria_.minimumCommentCount, pendingKeywordCriteria_.minimumHotScore);
+  const KeywordTargetCollectionPlan plan = planFromCriteria(pendingKeywordText_, pendingMaxCandidatesPerKeyword_,
+                                                            pendingKeywordCriteria_);
+  const QString queueText = queueTextFromTargetResults(keywordResults_, plan);
   QString error;
   const int added = autoIngestion_.enqueueUrlsFromText(queueText, &error);
   quickLastEnqueued_ = added;
@@ -901,9 +923,11 @@ void MainWindow::enqueueKeywordDiscoveryResults(const KeywordHotCriteria& criter
     appendLog(language_ == UiLanguage::Chinese ? QStringLiteral("没有可加入队列的关键词发现结果") : QStringLiteral("No keyword discovery results to enqueue"));
     return;
   }
-  const QString queueText = KeywordDiscoveryController::resultsToQueueText(
-      keywordResults_, criteria.minimumReadCount, criteria.minimumLikeCount,
-      criteria.minimumCommentCount, criteria.minimumHotScore);
+  const KeywordTargetCollectionPlan plan = KeywordDiscoveryController::buildTargetCollectionPlan(
+      keywordDiscoveryWidget_->keywordsText(), criteria.startDate, criteria.endDate, criteria.minimumReadCount,
+      criteria.maximumReadCount, criteria.targetCount, keywordDiscoveryWidget_->maxCandidatesPerKeyword(),
+      criteria.maxScanCount);
+  const QString queueText = queueTextFromTargetResults(keywordResults_, plan);
   QString error;
   const int added = autoIngestion_.enqueueUrlsFromText(queueText, &error);
   refreshAutoIngestionQueue();

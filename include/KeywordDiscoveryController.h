@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QDate>
 #include <QJsonObject>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
@@ -14,10 +15,22 @@ struct KeywordDiscoveryResult {
   QString accountName;
   QString category;
   QString url;
+  QDate publishDate;
   int readNum = 0;
   int likeNum = 0;
   int commentNum = 0;
   double hotScore = 0.0;
+};
+
+struct KeywordTargetCollectionPlan {
+  QStringList keywords;
+  QDate startDate;
+  QDate endDate;
+  int minRead = 0;
+  int maxRead = 100000000;
+  int targetCount = 20;
+  int maxCandidatesPerKeyword = 10;
+  int maxScanCount = 200;
 };
 
 /**
@@ -39,9 +52,19 @@ class KeywordDiscoveryController final : public QObject {
   void setMaxResultsPerKeyword(int count);
 
   static QStringList parseKeywords(const QString& text);
+  static KeywordTargetCollectionPlan buildTargetCollectionPlan(
+      const QString& keywordsText, const QDate& startDate, const QDate& endDate, int minRead, int maxRead,
+      int targetCount, int maxCandidatesPerKeyword, int maxScanCount);
+  static KeywordTargetCollectionPlan buildRecentMonthEmotionCollectionPlan(
+      const QDate& today, const QString& keywordsText, int minRead, int maxRead, int targetCount,
+      int maxCandidatesPerKeyword, int maxScanCount);
   static bool matchesHotCriteria(const KeywordDiscoveryResult& result, int minimumReadCount,
                                  int minimumLikeCount, int minimumCommentCount,
                                  int minimumHotScore);
+  static bool matchesTargetCollectionPlan(const KeywordDiscoveryResult& result,
+                                          const KeywordTargetCollectionPlan& plan);
+  static QVector<KeywordDiscoveryResult> filterTargetCollectionResults(
+      const QVector<KeywordDiscoveryResult>& results, const KeywordTargetCollectionPlan& plan);
   static QString searchUrlForKeyword(const QString& keyword);
   static QVector<KeywordDiscoveryResult> parseResultsJson(const QByteArray& data, QString* errorMessage = nullptr);
   static QVector<KeywordDiscoveryResult> parseSearchHtml(const QString& keyword, const QByteArray& html);

@@ -34,6 +34,7 @@ class RadarCoreTest : public QObject {
   void weChatSearchAutomationAdaptiveLayout();
   void weChatSearchAutomationWebViewStageDetection();
   void weChatCollectionCriteriaFiltersAndSummarizes();
+  void keywordTargetCollectionPlanIsUserConfigurable();
   void autoIngestionQueueAndAdbArgs();
 };
 
@@ -452,6 +453,45 @@ void RadarCoreTest::weChatCollectionCriteriaFiltersAndSummarizes() {
   QCOMPARE(summary.rejectedByThreshold, 2);
   QCOMPARE(summary.rejectedAsDuplicate, 0);
   QCOMPARE(summary.failed, 0);
+}
+
+void RadarCoreTest::keywordTargetCollectionPlanIsUserConfigurable() {
+  const QDate today(2026, 6, 8);
+  const auto plan = KeywordDiscoveryController::buildRecentMonthEmotionCollectionPlan(
+      today, QStringLiteral("情感, 婚姻\n恋爱｜亲密关系"), 30000, 50000, 20, 7, 120);
+  QCOMPARE(plan.keywords, QStringList({QStringLiteral("情感"), QStringLiteral("婚姻"), QStringLiteral("恋爱"), QStringLiteral("亲密关系")}));
+  QCOMPARE(plan.startDate, QDate(2026, 5, 8));
+  QCOMPARE(plan.endDate, today);
+  QCOMPARE(plan.minRead, 30000);
+  QCOMPARE(plan.maxRead, 50000);
+  QCOMPARE(plan.targetCount, 20);
+  QCOMPARE(plan.maxCandidatesPerKeyword, 7);
+  QCOMPARE(plan.maxScanCount, 120);
+
+  QVector<KeywordDiscoveryResult> candidates;
+  KeywordDiscoveryResult good;
+  good.keyword = QStringLiteral("情感");
+  good.url = QStringLiteral("https://mp.weixin.qq.com/s/good");
+  good.readNum = 35000;
+  good.publishDate = QDate(2026, 5, 20);
+  candidates.push_back(good);
+  KeywordDiscoveryResult tooLow = good;
+  tooLow.url = QStringLiteral("https://mp.weixin.qq.com/s/low");
+  tooLow.readNum = 29999;
+  candidates.push_back(tooLow);
+  KeywordDiscoveryResult tooHigh = good;
+  tooHigh.url = QStringLiteral("https://mp.weixin.qq.com/s/high");
+  tooHigh.readNum = 50001;
+  candidates.push_back(tooHigh);
+  KeywordDiscoveryResult tooOld = good;
+  tooOld.url = QStringLiteral("https://mp.weixin.qq.com/s/old");
+  tooOld.publishDate = QDate(2026, 5, 1);
+  candidates.push_back(tooOld);
+  candidates.push_back(good);
+
+  const auto filtered = KeywordDiscoveryController::filterTargetCollectionResults(candidates, plan);
+  QCOMPARE(filtered.size(), 1);
+  QCOMPARE(filtered.first().url, QStringLiteral("https://mp.weixin.qq.com/s/good"));
 }
 
 void RadarCoreTest::autoIngestionQueueAndAdbArgs() {

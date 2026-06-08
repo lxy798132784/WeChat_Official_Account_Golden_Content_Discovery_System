@@ -116,6 +116,8 @@ class MainWindow final : public QMainWindow {
   bool quickStartActive_ = false;
   int quickLastEnqueued_ = 0;
   KeywordHotCriteria pendingKeywordCriteria_;
+  QString pendingKeywordText_;
+  int pendingMaxCandidatesPerKeyword_ = 10;
   QTimer pluginDrainTimer_;
   UiLanguage language_ = UiLanguage::English;
   QTabWidget* dockTabs_ = nullptr;
